@@ -9,56 +9,47 @@ export const metadata: Metadata = {
 const families = [
   {
     name: "Instrument Serif",
-    role: "Display",
-    token: "--font-serif",
-    className: "font-serif text-heading-lg",
+    role: "Display — stand-in for Martina Plantijn",
+    token: "--font-display",
+    className: "type-title-3",
     sample: "Introduction",
   },
   {
-    name: "Geist Sans",
-    role: "UI and body",
-    token: "--font-geist-sans",
-    className: "font-sans text-heading-lg",
+    name: "Inter",
+    role: "Body and UI",
+    token: "--font-inter",
+    className: "type-title-5",
     sample: "Standard UI",
   },
   {
-    name: "Geist Mono",
+    name: "Roboto Mono",
     role: "Code and tokens",
-    token: "--font-geist-mono",
-    className: "font-mono text-heading-md",
-    sample: "var(--gray-500)",
+    token: "--font-roboto-mono",
+    className: "font-mono type-small",
+    sample: "var(--brand-primary)",
   },
 ];
-
-const sizeClass: Record<string, string> = {
-  display: "text-display",
-  "heading-lg": "text-heading-lg",
-  "heading-md": "text-heading-md",
-  "heading-sm": "text-heading-sm",
-  body: "text-body",
-  caption: "text-caption",
-};
 
 export default function TypographyPage() {
   return (
     <div className="mx-auto max-w-5xl">
       <PageHeader
         title="Typography"
-        description="Serif for page titles. Geist Sans for interface. Geist Mono for tokens and code."
+        description="Serif display for titles 1–4. Inter for UI. Roboto Mono for code. Sentence case everywhere — never all caps."
       />
 
       <section>
-        <h2 className="text-heading-sm font-medium text-fg">Families</h2>
+        <h2 className="type-title-5 text-fg-primary">Families</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           {families.map((family) => (
             <div
               key={family.name}
-              className="rounded-xl border border-line bg-surface p-5"
+              className="rounded-xl border border-border-primary bg-surface p-5"
             >
-              <p className={family.className}>{family.sample}</p>
-              <p className="mt-4 text-body font-medium text-fg">{family.name}</p>
-              <p className="text-caption text-muted">{family.role}</p>
-              <p className="mt-1 font-mono text-caption text-muted">
+              <p className={`${family.className} text-fg-primary`}>{family.sample}</p>
+              <p className="type-small-strong mt-4 text-fg-primary">{family.name}</p>
+              <p className="type-tiny text-fg-tertiary">{family.role}</p>
+              <p className="type-tiny mt-1 font-mono text-fg-quaternary">
                 {family.token}
               </p>
             </div>
@@ -67,24 +58,18 @@ export default function TypographyPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="text-heading-sm font-medium text-fg">Scale</h2>
-        <div className="mt-4 divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface">
+        <h2 className="type-title-5 text-fg-primary">Scale</h2>
+        <div className="mt-4 divide-y divide-border-primary overflow-hidden rounded-xl border border-border-primary bg-surface">
           {typeScale.map((item) => (
-            <div key={item.token} className="grid gap-4 p-5 md:grid-cols-[11rem_1fr]">
-              <div className="text-caption text-muted">
-                <p className="font-mono text-fg">{item.token}</p>
+            <div key={item.token} className="grid gap-4 p-5 md:grid-cols-[12rem_1fr]">
+              <div className="type-tiny text-fg-tertiary">
+                <p className="font-mono text-fg-primary">{item.token}</p>
                 <p className="mt-1">
-                  {item.size} / {item.lineHeight}
+                  {item.size} / {item.lineHeight} / {item.weight}
                 </p>
                 <p>{item.family}</p>
               </div>
-              <p
-                className={`${sizeClass[item.token]} text-fg ${
-                  item.family === "serif" ? "font-serif" : "font-sans"
-                }`}
-              >
-                {item.sample}
-              </p>
+              <p className={`${item.className} text-fg-primary`}>{item.sample}</p>
             </div>
           ))}
         </div>

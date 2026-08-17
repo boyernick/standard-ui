@@ -13,18 +13,18 @@ function Card({
 }) {
   const inner = (
     <>
-      <div className="flex min-h-40 items-center justify-center rounded-[20px] bg-subtle p-6">
+      <div className="flex min-h-40 items-center justify-center rounded-xl bg-background-tertiary p-6">
         {children}
       </div>
       <div className="px-1 pt-4">
-        <h2 className="text-heading-sm font-medium text-fg">{title}</h2>
-        <p className="mt-1 text-body text-muted">{description}</p>
+        <h2 className="type-title-5 text-fg-primary">{title}</h2>
+        <p className="type-small mt-1 text-fg-secondary">{description}</p>
       </div>
     </>
   );
 
   const className =
-    "rounded-xl bg-surface p-3 shadow-hairline transition-shadow hover:shadow-sm";
+    "rounded-2xl bg-surface p-3 shadow-ring-xs transition-shadow hover:shadow-ring-sm";
 
   if (href) {
     return (
@@ -39,35 +39,35 @@ function Card({
 
 function BrandPreview() {
   return (
-    <p className="font-serif text-heading-lg tracking-tight text-fg">standardUI</p>
+    <p className="type-title-3 text-fg-primary">standardUI</p>
   );
 }
 
 function ComponentsPreview() {
   return (
     <div className="flex w-full max-w-xs flex-wrap items-center justify-center gap-2">
-      <span className="h-8 w-24 rounded-md border border-line bg-surface" />
-      <span className="inline-flex h-8 items-center gap-1 rounded-md border border-line bg-surface px-2 text-caption text-fg">
+      <span className="h-8 w-24 rounded-md border border-border-primary bg-surface" />
+      <span className="type-tiny inline-flex h-8 items-center gap-1 rounded-md border border-border-primary bg-surface px-2 text-fg-primary">
         + Button
-        <svg viewBox="0 0 12 12" className="size-3 text-muted" aria-hidden>
+        <svg viewBox="0 0 12 12" className="size-3 text-fg-tertiary" aria-hidden>
           <path d="M3 4.5 6 8l3-3.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
         </svg>
       </span>
-      <span className="inline-flex h-8 items-center rounded-md bg-surface px-1 text-caption">
-        <span className="rounded-sm bg-subtle px-2 py-1 text-fg">Tab</span>
-        <span className="px-2 py-1 text-muted">Tab</span>
+      <span className="type-tiny inline-flex h-8 items-center rounded-md bg-surface px-1">
+        <span className="rounded-sm bg-background-tertiary px-2 py-1 text-fg-primary">Tab</span>
+        <span className="px-2 py-1 text-fg-tertiary">Tab</span>
       </span>
-      <span className="inline-flex h-8 items-center gap-1.5 rounded-md border border-line bg-surface px-2 text-caption text-fg">
+      <span className="type-tiny inline-flex h-8 items-center gap-1.5 rounded-md border border-border-primary bg-surface px-2 text-fg-primary">
         Alerts
-        <span className="inline-flex size-4 items-center justify-center rounded-full bg-gray-1000 text-[10px] text-gray-100">
+        <span className="type-tiny-strong inline-flex size-4 items-center justify-center rounded-full bg-surface-inverted text-fg-inverted">
           2
         </span>
       </span>
-      <span className="relative inline-flex h-6 w-10 items-center rounded-full bg-accent">
-        <span className="absolute right-0.5 size-5 rounded-full bg-accent-foreground" />
+      <span className="relative inline-flex h-6 w-10 items-center rounded-full bg-brand-primary">
+        <span className="absolute right-0.5 size-5 rounded-full bg-brand-foreground" />
       </span>
-      <span className="inline-flex items-center gap-1.5 text-caption text-fg">
-        <span className="size-3.5 rounded-full border-[4px] border-fg" />
+      <span className="type-tiny inline-flex items-center gap-1.5 text-fg-primary">
+        <span className="size-3.5 rounded-full border-[4px] border-fg-primary" />
         Label
       </span>
     </div>
@@ -78,28 +78,28 @@ function ColorsPreview() {
   return (
     <div className="flex gap-3">
       <div className="flex">
-        {["#f7f7f5", "#d2d2ce", "#8c8c86", "#3c3c38", "#181816"].map((hex) => (
+        {["#fdfdfc", "#f5f5f4", "#e7e5e4", "#44403c", "#1c1917"].map((hex) => (
           <span
             key={hex}
-            className="size-6 rounded-full ring-2 ring-subtle first:ml-0 -ml-1.5"
+            className="size-6 rounded-full ring-2 ring-background-tertiary first:ml-0 -ml-1.5"
             style={{ background: hex }}
           />
         ))}
       </div>
       <div className="flex">
-        {["#f6f1ea", "#c9b396", "#8c6e52", "#4a3a2e"].map((hex) => (
+        {["#cfe9e0", "#1d7559", "#135b44", "#0c402f"].map((hex) => (
           <span
             key={hex}
-            className="size-6 rounded-full ring-2 ring-subtle first:ml-0 -ml-1.5"
+            className="size-6 rounded-full ring-2 ring-background-tertiary first:ml-0 -ml-1.5"
             style={{ background: hex }}
           />
         ))}
       </div>
       <div className="flex">
-        {["#e7f0ea", "#6f9a7c", "#2c4d38", "#122018"].map((hex) => (
+        {["#1b7463", "#1c6182", "#60563e", "#792a2a"].map((hex) => (
           <span
             key={hex}
-            className="size-6 rounded-full ring-2 ring-subtle first:ml-0 -ml-1.5"
+            className="size-6 rounded-full ring-2 ring-background-tertiary first:ml-0 -ml-1.5"
             style={{ background: hex }}
           />
         ))}
@@ -111,9 +111,9 @@ function ColorsPreview() {
 function MaterialsPreview() {
   return (
     <div className="flex items-end gap-3">
-      <span className="size-10 rounded-sm bg-surface shadow-hairline" />
-      <span className="size-12 rounded-md bg-surface shadow-sm" />
-      <span className="size-14 rounded-lg bg-surface shadow-md" />
+      <span className="size-10 rounded-sm bg-surface shadow-ring-xs" />
+      <span className="size-12 rounded-md bg-surface shadow-ring-sm" />
+      <span className="size-14 rounded-lg bg-surface shadow-ring-md" />
     </div>
   );
 }
@@ -129,22 +129,23 @@ export function IntroCards() {
         <BrandPreview />
       </Card>
       <Card
+        href="/components/button"
         title="Components"
-        description="Building blocks for the Standard UI interface. Coming next."
+        description="Button, Input, Badge, Switch, and Checkbox — more on the way."
       >
         <ComponentsPreview />
       </Card>
       <Card
         href="/colors"
         title="Colors"
-        description="A subtle, elevated palette of gray, warm, and green."
+        description="Semantic backgrounds, text, brand, and decorative tokens."
       >
         <ColorsPreview />
       </Card>
       <Card
         href="/materials"
         title="Materials"
-        description="Radii, fills, strokes, and shadows used across the system."
+        description="Radius and shadow-ring elevation with a baked-in hairline."
       >
         <MaterialsPreview />
       </Card>

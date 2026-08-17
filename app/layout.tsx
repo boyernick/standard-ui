@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Instrument_Serif, Inter, Roboto_Mono } from "next/font/google";
 import { ThemeScript } from "@/components/theme-script";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-display",
+});
+
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -33,12 +33,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${inter.variable} ${instrumentSerif.variable} ${robotoMono.variable} h-full antialiased`}
     >
       <head>
         <ThemeScript />
       </head>
-      <body className="min-h-full bg-page font-sans text-fg">{children}</body>
+      <body className="min-h-full bg-background-primary font-sans text-fg-primary">
+        {children}
+      </body>
     </html>
   );
 }

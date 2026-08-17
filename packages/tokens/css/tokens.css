@@ -1,0 +1,277 @@
+/* Standard UI tokens — values from design.rogo.ai/system. Semantic names only in UI. */
+
+:root {
+  color-scheme: light;
+
+  --background-primary: #fdfdfc;
+  --background-secondary: #fafaf9;
+  --background-tertiary: #f5f5f4;
+  --background-quaternary: #eeedec;
+  --background-active: #e7e5e4;
+
+  --surface: #ffffff;
+  --surface-inverted: #292524;
+  --surface-raised: #ffffff;
+  --elevated: #1c19170d;
+  --elevated-active: #1c19171a;
+
+  --text-primary: #1c1917;
+  --text-secondary: #44403c;
+  --text-tertiary: #78716c;
+  --text-quaternary: #a8a29e;
+  --text-primary-inverted: #fafaf9;
+  --text-secondary-inverted: #d6d3d1;
+
+  --border-primary: #0c0a091a;
+  --border-primary-solid: #e7e5e4;
+  --border-secondary: #0c0a0933;
+  --border-secondary-solid: #d6d3d1;
+  --border-inverted: #f0ecea1a;
+
+  --brand-primary: #135b44;
+  --brand-primary-hover: #1d7559;
+  --brand-primary-active: #0c402f;
+  --brand-primary-border: #0f4937;
+  --brand-secondary: #0d8f6533;
+  --brand-secondary-solid: #cfe9e0;
+  --brand-foreground: #f5f5f4;
+  --brand-inverted: #1d7559;
+
+  --decorative-green: #1b7463;
+  --decorative-blue: #1c6182;
+  --decorative-olive: #60563e;
+  --decorative-crimson: #792a2a;
+
+  --chart-1: 27 140 108;
+  --chart-2: 83 167 210;
+  --chart-3: 253 161 100;
+  --chart-4: 60 102 126;
+  --chart-5: 158 120 143;
+  --chart-neutral: 168 162 158;
+
+  --destructive: #dc2626;
+  --destructive-active: #b91c1c;
+  --warning: #f59e0b;
+  --ring: #0d8f6533;
+
+  --sui-radius-sm: 0.25rem;
+  --sui-radius-md: 0.375rem;
+  --sui-radius-lg: 0.5rem;
+  --sui-radius-xl: 0.75rem;
+  --sui-radius-2xl: 1rem;
+  --sui-radius-full: 9999px;
+
+  --shadow-hairline: rgb(0 0 0 / 0.05);
+  --elevation-ring-xs:
+    0 2px 4px 0 rgb(0 0 0 / 0.04), 0 1px 1px 0 rgb(0 0 0 / 0.02),
+    0 0 4px 0 rgb(0 0 0 / 0.04), 0 0 0 1px var(--shadow-hairline);
+  --elevation-ring-sm:
+    0 18px 47px 0 rgb(0 0 0 / 0.03), 0 7.5px 19px 0 rgb(0 0 0 / 0.02),
+    0 4px 10.5px 0 rgb(0 0 0 / 0.02), 0 2.3px 5.8px 0 rgb(0 0 0 / 0.01),
+    0 1.2px 3.1px 0 rgb(0 0 0 / 0.01), 0 0.5px 1.3px 0 rgb(0 0 0 / 0.01),
+    0 0 0 1px var(--shadow-hairline);
+  --elevation-ring-md:
+    0 17.54px 23.39px 0 rgb(0 0 0 / 0.04), 0 9.4px 12.5px 0 rgb(0 0 0 / 0.03),
+    0 5.25px 7px 0 rgb(0 0 0 / 0.02), 0 2.79px 3.72px -2px rgb(0 0 0 / 0.01),
+    0 1.16px 1.5px 0 rgb(0 0 0 / 0.01), 0 0 0 1px var(--shadow-hairline);
+  --elevation-ring-lg:
+    0 25px 50px 0 rgb(0 0 0 / 0.05), 0 12px 24px 0 rgb(0 0 0 / 0.04),
+    0 6px 12px 0 rgb(0 0 0 / 0.03), 0 3px 6px 0 rgb(0 0 0 / 0.02),
+    0 1.5px 3px 0 rgb(0 0 0 / 0.02), 0 0 0 1px var(--shadow-hairline);
+  --elevation-ring-xl:
+    0 40px 80px 0 rgb(0 0 0 / 0.06), 0 20px 40px 0 rgb(0 0 0 / 0.05),
+    0 10px 20px 0 rgb(0 0 0 / 0.04), 0 5px 10px 0 rgb(0 0 0 / 0.03),
+    0 2px 4px 0 rgb(0 0 0 / 0.02), 0 0 0 1px var(--shadow-hairline);
+  --elevation-ring-2xl:
+    0 9px 14px 0 rgb(0 0 0 / 0.07), 0 22px 33px 0 rgb(0 0 0 / 0.1),
+    0 40px 63px 0 rgb(0 0 0 / 0.13), 0 73px 111px 0 rgb(0 0 0 / 0.15),
+    0 136px 208px 0 rgb(0 0 0 / 0.18), 0 326px 250px 0 rgb(0 0 0 / 0.25),
+    0 0 0 1px var(--shadow-hairline);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background-primary: #1c1917;
+  --background-secondary: #1a1614;
+  --background-tertiary: #292524;
+  --background-quaternary: #2e2b29;
+  --background-active: #0f0d0c;
+
+  --surface: #292524;
+  --surface-inverted: #292524;
+  --surface-raised: #363332;
+  --elevated: #e3e6e80d;
+  --elevated-active: #0c0a0966;
+
+  --text-primary: #fafaf9;
+  --text-secondary: #d6d3d1;
+  --text-tertiary: #a8a29e;
+  --text-quaternary: #57534e;
+  --text-primary-inverted: #fafaf9;
+  --text-secondary-inverted: #d6d3d1;
+
+  --border-primary: #f0ecea12;
+  --border-primary-solid: #393634;
+  --border-secondary: #f0ecea33;
+  --border-secondary-solid: #524f4d;
+  --border-inverted: #f0ecea1a;
+
+  --brand-primary: #1d7559;
+  --brand-primary-hover: #1b6c52;
+  --brand-primary-active: #155641;
+  --brand-primary-border: #0f4937;
+  --brand-secondary: #0d8f6533;
+  --brand-secondary-solid: #193127;
+  --brand-foreground: #f5f5f4;
+  --brand-inverted: #1b6c52;
+
+  --decorative-green: #2a9583;
+  --decorative-blue: #3f8aad;
+  --decorative-olive: #8a7d5c;
+  --decorative-crimson: #b04848;
+
+  --chart-neutral: 87 83 78;
+
+  --destructive: #cf212d;
+  --destructive-active: #b91c1c;
+  --warning: #f59e0b;
+  --ring: #0d8f6533;
+
+  --shadow-hairline: rgb(255 255 255 / 0.06);
+}
+
+@theme inline {
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-background-quaternary: var(--background-quaternary);
+  --color-background-active: var(--background-active);
+
+  --color-surface: var(--surface);
+  --color-surface-inverted: var(--surface-inverted);
+  --color-surface-raised: var(--surface-raised);
+  --color-elevated: var(--elevated);
+  --color-elevated-active: var(--elevated-active);
+
+  --color-fg-primary: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-tertiary: var(--text-tertiary);
+  --color-fg-quaternary: var(--text-quaternary);
+  --color-fg-inverted: var(--text-primary-inverted);
+  --color-fg-inverted-secondary: var(--text-secondary-inverted);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-primary-solid: var(--border-primary-solid);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-secondary-solid: var(--border-secondary-solid);
+  --color-border-inverted: var(--border-inverted);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-active: var(--brand-primary-active);
+  --color-brand-primary-border: var(--brand-primary-border);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-solid: var(--brand-secondary-solid);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-inverted: var(--brand-inverted);
+
+  --color-decorative-green: var(--decorative-green);
+  --color-decorative-blue: var(--decorative-blue);
+  --color-decorative-olive: var(--decorative-olive);
+  --color-decorative-crimson: var(--decorative-crimson);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-active: var(--destructive-active);
+  --color-warning: var(--warning);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-display);
+  --font-mono: var(--font-roboto-mono);
+
+  --radius-sm: var(--sui-radius-sm);
+  --radius-md: var(--sui-radius-md);
+  --radius-lg: var(--sui-radius-lg);
+  --radius-xl: var(--sui-radius-xl);
+  --radius-2xl: var(--sui-radius-2xl);
+  --radius-full: var(--sui-radius-full);
+
+  --shadow-ring-xs: var(--elevation-ring-xs);
+  --shadow-ring-sm: var(--elevation-ring-sm);
+  --shadow-ring-md: var(--elevation-ring-md);
+  --shadow-ring-lg: var(--elevation-ring-lg);
+  --shadow-ring-xl: var(--elevation-ring-xl);
+  --shadow-ring-2xl: var(--elevation-ring-2xl);
+}
+
+@utility type-title-1 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+}
+
+@utility type-title-2 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+}
+
+@utility type-title-3 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+
+@utility type-title-4 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+@utility type-title-5 {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+@utility type-body-strong {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+@utility type-small-strong {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+@utility type-tiny {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+}
+
+@utility type-tiny-strong {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+}

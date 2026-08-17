@@ -1,0 +1,19 @@
+{
+  "name": "@standard-ui/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for Standard UI",
+  "license": "MIT",
+  "files": [
+    "css"
+  ],
+  "style": "./css/tokens.css",
+  "exports": {
+    ".": "./css/tokens.css",
+    "./css": "./css/tokens.css",
+    "./css/tokens.css": "./css/tokens.css",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

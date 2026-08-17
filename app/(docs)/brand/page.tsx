@@ -12,8 +12,8 @@ export default function BrandPage() {
         title="Brand"
         description="Logos and brand guidelines will live here. This section is a stub for the next slice."
       />
-      <div className="flex min-h-56 items-center justify-center rounded-xl bg-subtle">
-        <p className="font-serif text-heading-lg text-fg">standardUI</p>
+      <div className="flex min-h-56 items-center justify-center rounded-2xl bg-background-tertiary">
+        <p className="type-title-3 text-fg-primary">standardUI</p>
       </div>
     </div>
   );
