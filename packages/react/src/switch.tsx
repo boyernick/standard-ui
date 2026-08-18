@@ -9,11 +9,11 @@ export type SwitchProps = ComponentProps<typeof BaseSwitch.Root>
 export const Switch = ({ className, ...props }: SwitchProps) => (
   <BaseSwitch.Root
     className={cn(
-      "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full bg-background-quaternary transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full bg-background-quaternary transition-colors duration-150 ease-out motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}
   >
-    <BaseSwitch.Thumb className="pointer-events-none block size-5 translate-x-0.5 rounded-full bg-surface shadow-sm transition-transform data-checked:translate-x-[1.125rem]" />
+    <BaseSwitch.Thumb className="pointer-events-none block size-5 translate-x-0.5 rounded-full bg-surface shadow-sm transition-transform duration-150 ease-out motion-reduce:transition-none data-checked:translate-x-[1.125rem]" />
   </BaseSwitch.Root>
 )

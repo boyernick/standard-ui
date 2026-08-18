@@ -67,7 +67,10 @@ const ButtonSpinner = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "prefix"
+> &
   VariantProps<typeof buttonVariants> & {
     /** Shows a spinner, sets aria-busy, and disables the button */
     loading?: boolean

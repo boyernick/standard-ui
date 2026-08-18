@@ -40,7 +40,7 @@ export const ComponentCanvas = ({
   return (
     <div className={className}>
       {label ? (
-        <p className="text-xs-strong mb-2 text-fg-tertiary">{label}</p>
+        <p className="text-xs mb-2 text-fg-tertiary">{label}</p>
       ) : null}
       <div className="rounded-xl border border-border-primary bg-background-secondary">
         <div

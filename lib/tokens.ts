@@ -263,7 +263,7 @@ export const colorGroups: TokenGroup[] = [
         name: "ring",
         cssVar: "--ring",
         usage: "Focus ring",
-        value: { light: "#0d8f6533", dark: "#0d8f6533" },
+        value: { light: "#000000", dark: "#ffffff" },
       },
     ],
   },

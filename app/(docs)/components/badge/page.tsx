@@ -24,12 +24,10 @@ export default function BadgePage() {
           <ComponentCanvas
             label="Variants"
             code={`<Badge>Default</Badge>
-<Badge variant="brand">Brand</Badge>
 <Badge variant="outline">Outline</Badge>
 <Badge variant="destructive">Destructive</Badge>`}
           >
             <Badge>Default</Badge>
-            <Badge variant="brand">Brand</Badge>
             <Badge variant="outline">Outline</Badge>
             <Badge variant="destructive">Destructive</Badge>
           </ComponentCanvas>
@@ -40,14 +38,14 @@ export default function BadgePage() {
         <h2 className="heading-sm text-fg-primary">Overview</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Badge is a non-interactive label for status and category. Variants
-          encode meaning — default for neutral metadata, brand for product
-          emphasis, outline for quiet tags, and destructive for risk or errors.
+          encode meaning — default for neutral metadata, outline for quiet tags,
+          and destructive for risk or errors.
         </p>
         <CodeBlock
           className="mt-4"
           code={`import { Badge } from "@standard-ui/react"
 
-<Badge variant="brand">New</Badge>`}
+<Badge>New</Badge>`}
         />
       </section>
 
@@ -64,10 +62,6 @@ export default function BadgePage() {
             [
               "default",
               "Neutral metadata — counts, categories, quiet status.",
-            ],
-            [
-              "brand",
-              "Product or plan emphasis — “Pro”, “New”, featured tags.",
             ],
             [
               "outline",
@@ -88,7 +82,6 @@ export default function BadgePage() {
           className="mt-4"
           size="sm"
           code={`<Badge>Draft</Badge>
-<Badge variant="brand">Pro</Badge>
 <Badge variant="outline">v2</Badge>
 <Badge variant="destructive">Failed</Badge>`}
         />
@@ -104,8 +97,7 @@ export default function BadgePage() {
           <tr>
             <DocCell mono>variant</DocCell>
             <DocCell mono>
-              &quot;default&quot; | &quot;brand&quot; | &quot;outline&quot; |
-              &quot;destructive&quot;
+              &quot;default&quot; | &quot;outline&quot; | &quot;destructive&quot;
             </DocCell>
             <DocCell mono>&quot;default&quot;</DocCell>
             <DocCell>Visual style of the badge.</DocCell>

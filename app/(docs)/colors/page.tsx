@@ -50,7 +50,7 @@ export default function ColorsPage() {
               ["Info", "decorative-blue", "blue scale"],
               ["Danger", "destructive", "red scale"],
               ["Warning", "warning", "orange scale"],
-              ["Focus", "ring", "blue scale"],
+              ["Focus", "ring", "gray-1000"],
             ] as const
           ).map(([role, tokens, source]) => (
             <tr key={role}>

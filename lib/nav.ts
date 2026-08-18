@@ -8,22 +8,21 @@ export const foundations = [
 ] as const
 
 export const components = [
-  { href: "/components/button", label: "Button" },
-  { href: "/components/input", label: "Input" },
+  { href: "/components/accordion", label: "Accordion" },
+  { href: "/components/alert-dialog", label: "Alert dialog" },
+  { href: "/components/avatar", label: "Avatar" },
   { href: "/components/badge", label: "Badge" },
-  { href: "/components/switch", label: "Switch" },
+  { href: "/components/button", label: "Button" },
+  { href: "/components/calendar", label: "Calendar" },
+  { href: "/components/card", label: "Card" },
+  { href: "/components/chart", label: "Chart" },
   { href: "/components/checkbox", label: "Checkbox" },
+  { href: "/components/dialog", label: "Dialog" },
+  { href: "/components/input", label: "Input" },
+  { href: "/components/select", label: "Select" },
+  { href: "/components/switch", label: "Switch" },
+  { href: "/components/tabs", label: "Tabs" },
+  { href: "/components/tooltip", label: "Tooltip" },
 ] as const
 
-export const upcomingComponents = [
-  "Accordion",
-  "Alert Dialog",
-  "Avatar",
-  "Calendar",
-  "Card",
-  "Chart",
-  "Dialog",
-  "Select",
-  "Tabs",
-  "Tooltip",
-] as const
+export const upcomingComponents = [] as const

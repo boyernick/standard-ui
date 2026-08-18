@@ -23,7 +23,10 @@
     "@base-ui/react": "^1.7.0",
     "@central-icons-react/round-outlined-radius-2-stroke-2": "^1.1.312",
     "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
+    "react-day-picker": "^10.0.1",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@types/react": "^19",

@@ -25,7 +25,7 @@ export function TopBar() {
           readOnly
           placeholder="Search…"
           aria-label="Search"
-          className="text-sm h-9 w-full rounded-lg border border-border-primary bg-surface pr-16 pl-9 text-fg-primary placeholder:text-fg-quaternary"
+          className="text-sm h-9 w-full rounded-lg border border-border-primary bg-surface pr-16 pl-9 text-fg-primary placeholder:text-fg-quaternary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary"
         />
         <kbd className="text-xs pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 rounded-md border border-border-primary bg-background-tertiary px-1.5 py-0.5 text-fg-tertiary">
           ⌘K

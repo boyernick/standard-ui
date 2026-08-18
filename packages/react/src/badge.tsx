@@ -3,14 +3,13 @@ import type { HTMLAttributes } from "react"
 import { cn } from "./lib/cn"
 
 const badgeVariants = cva(
-  "text-xs-strong inline-flex items-center rounded-full px-2 py-0.5",
+  "text-xs-strong inline-flex items-center rounded-full py-0.5",
   {
     variants: {
       variant: {
-        default: "bg-background-tertiary text-fg-secondary",
-        brand: "bg-brand-secondary-solid text-brand-primary",
-        outline: "border border-border-primary text-fg-secondary",
-        destructive: "bg-destructive/10 text-destructive",
+        default: "bg-background-tertiary px-3 text-fg-primary",
+        outline: "border border-border-primary px-2 text-fg-secondary",
+        destructive: "bg-destructive/10 px-2 text-destructive",
       },
     },
     defaultVariants: {

@@ -188,7 +188,7 @@ export function IntroCards() {
       <Card
         href="/components/button"
         title="Components"
-        description="Button, Input, Badge, Switch, and Checkbox — more on the way."
+        description="Accordion through Tooltip — controls, overlays, and data display."
       >
         <ComponentsPreview />
       </Card>

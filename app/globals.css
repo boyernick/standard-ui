@@ -61,6 +61,20 @@ body {
   color: var(--gray-0);
 }
 
+/* System form accents + default focus → black (token --ring) */
+:root {
+  accent-color: var(--gray-1000);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
 body {
   min-height: 100%;
 }
