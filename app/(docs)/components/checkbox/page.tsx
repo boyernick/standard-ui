@@ -11,7 +11,7 @@ export default function CheckboxPage() {
     <div className="mx-auto max-w-5xl">
       <PageHeader
         title="Checkbox"
-        description="Boolean selection built on Base UI, styled with brand and border tokens."
+        description="Boolean selection. Checked state uses brand (grayscale) and border tokens."
       />
       <CheckboxDemo />
     </div>

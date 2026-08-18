@@ -1,0 +1,23 @@
+---
+description: Don't cite Apps SDK (or other upstream systems) in usage guidelines copy
+globs: app/(docs)/**/*.{tsx,md}
+alwaysApply: false
+---
+
+# No upstream refs in usage guidelines
+
+In docs **usage guidelines** (Do / Don't, how-to prose, component mapping rationale, and other instructional copy), never mention Apps SDK, Apps SDK UI, OpenAI, Rogo, or other upstream sources.
+
+Write as **Standard UI**. Name tokens and classes directly (`shadow-lg`, `text-md`, `rounded-xl`).
+
+```tsx
+// ❌ BAD — upstream attribution in guidelines
+<li>Use shadow-lg for cards, matching Apps SDK elevation 300</li>
+<p>Apps SDK examples often combine shadow-lg with a border.</p>
+
+// ✅ GOOD — product-owned guidance
+<li>Use shadow-lg for cards, menus, and elevated surfaces</li>
+<p>Prefer one clear edge treatment — hairline or border — unless the pattern needs both.</p>
+```
+
+Attribution to source systems belongs in the repo README, package READMEs, or internal comments — not in end-user usage guidelines on the docs site.

@@ -1,6 +1,6 @@
 # Standard UI
 
-Public design-system repository for **standardUI**. Tokens follow [Rogo’s system](https://design.rogo.ai/system). Components sit on [Base UI](https://base-ui.com) for behavior and are styled with Standard UI tokens.
+Public design-system repository for **standardUI**. Color primitives and type scale follow [Apps SDK UI](https://openai.github.io/apps-sdk-ui/). Docs layout is inspired by [Rogo](https://design.rogo.ai/system). Components sit on [Base UI](https://base-ui.com) for behavior and are styled with Standard UI tokens.
 
 ## Packages
 
@@ -10,6 +10,24 @@ Public design-system repository for **standardUI**. Tokens follow [Rogo’s syst
 | [`@standard-ui/react`](packages/react) | Styled React components |
 
 This monorepo also hosts the docs site (Next.js App Router).
+
+## Icons
+
+Standard UI uses [Central Icons](https://centralicons.com) — package `@central-icons-react/round-outlined-radius-2-stroke-2` (round, outlined, 2px radius, 2px stroke). Wrapped exports default to **20px**.
+
+```bash
+export CENTRAL_LICENSE_KEY=your_license_key
+npm install
+```
+
+```tsx
+import { IconHome, withCentralIconDefaults } from "@standard-ui/react"
+import { IconAirplane } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconAirplane"
+
+<IconHome />
+```
+
+Copy [`.env.example`](.env.example) to `.env.local` for local installs. Do not commit the license key.
 
 ## Use in another project
 
@@ -42,13 +60,13 @@ Wire CSS once (Tailwind v4). Point `@source` at the react package so component c
 
 In this monorepo the docs app imports tokens via a relative path (`../packages/tokens/css/tokens.css`) so Tailwind’s PostCSS resolver does not need package exports.
 
-Set font CSS variables on `<html>` (docs use `next/font`):
+Local font CSS variables are already defined in `@standard-ui/tokens` (Font Book via `local()`, not redistributed):
 
-- `--font-inter` — UI
-- `--font-display` — serif titles
-- `--font-roboto-mono` — code
+- `--font-display` — Signifier (serif titles)
+- `--font-sans` — Söhne (UI)
+- `--font-mono` — Söhne Mono (code)
 
-Toggle dark mode with `class="dark"` on `<html>`.
+These resolve from local Font Book installs on macOS. They are not redistributed in the package. Missing faces use the listed fallbacks. Toggle dark mode with `class="dark"` on `<html>`.
 
 ```tsx
 import { Button, Switch } from "@standard-ui/react"
@@ -77,9 +95,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | Route | Page |
 | --- | --- |
 | `/` | Introduction |
-| `/colors` | Color tokens |
+| `/colors` | Primitive color palettes (Apps SDK scales) |
 | `/typography` | Type scale |
-| `/materials` | Radius + shadow-ring |
+| `/materials` | Radius + elevation shadows |
+| `/icons` | Central Icons sample set |
 | `/components/button` | Button |
 | `/components/input` | Input |
 | `/components/badge` | Badge |

@@ -14,6 +14,6 @@ export const Switch = ({ className, ...props }: SwitchProps) => (
     )}
     {...props}
   >
-    <BaseSwitch.Thumb className="pointer-events-none block size-5 translate-x-0.5 rounded-full bg-surface shadow-ring-xs transition-transform data-checked:translate-x-[1.125rem]" />
+    <BaseSwitch.Thumb className="pointer-events-none block size-5 translate-x-0.5 rounded-full bg-surface shadow-sm transition-transform data-checked:translate-x-[1.125rem]" />
   </BaseSwitch.Root>
 )

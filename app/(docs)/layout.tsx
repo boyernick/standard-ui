@@ -1,12 +1,9 @@
-import { Sidebar } from "@/components/sidebar";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TopBar } from "@/components/top-bar";
+import { Sidebar } from "@/components/sidebar"
+import { ThemeProvider } from "@/components/theme-provider"
+import { TopBar } from "@/components/top-bar"
+import type { ReactNode } from "react"
 
-export default function DocsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
       <div className="flex min-h-full">
@@ -14,13 +11,10 @@ export default function DocsLayout({
           <Sidebar />
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
-          <div className="flex h-12 items-center border-b border-border-primary bg-surface px-4 md:hidden">
-            <span className="type-small-strong tracking-tight">standardUI</span>
-          </div>
           <TopBar />
           <main className="flex-1 px-4 py-10 md:px-10 lg:px-14">{children}</main>
         </div>
       </div>
     </ThemeProvider>
-  );
+  )
 }

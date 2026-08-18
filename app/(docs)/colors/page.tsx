@@ -1,78 +1,97 @@
-import type { Metadata } from "next";
-import { CopyToken } from "@/components/copy-token";
-import { PageHeader } from "@/components/page-header";
-import { chartTokens, colorGroups, cssVar } from "@/lib/tokens";
+import type { Metadata } from "next"
+import { ColorsPalette } from "@/components/colors-palette"
+import { DocCell, DocTable, Token } from "@/components/doc-table"
+import { PageHeader } from "@/components/page-header"
 
 export const metadata: Metadata = {
   title: "Colors",
-};
+}
 
 export default function ColorsPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-6xl">
       <PageHeader
         title="Colors"
-        description="Semantic tokens for backgrounds, borders, text, and brand. Use these names — not raw hex."
+        description="Gray, alpha, and hue scales that semantic tokens build on."
       />
 
-      {colorGroups.map((group) => (
-        <section key={group.id} className="mt-12 first:mt-0">
-          <h2 className="type-title-5 text-fg-primary">{group.title}</h2>
-          <p className="type-small mt-1 text-fg-secondary">{group.description}</p>
-          <div className="mt-4 overflow-hidden rounded-xl border border-border-primary bg-surface">
-            {group.tokens.map((token) => (
-              <CopyToken
-                key={token.name}
-                value={cssVar(token.cssVar)}
-                className="flex w-full items-center gap-4 border-b border-border-primary px-4 py-3 last:border-b-0"
-              >
-                <span
-                  className="size-10 shrink-0 rounded-md border border-border-primary"
-                  style={{ background: `var(${token.cssVar})` }}
-                />
-                <span className="min-w-0 flex-1">
-                  <span className="type-small-strong block font-mono text-fg-primary">
-                    {token.cssVar}
-                  </span>
-                  <span className="type-tiny block text-fg-tertiary">{token.usage}</span>
-                </span>
-                <span className="type-tiny hidden font-mono text-fg-quaternary sm:block">
-                  {token.value.light}
-                </span>
-              </CopyToken>
-            ))}
-          </div>
-        </section>
-      ))}
+      <p className="text-md max-w-3xl text-fg-secondary">
+        Primary actions use the grayscale (
+        <Token>brand-primary</Token> → <Token>gray-900</Token>). Hue scales are
+        for status, charts, and decorative accents — not default controls.
+      </p>
 
-      <section className="mt-12">
-        <h2 className="type-title-5 text-fg-primary">Charts</h2>
-        <p className="type-small mt-1 text-fg-secondary">
-          RGB channel triples. Use{" "}
-          <code className="font-mono">rgb(var(--chart-1))</code> or add alpha with{" "}
-          <code className="font-mono">rgb(var(--chart-1) / 0.5)</code>.
+      <ColorsPalette />
+
+      <section className="mt-14 mb-8">
+        <h2 className="heading-sm text-fg-primary">Semantic mapping</h2>
+        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
+          Prefer semantic tokens in UI. Reach for raw hue steps only when no
+          semantic token fits.
         </p>
-        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
-          {chartTokens.map((token) => (
-            <CopyToken
-              key={token.name}
-              value={`rgb(var(${token.cssVar}))`}
-              className="overflow-hidden rounded-xl border border-border-primary bg-surface"
-            >
-              <div
-                className="h-16"
-                style={{ background: `rgb(var(${token.cssVar}))` }}
-              />
-              <div className="px-3 py-2">
-                <p className="type-tiny-strong font-mono text-fg-primary">
-                  {token.cssVar}
-                </p>
-                <p className="type-tiny text-fg-tertiary">{token.label}</p>
-              </div>
-            </CopyToken>
+        <DocTable headers={["Role", "Tokens", "Source"]}>
+          {(
+            [
+              [
+                "Primary actions",
+                "brand-primary, brand-foreground",
+                "gray-900 / gray-0",
+              ],
+              [
+                "Surfaces & text",
+                "background-*, surface, fg-*",
+                "gray + alpha",
+              ],
+              [
+                "Success / decorative green",
+                "decorative-green",
+                "green scale",
+              ],
+              ["Info", "decorative-blue", "blue scale"],
+              ["Danger", "destructive", "red scale"],
+              ["Warning", "warning", "orange scale"],
+              ["Focus", "ring", "blue scale"],
+            ] as const
+          ).map(([role, tokens, source]) => (
+            <tr key={role}>
+              <DocCell>{role}</DocCell>
+              <DocCell mono>{tokens}</DocCell>
+              <DocCell mono>{source}</DocCell>
+            </tr>
           ))}
-        </div>
+        </DocTable>
+
+        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
+          <li>
+            Use <Token>bg-brand-primary</Token> for primary buttons, checked
+            switches, and selected checkboxes
+          </li>
+          <li>
+            Use <Token>bg-background-*</Token> / <Token>bg-fg-*</Token> for
+            foundation diagrams and neutral chrome
+          </li>
+          <li>
+            Use hue scales (<Token>green-*</Token>, <Token>blue-*</Token>, …)
+            for status, data viz, and decorative accents
+          </li>
+        </ul>
+
+        <h3 className="heading-xs mt-8 text-fg-primary">Don't</h3>
+        <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
+          <li>
+            Don't use <Token>green-*</Token> as the default fill for primary
+            actions or docs illustrations
+          </li>
+          <li>
+            Don't invent hex values outside the scales on this page
+          </li>
+          <li>
+            Don't use <Token>destructive</Token> for decorative red — use{" "}
+            <Token>decorative-crimson</Token>
+          </li>
+        </ul>
       </section>
     </div>
-  );
+  )
 }

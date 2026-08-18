@@ -5,11 +5,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* sugar-high emits inline color: var(--sh-*); keep spans from inheriting flat text color */
+.sh-code {
+  color: var(--sh-identifier);
+}
+
+.sh-code .sh__line {
+  display: block;
+  min-height: 1.25em;
+}
+
 html,
 body {
   background: var(--background-primary);
   color: var(--text-primary);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
 
 body {

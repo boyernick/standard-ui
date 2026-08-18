@@ -1,23 +1,6 @@
-import type { Metadata } from "next";
-import { Instrument_Serif, Inter, Roboto_Mono } from "next/font/google";
-import { ThemeScript } from "@/components/theme-script";
-import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-display",
-});
-
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
-  subsets: ["latin"],
-});
+import type { Metadata } from "next"
+import { ThemeScript } from "@/components/theme-script"
+import "./globals.css"
 
 export const metadata: Metadata = {
   title: {
@@ -25,16 +8,12 @@ export const metadata: Metadata = {
     template: "%s · Standard UI",
   },
   description:
-    "The visual foundations and shared language behind Standard UI.",
-};
+    "The visual foundations and shared language.",
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${inter.variable} ${instrumentSerif.variable} ${robotoMono.variable} h-full antialiased`}
-    >
+    <html lang="en" suppressHydrationWarning className="h-full antialiased">
       <head>
         <ThemeScript />
       </head>
@@ -42,5 +21,5 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
       </body>
     </html>
-  );
+  )
 }

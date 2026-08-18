@@ -6,7 +6,7 @@ export default function IntroductionPage() {
     <div className="mx-auto max-w-5xl">
       <PageHeader
         title="Introduction"
-        description="The visual foundations and shared language behind Standard UI."
+        description="The visual foundations and shared language."
       />
       <IntroCards />
     </div>

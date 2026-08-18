@@ -16,7 +16,7 @@ export default function BadgePage() {
       />
 
       <section className="space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Variants</h2>
+        <h2 className="heading-sm text-fg-primary">Variants</h2>
         <ComponentDemo>
           <Badge>Default</Badge>
           <Badge variant="brand">Brand</Badge>

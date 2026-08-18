@@ -1,144 +1,159 @@
-/* Standard UI tokens — values from design.rogo.ai/system. Semantic names only in UI. */
+/* Standard UI tokens — semantic layer on Apps SDK primitives. */
+
+@import "./fonts.css";
+@import "./primitives.css";
 
 :root {
   color-scheme: light;
 
-  --background-primary: #fdfdfc;
-  --background-secondary: #fafaf9;
-  --background-tertiary: #f5f5f4;
-  --background-quaternary: #eeedec;
-  --background-active: #e7e5e4;
+  --background-primary: var(--gray-0);
+  --background-secondary: var(--gray-25);
+  --background-tertiary: var(--gray-75);
+  --background-quaternary: var(--gray-100);
+  --background-active: var(--gray-150);
 
-  --surface: #ffffff;
-  --surface-inverted: #292524;
-  --surface-raised: #ffffff;
-  --elevated: #1c19170d;
-  --elevated-active: #1c19171a;
+  --surface: var(--gray-0);
+  --surface-inverted: var(--gray-1000);
+  --surface-raised: var(--gray-0);
+  --elevated: var(--alpha-05);
+  --elevated-active: var(--alpha-10);
 
-  --text-primary: #1c1917;
-  --text-secondary: #44403c;
-  --text-tertiary: #78716c;
-  --text-quaternary: #a8a29e;
-  --text-primary-inverted: #fafaf9;
-  --text-secondary-inverted: #d6d3d1;
+  --text-primary: var(--gray-1000);
+  --text-secondary: var(--gray-500);
+  --text-tertiary: var(--gray-400);
+  --text-quaternary: var(--gray-350);
+  --text-primary-inverted: var(--gray-0);
+  --text-secondary-inverted: var(--gray-200);
 
-  --border-primary: #0c0a091a;
-  --border-primary-solid: #e7e5e4;
-  --border-secondary: #0c0a0933;
-  --border-secondary-solid: #d6d3d1;
-  --border-inverted: #f0ecea1a;
+  --border-primary: var(--alpha-10);
+  --border-primary-solid: var(--gray-100);
+  --border-secondary: var(--alpha-15);
+  --border-secondary-solid: var(--gray-150);
+  --border-inverted: var(--alpha-10);
 
-  --brand-primary: #135b44;
-  --brand-primary-hover: #1d7559;
-  --brand-primary-active: #0c402f;
-  --brand-primary-border: #0f4937;
-  --brand-secondary: #0d8f6533;
-  --brand-secondary-solid: #cfe9e0;
-  --brand-foreground: #f5f5f4;
-  --brand-inverted: #1d7559;
+  --brand-primary: var(--gray-900);
+  --brand-primary-hover: var(--gray-700);
+  --brand-primary-active: var(--gray-600);
+  --brand-primary-border: var(--gray-900);
+  --brand-secondary: var(--alpha-10);
+  --brand-secondary-solid: var(--gray-100);
+  --brand-foreground: var(--gray-0);
+  --brand-inverted: var(--gray-1000);
 
-  --decorative-green: #1b7463;
-  --decorative-blue: #1c6182;
-  --decorative-olive: #60563e;
-  --decorative-crimson: #792a2a;
+  --decorative-green: var(--green-700);
+  --decorative-blue: var(--blue-600);
+  --decorative-olive: var(--yellow-800);
+  --decorative-crimson: var(--red-700);
 
-  --chart-1: 27 140 108;
-  --chart-2: 83 167 210;
-  --chart-3: 253 161 100;
-  --chart-4: 60 102 126;
-  --chart-5: 158 120 143;
-  --chart-neutral: 168 162 158;
+  --chart-1: 4 184 76;
+  --chart-2: 2 133 255;
+  --chart-3: 251 106 34;
+  --chart-4: 146 79 247;
+  --chart-5: 255 102 173;
+  --chart-neutral: 143 143 143;
 
-  --destructive: #dc2626;
-  --destructive-active: #b91c1c;
-  --warning: #f59e0b;
-  --ring: #0d8f6533;
+  --destructive: var(--red-500);
+  --destructive-active: var(--red-600);
+  --warning: var(--orange-500);
+  --ring: var(--blue-500);
 
-  --sui-radius-sm: 0.25rem;
-  --sui-radius-md: 0.375rem;
-  --sui-radius-lg: 0.5rem;
-  --sui-radius-xl: 0.75rem;
-  --sui-radius-2xl: 1rem;
-  --sui-radius-full: 9999px;
+  /* Code syntax (sugar-high) — hues from the colors page */
+  --sh-class: var(--blue-600);
+  --sh-identifier: var(--gray-1000);
+  --sh-sign: var(--gray-400);
+  --sh-space: var(--gray-1000);
+  --sh-property: var(--blue-500);
+  --sh-entity: var(--green-600);
+  --sh-jsxliterals: var(--purple-500);
+  --sh-string: var(--green-600);
+  --sh-keyword: var(--pink-500);
+  --sh-comment: var(--gray-400);
 
-  --shadow-hairline: rgb(0 0 0 / 0.05);
-  --elevation-ring-xs:
-    0 2px 4px 0 rgb(0 0 0 / 0.04), 0 1px 1px 0 rgb(0 0 0 / 0.02),
-    0 0 4px 0 rgb(0 0 0 / 0.04), 0 0 0 1px var(--shadow-hairline);
-  --elevation-ring-sm:
-    0 18px 47px 0 rgb(0 0 0 / 0.03), 0 7.5px 19px 0 rgb(0 0 0 / 0.02),
-    0 4px 10.5px 0 rgb(0 0 0 / 0.02), 0 2.3px 5.8px 0 rgb(0 0 0 / 0.01),
-    0 1.2px 3.1px 0 rgb(0 0 0 / 0.01), 0 0.5px 1.3px 0 rgb(0 0 0 / 0.01),
-    0 0 0 1px var(--shadow-hairline);
-  --elevation-ring-md:
-    0 17.54px 23.39px 0 rgb(0 0 0 / 0.04), 0 9.4px 12.5px 0 rgb(0 0 0 / 0.03),
-    0 5.25px 7px 0 rgb(0 0 0 / 0.02), 0 2.79px 3.72px -2px rgb(0 0 0 / 0.01),
-    0 1.16px 1.5px 0 rgb(0 0 0 / 0.01), 0 0 0 1px var(--shadow-hairline);
-  --elevation-ring-lg:
-    0 25px 50px 0 rgb(0 0 0 / 0.05), 0 12px 24px 0 rgb(0 0 0 / 0.04),
-    0 6px 12px 0 rgb(0 0 0 / 0.03), 0 3px 6px 0 rgb(0 0 0 / 0.02),
-    0 1.5px 3px 0 rgb(0 0 0 / 0.02), 0 0 0 1px var(--shadow-hairline);
-  --elevation-ring-xl:
-    0 40px 80px 0 rgb(0 0 0 / 0.06), 0 20px 40px 0 rgb(0 0 0 / 0.05),
-    0 10px 20px 0 rgb(0 0 0 / 0.04), 0 5px 10px 0 rgb(0 0 0 / 0.03),
-    0 2px 4px 0 rgb(0 0 0 / 0.02), 0 0 0 1px var(--shadow-hairline);
-  --elevation-ring-2xl:
-    0 9px 14px 0 rgb(0 0 0 / 0.07), 0 22px 33px 0 rgb(0 0 0 / 0.1),
-    0 40px 63px 0 rgb(0 0 0 / 0.13), 0 73px 111px 0 rgb(0 0 0 / 0.15),
-    0 136px 208px 0 rgb(0 0 0 / 0.18), 0 326px 250px 0 rgb(0 0 0 / 0.25),
-    0 0 0 1px var(--shadow-hairline);
+  /* Spacing base — 4px unit for Tailwind spacing scale */
+  --spacing: 0.25rem;
+
+  /* Breakpoints — px for JS hooks; rem mirrors live in @theme */
+  --breakpoint-xs: 380px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Radius values live in @theme (Apps SDK UI scale) */
+
+  /* Shadows — Apps SDK UI elevation + hairline */
+  --shadow-color: 0 0 0;
+  --elevation-100-geo: 0 1px 2px -1px;
+  --elevation-200-geo: 0 2px 4px -1px;
+  --elevation-300-geo: 0 4px 8px -2px;
+  --elevation-400-geo: 0 8px 16px -4px;
+  --shadow-alpha-100: 0.08;
+  --shadow-alpha-200: 0.08;
+  --shadow-alpha-300: 0.1;
+  --shadow-alpha-400: 0.12;
+  --shadow-hairline-width: 1px;
+  --shadow-hairline-color: rgb(0 0 0 / 8%);
+  --elevation-hairline: 0 0 0 var(--shadow-hairline-width)
+    var(--shadow-hairline-color);
+  --shadow-100: var(--elevation-100-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-100));
+  --shadow-200: var(--elevation-200-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-200));
+  --shadow-300: var(--elevation-300-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-300));
+  --shadow-400: var(--elevation-400-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-400));
 }
 
 .dark {
   color-scheme: dark;
 
-  --background-primary: #1c1917;
-  --background-secondary: #1a1614;
-  --background-tertiary: #292524;
-  --background-quaternary: #2e2b29;
-  --background-active: #0f0d0c;
+  --text-secondary: var(--gray-700);
+  --text-tertiary: var(--gray-600);
+  --text-quaternary: var(--gray-550);
 
-  --surface: #292524;
-  --surface-inverted: #292524;
-  --surface-raised: #363332;
-  --elevated: #e3e6e80d;
-  --elevated-active: #0c0a0966;
+  --decorative-green: var(--green-400);
+  --decorative-blue: var(--blue-400);
+  --decorative-olive: var(--yellow-400);
+  --decorative-crimson: var(--red-400);
 
-  --text-primary: #fafaf9;
-  --text-secondary: #d6d3d1;
-  --text-tertiary: #a8a29e;
-  --text-quaternary: #57534e;
-  --text-primary-inverted: #fafaf9;
-  --text-secondary-inverted: #d6d3d1;
+  --chart-neutral: 143 143 143;
 
-  --border-primary: #f0ecea12;
-  --border-primary-solid: #393634;
-  --border-secondary: #f0ecea33;
-  --border-secondary-solid: #524f4d;
-  --border-inverted: #f0ecea1a;
+  --destructive: var(--red-400);
+  --destructive-active: var(--red-500);
+  --warning: var(--orange-400);
+  --ring: var(--blue-400);
 
-  --brand-primary: #1d7559;
-  --brand-primary-hover: #1b6c52;
-  --brand-primary-active: #155641;
-  --brand-primary-border: #0f4937;
-  --brand-secondary: #0d8f6533;
-  --brand-secondary-solid: #193127;
-  --brand-foreground: #f5f5f4;
-  --brand-inverted: #1b6c52;
+  --sh-class: var(--blue-300);
+  --sh-identifier: var(--gray-1000);
+  --sh-sign: var(--gray-400);
+  --sh-space: var(--gray-1000);
+  --sh-property: var(--blue-200);
+  --sh-entity: var(--green-300);
+  --sh-jsxliterals: var(--purple-300);
+  --sh-string: var(--green-300);
+  --sh-keyword: var(--pink-300);
+  --sh-comment: var(--gray-400);
 
-  --decorative-green: #2a9583;
-  --decorative-blue: #3f8aad;
-  --decorative-olive: #8a7d5c;
-  --decorative-crimson: #b04848;
+  --shadow-alpha-100: 0.2;
+  --shadow-alpha-200: 0.2;
+  --shadow-alpha-300: 0.36;
+  --shadow-alpha-400: 0.3;
+  --shadow-hairline-width: 1px;
+  --shadow-hairline-color: rgb(255 255 255 / 10%);
+}
 
-  --chart-neutral: 87 83 78;
+@media (resolution >= 1.5dppx) {
+  :root {
+    --shadow-hairline-width: 0.5px;
+    --shadow-hairline-color: rgb(0 0 0 / 10%);
+  }
 
-  --destructive: #cf212d;
-  --destructive-active: #b91c1c;
-  --warning: #f59e0b;
-  --ring: #0d8f6533;
-
-  --shadow-hairline: rgb(255 255 255 / 0.06);
+  .dark {
+    --shadow-hairline-width: 0.5px;
+    --shadow-hairline-color: rgb(255 255 255 / 12%);
+  }
 }
 
 @theme inline {
@@ -186,92 +201,182 @@
   --color-warning: var(--warning);
   --color-ring: var(--ring);
 
-  --font-sans: var(--font-inter);
+  --font-sans: "Söhne", "Sohne", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  --font-display: "Signifier", "Iowan Old Style", "Palatino Linotype", Palatino,
+    Georgia, serif;
+  --font-mono: "Söhne Mono", "Sohne Mono", ui-monospace, "Cascadia Code",
+    "Segoe UI Mono", Menlo, Consolas, monospace;
   --font-serif: var(--font-display);
-  --font-mono: var(--font-roboto-mono);
 
-  --radius-sm: var(--sui-radius-sm);
-  --radius-md: var(--sui-radius-md);
-  --radius-lg: var(--sui-radius-lg);
-  --radius-xl: var(--sui-radius-xl);
-  --radius-2xl: var(--sui-radius-2xl);
-  --radius-full: var(--sui-radius-full);
+  /* Spacing + breakpoints (Tailwind theme) */
+  --spacing: 0.25rem;
+  --breakpoint-xs: 23.75rem;
+  --breakpoint-sm: 36rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
 
-  --shadow-ring-xs: var(--elevation-ring-xs);
-  --shadow-ring-sm: var(--elevation-ring-sm);
-  --shadow-ring-md: var(--elevation-ring-md);
-  --shadow-ring-lg: var(--elevation-ring-lg);
-  --shadow-ring-xl: var(--elevation-ring-xl);
-  --shadow-ring-2xl: var(--elevation-ring-2xl);
+  /* Radius — Apps SDK UI */
+  --radius-2xs: 0.125rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: var(--shadow-100);
+  --shadow-md: var(--shadow-200);
+  --shadow-lg: var(--shadow-300);
+  --shadow-xl: var(--shadow-400);
+  --shadow-hairline: var(--elevation-hairline);
+  --inset-shadow-hairline: inset var(--elevation-hairline);
+
+  /* Body text scale (Apps SDK: text-lg → text-2xs) */
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.8125rem;
+  --text-lg--font-weight: 400;
+  --text-lg--letter-spacing: 0em;
+
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-base--font-weight: 400;
+  --text-base--letter-spacing: 0em;
+
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-sm--font-weight: 400;
+  --text-sm--letter-spacing: 0em;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-xs--font-weight: 400;
+  --text-xs--letter-spacing: 0em;
+
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+  --text-2xs--font-weight: 400;
+  --text-2xs--letter-spacing: 0em;
 }
 
-@utility type-title-1 {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
+/* Headings lg → 2xl: sans + serif variants. md/sm/xs: sans. */
+
+@utility heading-2xl-sans {
+  font-family: var(--font-sans);
   font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 400;
+  line-height: 2.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
 }
 
-@utility type-title-2 {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-  font-weight: 400;
+@utility heading-2xl-serif {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 2.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
 }
 
-@utility type-title-3 {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
+@utility heading-xl-sans {
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  line-height: 2.375rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-xl-serif {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 2.375rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-lg-sans {
+  font-family: var(--font-sans);
   font-size: 1.5rem;
   line-height: 1.75rem;
-  font-weight: 400;
+  font-weight: 600;
+  letter-spacing: 0em;
 }
 
-@utility type-title-4 {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
+@utility heading-lg-serif {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-md {
+  font-family: var(--font-sans);
   font-size: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 400;
+  line-height: 1.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
 }
 
-@utility type-title-5 {
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+@utility heading-sm {
+  font-family: var(--font-sans);
   font-size: 1.125rem;
-  line-height: 1.25rem;
-  font-weight: 500;
+  line-height: 1.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
 }
 
-@utility type-body {
+@utility heading-xs {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+/* text-md alias — Apps SDK name; maps to Tailwind text-base metrics */
+@utility text-md {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 400;
+  letter-spacing: 0em;
 }
 
-@utility type-body-strong {
+@utility text-lg-strong {
+  font-size: 1.125rem;
+  line-height: 1.8125rem;
+  font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@utility text-md-strong {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
+  letter-spacing: 0em;
 }
 
-@utility type-small {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 400;
-}
-
-@utility type-small-strong {
+@utility text-sm-strong {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
+  letter-spacing: 0em;
 }
 
-@utility type-tiny {
+@utility text-xs-strong {
   font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 400;
-}
-
-@utility type-tiny-strong {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  line-height: 1.125rem;
   font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@utility text-2xs-strong {
+  font-size: 0.625rem;
+  line-height: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0em;
 }

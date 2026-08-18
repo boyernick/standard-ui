@@ -1,5 +1,6 @@
 "use client"
 
+import { IconFormCircle } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFormCircle"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { components, foundations, upcomingComponents } from "@/lib/nav"
@@ -15,13 +16,18 @@ export const Sidebar = () => {
   return (
     <aside className="flex h-full w-60 shrink-0 flex-col border-r border-border-primary bg-surface">
       <div className="px-5 pt-5 pb-4">
-        <Link href="/" className="type-small-strong tracking-tight text-fg-primary">
-          standardUI
+        <Link
+          href="/"
+          className="text-sm-strong inline-flex items-center gap-1 text-fg-primary"
+          aria-label="UI"
+        >
+          <IconFormCircle size={16} mode="raw" aria-hidden />
+          UI
         </Link>
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 pb-8">
-        <p className="type-tiny-strong px-2 pt-2 pb-1 text-fg-tertiary">
+        <p className="text-xs-strong px-2 pt-2 pb-1 text-fg-tertiary">
           Foundations
         </p>
         <ul className="flex flex-col gap-0.5">
@@ -31,10 +37,10 @@ export const Sidebar = () => {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`type-small block rounded-md px-2 py-1.5 transition-colors ${
+                  className={`block rounded-md px-2 py-1.5 transition-colors ${
                     active
-                      ? "bg-background-tertiary font-medium text-fg-primary"
-                      : "text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
+                      ? "text-sm-strong bg-background-tertiary text-fg-primary"
+                      : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                   }`}
                 >
                   {item.label}
@@ -44,7 +50,7 @@ export const Sidebar = () => {
           })}
         </ul>
 
-        <p className="type-tiny-strong mt-6 px-2 pt-2 pb-1 text-fg-tertiary">
+        <p className="text-xs-strong mt-6 px-2 pt-2 pb-1 text-fg-tertiary">
           Components
         </p>
         <ul className="flex flex-col gap-0.5">
@@ -54,10 +60,10 @@ export const Sidebar = () => {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`type-small block rounded-md px-2 py-1.5 transition-colors ${
+                  className={`block rounded-md px-2 py-1.5 transition-colors ${
                     active
-                      ? "bg-background-tertiary font-medium text-fg-primary"
-                      : "text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
+                      ? "text-sm-strong bg-background-tertiary text-fg-primary"
+                      : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                   }`}
                 >
                   {item.label}
@@ -68,7 +74,7 @@ export const Sidebar = () => {
           {upcomingComponents.map((name) => (
             <li
               key={name}
-              className="type-small rounded-md px-2 py-1.5 text-fg-quaternary"
+              className="text-sm rounded-md px-2 py-1.5 text-fg-quaternary"
             >
               {name}
             </li>

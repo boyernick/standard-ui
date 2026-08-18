@@ -16,7 +16,7 @@ export default function ButtonPage() {
       />
 
       <section className="space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Variants</h2>
+        <h2 className="heading-sm text-fg-primary">Variants</h2>
         <ComponentDemo>
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -27,7 +27,7 @@ export default function ButtonPage() {
       </section>
 
       <section className="mt-10 space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Sizes</h2>
+        <h2 className="heading-sm text-fg-primary">Sizes</h2>
         <ComponentDemo>
           <Button size="sm">Small</Button>
           <Button size="md">Medium</Button>
@@ -36,7 +36,7 @@ export default function ButtonPage() {
       </section>
 
       <section className="mt-10 space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Disabled</h2>
+        <h2 className="heading-sm text-fg-primary">Disabled</h2>
         <ComponentDemo>
           <Button disabled>Disabled</Button>
         </ComponentDemo>

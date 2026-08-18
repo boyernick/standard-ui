@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/code-block"
+
 export const ComponentDemo = ({
   children,
   className = "",
@@ -20,9 +22,7 @@ export const ComponentMeta = ({
   note?: string
 }) => (
   <div className="mt-4 space-y-2">
-    <pre className="type-tiny overflow-x-auto rounded-lg border border-border-primary bg-surface p-3 font-mono text-fg-secondary">
-      {importLine}
-    </pre>
-    {note ? <p className="type-small text-fg-tertiary">{note}</p> : null}
+    <CodeBlock code={importLine} lang="tsx" size="sm" showHeader={false} />
+    {note ? <p className="text-sm text-fg-tertiary">{note}</p> : null}
   </div>
 )

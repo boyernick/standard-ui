@@ -6,4 +6,4 @@ Styled React components for Standard UI. Interactive controls wrap [Base UI](htt
 import { Button, Input, Badge, Switch, Checkbox } from "@standard-ui/react"
 ```
 
-Requires `@standard-ui/tokens` CSS and a Tailwind v4 `@source` that includes this package’s `src` folder. See the repo root README.
+Requires `@standard-ui/tokens` CSS, Tailwind v4 `@source` for this package’s `src`, and a Central Icons license (`CENTRAL_LICENSE_KEY`) to install `@central-icons-react/round-outlined-radius-2-stroke-2`. See the repo root README.

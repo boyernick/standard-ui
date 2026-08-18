@@ -11,7 +11,7 @@ export default function SwitchPage() {
     <div className="mx-auto max-w-5xl">
       <PageHeader
         title="Switch"
-        description="On/off control built on Base UI. Behavior and a11y come from the primitive; look comes from Standard UI tokens."
+        description="On/off control. Checked track uses brand-primary (grayscale)."
       />
       <SwitchDemo />
     </div>

@@ -16,7 +16,7 @@ export default function InputPage() {
       />
 
       <section className="space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Default</h2>
+        <h2 className="heading-sm text-fg-primary">Default</h2>
         <ComponentDemo className="max-w-md flex-col items-stretch">
           <Input placeholder="Email address" aria-label="Email address" />
           <Input defaultValue="standard@ui.dev" aria-label="Filled" />
@@ -24,7 +24,7 @@ export default function InputPage() {
       </section>
 
       <section className="mt-10 space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Sizes</h2>
+        <h2 className="heading-sm text-fg-primary">Sizes</h2>
         <ComponentDemo className="max-w-md flex-col items-stretch">
           <Input size="sm" placeholder="Small" aria-label="Small" />
           <Input size="md" placeholder="Medium" aria-label="Medium" />
@@ -33,7 +33,7 @@ export default function InputPage() {
       </section>
 
       <section className="mt-10 space-y-3">
-        <h2 className="type-title-5 text-fg-primary">Invalid</h2>
+        <h2 className="heading-sm text-fg-primary">Invalid</h2>
         <ComponentDemo className="max-w-md flex-col items-stretch">
           <Input invalid defaultValue="not-an-email" aria-label="Invalid" />
         </ComponentDemo>

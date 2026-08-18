@@ -31,7 +31,7 @@ export function CopyToken({
       className={`group relative text-left ${className}`}
     >
       {children}
-      <span className="type-tiny pointer-events-none absolute -top-7 left-1/2 z-10 -translate-x-1/2 rounded-md bg-surface-inverted px-1.5 py-0.5 font-mono whitespace-nowrap text-fg-inverted opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+      <span className="text-xs pointer-events-none absolute -top-7 left-1/2 z-10 -translate-x-1/2 rounded-md bg-surface-inverted px-1.5 py-0.5 font-mono whitespace-nowrap text-fg-inverted opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
         {copied ? "Copied" : value}
       </span>
     </button>

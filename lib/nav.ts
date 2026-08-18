@@ -2,7 +2,9 @@ export const foundations = [
   { href: "/", label: "Introduction" },
   { href: "/colors", label: "Colors" },
   { href: "/typography", label: "Typography" },
+  { href: "/structure", label: "Structure" },
   { href: "/materials", label: "Materials" },
+  { href: "/icons", label: "Icons" },
 ] as const
 
 export const components = [
