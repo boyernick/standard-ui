@@ -117,6 +117,8 @@
 .dark {
   color-scheme: dark;
 
+  --surface-raised: var(--gray-25);
+
   --text-secondary: var(--gray-700);
   --text-tertiary: var(--gray-600);
   --text-quaternary: var(--gray-550);

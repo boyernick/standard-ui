@@ -67,10 +67,10 @@ export default function TypographyPage() {
         <h2 className="heading-sm text-fg-primary">Overview</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           The Standard UI typography system is built on three font families and
-          the Apps SDK type scale from <code className="font-mono">2xl</code>{" "}
-          down to <code className="font-mono">2xs</code>. Text styles are
-          Tailwind utilities that combine family, size, line height, and weight.
-          Prefer these tokens over ad-hoc font properties.
+          a type scale from <code className="font-mono">2xl</code> down to{" "}
+          <code className="font-mono">2xs</code>. Text styles are Tailwind
+          utilities that combine family, size, line height, and weight. Prefer
+          these tokens over ad-hoc font properties.
         </p>
       </section>
 

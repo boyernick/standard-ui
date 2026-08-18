@@ -1,10 +1,10 @@
 "use client"
 
 import {
+  BrandMark,
   IconMagnifyingGlass,
   Input,
 } from "@standard-ui/react"
-import { IconFormCircle } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFormCircle"
 import Link from "next/link"
 import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react"
 import { ThemeToggle } from "./theme-toggle"
@@ -59,10 +59,10 @@ export function TopBar() {
     <header className="flex h-14 items-center gap-3 border-b border-border-primary bg-background-primary px-4 md:px-6">
       <Link
         href="/"
-        className="text-sm-strong inline-flex shrink-0 items-center gap-1 text-fg-primary md:hidden"
-        aria-label="UI"
+        className="text-sm-strong inline-flex shrink-0 items-center gap-1.5 text-fg-primary md:hidden"
+        aria-label="Standard UI"
       >
-        <IconFormCircle size={16} mode="raw" aria-hidden />
+        <BrandMark size={16} title="" aria-hidden />
         UI
       </Link>
       <div className="relative min-w-0 flex-1">

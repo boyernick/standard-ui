@@ -1,6 +1,8 @@
 # Standard UI
 
-Public design-system repository for **standardUI**. Color primitives and type scale follow [Apps SDK UI](https://openai.github.io/apps-sdk-ui/). Docs layout is inspired by [Rogo](https://design.rogo.ai/system). Components sit on [Base UI](https://base-ui.com) for behavior and are styled with Standard UI tokens.
+Public design-system repository for **standardUI**. Live docs: **[https://ui.nickboyer.com](https://ui.nickboyer.com)** (also [https://standard-ui.vercel.app](https://standard-ui.vercel.app)).
+
+Color primitives and type scale follow [Apps SDK UI](https://openai.github.io/apps-sdk-ui/). Docs layout is inspired by [Rogo](https://design.rogo.ai/system). Components sit on [Base UI](https://base-ui.com) for behavior and are styled with Standard UI tokens.
 
 ## Packages
 
@@ -90,20 +92,30 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). Production docs: [https://ui.nickboyer.com](https://ui.nickboyer.com).
 
 | Route | Page |
 | --- | --- |
 | `/` | Introduction |
-| `/colors` | Primitive color palettes (Apps SDK scales) |
-| `/typography` | Type scale |
-| `/materials` | Radius + elevation shadows |
-| `/icons` | Central Icons sample set |
-| `/components/button` | Button |
-| `/components/input` | Input |
-| `/components/badge` | Badge |
-| `/components/switch` | Switch |
-| `/components/checkbox` | Checkbox |
+| `/brand` | Brand |
+| `/colors` | Colors |
+| `/typography` | Typography |
+| `/structure` | Structure |
+| `/materials` | Materials |
+| `/motion` | Motion |
+| `/icons` | Icons |
+| `/illustrations` | Illustrations |
+| `/components/*` | Component docs |
+
+### Custom domain DNS
+
+`ui.nickboyer.com` is attached to the Vercel project. At your DNS provider set:
+
+```text
+A  ui.nickboyer.com  76.76.21.21
+```
+
+(or the CNAME target Vercel shows in the project domains UI).
 
 ## Build
 

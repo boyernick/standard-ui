@@ -1,6 +1,6 @@
 "use client"
 
-import { IconFormCircle } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFormCircle"
+import { BrandMark } from "@standard-ui/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { EdgeFade } from "@/components/edge-fade"
@@ -24,10 +24,10 @@ export const Sidebar = () => {
           <div className="relative px-5 pt-5 pb-4">
             <Link
               href="/"
-              className="text-sm-strong inline-flex items-center gap-1 text-fg-primary"
-              aria-label="UI"
+              className="text-sm-strong inline-flex items-center gap-1.5 text-fg-primary"
+              aria-label="Standard UI"
             >
-              <IconFormCircle size={16} mode="raw" aria-hidden />
+              <BrandMark size={16} title="" aria-hidden />
               UI
             </Link>
           </div>

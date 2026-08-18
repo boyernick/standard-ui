@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { ReactNode } from "react"
+import { BrandWordmark } from "@standard-ui/react"
 import { IconFormCircle } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFormCircle"
 
 function Card({
@@ -39,12 +40,7 @@ function Card({
 }
 
 function BrandPreview() {
-  return (
-    <span className="heading-lg-serif inline-flex items-center gap-2 text-fg-primary">
-      <IconFormCircle size={28} mode="raw" aria-hidden />
-      UI
-    </span>
-  )
+  return <BrandWordmark compact markSize={28} />
 }
 
 function ComponentsPreview() {
@@ -174,7 +170,7 @@ export function IntroCards() {
       <Card
         href="/typography"
         title="Typography"
-        description="Apps SDK scale from 2xl to 2xs, with serif and sans headings."
+        description="Type scale from 2xl to 2xs, with serif and sans headings."
       >
         <TypographyPreview />
       </Card>
@@ -202,7 +198,7 @@ export function IntroCards() {
       <Card
         href="/materials"
         title="Materials"
-        description="Radius and elevation shadows from Apps SDK UI."
+        description="Radius and elevation shadows for surfaces and overlays."
       >
         <MaterialsPreview />
       </Card>
@@ -213,6 +209,26 @@ export function IntroCards() {
       >
         <span className="text-fg-primary">
           <IconFormCircle size={32} mode="raw" aria-hidden />
+        </span>
+      </Card>
+      <Card
+        href="/motion"
+        title="Motion"
+        description="Shared transitions for overlays, indicators, and color."
+      >
+        <div className="flex items-center gap-2">
+          <span className="size-8 rounded-md bg-background-quaternary opacity-40" />
+          <span className="size-10 rounded-md bg-background-tertiary opacity-70" />
+          <span className="size-12 rounded-md border border-border-primary bg-surface shadow-md" />
+        </div>
+      </Card>
+      <Card
+        href="/illustrations"
+        title="Illustrations"
+        description="Empty, error, success, and search artwork for product states."
+      >
+        <span className="text-fg-tertiary">
+          <IconFormCircle size={40} mode="raw" aria-hidden />
         </span>
       </Card>
     </div>
