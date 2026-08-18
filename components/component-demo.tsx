@@ -1,10 +1,13 @@
+import type { ReactNode } from "react"
 import { CodeBlock } from "@/components/code-block"
+
+export { ComponentCanvas } from "@/components/component-canvas"
 
 export const ComponentDemo = ({
   children,
   className = "",
 }: {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
 }) => (
   <div

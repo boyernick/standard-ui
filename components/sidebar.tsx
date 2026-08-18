@@ -27,7 +27,7 @@ export const Sidebar = () => {
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 pb-8">
-        <p className="text-xs-strong px-2 pt-2 pb-1 text-fg-tertiary">
+        <p className="text-xs px-2 pt-2 pb-1 text-fg-tertiary">
           Foundations
         </p>
         <ul className="flex flex-col gap-0.5">
@@ -39,7 +39,7 @@ export const Sidebar = () => {
                   href={item.href}
                   className={`block rounded-md px-2 py-1.5 transition-colors ${
                     active
-                      ? "text-sm-strong bg-background-tertiary text-fg-primary"
+                      ? "text-sm bg-background-tertiary text-fg-primary"
                       : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                   }`}
                 >
@@ -50,7 +50,7 @@ export const Sidebar = () => {
           })}
         </ul>
 
-        <p className="text-xs-strong mt-6 px-2 pt-2 pb-1 text-fg-tertiary">
+        <p className="text-xs mt-6 px-2 pt-2 pb-1 text-fg-tertiary">
           Components
         </p>
         <ul className="flex flex-col gap-0.5">
@@ -62,7 +62,7 @@ export const Sidebar = () => {
                   href={item.href}
                   className={`block rounded-md px-2 py-1.5 transition-colors ${
                     active
-                      ? "text-sm-strong bg-background-tertiary text-fg-primary"
+                      ? "text-sm bg-background-tertiary text-fg-primary"
                       : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                   }`}
                 >

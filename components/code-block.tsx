@@ -1,3 +1,11 @@
+"use client"
+
+import {
+  Button,
+  IconCheckmark1,
+  IconSquareBehindSquare6,
+} from "@standard-ui/react"
+import { useState } from "react"
 import { highlight, type LanguageName } from "sugar-high"
 
 type CodeBlockProps = {
@@ -6,12 +14,14 @@ type CodeBlockProps = {
   lang?: string
   size?: "sm" | "md"
   showHeader?: boolean
+  /** Skip border/radius chrome — for nesting inside another frame */
+  bare?: boolean
   className?: string
 }
 
 const sizeClass = {
-  sm: "text-xs p-3",
-  md: "text-sm p-4",
+  sm: "text-2xs p-3",
+  md: "text-xs p-4",
 } as const
 
 const languages = new Set<LanguageName>([
@@ -56,16 +66,30 @@ export const CodeBlock = ({
   lang = "tsx",
   size = "md",
   showHeader = true,
+  bare = false,
   className = "",
 }: CodeBlockProps) => {
+  const [copied, setCopied] = useState(false)
   const code = raw.replace(/^\n/, "").replace(/\n$/, "")
   const html = highlight(code, { lang: highlightLang(lang) })
+  const frameClass =
+    !showHeader && !bare
+      ? "rounded-lg border border-border-primary bg-surface"
+      : ""
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1200)
+    } catch {
+      setCopied(false)
+    }
+  }
 
   const pre = (
     <pre
-      className={`sh-code overflow-x-auto font-mono leading-relaxed ${sizeClass[size]} ${
-        showHeader ? "" : "rounded-lg border border-border-primary bg-surface"
-      }`}
+      className={`sh-code overflow-x-auto font-mono ${sizeClass[size]} ${frameClass}`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   )
@@ -78,8 +102,23 @@ export const CodeBlock = ({
     <div
       className={`overflow-hidden rounded-xl border border-border-primary bg-surface ${className}`}
     >
-      <div className="flex items-center justify-between border-b border-border-primary bg-background-secondary px-4 py-2">
+      <div className="flex items-center justify-between border-b border-border-primary bg-background-secondary px-3 py-1.5 pl-4">
         <p className="text-xs font-mono text-fg-quaternary">{lang}</p>
+        <Button
+          type="button"
+          variant="ghost"
+          iconOnly
+          size="sm"
+          className="size-6 cursor-copy text-fg-quaternary hover:text-fg-primary"
+          aria-label={copied ? "Copied" : "Copy code"}
+          onClick={handleCopy}
+        >
+          {copied ? (
+            <IconCheckmark1 size={14} aria-hidden />
+          ) : (
+            <IconSquareBehindSquare6 size={14} aria-hidden />
+          )}
+        </Button>
       </div>
       {pre}
     </div>

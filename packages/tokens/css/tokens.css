@@ -55,19 +55,22 @@
   --destructive: var(--red-500);
   --destructive-active: var(--red-600);
   --warning: var(--orange-500);
-  --ring: var(--blue-500);
+  --ring: var(--gray-1000);
 
-  /* Code syntax (sugar-high) — hues from the colors page */
-  --sh-class: var(--blue-600);
+  /*
+   * Code syntax — White (arthurwhite.White), mapped to gray scale
+   * strings ≈ greyStrong (#6b7a88 → gray-450), comments ≈ grey (#bec9d3 → gray-200)
+   */
+  --sh-class: var(--gray-1000);
   --sh-identifier: var(--gray-1000);
-  --sh-sign: var(--gray-400);
+  --sh-sign: var(--gray-1000);
   --sh-space: var(--gray-1000);
-  --sh-property: var(--blue-500);
-  --sh-entity: var(--green-600);
-  --sh-jsxliterals: var(--purple-500);
-  --sh-string: var(--green-600);
-  --sh-keyword: var(--pink-500);
-  --sh-comment: var(--gray-400);
+  --sh-property: var(--gray-1000);
+  --sh-entity: var(--gray-1000);
+  --sh-jsxliterals: var(--gray-1000);
+  --sh-string: var(--gray-450);
+  --sh-keyword: var(--gray-1000);
+  --sh-comment: var(--gray-200);
 
   /* Spacing base — 4px unit for Tailwind spacing scale */
   --spacing: 0.25rem;
@@ -104,6 +107,11 @@
     rgb(var(--shadow-color) / var(--shadow-alpha-300));
   --shadow-400: var(--elevation-400-geo)
     rgb(var(--shadow-color) / var(--shadow-alpha-400));
+  /* Raised solid controls — top edge highlight (primary / destructive) */
+  --elevation-solid-top: inset 0 1px 0 0
+    color-mix(in oklab, var(--white) 18%, transparent);
+  /* Soft top recess on bordered surfaces (outline) */
+  --elevation-outline-top: inset 0 -1px 1px 0 var(--alpha-02);
 }
 
 .dark {
@@ -123,18 +131,22 @@
   --destructive: var(--red-400);
   --destructive-active: var(--red-500);
   --warning: var(--orange-400);
-  --ring: var(--blue-400);
+  --ring: var(--gray-1000);
 
-  --sh-class: var(--blue-300);
+  /*
+   * Code syntax — White Night via inverted gray scale
+   * strings ≈ #a8a8b1 → gray-700, comments ≈ #65696e → gray-550
+   */
+  --sh-class: var(--gray-1000);
   --sh-identifier: var(--gray-1000);
-  --sh-sign: var(--gray-400);
+  --sh-sign: var(--gray-1000);
   --sh-space: var(--gray-1000);
-  --sh-property: var(--blue-200);
-  --sh-entity: var(--green-300);
-  --sh-jsxliterals: var(--purple-300);
-  --sh-string: var(--green-300);
-  --sh-keyword: var(--pink-300);
-  --sh-comment: var(--gray-400);
+  --sh-property: var(--gray-1000);
+  --sh-entity: var(--gray-1000);
+  --sh-jsxliterals: var(--gray-1000);
+  --sh-string: var(--gray-700);
+  --sh-keyword: var(--gray-1000);
+  --sh-comment: var(--gray-550);
 
   --shadow-alpha-100: 0.2;
   --shadow-alpha-200: 0.2;
@@ -201,6 +213,111 @@
   --color-warning: var(--warning);
   --color-ring: var(--ring);
 
+  /* Primitives — keep utilities on the design scale (not Tailwind defaults) */
+  --color-white: var(--white);
+  --color-black: var(--black);
+
+  --color-gray-0: var(--gray-0);
+  --color-gray-25: var(--gray-25);
+  --color-gray-50: var(--gray-50);
+  --color-gray-75: var(--gray-75);
+  --color-gray-100: var(--gray-100);
+  --color-gray-150: var(--gray-150);
+  --color-gray-200: var(--gray-200);
+  --color-gray-250: var(--gray-250);
+  --color-gray-300: var(--gray-300);
+  --color-gray-350: var(--gray-350);
+  --color-gray-400: var(--gray-400);
+  --color-gray-450: var(--gray-450);
+  --color-gray-500: var(--gray-500);
+  --color-gray-550: var(--gray-550);
+  --color-gray-600: var(--gray-600);
+  --color-gray-650: var(--gray-650);
+  --color-gray-700: var(--gray-700);
+  --color-gray-750: var(--gray-750);
+  --color-gray-800: var(--gray-800);
+  --color-gray-850: var(--gray-850);
+  --color-gray-900: var(--gray-900);
+  --color-gray-925: var(--gray-925);
+  --color-gray-950: var(--gray-950);
+  --color-gray-975: var(--gray-975);
+  --color-gray-1000: var(--gray-1000);
+
+  --color-red-25: var(--red-25);
+  --color-red-50: var(--red-50);
+  --color-red-75: var(--red-75);
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  --color-red-300: var(--red-300);
+  --color-red-400: var(--red-400);
+  --color-red-500: var(--red-500);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-red-800: var(--red-800);
+  --color-red-900: var(--red-900);
+  --color-red-950: var(--red-950);
+  --color-red-1000: var(--red-1000);
+
+  --color-blue-25: var(--blue-25);
+  --color-blue-50: var(--blue-50);
+  --color-blue-75: var(--blue-75);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+  --color-blue-950: var(--blue-950);
+  --color-blue-1000: var(--blue-1000);
+
+  --color-green-25: var(--green-25);
+  --color-green-50: var(--green-50);
+  --color-green-75: var(--green-75);
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-green-900: var(--green-900);
+  --color-green-950: var(--green-950);
+  --color-green-1000: var(--green-1000);
+
+  --color-orange-25: var(--orange-25);
+  --color-orange-50: var(--orange-50);
+  --color-orange-75: var(--orange-75);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: var(--orange-300);
+  --color-orange-400: var(--orange-400);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: var(--orange-900);
+  --color-orange-950: var(--orange-950);
+  --color-orange-1000: var(--orange-1000);
+
+  --color-yellow-25: var(--yellow-25);
+  --color-yellow-50: var(--yellow-50);
+  --color-yellow-75: var(--yellow-75);
+  --color-yellow-100: var(--yellow-100);
+  --color-yellow-200: var(--yellow-200);
+  --color-yellow-300: var(--yellow-300);
+  --color-yellow-400: var(--yellow-400);
+  --color-yellow-500: var(--yellow-500);
+  --color-yellow-600: var(--yellow-600);
+  --color-yellow-700: var(--yellow-700);
+  --color-yellow-800: var(--yellow-800);
+  --color-yellow-900: var(--yellow-900);
+  --color-yellow-950: var(--yellow-950);
+  --color-yellow-1000: var(--yellow-1000);
+
   --font-sans: "Söhne", "Sohne", -apple-system, BlinkMacSystemFont, "Segoe UI",
     system-ui, sans-serif;
   --font-display: "Signifier", "Iowan Old Style", "Palatino Linotype", Palatino,
@@ -236,6 +353,8 @@
   --shadow-xl: var(--shadow-400);
   --shadow-hairline: var(--elevation-hairline);
   --inset-shadow-hairline: inset var(--elevation-hairline);
+  --inset-shadow-solid-top: var(--elevation-solid-top);
+  --inset-shadow-outline-top: var(--elevation-outline-top);
 
   /* Body text scale (Apps SDK: text-lg → text-2xs) */
   --text-lg: 1.125rem;
