@@ -46,28 +46,49 @@ export type BrandWordmarkProps = {
   markSize?: number
   /** Show full “Standard UI” or short “UI” */
   compact?: boolean
+  /** Chrome lockups use sm; marketing uses md */
+  size?: "sm" | "md"
 }
 
 export const BrandWordmark = ({
   className,
-  markSize = 28,
+  markSize,
   compact = false,
-}: BrandWordmarkProps) => (
-  <span
-    className={cn(
-      "inline-flex items-center gap-2 text-fg-primary",
-      className,
-    )}
-    aria-label="Standard UI"
-  >
-    <BrandMark size={markSize} title="" aria-hidden />
-    {compact ? (
-      <span className="heading-lg-serif tracking-tight">UI</span>
-    ) : (
-      <span className="inline-flex items-baseline gap-1.5">
-        <span className="heading-lg-serif tracking-tight">Standard</span>
-        <span className="text-sm-strong tracking-tight">UI</span>
-      </span>
-    )}
-  </span>
-)
+  size = "md",
+}: BrandWordmarkProps) => {
+  const resolvedMarkSize = markSize ?? (size === "sm" ? 16 : 28)
+
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-2 text-fg-primary",
+        className,
+      )}
+      aria-label="Standard UI"
+    >
+      <BrandMark size={resolvedMarkSize} title="" aria-hidden />
+      {compact ? (
+        <span
+          className={cn(
+            "tracking-tight",
+            size === "sm" ? "text-sm-strong" : "heading-lg-serif",
+          )}
+        >
+          UI
+        </span>
+      ) : (
+        <span className="inline-flex items-baseline gap-1.5">
+          <span
+            className={cn(
+              "tracking-tight",
+              size === "sm" ? "text-sm-strong font-serif" : "heading-lg-serif",
+            )}
+          >
+            Standard
+          </span>
+          <span className="text-sm-strong tracking-tight">UI</span>
+        </span>
+      )}
+    </span>
+  )
+}

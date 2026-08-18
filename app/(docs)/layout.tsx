@@ -1,5 +1,6 @@
 import { Sidebar } from "@/components/sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TopBar } from "@/components/top-bar"
 import type { ReactNode } from "react"
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
@@ -16,6 +17,9 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           <Sidebar />
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
+          <div className="sticky top-0 z-40 md:hidden">
+            <TopBar />
+          </div>
           <main
             id="main-content"
             tabIndex={-1}

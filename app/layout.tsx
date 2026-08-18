@@ -9,6 +9,16 @@ export const metadata: Metadata = {
   },
   description:
     "The visual foundations and shared language.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
+  openGraph: {
+    title: "Standard UI",
+    description: "The visual foundations and shared language.",
+    siteName: "Standard UI",
+    type: "website",
+  },
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

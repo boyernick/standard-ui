@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CodeBlock } from "@/components/code-block";
-import { DocCell, DocTable } from "@/components/doc-table";
+import { DocCell, DocTable, Token } from "@/components/doc-table";
 import { PageHeader } from "@/components/page-header";
 import { EmptyExamples } from "./empty-examples";
 
@@ -20,8 +20,11 @@ export default function EmptyPage() {
       <section className="mt-14">
         <h2 className="heading-sm text-fg-primary">Overview</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Compose an icon, concise title, supporting description, and an
-          optional recovery action.
+          Compose an icon or illustration, concise title, supporting
+          description, and an optional recovery action. Pair with{" "}
+          <Token>IllustrationEmpty</Token>, <Token>IllustrationError</Token>,
+          or <Token>IllustrationSearch</Token> when the state needs more
+          presence.
         </p>
         <CodeBlock
           className="mt-4"

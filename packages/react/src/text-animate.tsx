@@ -142,7 +142,7 @@ export const TextAnimate = ({
     <Tag
       className={cn(
         "inline-block text-fg-primary",
-        effect === "typewriter" && !done && "after:ml-0.5 after:inline-block after:h-[1em] after:w-px after:translate-y-[0.1em] after:bg-current after:align-baseline after:content-[''] after:animate-pulse",
+        effect === "typewriter" && !done && "after:ml-0.5 after:inline-block after:h-[1em] after:w-px after:translate-y-[0.1em] after:bg-current after:align-baseline after:content-[''] after:animate-pulse motion-reduce:after:animate-none",
         className,
       )}
       aria-label={text}

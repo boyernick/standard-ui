@@ -1,6 +1,6 @@
 "use client"
 
-import { BrandMark } from "@standard-ui/react"
+import { BrandWordmark } from "@standard-ui/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { EdgeFade } from "@/components/edge-fade"
@@ -10,6 +10,13 @@ const isActive = (pathname: string, href: string) => {
   if (href === "/") return pathname === "/"
   return pathname === href || pathname.startsWith(`${href}/`)
 }
+
+const navLinkClass = (active: boolean) =>
+  `block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+    active
+      ? "text-sm bg-background-tertiary text-fg-primary"
+      : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
+  }`
 
 export const Sidebar = () => {
   const pathname = usePathname()
@@ -24,11 +31,10 @@ export const Sidebar = () => {
           <div className="relative px-5 pt-5 pb-4">
             <Link
               href="/"
-              className="text-sm-strong inline-flex items-center gap-1.5 text-fg-primary"
+              className="inline-flex cursor-pointer outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
               aria-label="Standard UI"
             >
-              <BrandMark size={16} title="" aria-hidden />
-              UI
+              <BrandWordmark compact size="sm" />
             </Link>
           </div>
         </div>
@@ -42,14 +48,7 @@ export const Sidebar = () => {
               const active = isActive(pathname, item.href)
               return (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`block rounded-md px-2 py-1.5 transition-colors ${
-                      active
-                        ? "text-sm bg-background-tertiary text-fg-primary"
-                        : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-                    }`}
-                  >
+                  <Link href={item.href} className={navLinkClass(active)}>
                     {item.label}
                   </Link>
                 </li>
@@ -65,14 +64,7 @@ export const Sidebar = () => {
               const active = isActive(pathname, item.href)
               return (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`block rounded-md px-2 py-1.5 transition-colors ${
-                      active
-                        ? "text-sm bg-background-tertiary text-fg-primary"
-                        : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-                    }`}
-                  >
+                  <Link href={item.href} className={navLinkClass(active)}>
                     {item.label}
                   </Link>
                 </li>

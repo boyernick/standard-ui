@@ -58,7 +58,7 @@ export const PaginationPrevious = ({
   ...props
 }: PaginationPreviousProps) => (
   <PaginationLink className={cn("w-auto gap-1 px-3", className)} {...props}>
-    <IconChevronRightSmall className="rotate-180" />
+    <IconChevronRightSmall className="rotate-180" aria-hidden />
     {children}
   </PaginationLink>
 );
@@ -70,7 +70,7 @@ export const PaginationNext = ({
 }: PaginationNextProps) => (
   <PaginationLink className={cn("w-auto gap-1 px-3", className)} {...props}>
     {children}
-    <IconChevronRightSmall />
+    <IconChevronRightSmall aria-hidden />
   </PaginationLink>
 );
 

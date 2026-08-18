@@ -48,7 +48,7 @@ const buttonVariants = cva(
 
 const ButtonSpinner = ({ className }: { className?: string }) => (
   <svg
-    className={cn("size-4 animate-spin", className)}
+    className={cn("size-4 animate-spin motion-reduce:animate-none", className)}
     viewBox="0 0 24 24"
     fill="none"
     aria-hidden

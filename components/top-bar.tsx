@@ -1,12 +1,13 @@
 "use client"
 
 import {
-  BrandMark,
+  BrandWordmark,
   IconMagnifyingGlass,
   Input,
 } from "@standard-ui/react"
 import Link from "next/link"
 import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react"
+import { MobileNav } from "./mobile-nav"
 import { ThemeToggle } from "./theme-toggle"
 
 export function TopBar() {
@@ -56,14 +57,14 @@ export function TopBar() {
   }
 
   return (
-    <header className="flex h-14 items-center gap-3 border-b border-border-primary bg-background-primary px-4 md:px-6">
+    <header className="flex h-14 items-center gap-2 border-b border-border-primary bg-background-primary px-3 sm:gap-3 sm:px-4">
+      <MobileNav />
       <Link
         href="/"
-        className="text-sm-strong inline-flex shrink-0 items-center gap-1.5 text-fg-primary md:hidden"
+        className="inline-flex shrink-0 cursor-pointer outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
         aria-label="Standard UI"
       >
-        <BrandMark size={16} title="" aria-hidden />
-        UI
+        <BrandWordmark compact size="sm" />
       </Link>
       <div className="relative min-w-0 flex-1">
         <span className="pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-fg-tertiary">

@@ -2,8 +2,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "./lib/cn";
 
-const spinnerVariants = cva("animate-spin text-current", {
-  variants: {
+const spinnerVariants = cva(
+  "animate-spin text-current motion-reduce:animate-none",
+  {  variants: {
     size: {
       sm: "size-3.5",
       md: "size-4",
