@@ -1,6 +1,7 @@
 "use client"
 
 import { IconCrossMedium } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCrossMedium"
+import { Button, Input } from "@standard-ui/react"
 import {
   useDeferredValue,
   useEffect,
@@ -201,24 +202,29 @@ export const IconsDemo = () => {
               <label className="sr-only" htmlFor="icon-search">
                 Search icons
               </label>
-              <input
+              <Input
                 id="icon-search"
                 type="search"
+                variant="ghost"
                 value={query}
                 onChange={handleQueryChange}
-                placeholder="Search icons..."
+                placeholder="Search icons…"
                 autoComplete="off"
-                className="text-sm w-full bg-transparent py-4 pr-10 text-fg-primary outline-none placeholder:text-fg-quaternary [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                className="h-auto rounded-none py-4 pr-10 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
               />
               {query ? (
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="md"
+                  iconOnly
+                  rounded
                   onClick={handleClearQuery}
                   aria-label="Clear search"
-                  className="absolute top-1/2 right-4 flex size-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-fg-tertiary transition-colors hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary focus-visible:text-fg-primary focus-visible:outline-none"
+                  className="absolute top-1/2 right-2 -translate-y-1/2 text-fg-tertiary hover:text-fg-primary"
                 >
                   <IconCrossMedium size={16} mode="raw" aria-hidden />
-                </button>
+                </Button>
               ) : null}
             </div>
             <div

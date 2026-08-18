@@ -42,7 +42,6 @@ export default function SelectPage() {
   SelectList,
   SelectItem,
   SelectItemText,
-  SelectItemIndicator,
 } from "@standard-ui/react"
 
 <Select
@@ -59,7 +58,6 @@ export default function SelectPage() {
         <SelectList>
           <SelectItem value="apple">
             <SelectItemText>Apple</SelectItemText>
-            <SelectItemIndicator />
           </SelectItem>
         </SelectList>
       </SelectPopup>
@@ -106,8 +104,7 @@ export default function SelectPage() {
       SelectPopup
         SelectList
           SelectItem
-            SelectItemText
-            SelectItemIndicator`}
+            SelectItemText`}
         />
       </section>
 

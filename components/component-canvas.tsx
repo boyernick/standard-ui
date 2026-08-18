@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, IconChevronBottom } from "@standard-ui/react"
+import { Button, IconChevronRightSmall } from "@standard-ui/react"
 import { useId, useState, type ReactNode } from "react"
 import { CodeBlock } from "@/components/code-block"
 
@@ -64,12 +64,12 @@ export const ComponentCanvas = ({
                 aria-expanded={codeOpen}
                 aria-controls={codeId}
                 onClick={handleToggleCode}
-                className="text-xs text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary focus-visible:ring-offset-background-secondary"
+                className="gap-1 text-xs text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary focus-visible:ring-offset-background-secondary"
                 suffix={
-                  <IconChevronBottom
+                  <IconChevronRightSmall
                     size={14}
                     aria-hidden
-                    className={`transition-transform ${codeOpen ? "rotate-180" : ""}`}
+                    className={`transition-transform ${codeOpen ? "rotate-90" : ""}`}
                   />
                 }
               >

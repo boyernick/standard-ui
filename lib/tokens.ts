@@ -328,6 +328,44 @@ export const shadows = [
   },
 ] as const
 
+export const glass = [
+  {
+    name: "blur",
+    label: "Blur",
+    className: "backdrop-blur-md backdrop-saturate-150",
+    value: "12px + saturate",
+    usage: "Frosted glass behind sticky edges and floating chrome",
+  },
+  {
+    name: "tint-strong",
+    label: "Tint strong",
+    className: "from-surface/80",
+    value: "80%",
+    usage: "Start of an edge fade — keeps content readable",
+  },
+  {
+    name: "tint-soft",
+    label: "Tint soft",
+    className: "via-surface/40",
+    value: "40%",
+    usage: "Mid stop before the edge becomes fully clear",
+  },
+  {
+    name: "edge-top",
+    label: "Edge top",
+    className: "EdgeFade edge=\"top\"",
+    value: "shared mask 35% → 0%",
+    usage: "Sticky headers and scroll tops (logo bars, page chrome)",
+  },
+  {
+    name: "edge-bottom",
+    label: "Edge bottom",
+    className: "EdgeFade edge=\"bottom\"",
+    value: "shared mask 0% → 65%",
+    usage: "Scroll bottoms — keep last items clear with padding",
+  },
+] as const
+
 export function cssVar(name: string) {
   return `var(${name.startsWith("--") ? name : `--${name}`})`
 }

@@ -4,7 +4,6 @@ import {
   Select,
   SelectIcon,
   SelectItem,
-  SelectItemIndicator,
   SelectItemText,
   SelectList,
   SelectPopup,
@@ -44,15 +43,12 @@ export const SelectExamples = () => (
         <SelectList>
           <SelectItem value="apple">
             <SelectItemText>Apple</SelectItemText>
-            <SelectItemIndicator />
           </SelectItem>
           <SelectItem value="banana">
             <SelectItemText>Banana</SelectItemText>
-            <SelectItemIndicator />
           </SelectItem>
           <SelectItem value="cherry">
             <SelectItemText>Cherry</SelectItemText>
-            <SelectItemIndicator />
           </SelectItem>
         </SelectList>
       </SelectPopup>
@@ -71,15 +67,12 @@ export const SelectExamples = () => (
               <SelectList>
                 <SelectItem value="apple">
                   <SelectItemText>Apple</SelectItemText>
-                  <SelectItemIndicator />
                 </SelectItem>
                 <SelectItem value="banana">
                   <SelectItemText>Banana</SelectItemText>
-                  <SelectItemIndicator />
                 </SelectItem>
                 <SelectItem value="cherry">
                   <SelectItemText>Cherry</SelectItemText>
-                  <SelectItemIndicator />
                 </SelectItem>
               </SelectList>
             </SelectPopup>

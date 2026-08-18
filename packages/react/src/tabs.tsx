@@ -28,7 +28,7 @@ export const TabsList = ({ className, ...props }: TabsListProps) => (
 export const TabsTab = ({ className, ...props }: TabsTabProps) => (
   <BaseTabs.Tab
     className={cn(
-      "relative px-3 py-2.5 text-sm text-fg-tertiary outline-none select-none",
+      "relative cursor-pointer px-3 py-2.5 text-sm text-fg-tertiary outline-none select-none",
       motion.colors,
       "hover:text-fg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-active:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,

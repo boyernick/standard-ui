@@ -2,11 +2,13 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { CodeBlock } from "@/components/code-block"
 import {
+  GlassPreview,
+  GlassTokenList,
   RadiusPreviewList,
   ShadowPreviewList,
 } from "@/components/materials-preview"
 import { PageHeader } from "@/components/page-header"
-import { radii, shadows } from "@/lib/tokens"
+import { glass, radii, shadows } from "@/lib/tokens"
 
 export const metadata: Metadata = {
   title: "Materials",
@@ -66,13 +68,14 @@ export default function MaterialsPage() {
     <div className="mx-auto max-w-5xl">
       <PageHeader
         title="Materials"
-        description="Elevation and radius tokens for depth and surface shape."
+        description="Elevation, radius, and glass edge fades for depth and scroll chrome."
       />
 
       <p className="text-md max-w-3xl text-fg-secondary">
         Use elevation for floating surfaces. Pair with{" "}
         <Token>shadow-hairline</Token> or a border for edges — lift and edge are
-        separate tokens.
+        separate tokens. Use glass fades when content scrolls under sticky
+        chrome.
       </p>
 
       <div className="mt-6">
@@ -82,11 +85,12 @@ export default function MaterialsPage() {
       <section className="mt-14">
         <h2 className="heading-sm text-fg-primary">Overview</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Materials cover how surfaces lift and how corners round. Shadows use
-          elevation levels <Token>100</Token>–<Token>400</Token>, exposed as{" "}
-          <Token>shadow-sm</Token> through <Token>shadow-xl</Token>, plus a
-          dedicated hairline edge. Radius runs from <Token>2xs</Token> to{" "}
-          <Token>4xl</Token>.
+          Materials cover how surfaces lift, how corners round, and how scroll
+          edges soften. Shadows use elevation levels <Token>100</Token>–
+          <Token>400</Token>, exposed as <Token>shadow-sm</Token> through{" "}
+          <Token>shadow-xl</Token>, plus a dedicated hairline edge. Radius runs
+          from <Token>2xs</Token> to <Token>4xl</Token>. Glass pairs masked{" "}
+          <Token>backdrop-blur-md</Token> with a surface tint gradient.
         </p>
       </section>
 
@@ -233,6 +237,99 @@ export default function MaterialsPage() {
             </tr>
           ))}
         </DocTable>
+
+        <h3 className="heading-xs mt-10 text-fg-primary">Nested radius</h3>
+        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
+          When a rounded child sits inside a padded, rounded parent, keep curves
+          concentric:{" "}
+          <Token>inner = outer − padding</Token>. Pick the nearest lower scale
+          step when the result is not exact.
+        </p>
+        <DocTable headers={["Outer", "Padding", "Inner"]}>
+          {(
+            [
+              ["rounded-md (8)", "p-1 (4)", "rounded-xs (4)"],
+              ["rounded-lg (10)", "p-0.5 (2)", "rounded-md (8)"],
+              ["rounded-xl (12)", "p-1 (4)", "rounded-md (8)"],
+              ["rounded-xl (12)", "p-1.5 (6)", "rounded-sm (6)"],
+              ["rounded-xl (12)", "p-2 (8)", "rounded-xs (4)"],
+            ] as const
+          ).map(([outer, padding, inner]) => (
+            <tr key={`${outer}-${padding}`}>
+              <DocCell mono>{outer}</DocCell>
+              <DocCell mono>{padding}</DocCell>
+              <DocCell mono>{inner}</DocCell>
+            </tr>
+          ))}
+        </DocTable>
+        <CodeBlock
+          className="mt-4"
+          lang="tsx"
+          size="sm"
+          code={`{/* Select popup: rounded-md + p-1 → items use rounded-xs */}
+<div className="rounded-md border p-1">
+  <button type="button" className="rounded-xs px-2.5 py-1.5">
+    Apple
+  </button>
+</div>`}
+        />
+      </section>
+
+      <section className="mt-14">
+        <h2 className="heading-sm text-fg-primary">Glass</h2>
+        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
+          Soften content as it scrolls under sticky chrome. Stack a masked blur
+          with a tint gradient — not a solid translucent bar. Prefer{" "}
+          <Token>EdgeFade</Token> so top and bottom edges stay consistent.
+        </p>
+        <div className="mt-6">
+          <GlassPreview />
+        </div>
+        <div className="mt-6">
+          <GlassTokenList />
+        </div>
+        <DocTable headers={["Layer", "Recipe", "Role"]}>
+          {glass.map((item) => (
+            <tr key={item.name}>
+              <DocCell>{item.label}</DocCell>
+              <DocCell mono>{item.className}</DocCell>
+              <DocCell>{item.usage}.</DocCell>
+            </tr>
+          ))}
+        </DocTable>
+
+        <h3 className="heading-xs mt-10 text-fg-primary">Composition</h3>
+        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
+          Two absolute layers behind the chrome. Blur and tint share one mask
+          so they ease out together — separate fade curves read as a milky wash.
+          Tint uses <Token>from-surface/80 via-surface/40 to-transparent</Token>{" "}
+          (or <Token>background-primary</Token> on the page canvas). Avoid{" "}
+          <Token>overflow: hidden</Token> on ancestors of the fade or
+          backdrop-filter may not sample the scrolling content.
+        </p>
+        <CodeBlock
+          className="mt-4"
+          lang="tsx"
+          code={`import { EdgeFade } from "@/components/edge-fade"
+
+<div className="sticky top-0 z-10">
+  <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+0.75rem)]">
+    <EdgeFade edge="top" tone="surface" />
+  </div>
+  <div className="relative px-5 pt-5 pb-4">
+    {/* sticky chrome */}
+  </div>
+</div>
+
+{/* Bottom edge — pin to the scroll viewport */}
+<div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-12">
+  <EdgeFade edge="bottom" tone="surface" />
+</div>`}
+        />
+        <p className="text-md mt-4 max-w-3xl text-fg-secondary">
+          Add bottom padding on the scroll content so the last items can clear
+          the fade (about the same height as the bottom edge).
+        </p>
       </section>
 
       <section className="mt-14 mb-8">
@@ -258,12 +355,20 @@ export default function MaterialsPage() {
             <Token>rounded-xl</Token>) over custom radii
           </li>
           <li>
+            Nest radii with <Token>inner = outer − padding</Token> (e.g. select
+            items inside a padded popup)
+          </li>
+          <li>
             Use <Token>border</Token> or <Token>shadow-hairline</Token> for flat
             layout chrome
           </li>
+          <li>
+            Use masked <Token>backdrop-blur-md</Token> plus a tint gradient for
+            scroll edges — prefer <Token>EdgeFade</Token>
+          </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don't</h3>
+        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don’t invent one-off multi-glow shadows outside the scale</li>
           <li>
@@ -275,8 +380,19 @@ export default function MaterialsPage() {
             Don’t use <Token>rounded-[13px]</Token> when a scale step exists
           </li>
           <li>
+            Don’t reuse the parent radius on a padded child — curves will clash
+          </li>
+          <li>
             Don’t skip transitions when elevation changes — abrupt lifts feel
             broken
+          </li>
+          <li>
+            Don’t cover titles or last nav items with an oversized edge fade —
+            keep the fade short and pad the scroll content
+          </li>
+          <li>
+            Don’t use a flat opaque bar when the intent is glass — always mask
+            the blur and fade the tint to transparent
           </li>
         </ul>
       </section>

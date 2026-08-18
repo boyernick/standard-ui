@@ -1,19 +1,17 @@
 ---
-description: Use CSS/web-standard cursors — pointer means link, not “clickable”
+description: Cursor conventions — pointer for links and buttons; keep other keywords semantic
 globs: "**/*.{tsx,jsx,css}"
 alwaysApply: true
 ---
 
-# Cursor styles (web standards)
+# Cursor styles
 
-Match the [CSS `cursor` keywords](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) and platform defaults. The cursor should communicate **what will happen**, not merely that something is clickable.
-
-Per the CSS UI / W3C definition: **`pointer` indicates a link** — not buttons or other controls.
+The cursor should communicate **what will happen**. In Standard UI, **buttons and links both use `cursor-pointer`**.
 
 | Interaction | Cursor | Use when |
 |---|---|---|
 | Link / navigation | `cursor-pointer` | `<a href>`, Next.js `<Link>`, or controls that navigate like a link |
-| Button / control | default (omit) | `<button>`, tabs, switches, icon buttons, clear/dismiss, menus — keep the platform arrow |
+| Button / control | `cursor-pointer` | `<button>`, `Button`, toggles, tabs, accordion/collapsible/select triggers |
 | Text / selection | `cursor-text` | Inputs, textareas, selectable text regions |
 | Copy | `cursor-copy` | Primary action is copy to clipboard (or drag-copy) |
 | Not allowed | `cursor-not-allowed` | Disabled or blocked actions (`disabled:cursor-not-allowed`) |
@@ -27,20 +25,13 @@ Per the CSS UI / W3C definition: **`pointer` indicates a link** — not buttons 
 | Zoom | `cursor-zoom-in` / `cursor-zoom-out` | Zoom affordances |
 
 ```tsx
-// ❌ BAD — pointer on a button (pointer means “link” in CSS)
+// ✅ GOOD — buttons use pointer
 <button type="button" onClick={handleClear} className="cursor-pointer ..." />
-
-// ✅ GOOD — native button keeps the default arrow
-<button type="button" onClick={handleClear} className="..." />
+<Button type="button">Save</Button>
 
 // ✅ GOOD — real navigation gets pointer
 <Link href="/colors" className="cursor-pointer ...">Colors</Link>
 <a href="https://example.com" className="cursor-pointer ...">Docs</a>
-
-// ✅ GOOD — exception: a button styled and behaving as a text link
-<button type="button" className="cursor-pointer underline text-fg-primary ...">
-  View details
-</button>
 
 // ✅ GOOD — copy affordance
 <button type="button" onClick={handleCopy} className="cursor-copy ..." />
@@ -51,9 +42,9 @@ Per the CSS UI / W3C definition: **`pointer` indicates a link** — not buttons 
 
 Rules of thumb:
 
-- Prefer **semantic elements** (`<a>` / `<button>`) and let the UA default stand unless you need a specific keyword above.
-- Do **not** add `cursor-pointer` to every clickable control. Reserve it for links and link-like navigation.
-- If a `<button>` is visually and behaviorally a text link, `cursor-pointer` is OK so it matches link affordance.
+- Prefer **semantic elements** (`<a>` / `<button>`).
+- Put `cursor-pointer` on `Button` and button-like triggers (tabs, toggles, accordion, select).
 - Don’t put interactive cursors on non-interactive wrappers (`div`/`span` with no activation behavior).
-- Disabled: use `disabled:cursor-not-allowed` (and reduce hover affordance).
-- Prefer `cursor-copy` when the primary action is copying — not `cursor-pointer`.
+- Disabled: use `disabled:cursor-not-allowed` / `data-disabled:cursor-not-allowed` (and reduce hover affordance).
+- Prefer `cursor-copy` when the primary action is copying.
+- Switches and checkboxes may keep the default arrow unless they feel inconsistent with nearby buttons.

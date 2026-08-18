@@ -1,9 +1,11 @@
+"use client"
+
 import { cva, type VariantProps } from "class-variance-authority"
-import type { InputHTMLAttributes } from "react"
+import { forwardRef, type InputHTMLAttributes } from "react"
 import { cn } from "./lib/cn"
 
 const inputVariants = cva(
-  "text-sm flex w-full rounded-md text-fg-primary transition-all duration-150 ease-out placeholder:text-fg-quaternary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50",
+  "text-sm flex w-full cursor-text rounded-md text-fg-primary transition-all duration-150 ease-out placeholder:text-fg-quaternary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -48,18 +50,17 @@ const inputVariants = cva(
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> &
   VariantProps<typeof inputVariants>
 
-export const Input = ({
-  className,
-  variant,
-  size,
-  invalid,
-  ...props
-}: InputProps) => (
-  <input
-    className={cn(inputVariants({ variant, size, invalid }), className)}
-    aria-invalid={invalid || undefined}
-    {...props}
-  />
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, variant, size, invalid, ...props }, ref) => (
+    <input
+      ref={ref}
+      className={cn(inputVariants({ variant, size, invalid }), className)}
+      aria-invalid={invalid || undefined}
+      {...props}
+    />
+  ),
 )
+
+Input.displayName = "Input"
 
 export { inputVariants }

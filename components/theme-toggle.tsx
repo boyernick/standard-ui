@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@standard-ui/react"
 import { IconCircleHalfFill } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCircleHalfFill"
 import { useTheme } from "./theme-provider"
 
@@ -7,14 +8,22 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
   const next = theme === "dark" ? "light" : "dark"
 
+  const handleClick = () => {
+    setTheme(next)
+  }
+
   return (
-    <button
+    <Button
       type="button"
-      onClick={() => setTheme(next)}
+      variant="ghost"
+      size="md"
+      iconOnly
+      rounded
+      onClick={handleClick}
       aria-label={`Switch to ${next} theme`}
-      className="flex size-9 items-center justify-center rounded-full text-fg-tertiary transition-colors hover:bg-background-tertiary hover:text-fg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary"
+      className="text-fg-tertiary hover:text-fg-primary"
     >
       <IconCircleHalfFill size={16} aria-hidden />
-    </button>
+    </Button>
   )
 }

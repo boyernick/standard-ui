@@ -46,7 +46,7 @@ export const AccordionTrigger = ({
 }: AccordionTriggerProps) => (
   <BaseAccordion.Trigger
     className={cn(
-      "group flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm text-fg-primary outline-none",
+      "group flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-left text-sm text-fg-primary outline-none",
       motion.colors,
       "hover:bg-background-tertiary focus-visible:relative focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,

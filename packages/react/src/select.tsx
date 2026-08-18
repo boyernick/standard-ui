@@ -2,7 +2,7 @@
 
 import { Select as BaseSelect } from "@base-ui/react/select"
 import type { ComponentProps } from "react"
-import { IconCheckmark1, IconChevronDownSmall } from "./icons"
+import { IconChevronDownSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
 
@@ -31,7 +31,7 @@ export const SelectTrigger = ({
 }: SelectTriggerProps) => (
   <BaseSelect.Trigger
     className={cn(
-      "flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top outline-none",
+      "flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top outline-none",
       motion.all,
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-disabled:cursor-not-allowed data-disabled:opacity-50 data-placeholder:text-fg-quaternary data-popup-open:border-border-secondary data-popup-open:bg-background-tertiary/60",
       className,
@@ -104,7 +104,7 @@ export const SelectList = ({ className, ...props }: SelectListProps) => (
 export const SelectItem = ({ className, ...props }: SelectItemProps) => (
   <BaseSelect.Item
     className={cn(
-      "flex min-h-8 cursor-default items-center gap-2 rounded-md px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+      "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
       motion.colors,
       "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary data-selected:text-fg-primary",
       className,
@@ -125,7 +125,6 @@ export const SelectItemText = ({
 
 export const SelectItemIndicator = ({
   className,
-  children,
   ...props
 }: SelectItemIndicatorProps) => (
   <BaseSelect.ItemIndicator
@@ -134,9 +133,7 @@ export const SelectItemIndicator = ({
       className,
     )}
     {...props}
-  >
-    {children ?? <IconCheckmark1 size={14} className="size-3.5" aria-hidden />}
-  </BaseSelect.ItemIndicator>
+  />
 )
 
 export const SelectGroup = ({ className, ...props }: SelectGroupProps) => (

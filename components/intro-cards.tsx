@@ -145,7 +145,7 @@ function StructurePreview() {
       </div>
       <div className="flex overflow-hidden rounded-lg border border-border-primary bg-background-secondary">
         <span className="w-6 shrink-0 border-r border-border-primary bg-surface" />
-        <span className="m-1.5 h-10 flex-1 rounded-md border border-dashed border-border-secondary bg-surface" />
+        <span className="m-1.5 h-10 flex-1 rounded-xs border border-dashed border-border-secondary bg-surface" />
       </div>
     </div>
   )
@@ -188,7 +188,7 @@ export function IntroCards() {
       <Card
         href="/components/button"
         title="Components"
-        description="Accordion through Tooltip — controls, overlays, and data display."
+        description="Form controls, overlays, data display, and layout primitives."
       >
         <ComponentsPreview />
       </Card>
