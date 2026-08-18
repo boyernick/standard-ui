@@ -49,7 +49,7 @@ const IconCell = ({ icon }: { icon: GalleryIcon }) => {
       onClick={handleCopy}
       aria-label={copied ? "Copied" : `Copy ${icon.name}`}
       title={copied ? "Copied" : `Copy ${icon.name}`}
-      className="flex h-32 w-full cursor-copy flex-col items-center justify-center gap-3 border-b border-r border-border-primary px-2 transition-colors hover:bg-background-tertiary focus-visible:bg-background-tertiary focus-visible:outline-none sm:h-40 [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r sm:[&:nth-child(4n)]:border-r-0"
+      className="flex h-32 w-full cursor-copy flex-col items-center justify-center gap-3 border-b border-r border-border-primary px-2 transition-colors hover:bg-background-tertiary focus-visible:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 sm:h-40 [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r sm:[&:nth-child(4n)]:border-r-0"
     >
       <IconGlyph svg={icon.svg} />
       <span className="text-xs max-w-full truncate px-1 text-center text-fg-secondary">
@@ -241,7 +241,7 @@ export const IconsDemo = () => {
                     role="tab"
                     aria-selected={active}
                     onClick={() => handleCategorySelect(tab)}
-                    className={`text-sm shrink-0 rounded-full px-3 py-1.5 whitespace-nowrap transition-colors focus-visible:outline-none ${
+                    className={`text-sm shrink-0 rounded-full px-3 py-1.5 whitespace-nowrap transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
                       active
                         ? "bg-background-tertiary text-fg-primary"
                         : "text-fg-tertiary hover:text-fg-secondary"
@@ -277,7 +277,7 @@ export const IconsDemo = () => {
                     <button
                       type="button"
                       onClick={handleIncreaseVisible}
-                      className="text-sm rounded-lg border border-border-primary px-4 py-2 text-fg-secondary transition-colors hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary focus-visible:outline-none"
+                      className="text-sm rounded-lg border border-border-primary px-4 py-2 text-fg-secondary transition-colors hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
                     >
                       Load more
                     </button>
@@ -291,7 +291,7 @@ export const IconsDemo = () => {
             <button
               type="button"
               onClick={handleScrollTop}
-              className="text-sm absolute bottom-4 left-1/2 z-20 inline-flex -translate-x-1/2 cursor-pointer items-center rounded-full border border-border-primary bg-surface/40 px-3.5 py-2 text-fg-secondary shadow-sm backdrop-blur-xl transition-colors hover:bg-surface/60 hover:text-fg-primary focus-visible:bg-surface/60 focus-visible:text-fg-primary focus-visible:outline-none"
+              className="text-sm absolute bottom-4 left-1/2 z-20 inline-flex -translate-x-1/2 cursor-pointer items-center rounded-full border border-border-primary bg-surface/40 px-3.5 py-2 text-fg-secondary shadow-sm backdrop-blur-xl transition-colors hover:bg-surface/60 hover:text-fg-primary focus-visible:bg-surface/60 focus-visible:text-fg-primary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
             >
               Scroll to top
             </button>

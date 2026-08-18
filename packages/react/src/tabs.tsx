@@ -30,7 +30,7 @@ export const TabsTab = ({ className, ...props }: TabsTabProps) => (
     className={cn(
       "relative cursor-pointer px-3 py-2.5 text-sm text-fg-tertiary outline-none select-none",
       motion.colors,
-      "hover:text-fg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-active:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "hover:text-fg-primary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-active:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

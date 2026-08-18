@@ -61,18 +61,22 @@ body {
   color: var(--gray-0);
 }
 
-/* System form accents + default focus → black (token --ring) */
+/* System form accents + default focus → black (token --ring).
+ * Keep these in @layer base so component utilities (e.g. outline-none,
+ * focus rings on InputGroup) can override them. */
 :root {
   accent-color: var(--gray-1000);
 }
 
-:focus {
-  outline: none;
-}
+@layer base {
+  :focus {
+    outline: none;
+  }
 
-:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  :focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--ring) 20%, transparent);
+    outline-offset: 1px;
+  }
 }
 
 body {

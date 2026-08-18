@@ -9,7 +9,7 @@ export type SwitchProps = ComponentProps<typeof BaseSwitch.Root>
 export const Switch = ({ className, ...props }: SwitchProps) => (
   <BaseSwitch.Root
     className={cn(
-      "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full bg-background-quaternary transition-colors duration-150 ease-out motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full bg-background-quaternary transition-colors duration-150 ease-out motion-reduce:transition-none outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

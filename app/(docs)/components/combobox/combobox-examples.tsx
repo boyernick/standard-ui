@@ -10,7 +10,6 @@ import {
   ComboboxInput,
   ComboboxInputGroup,
   ComboboxItem,
-  ComboboxItemIndicator,
   ComboboxList,
   ComboboxPopup,
   ComboboxPortal,
@@ -22,6 +21,7 @@ import { ComponentCanvas } from "@/components/component-canvas"
 
 const fruits = ["Apple", "Banana", "Cherry", "Dragonfruit", "Elderberry"]
 
+/** Combobox docs demos — selection is shown in the field/chips, not with list checkmarks. */
 export const ComboboxExamples = () => (
   <div className="mt-6 flex flex-col gap-8">
     <ComponentCanvas
@@ -43,7 +43,6 @@ export const ComboboxExamples = () => (
           {(item) => (
             <ComboboxItem key={item} value={item}>
               {item}
-              <ComboboxItemIndicator />
             </ComboboxItem>
           )}
         </ComboboxList>
@@ -54,7 +53,10 @@ export const ComboboxExamples = () => (
     >
       <Combobox items={fruits}>
         <ComboboxInputGroup>
-          <ComboboxInput placeholder="Search fruit…" aria-label="Search fruit" />
+          <ComboboxInput
+            placeholder="Search fruit…"
+            aria-label="Search fruit"
+          />
           <ComboboxClear />
           <ComboboxTrigger />
         </ComboboxInputGroup>
@@ -66,7 +68,6 @@ export const ComboboxExamples = () => (
                 {(item) => (
                   <ComboboxItem key={item} value={item}>
                     {item}
-                    <ComboboxItemIndicator />
                   </ComboboxItem>
                 )}
               </ComboboxList>
@@ -104,7 +105,6 @@ export const ComboboxExamples = () => (
           {(item) => (
             <ComboboxItem key={item} value={item}>
               {item}
-              <ComboboxItemIndicator />
             </ComboboxItem>
           )}
         </ComboboxList>
@@ -129,7 +129,7 @@ export const ComboboxExamples = () => (
             <ComboboxInput
               placeholder="Add fruit…"
               aria-label="Add fruit"
-              className="min-w-24 flex-1 px-1"
+              className="h-7 min-w-24 flex-1 rounded-sm px-1"
             />
           </ComboboxChips>
           <ComboboxTrigger />
@@ -142,7 +142,6 @@ export const ComboboxExamples = () => (
                 {(item) => (
                   <ComboboxItem key={item} value={item}>
                     {item}
-                    <ComboboxItemIndicator />
                   </ComboboxItem>
                 )}
               </ComboboxList>

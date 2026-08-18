@@ -2,7 +2,7 @@
 
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox"
 import type { ComponentProps, ReactElement } from "react"
-import { IconCheckmark1, IconChevronDownSmall, IconX } from "./icons"
+import { IconChevronDownSmall, IconCrossSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
 
@@ -64,15 +64,23 @@ export const ComboboxLabel = ({ className, ...props }: ComboboxLabelProps) => (
   />
 )
 
+const inputGroupAccessoryClassName = cn(
+  "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center text-fg-tertiary outline-none",
+  motion.colors,
+  "hover:text-fg-primary focus-visible:bg-background-tertiary focus-visible:text-fg-primary focus-visible:outline-none data-disabled:cursor-not-allowed",
+)
+
 export const ComboboxInputGroup = ({
   className,
   ...props
 }: ComboboxInputGroupProps) => (
   <BaseCombobox.InputGroup
     className={cn(
-      "relative flex min-h-9 w-full items-center rounded-md border border-border-secondary bg-surface inset-shadow-outline-top",
-      "has-[[data-popup-open]]:border-border-secondary has-[[data-popup-open]]:bg-background-tertiary/60",
-      "has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background-primary",
+      "relative flex min-h-9 w-full items-center rounded-md border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[color,box-shadow]",
+      "has-[[data-popup-open]]:bg-background-tertiary/60",
+      "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20",
+      "aria-invalid:border-destructive aria-invalid:focus-within:border-destructive aria-invalid:focus-within:ring-destructive/20",
+      "has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20",
       "has-[:disabled]:opacity-50",
       className,
     )}
@@ -83,7 +91,7 @@ export const ComboboxInputGroup = ({
 export const ComboboxInput = ({ className, ...props }: ComboboxInputProps) => (
   <BaseCombobox.Input
     className={cn(
-      "h-full min-w-0 flex-1 cursor-text bg-transparent px-3 text-sm text-fg-primary outline-none placeholder:text-fg-quaternary",
+      "h-9 min-w-0 flex-1 cursor-text rounded-md bg-transparent px-3 text-sm text-fg-primary outline-none placeholder:text-fg-quaternary focus-visible:ring-0",
       className,
     )}
     {...props}
@@ -96,12 +104,7 @@ export const ComboboxTrigger = ({
   ...props
 }: ComboboxTriggerProps) => (
   <BaseCombobox.Trigger
-    className={cn(
-      "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center text-fg-tertiary outline-none",
-      motion.colors,
-      "hover:text-fg-primary focus-visible:outline-none data-disabled:cursor-not-allowed",
-      className,
-    )}
+    className={cn(inputGroupAccessoryClassName, className)}
     {...props}
   >
     {children ?? <ComboboxIcon />}
@@ -132,15 +135,12 @@ export const ComboboxClear = ({
   ...props
 }: ComboboxClearProps) => (
   <BaseCombobox.Clear
-    className={cn(
-      "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center text-fg-tertiary outline-none",
-      motion.colors,
-      "hover:text-fg-primary focus-visible:outline-none",
-      className,
-    )}
+    className={cn(inputGroupAccessoryClassName, className)}
     {...props}
   >
-    {children ?? <IconX size={14} className="size-3.5" aria-hidden />}
+    {children ?? (
+      <IconCrossSmall size={14} className="size-3.5" aria-hidden />
+    )}
   </BaseCombobox.Clear>
 )
 
@@ -209,7 +209,7 @@ export const ComboboxItem = ({ className, ...props }: ComboboxItemProps) => (
     className={cn(
       "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
       motion.colors,
-      "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary",
+      "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary data-highlighted:text-fg-primary",
       className,
     )}
     {...props}
@@ -220,17 +220,21 @@ export const ComboboxItemIndicator = ({
   className,
   children,
   ...props
-}: ComboboxItemIndicatorProps) => (
-  <BaseCombobox.ItemIndicator
-    className={cn(
-      "ml-auto flex size-4 shrink-0 items-center justify-center text-fg-primary data-unchecked:hidden",
-      className,
-    )}
-    {...props}
-  >
-    {children ?? <IconCheckmark1 size={14} className="size-3.5" aria-hidden />}
-  </BaseCombobox.ItemIndicator>
-)
+}: ComboboxItemIndicatorProps) => {
+  if (children == null) return null
+
+  return (
+    <BaseCombobox.ItemIndicator
+      className={cn(
+        "ml-auto flex size-4 shrink-0 items-center justify-center text-fg-primary data-unchecked:hidden",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </BaseCombobox.ItemIndicator>
+  )
+}
 
 export const ComboboxEmpty = ({ className, ...props }: ComboboxEmptyProps) => (
   <BaseCombobox.Empty
@@ -301,12 +305,14 @@ export const ComboboxChipRemove = ({
 }: ComboboxChipRemoveProps) => (
   <BaseCombobox.ChipRemove
     className={cn(
-      "inline-flex size-3.5 cursor-pointer items-center justify-center text-fg-tertiary outline-none hover:text-fg-primary",
+      "inline-flex size-3.5 cursor-pointer items-center justify-center text-fg-tertiary outline-none hover:text-fg-primary focus-visible:outline-none",
       className,
     )}
     {...props}
   >
-    {children ?? <IconX size={12} className="size-3" aria-hidden />}
+    {children ?? (
+      <IconCrossSmall size={12} className="size-3" aria-hidden />
+    )}
   </BaseCombobox.ChipRemove>
 )
 

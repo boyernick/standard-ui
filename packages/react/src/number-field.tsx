@@ -35,8 +35,10 @@ export const NumberFieldGroup = ({
 }: NumberFieldGroupProps) => (
   <BaseNumberField.Group
     className={cn(
-      "flex h-9 w-full items-stretch overflow-hidden rounded-md border border-border-secondary bg-surface inset-shadow-outline-top",
-      "has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background-primary",
+      "flex h-9 w-full items-stretch overflow-hidden rounded-md border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[color,box-shadow]",
+      "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20",
+      "aria-invalid:border-destructive aria-invalid:focus-within:border-destructive aria-invalid:focus-within:ring-destructive/20",
+      "has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20",
       "has-[:disabled]:opacity-50",
       className,
     )}
@@ -50,7 +52,7 @@ export const NumberFieldInput = ({
 }: NumberFieldInputProps) => (
   <BaseNumberField.Input
     className={cn(
-      "h-full min-w-0 flex-1 cursor-text border-x border-border-primary bg-transparent px-2 text-center text-sm tabular-nums text-fg-primary outline-none",
+      "h-full min-w-0 flex-1 cursor-text border-x border-border-primary bg-transparent px-2 text-center text-sm tabular-nums text-fg-primary outline-none focus-visible:outline-none",
       className,
     )}
     {...props}
@@ -60,7 +62,7 @@ export const NumberFieldInput = ({
 const stepperClassName = cn(
   "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center text-fg-tertiary outline-none",
   motion.colors,
-  "hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary focus-visible:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+  "hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary focus-visible:text-fg-primary focus-visible:outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50",
 )
 
 export const NumberFieldDecrement = ({

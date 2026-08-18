@@ -64,7 +64,7 @@ export const ComponentCanvas = ({
                 aria-expanded={codeOpen}
                 aria-controls={codeId}
                 onClick={handleToggleCode}
-                className="gap-1 text-xs text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary focus-visible:ring-offset-background-secondary"
+                className="gap-1 text-xs text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                 suffix={
                   <IconChevronRightSmall
                     size={14}

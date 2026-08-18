@@ -28,7 +28,7 @@ const CopyRow = ({
       onClick={handleCopy}
       aria-label={copied ? "Copied" : `Copy ${copyValue}`}
       title={copied ? "Copied" : `Copy ${copyValue}`}
-      className="group flex w-full cursor-copy items-center gap-4 border-b border-border-primary px-4 py-4 text-left transition-colors last:border-b-0 hover:bg-background-tertiary focus-visible:bg-background-tertiary focus-visible:outline-none sm:px-5"
+      className="group flex w-full cursor-copy items-center gap-4 border-b border-border-primary px-4 py-4 text-left transition-colors last:border-b-0 hover:bg-background-tertiary focus-visible:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 sm:px-5"
     >
       {children}
       <span className="sr-only">{copied ? "Copied" : copyValue}</span>

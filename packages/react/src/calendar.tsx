@@ -10,7 +10,7 @@ export type CalendarProps = DayPickerProps
 const navButtonClassName = cn(
   "inline-flex size-8 items-center justify-center rounded-md text-fg-tertiary",
   motion.colors,
-  "hover:bg-background-tertiary hover:text-fg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50",
+  "hover:bg-background-tertiary hover:text-fg-primary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50",
 )
 
 const CalendarChevron = ({
@@ -64,7 +64,7 @@ export const Calendar = ({
       day_button: cn(
         "inline-flex size-8 items-center justify-center rounded-md text-sm text-fg-primary",
         motion.colors,
-        "hover:bg-background-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50 aria-selected:opacity-100",
+        "hover:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 aria-selected:opacity-100",
       ),
       selected:
         "[&>button]:bg-brand-primary [&>button]:text-brand-foreground [&>button]:ring-0 [&>button]:hover:bg-brand-primary-hover [&>button]:hover:text-brand-foreground",

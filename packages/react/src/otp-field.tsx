@@ -21,7 +21,8 @@ export const OTPFieldInput = ({ className, ...props }: OTPFieldInputProps) => (
     className={cn(
       "size-10 rounded-md border border-border-secondary bg-surface text-center text-sm tabular-nums text-fg-primary inset-shadow-outline-top outline-none",
       motion.colors,
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary",
+      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20",
       "data-disabled:cursor-not-allowed data-disabled:opacity-50",
       "data-filled:border-border-secondary",
       className,

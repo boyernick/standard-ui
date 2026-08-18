@@ -48,7 +48,7 @@ export const SliderIndicator = ({
 export const SliderThumb = ({ className, ...props }: SliderThumbProps) => (
   <BaseSlider.Thumb
     className={cn(
-      "size-4 cursor-pointer rounded-full border border-brand-primary-border bg-surface shadow-sm outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "size-4 cursor-pointer rounded-full border border-brand-primary-border bg-surface shadow-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

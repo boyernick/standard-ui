@@ -13,6 +13,10 @@ export const CheckboxExamples = () => (
   Subscribe to updates
 </label>
 <label className="flex items-center gap-2">
+  <Checkbox indeterminate />
+  Partially selected
+</label>
+<label className="flex items-center gap-2">
   <Checkbox />
   Remember this device
 </label>
@@ -24,6 +28,10 @@ export const CheckboxExamples = () => (
       <label className="text-sm flex items-center gap-2 text-fg-primary">
         <Checkbox defaultChecked />
         Subscribe to updates
+      </label>
+      <label className="text-sm flex items-center gap-2 text-fg-primary">
+        <Checkbox indeterminate />
+        Partially selected
       </label>
       <label className="text-sm flex items-center gap-2 text-fg-primary">
         <Checkbox />

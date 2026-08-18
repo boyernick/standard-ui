@@ -3,7 +3,7 @@ import type { TextareaHTMLAttributes } from "react"
 import { cn } from "./lib/cn"
 
 const textareaVariants = cva(
-  "flex min-h-20 w-full cursor-text resize-y rounded-md px-3 py-2 text-sm text-fg-primary transition-all duration-150 ease-out placeholder:text-fg-quaternary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50",
+  "flex min-h-20 w-full cursor-text resize-y rounded-md px-3 py-2 text-sm text-fg-primary transition-[color,box-shadow] duration-150 ease-out placeholder:text-fg-quaternary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20 disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {

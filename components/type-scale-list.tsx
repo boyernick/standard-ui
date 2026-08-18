@@ -31,7 +31,7 @@ const TypeSpecimenRow = ({ item }: { item: TypeSpecimen }) => {
       onClick={handleCopy}
       aria-label={copied ? "Copied" : `Copy ${item.token}`}
       title={copied ? "Copied" : `Copy ${item.token}`}
-      className="flex cursor-pointer flex-col gap-3 px-4 py-5 text-left transition-colors hover:bg-background-tertiary focus-visible:bg-background-tertiary focus-visible:outline-none md:col-span-5 md:grid md:grid-cols-subgrid md:items-center md:gap-x-6 md:px-5 md:py-6"
+      className="flex cursor-pointer flex-col gap-3 px-4 py-5 text-left transition-colors hover:bg-background-tertiary focus-visible:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 md:col-span-5 md:grid md:grid-cols-subgrid md:items-center md:gap-x-6 md:px-5 md:py-6"
     >
       <span className={`${item.className} min-w-0 text-fg-primary`}>
         {copied ? "Copied" : item.sample}

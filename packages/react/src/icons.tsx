@@ -8,6 +8,7 @@ import { IconChevronBottom as IconChevronBottomBase } from "@central-icons-react
 import { IconChevronDownSmall as IconChevronDownSmallBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChevronDownSmall"
 import { IconChevronRightSmall as IconChevronRightSmallBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChevronRightSmall"
 import { IconClipboard as IconClipboardBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconClipboard"
+import { IconCrossSmall as IconCrossSmallBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCrossSmall"
 import { IconHome as IconHomeBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconHome"
 import { IconMagnifyingGlass as IconMagnifyingGlassBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMagnifyingGlass"
 import { IconMinusMedium as IconMinusBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMinusMedium"
@@ -52,6 +53,7 @@ export const IconChevronRightSmall = withCentralIconDefaults(
   IconChevronRightSmallBase,
 )
 export const IconClipboard = withCentralIconDefaults(IconClipboardBase)
+export const IconCrossSmall = withCentralIconDefaults(IconCrossSmallBase)
 export const IconHome = withCentralIconDefaults(IconHomeBase)
 export const IconMagnifyingGlass = withCentralIconDefaults(
   IconMagnifyingGlassBase,
@@ -77,6 +79,7 @@ export const iconGallery = [
   { name: "IconMoon", Icon: IconMoon },
   { name: "IconPlus", Icon: IconPlus },
   { name: "IconMinus", Icon: IconMinus },
+  { name: "IconCrossSmall", Icon: IconCrossSmall },
   { name: "IconX", Icon: IconX },
   { name: "IconCheckmark1", Icon: IconCheckmark1 },
   { name: "IconChevronBottom", Icon: IconChevronBottom },

@@ -25,7 +25,7 @@ export const CollapsibleTrigger = ({
     className={cn(
       "group flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top outline-none",
       motion.colors,
-      "hover:bg-background-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "hover:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

@@ -22,7 +22,7 @@ export const Radio = ({ className, ...props }: RadioProps) => (
     className={cn(
       "flex size-4 shrink-0 items-center justify-center rounded-full border border-border-secondary bg-surface outline-none",
       motion.colors,
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary data-checked:border-brand-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-checked:border-brand-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

@@ -3,20 +3,20 @@ import type { ButtonHTMLAttributes, ReactNode } from "react"
 import { cn } from "./lib/cn"
 
 const buttonVariants = cva(
-  "text-sm inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:active:translate-y-0 active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "text-sm inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap transition-all duration-150 ease-out outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:active:translate-y-0 active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         primary:
-          "border border-brand-primary-border bg-brand-primary text-brand-foreground inset-shadow-solid-top hover:bg-brand-primary-hover active:bg-brand-primary-active",
+          "border border-brand-primary-border bg-brand-primary text-brand-foreground inset-shadow-solid-top hover:bg-brand-primary-hover active:bg-brand-primary-active focus-visible:border-ring focus-visible:ring-ring/20",
         secondary:
-          "border border-transparent bg-background-tertiary text-fg-primary hover:bg-background-quaternary active:bg-background-active dark:bg-gray-250 dark:hover:bg-gray-350 dark:active:bg-gray-200",
+          "border border-transparent bg-background-tertiary text-fg-primary hover:bg-background-quaternary active:bg-background-active focus-visible:border-ring focus-visible:ring-ring/20 dark:bg-gray-250 dark:hover:bg-gray-350 dark:active:bg-gray-200",
         outline:
-          "border border-border-secondary bg-surface text-fg-primary inset-shadow-outline-top hover:bg-background-tertiary",
+          "border border-border-secondary bg-surface text-fg-primary inset-shadow-outline-top hover:bg-background-tertiary focus-visible:border-ring focus-visible:ring-ring/20",
         ghost:
-          "border border-transparent text-fg-secondary hover:bg-background-tertiary hover:text-fg-primary",
+          "border border-transparent text-fg-secondary hover:bg-background-tertiary hover:text-fg-primary focus-visible:border-ring focus-visible:ring-ring/20",
         destructive:
-          "border border-destructive-active bg-destructive text-white inset-shadow-solid-top hover:bg-destructive-active",
+          "border border-destructive-active bg-destructive text-white inset-shadow-solid-top hover:bg-destructive-active focus-visible:border-destructive focus-visible:ring-destructive/20",
       },
       size: {
         sm: "h-8 px-3",
