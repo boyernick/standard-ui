@@ -1,0 +1,43 @@
+---
+description: Dogfood Standard UI components in docs shell scaffolding as they ship
+alwaysApply: true
+---
+
+# Dogfood components in scaffolding
+
+When a `@standard-ui/react` component ships (or gains a variant), **update the docs site chrome** to use it instead of raw HTML / one-off Tailwind.
+
+## Prefer package components for
+
+| Need | Use |
+|---|---|
+| Text field / search | `Input` (`variant="ghost"` for quiet chrome) |
+| Actions / icon buttons | `Button` (`variant`, `iconOnly`, `rounded`) |
+| Labels / chips | `Badge` |
+| Toggles | `Switch`, `Checkbox`, `Toggle` |
+| Overlays | `Dialog`, `Popover`, `Tooltip`, etc. |
+
+## Examples
+
+```tsx
+// ❌ BAD — hand-rolled search in the shell
+<input className="h-9 w-full rounded-lg border ..." />
+
+// ✅ GOOD — design-system Input
+<Input variant="ghost" type="search" className="pl-9 pr-16" />
+```
+
+```tsx
+// ❌ BAD
+<button type="button" className="flex size-9 ..." />
+
+// ✅ GOOD
+<Button type="button" variant="ghost" iconOnly rounded aria-label="…" />
+```
+
+## Scope
+
+- Shell: `components/top-bar.tsx`, `theme-toggle.tsx`, sidebar chrome when applicable
+- Docs demos may still compose primitives, but shell UI should dogfood the library
+- Keep accessibility (`aria-label`, focus rings) when swapping
+- Layout wrappers (`div`/`aside`) stay as layout — only replace control markup

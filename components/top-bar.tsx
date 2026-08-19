@@ -1,27 +1,103 @@
-import { ThemeToggle } from "./theme-toggle";
+"use client"
+
+import {
+  BrandWordmark,
+  IconMagnifyingGlass,
+  Input,
+} from "@standard-ui/react"
+import Link from "next/link"
+import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react"
+import { MobileNav } from "./mobile-nav"
+import { ThemeToggle } from "./theme-toggle"
 
 export function TopBar() {
+  const [query, setQuery] = useState("")
+  const [focused, setFocused] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (event: globalThis.KeyboardEvent) => {
+      const target = event.target as HTMLElement | null
+      if (target?.closest("input, textarea, select, [contenteditable=true]")) {
+        return
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault()
+        inputRef.current?.focus()
+        inputRef.current?.select()
+      }
+    }
+
+    window.addEventListener("keydown", handleGlobalKeyDown)
+    return () => {
+      window.removeEventListener("keydown", handleGlobalKeyDown)
+    }
+  }, [])
+
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value)
+  }
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Escape") {
+      if (query) {
+        setQuery("")
+        return
+      }
+      inputRef.current?.blur()
+    }
+  }
+
+  const handleFocus = () => {
+    setFocused(true)
+  }
+
+  const handleBlur = () => {
+    setFocused(false)
+  }
+
   return (
-    <header className="flex h-14 items-center gap-3 border-b border-line bg-page px-4 md:px-6">
+    <header className="flex h-14 items-center gap-2 border-b border-border-primary bg-background-primary px-3 sm:gap-3 sm:px-4">
+      <MobileNav />
+      <Link
+        href="/"
+        className="inline-flex shrink-0 cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+        aria-label="Standard UI"
+      >
+        <BrandWordmark size="sm" />
+      </Link>
       <div className="relative min-w-0 flex-1">
-        <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted">
-          <svg viewBox="0 0 16 16" className="size-4" aria-hidden>
-            <circle cx="6.5" cy="6.5" r="4.2" fill="none" stroke="currentColor" strokeWidth="1.4" />
-            <path d="m10 10 3.2 3.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-          </svg>
+        <span className="pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-fg-tertiary">
+          <IconMagnifyingGlass size={16} aria-hidden />
         </span>
-        <input
-          type="search"
-          readOnly
+        <Input
+          ref={inputRef}
+          type="text"
+          inputMode="search"
+          enterKeyHint="search"
+          name="q"
+          role="searchbox"
+          variant="ghost"
+          value={query}
+          onChange={handleQueryChange}
+          onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           placeholder="Search…"
           aria-label="Search"
-          className="h-9 w-full rounded-lg border border-line bg-surface pr-16 pl-9 text-body text-fg placeholder:text-muted"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
+          className="rounded-lg bg-background-secondary pr-16 pl-9"
         />
-        <kbd className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 rounded-md border border-line bg-subtle px-1.5 py-0.5 font-sans text-caption text-muted">
-          ⌘K
-        </kbd>
+        {!focused && !query ? (
+          <kbd className="text-xs pointer-events-none absolute top-1/2 right-2.5 inline-flex -translate-y-1/2 items-center gap-1 rounded-md border border-border-primary bg-background-tertiary px-1.5 py-0.5 text-fg-tertiary">
+            <span aria-hidden>⌘</span>
+            <span>K</span>
+          </kbd>
+        ) : null}
       </div>
       <ThemeToggle />
     </header>
-  );
+  )
 }

@@ -1,0 +1,50 @@
+---
+description: Cursor conventions — pointer for links and buttons; keep other keywords semantic
+globs: "**/*.{tsx,jsx,css}"
+alwaysApply: true
+---
+
+# Cursor styles
+
+The cursor should communicate **what will happen**. In Standard UI, **buttons and links both use `cursor-pointer`**.
+
+| Interaction | Cursor | Use when |
+|---|---|---|
+| Link / navigation | `cursor-pointer` | `<a href>`, Next.js `<Link>`, or controls that navigate like a link |
+| Button / control | `cursor-pointer` | `<button>`, `Button`, toggles, tabs, accordion/collapsible/select triggers |
+| Text / selection | `cursor-text` | Inputs, textareas, selectable text regions |
+| Copy | `cursor-copy` | Primary action is copy to clipboard (or drag-copy) |
+| Not allowed | `cursor-not-allowed` | Disabled or blocked actions (`disabled:cursor-not-allowed`) |
+| Grab / reorder | `cursor-grab` / `cursor-grabbing` | Draggable handles (grab → grabbing while dragging) |
+| Move | `cursor-move` | Something can be moved without a grab metaphor |
+| Resize | `cursor-ew-resize` / `cursor-ns-resize` / `cursor-col-resize` / `cursor-row-resize` | Resize edges and splitters |
+| Busy (blocking) | `cursor-wait` | UI is blocked; user should wait |
+| Busy (non-blocking) | `cursor-progress` | Work in progress but interaction still allowed |
+| Help | `cursor-help` | Help or extra info is available on hover |
+| Precise pick | `cursor-crosshair` | Pixel/region selection |
+| Zoom | `cursor-zoom-in` / `cursor-zoom-out` | Zoom affordances |
+
+```tsx
+// ✅ GOOD — buttons use pointer
+<button type="button" onClick={handleClear} className="cursor-pointer ..." />
+<Button type="button">Save</Button>
+
+// ✅ GOOD — real navigation gets pointer
+<Link href="/colors" className="cursor-pointer ...">Colors</Link>
+<a href="https://example.com" className="cursor-pointer ...">Docs</a>
+
+// ✅ GOOD — copy affordance
+<button type="button" onClick={handleCopy} className="cursor-copy ..." />
+
+// ✅ GOOD — disabled
+<button type="button" disabled className="disabled:cursor-not-allowed ..." />
+```
+
+Rules of thumb:
+
+- Prefer **semantic elements** (`<a>` / `<button>`).
+- Put `cursor-pointer` on `Button` and button-like triggers (tabs, toggles, accordion, select).
+- Don’t put interactive cursors on non-interactive wrappers (`div`/`span` with no activation behavior).
+- Disabled: use `disabled:cursor-not-allowed` / `data-disabled:cursor-not-allowed` (and reduce hover affordance).
+- Prefer `cursor-copy` when the primary action is copying.
+- Switches and checkboxes may keep the default arrow unless they feel inconsistent with nearby buttons.

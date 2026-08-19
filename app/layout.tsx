@@ -1,23 +1,6 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
-import { ThemeScript } from "@/components/theme-script";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-serif",
-});
+import type { Metadata } from "next"
+import { ThemeScript } from "@/components/theme-script"
+import "./globals.css"
 
 export const metadata: Metadata = {
   title: {
@@ -25,20 +8,28 @@ export const metadata: Metadata = {
     template: "%s · Standard UI",
   },
   description:
-    "The visual foundations and shared language behind Standard UI.",
-};
+    "The visual foundations and shared language.",
+  icons: {
+    icon: [{ url: "/favicon.svg?v=4", type: "image/svg+xml" }],
+    apple: [{ url: "/favicon.svg?v=4", type: "image/svg+xml" }],
+  },
+  openGraph: {
+    title: "Standard UI",
+    description: "The visual foundations and shared language.",
+    siteName: "Standard UI",
+    type: "website",
+  },
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
-    >
+    <html lang="en" suppressHydrationWarning className="h-full antialiased">
       <head>
         <ThemeScript />
       </head>
-      <body className="min-h-full bg-page font-sans text-fg">{children}</body>
+      <body className="min-h-full bg-background-primary font-sans text-fg-primary">
+        {children}
+      </body>
     </html>
-  );
+  )
 }

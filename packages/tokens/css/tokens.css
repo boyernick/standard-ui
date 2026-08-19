@@ -1,0 +1,534 @@
+/* Standard UI tokens — semantic layer on Apps SDK primitives. */
+
+@import "./fonts.css";
+@import "./primitives.css";
+
+:root {
+  color-scheme: light;
+
+  --background-primary: var(--gray-0);
+  --background-secondary: var(--gray-25);
+  --background-tertiary: var(--gray-75);
+  --background-quaternary: var(--gray-100);
+  --background-active: var(--gray-150);
+
+  --surface: var(--gray-0);
+  --surface-inverted: var(--gray-1000);
+  --surface-raised: var(--gray-0);
+  --elevated: var(--alpha-05);
+  --elevated-active: var(--alpha-10);
+
+  --text-primary: var(--gray-1000);
+  --text-secondary: var(--gray-500);
+  --text-tertiary: var(--gray-400);
+  --text-quaternary: var(--gray-350);
+  --text-primary-inverted: var(--gray-0);
+  --text-secondary-inverted: var(--gray-200);
+
+  --border-primary: var(--alpha-10);
+  --border-primary-solid: var(--gray-100);
+  --border-secondary: var(--alpha-15);
+  --border-secondary-solid: var(--gray-150);
+  --border-inverted: var(--alpha-10);
+
+  --brand-primary: var(--gray-900);
+  --brand-primary-hover: var(--gray-700);
+  --brand-primary-active: var(--gray-600);
+  --brand-primary-border: var(--gray-900);
+  --brand-secondary: var(--alpha-10);
+  --brand-secondary-solid: var(--gray-100);
+  --brand-foreground: var(--gray-0);
+  --brand-inverted: var(--gray-1000);
+
+  --decorative-green: var(--green-700);
+  --decorative-blue: var(--blue-600);
+  --decorative-olive: var(--yellow-800);
+  --decorative-crimson: var(--red-700);
+
+  --chart-1: 4 184 76;
+  --chart-2: 2 133 255;
+  --chart-3: 251 106 34;
+  --chart-4: 146 79 247;
+  --chart-5: 255 102 173;
+  --chart-neutral: 143 143 143;
+
+  --destructive: var(--red-500);
+  --destructive-active: var(--red-600);
+  --warning: var(--orange-500);
+  --ring: var(--gray-1000);
+
+  /*
+   * Code syntax — White (arthurwhite.White), mapped to gray scale
+   * strings ≈ greyStrong (#6b7a88 → gray-450), comments ≈ grey (#bec9d3 → gray-200)
+   */
+  --sh-class: var(--gray-1000);
+  --sh-identifier: var(--gray-1000);
+  --sh-sign: var(--gray-1000);
+  --sh-space: var(--gray-1000);
+  --sh-property: var(--gray-1000);
+  --sh-entity: var(--gray-1000);
+  --sh-jsxliterals: var(--gray-1000);
+  --sh-string: var(--gray-450);
+  --sh-keyword: var(--gray-1000);
+  --sh-comment: var(--gray-200);
+
+  /* Spacing base — 4px unit for Tailwind spacing scale */
+  --spacing: 0.25rem;
+
+  /* Breakpoints — px for JS hooks; rem mirrors live in @theme */
+  --breakpoint-xs: 380px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Radius values live in @theme (Apps SDK UI scale) */
+
+  /* Shadows — Apps SDK UI elevation + hairline */
+  --shadow-color: 0 0 0;
+  --elevation-100-geo: 0 1px 2px -1px;
+  --elevation-200-geo: 0 2px 4px -1px;
+  --elevation-300-geo: 0 4px 8px -2px;
+  --elevation-400-geo: 0 8px 16px -4px;
+  --shadow-alpha-100: 0.08;
+  --shadow-alpha-200: 0.08;
+  --shadow-alpha-300: 0.1;
+  --shadow-alpha-400: 0.12;
+  --shadow-hairline-width: 1px;
+  --shadow-hairline-color: rgb(0 0 0 / 8%);
+  --elevation-hairline: 0 0 0 var(--shadow-hairline-width)
+    var(--shadow-hairline-color);
+  --shadow-100: var(--elevation-100-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-100));
+  --shadow-200: var(--elevation-200-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-200));
+  --shadow-300: var(--elevation-300-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-300));
+  --shadow-400: var(--elevation-400-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-400));
+  /* Raised solid controls — top edge highlight (primary / destructive) */
+  --elevation-solid-top: inset 0 1px 0 0
+    color-mix(in oklab, var(--white) 18%, transparent);
+  /* Soft top recess on bordered surfaces (outline) */
+  --elevation-outline-top: inset 0 -1px 1px 0 var(--alpha-02);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --surface-raised: var(--gray-25);
+
+  --text-secondary: var(--gray-700);
+  --text-tertiary: var(--gray-600);
+  --text-quaternary: var(--gray-550);
+
+  --decorative-green: var(--green-400);
+  --decorative-blue: var(--blue-400);
+  --decorative-olive: var(--yellow-400);
+  --decorative-crimson: var(--red-400);
+
+  --chart-neutral: 143 143 143;
+
+  --destructive: var(--red-400);
+  --destructive-active: var(--red-500);
+  --warning: var(--orange-400);
+  --ring: var(--gray-1000);
+
+  /*
+   * Code syntax — White Night via inverted gray scale
+   * strings ≈ #a8a8b1 → gray-700, comments ≈ #65696e → gray-550
+   */
+  --sh-class: var(--gray-1000);
+  --sh-identifier: var(--gray-1000);
+  --sh-sign: var(--gray-1000);
+  --sh-space: var(--gray-1000);
+  --sh-property: var(--gray-1000);
+  --sh-entity: var(--gray-1000);
+  --sh-jsxliterals: var(--gray-1000);
+  --sh-string: var(--gray-700);
+  --sh-keyword: var(--gray-1000);
+  --sh-comment: var(--gray-550);
+
+  --shadow-alpha-100: 0.2;
+  --shadow-alpha-200: 0.2;
+  --shadow-alpha-300: 0.36;
+  --shadow-alpha-400: 0.3;
+  --shadow-hairline-width: 1px;
+  --shadow-hairline-color: rgb(255 255 255 / 10%);
+}
+
+@media (resolution >= 1.5dppx) {
+  :root {
+    --shadow-hairline-width: 0.5px;
+    --shadow-hairline-color: rgb(0 0 0 / 10%);
+  }
+
+  .dark {
+    --shadow-hairline-width: 0.5px;
+    --shadow-hairline-color: rgb(255 255 255 / 12%);
+  }
+}
+
+@theme inline {
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-background-quaternary: var(--background-quaternary);
+  --color-background-active: var(--background-active);
+
+  --color-surface: var(--surface);
+  --color-surface-inverted: var(--surface-inverted);
+  --color-surface-raised: var(--surface-raised);
+  --color-elevated: var(--elevated);
+  --color-elevated-active: var(--elevated-active);
+
+  --color-fg-primary: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-tertiary: var(--text-tertiary);
+  --color-fg-quaternary: var(--text-quaternary);
+  --color-fg-inverted: var(--text-primary-inverted);
+  --color-fg-inverted-secondary: var(--text-secondary-inverted);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-primary-solid: var(--border-primary-solid);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-secondary-solid: var(--border-secondary-solid);
+  --color-border-inverted: var(--border-inverted);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-active: var(--brand-primary-active);
+  --color-brand-primary-border: var(--brand-primary-border);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-solid: var(--brand-secondary-solid);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-inverted: var(--brand-inverted);
+
+  --color-decorative-green: var(--decorative-green);
+  --color-decorative-blue: var(--decorative-blue);
+  --color-decorative-olive: var(--decorative-olive);
+  --color-decorative-crimson: var(--decorative-crimson);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-active: var(--destructive-active);
+  --color-warning: var(--warning);
+  --color-ring: var(--ring);
+
+  /* Primitives — keep utilities on the design scale (not Tailwind defaults) */
+  --color-white: var(--white);
+  --color-black: var(--black);
+
+  --color-gray-0: var(--gray-0);
+  --color-gray-25: var(--gray-25);
+  --color-gray-50: var(--gray-50);
+  --color-gray-75: var(--gray-75);
+  --color-gray-100: var(--gray-100);
+  --color-gray-150: var(--gray-150);
+  --color-gray-200: var(--gray-200);
+  --color-gray-250: var(--gray-250);
+  --color-gray-300: var(--gray-300);
+  --color-gray-350: var(--gray-350);
+  --color-gray-400: var(--gray-400);
+  --color-gray-450: var(--gray-450);
+  --color-gray-500: var(--gray-500);
+  --color-gray-550: var(--gray-550);
+  --color-gray-600: var(--gray-600);
+  --color-gray-650: var(--gray-650);
+  --color-gray-700: var(--gray-700);
+  --color-gray-750: var(--gray-750);
+  --color-gray-800: var(--gray-800);
+  --color-gray-850: var(--gray-850);
+  --color-gray-900: var(--gray-900);
+  --color-gray-925: var(--gray-925);
+  --color-gray-950: var(--gray-950);
+  --color-gray-975: var(--gray-975);
+  --color-gray-1000: var(--gray-1000);
+
+  --color-red-25: var(--red-25);
+  --color-red-50: var(--red-50);
+  --color-red-75: var(--red-75);
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  --color-red-300: var(--red-300);
+  --color-red-400: var(--red-400);
+  --color-red-500: var(--red-500);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-red-800: var(--red-800);
+  --color-red-900: var(--red-900);
+  --color-red-950: var(--red-950);
+  --color-red-1000: var(--red-1000);
+
+  --color-blue-25: var(--blue-25);
+  --color-blue-50: var(--blue-50);
+  --color-blue-75: var(--blue-75);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+  --color-blue-950: var(--blue-950);
+  --color-blue-1000: var(--blue-1000);
+
+  --color-green-25: var(--green-25);
+  --color-green-50: var(--green-50);
+  --color-green-75: var(--green-75);
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-green-900: var(--green-900);
+  --color-green-950: var(--green-950);
+  --color-green-1000: var(--green-1000);
+
+  --color-orange-25: var(--orange-25);
+  --color-orange-50: var(--orange-50);
+  --color-orange-75: var(--orange-75);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: var(--orange-300);
+  --color-orange-400: var(--orange-400);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: var(--orange-900);
+  --color-orange-950: var(--orange-950);
+  --color-orange-1000: var(--orange-1000);
+
+  --color-yellow-25: var(--yellow-25);
+  --color-yellow-50: var(--yellow-50);
+  --color-yellow-75: var(--yellow-75);
+  --color-yellow-100: var(--yellow-100);
+  --color-yellow-200: var(--yellow-200);
+  --color-yellow-300: var(--yellow-300);
+  --color-yellow-400: var(--yellow-400);
+  --color-yellow-500: var(--yellow-500);
+  --color-yellow-600: var(--yellow-600);
+  --color-yellow-700: var(--yellow-700);
+  --color-yellow-800: var(--yellow-800);
+  --color-yellow-900: var(--yellow-900);
+  --color-yellow-950: var(--yellow-950);
+  --color-yellow-1000: var(--yellow-1000);
+
+  --font-sans: "Söhne", "Sohne", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  --font-display: "Signifier", "Iowan Old Style", "Palatino Linotype", Palatino,
+    Georgia, serif;
+  --font-mono: "Söhne Mono", "Sohne Mono", ui-monospace, "Cascadia Code",
+    "Segoe UI Mono", Menlo, Consolas, monospace;
+  --font-serif: var(--font-display);
+
+  /* Spacing + breakpoints (Tailwind theme) */
+  --spacing: 0.25rem;
+  --breakpoint-xs: 23.75rem;
+  --breakpoint-sm: 36rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  /* Radius — Apps SDK UI */
+  --radius-2xs: 0.125rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: var(--shadow-100);
+  --shadow-md: var(--shadow-200);
+  --shadow-lg: var(--shadow-300);
+  --shadow-xl: var(--shadow-400);
+  --shadow-hairline: var(--elevation-hairline);
+  --inset-shadow-hairline: inset var(--elevation-hairline);
+  --inset-shadow-solid-top: var(--elevation-solid-top);
+  --inset-shadow-outline-top: var(--elevation-outline-top);
+
+  /* Body text scale (Apps SDK: text-lg → text-2xs) */
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.8125rem;
+  --text-lg--font-weight: 400;
+  --text-lg--letter-spacing: 0em;
+
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-base--font-weight: 400;
+  --text-base--letter-spacing: 0em;
+
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-sm--font-weight: 400;
+  --text-sm--letter-spacing: 0em;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-xs--font-weight: 400;
+  --text-xs--letter-spacing: 0em;
+
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+  --text-2xs--font-weight: 400;
+  --text-2xs--letter-spacing: 0em;
+}
+
+/* Headings lg → 2xl: sans + serif variants. md/sm/xs: sans. */
+
+@utility heading-2xl-sans {
+  font-family: var(--font-sans);
+  font-size: 2.25rem;
+  line-height: 2.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-2xl-serif {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 2.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-xl-sans {
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  line-height: 2.375rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-xl-serif {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 2.375rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-lg-sans {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-lg-serif {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-md {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-sm {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+@utility heading-xs {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+}
+
+/* text-md alias — Apps SDK name; maps to Tailwind text-base metrics */
+@utility text-md {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0em;
+}
+
+@utility text-lg-strong {
+  font-size: 1.125rem;
+  line-height: 1.8125rem;
+  font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@utility text-md-strong {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@utility text-sm-strong {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@utility text-xs-strong {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@utility text-2xs-strong {
+  font-size: 0.625rem;
+  line-height: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0em;
+}
+
+@keyframes text-fade-in {
+  from {
+    opacity: 0;
+    translate: 0 0.35em;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes text-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -50% 0;
+  }
+}

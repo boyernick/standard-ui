@@ -1,0 +1,26 @@
+---
+description: Sentence case only — never all caps in Standard UI
+alwaysApply: true
+---
+
+# Capitalization
+
+Never use all caps (`UPPERCASE`, `uppercase` CSS, or `toUpperCase()` for UI copy).
+
+Default to **sentence case** for anything that needs capitalization:
+
+- Nav labels: `Foundations`, not `FOUNDATIONS`
+- Headings, buttons, badges, tabs, section labels
+- Mono / code samples in docs: show tokens as written (`--brand-primary`), not forced uppercase
+
+```tsx
+// ❌ BAD
+<p className="uppercase">Foundations</p>
+<span className="font-mono uppercase">VAR(--BRAND-PRIMARY)</span>
+
+// ✅ GOOD
+<p>Foundations</p>
+<span className="font-mono">var(--brand-primary)</span>
+```
+
+Title Case is only for proper nouns or established product names (e.g. `Standard UI`). Prefer sentence case for UI chrome and docs headings when in doubt.

@@ -1,0 +1,389 @@
+/* Local Font Book faces only — do not redistribute Klim/Colophon binaries.
+   Unifies Klim “Test …” weight families under Söhne / Signifier for CSS font-weight. */
+
+/* ——— Söhne (sans) ——— */
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Test Söhne Extraleicht"), local("TestSohne-Extraleicht");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Test Söhne Extraleicht Kursiv"), local("TestSohne-ExtraleichtKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Test Söhne Leicht"), local("TestSohne-Leicht");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Test Söhne Leicht Kursiv"), local("TestSohne-LeichtKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Test Söhne"), local("TestSohne-Buch");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Test Söhne Italic"), local("TestSohne-BuchKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Test Söhne Kräftig"), local("TestSohne-Kraftig");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Test Söhne Kräftig Kursiv"), local("TestSohne-KraftigKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Test Söhne Halbfett"), local("TestSohne-Halbfett");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Test Söhne Halbfett Kursiv"), local("TestSohne-HalbfettKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Test Söhne Bold"), local("TestSohne-Dreiviertelfett");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Test Söhne Bold Italic"), local("TestSohne-DreiviertelfettKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: local("Test Söhne Fett"), local("TestSohne-Fett");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: local("Test Söhne Fett Kursiv"), local("TestSohne-FettKursiv");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Test Söhne Extrafett"), local("TestSohne-Extrafett");
+}
+
+@font-face {
+  font-family: "Söhne";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Test Söhne Extrafett Kursiv"), local("TestSohne-ExtrafettKursiv");
+}
+
+/* ——— Signifier (serif / display) ——— */
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: local("Test Signifier Thin"), local("TestSignifier-Thin");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: local("Test Signifier Thin Italic"), local("TestSignifier-ThinItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Test Signifier Extralight"), local("TestSignifier-Extralight");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Test Signifier Extralight Italic"), local("TestSignifier-ExtralightItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Test Signifier Light"), local("TestSignifier-Light");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Test Signifier Light Italic"), local("TestSignifier-LightItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Test Signifier"), local("TestSignifier-Regular");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Test Signifier Italic"), local("TestSignifier-RegularItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Test Signifier Medium"), local("TestSignifier-Medium");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Test Signifier Medium Italic"), local("TestSignifier-MediumItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Test Signifier Medium"), local("TestSignifier-Medium");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Test Signifier Medium Italic"), local("TestSignifier-MediumItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Test Signifier Bold"), local("TestSignifier-Bold");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Test Signifier Bold Italic"), local("TestSignifier-BoldItalic");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Test Signifier Black"), local("TestSignifier-Black");
+}
+
+@font-face {
+  font-family: "Signifier";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Test Signifier Black Italic"), local("TestSignifier-BlackItalic");
+}
+
+/* ——— Söhne Mono ——— */
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Test Söhne Mono Extraleicht"), local("TestSohneMn-Extraleicht");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Test Söhne Mono Extraleicht Kursiv"), local("TestSohneMn-ExtraleichtKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Test Söhne Mono Leicht"), local("TestSohneMn-Leicht");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Test Söhne Mono Leicht Kursiv"), local("TestSohneMn-LeichtKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Test Söhne Mono"), local("TestSohneMn-Buch");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Test Söhne Mono Italic"), local("TestSohneMn-BuchKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Test Söhne Mono Kräftig"), local("TestSohneMn-Kraftig");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Test Söhne Mono Kräftig Kursiv"), local("TestSohneMn-KraftigKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Test Söhne Mono Halbfett"), local("TestSohneMn-Halbfett");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Test Söhne Mono Halbfett Kursiv"), local("TestSohneMn-HalbfettKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Test Söhne Mono Bold"), local("TestSohneMn-Dreiviertelfett");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Test Söhne Mono Bold Italic"), local("TestSohneMn-DreiviertelfettKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: local("Test Söhne Mono Fett"), local("TestSohneMn-Fett");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: local("Test Söhne Mono Fett Kursiv"), local("TestSohneMn-FettKursiv");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Test Söhne Mono Extrafett"), local("TestSohneMn-Extrafett");
+}
+
+@font-face {
+  font-family: "Söhne Mono";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Test Söhne Mono Extrafett Kursiv"), local("TestSohneMn-ExtrafettKursiv");
+}

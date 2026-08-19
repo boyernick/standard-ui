@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 
-export type Theme = "system" | "light" | "dark";
+export type Theme = "light" | "dark";
 
 const STORAGE_KEY = "standard-ui-theme";
 
@@ -19,30 +19,25 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function isTheme(value: string | null): value is Theme {
-  return value === "light" || value === "dark" || value === "system";
-}
-
-function isDark(theme: Theme) {
-  if (theme === "dark") return true;
-  if (theme === "light") return false;
+function prefersDark() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches;
-}
-
-function applyTheme(theme: Theme) {
-  document.documentElement.classList.toggle("dark", isDark(theme));
-}
-
-const listeners = new Set<() => void>();
-let current: Theme = "system";
-
-function emit() {
-  for (const listener of listeners) listener();
 }
 
 function readStored(): Theme {
   const stored = window.localStorage.getItem(STORAGE_KEY);
-  return isTheme(stored) ? stored : "system";
+  if (stored === "dark" || stored === "light") return stored;
+  return prefersDark() ? "dark" : "light";
+}
+
+function applyTheme(theme: Theme) {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+}
+
+const listeners = new Set<() => void>();
+let current: Theme = "light";
+
+function emit() {
+  for (const listener of listeners) listener();
 }
 
 if (typeof window !== "undefined") {
@@ -51,14 +46,8 @@ if (typeof window !== "undefined") {
 
 function subscribe(listener: () => void) {
   listeners.add(listener);
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  const onMedia = () => {
-    if (current === "system") applyTheme("system");
-  };
-  media.addEventListener("change", onMedia);
   return () => {
     listeners.delete(listener);
-    media.removeEventListener("change", onMedia);
   };
 }
 
@@ -67,7 +56,7 @@ function getSnapshot() {
 }
 
 function getServerSnapshot(): Theme {
-  return "system";
+  return "light";
 }
 
 function writeTheme(next: Theme) {

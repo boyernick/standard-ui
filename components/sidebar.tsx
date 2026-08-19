@@ -1,90 +1,93 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { foundations, upcomingComponents } from "@/lib/nav";
+import { BrandWordmark } from "@standard-ui/react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { EdgeFade } from "@/components/edge-fade"
+import { components, foundations, upcomingComponents } from "@/lib/nav"
 
-function isActive(pathname: string, href: string) {
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
+const isActive = (pathname: string, href: string) => {
+  if (href === "/") return pathname === "/"
+  return pathname === href || pathname.startsWith(`${href}/`)
 }
 
-export function Sidebar() {
-  const pathname = usePathname();
-  const brandActive = pathname.startsWith("/brand");
+const navLinkClass = (active: boolean) =>
+  `block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+    active
+      ? "text-sm bg-background-tertiary text-fg-primary"
+      : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
+  }`
+
+export const Sidebar = () => {
+  const pathname = usePathname()
 
   return (
-    <aside className="flex h-full w-60 shrink-0 flex-col border-r border-line bg-surface">
-      <div className="px-5 pt-5 pb-4">
-        <Link href="/" className="text-heading-sm font-semibold tracking-tight text-fg">
-          standardUI
-        </Link>
-        <div
-          className="mt-4 flex rounded-full bg-subtle p-0.5"
-          role="group"
-          aria-label="Documentation set"
-        >
-          <Link
-            href="/"
-            className={`flex-1 rounded-full px-3 py-1.5 text-center text-caption font-medium transition-colors ${
-              brandActive
-                ? "text-muted hover:text-fg"
-                : "bg-surface text-fg shadow-sm"
-            }`}
-          >
-            UI
-          </Link>
-          <Link
-            href="/brand"
-            className={`flex-1 rounded-full px-3 py-1.5 text-center text-caption font-medium transition-colors ${
-              brandActive
-                ? "bg-surface text-fg shadow-sm"
-                : "text-muted hover:text-fg"
-            }`}
-          >
-            Brand
-          </Link>
+    <aside className="relative flex h-full w-60 shrink-0 flex-col border-r border-border-primary bg-surface">
+      <div className="min-h-0 flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="sticky top-0 z-10">
+          <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+0.75rem)]">
+            <EdgeFade edge="top" tone="surface" />
+          </div>
+          <div className="relative px-5 pt-5 pb-4">
+            <Link
+              href="/"
+              className="inline-flex cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+              aria-label="Standard UI"
+            >
+              <BrandWordmark size="sm" className="text-inherit" />
+            </Link>
+          </div>
         </div>
+
+        <nav className="px-3 pb-14">
+          <p className="text-xs px-2 pt-2 pb-2 text-fg-secondary">
+            Foundations
+          </p>
+          <ul className="flex flex-col gap-0.5">
+            {foundations.map((item) => {
+              const active = isActive(pathname, item.href)
+              return (
+                <li key={item.href}>
+                  <Link href={item.href} className={navLinkClass(active)}>
+                    {item.label}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+
+          <p className="text-xs mt-6 px-2 pt-2 pb-2 text-fg-secondary">
+            Components
+          </p>
+          <ul className="flex flex-col gap-0.5">
+            {components.map((item) => {
+              const active = isActive(pathname, item.href)
+              return (
+                <li key={item.href}>
+                  <Link href={item.href} className={navLinkClass(active)}>
+                    {item.label}
+                  </Link>
+                </li>
+              )
+            })}
+            {upcomingComponents.map((name) => (
+              <li
+                key={name}
+                className="text-sm rounded-md px-2 py-1.5 text-fg-quaternary"
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 pb-8">
-        <p className="px-2 pt-2 pb-1 text-caption font-medium tracking-wide text-muted uppercase">
-          Foundations
-        </p>
-        <ul className="flex flex-col gap-0.5">
-          {foundations.map((item) => {
-            const active = isActive(pathname, item.href);
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`block rounded-md px-2 py-1.5 text-body transition-colors ${
-                    active
-                      ? "bg-subtle font-medium text-fg"
-                      : "text-muted hover:bg-subtle hover:text-fg"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        <p className="mt-6 px-2 pt-2 pb-1 text-caption font-medium tracking-wide text-muted uppercase">
-          Components
-        </p>
-        <ul className="flex flex-col gap-0.5">
-          {upcomingComponents.map((name) => (
-            <li
-              key={name}
-              className="rounded-md px-2 py-1.5 text-body text-muted/60"
-            >
-              {name}
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-12"
+      >
+        <EdgeFade edge="bottom" tone="surface" />
+      </div>
     </aside>
-  );
+  )
 }

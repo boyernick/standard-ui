@@ -1,0 +1,56 @@
+---
+description: Nested border-radius formula — inner radius equals outer radius minus padding
+alwaysApply: true
+---
+
+# Nested border radius
+
+When a rounded child sits inside a padded, rounded parent, radii must stay **concentric**:
+
+```
+inner_radius = outer_radius − padding
+```
+
+Use the Standard UI radius scale (do not invent one-off `rounded-[Npx]`):
+
+| Token | Size |
+|---|---|
+| `rounded-2xs` | 2px |
+| `rounded-xs` | 4px |
+| `rounded-sm` | 6px |
+| `rounded-md` | 8px |
+| `rounded-lg` | 10px |
+| `rounded-xl` | 12px |
+| `rounded-2xl` | 16px |
+
+If the result is not an exact step, pick the **nearest lower** token. If the result is ≤ 0, use `rounded-none` (or omit radius).
+
+## Common pairs
+
+| Outer | Padding | Inner |
+|---|---|---|
+| `rounded-md` (8) | `p-1` (4) | `rounded-xs` (4) |
+| `rounded-lg` (10) | `p-0.5` (2) | `rounded-md` (8) |
+| `rounded-xl` (12) | `p-1` (4) | `rounded-md` (8) |
+| `rounded-xl` (12) | `p-2` (8) | `rounded-xs` (4) |
+| `rounded-xl` (12) | `p-1.5` (6) | `rounded-sm` (6) |
+
+## Examples
+
+```tsx
+// ❌ BAD — same radius on padded shell and child (curves fight)
+<div className="rounded-md border p-1">
+  <button className="rounded-md ..." />
+</div>
+
+// ✅ GOOD — md shell, p-1, xs child (8 − 4 = 4)
+<div className="rounded-md border p-1">
+  <button className="rounded-xs ..." />
+</div>
+```
+
+## When it does not apply
+
+- **Flush nesting** (no padding between curves): child matches parent (e.g. `rounded-b-xl` on the last child of a `rounded-xl` frame).
+- **Pill / circular** controls (`rounded-full`) — keep full.
+- **Standalone** controls with no rounded padded ancestor — use the control’s default radius (`rounded-md` for buttons/inputs).

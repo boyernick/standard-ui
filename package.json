@@ -1,7 +1,10 @@
 {
-  "name": "standard-ui",
+  "name": "standard-ui-monorepo",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,9 +12,20 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@base-ui/react": "^1.0.0-rc.2",
+    "@central-icons-react/round-outlined-radius-2-stroke-1.5": "^1.1.312",
+    "@central-icons-react/round-outlined-radius-2-stroke-2": "^1.1.312",
+    "@standard-ui/react": "*",
+    "@standard-ui/tokens": "*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.4.0",
     "next": "16.3.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-day-picker": "^10.0.1",
+    "react-dom": "19.2.8",
+    "recharts": "^3.10.1",
+    "sugar-high": "^2.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

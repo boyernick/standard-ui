@@ -1,106 +1,91 @@
-import type { Metadata } from "next";
-import { CopyToken } from "@/components/copy-token";
-import { PageHeader } from "@/components/page-header";
-import {
-  colors,
-  cssVar,
-  scaleLabels,
-  scales,
-  semantics,
-  stepRoles,
-  steps,
-  type Scale,
-} from "@/lib/tokens";
+import type { Metadata } from "next"
+import { ColorsPalette } from "@/components/colors-palette"
+import { DocCell, DocTable, Token } from "@/components/doc-table"
+import { PageHeader } from "@/components/page-header"
 
 export const metadata: Metadata = {
   title: "Colors",
-};
-
-function ScaleRow({ scale }: { scale: Scale }) {
-  return (
-    <section className="mt-10">
-      <div className="mb-3 flex items-baseline justify-between">
-        <h2 className="text-heading-sm font-medium text-fg">
-          {scaleLabels[scale]}
-        </h2>
-        <p className="text-caption text-muted">Click a swatch to copy</p>
-      </div>
-      <div className="overflow-hidden rounded-xl border border-line bg-surface">
-        <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10">
-          {steps.map((step) => {
-            const token = `${scale}-${step}`;
-            const hex = colors.light[scale][step];
-            return (
-              <CopyToken key={token} value={cssVar(token)} className="block">
-                <div>
-                  <div
-                    className="aspect-[4/3]"
-                    style={{ background: `var(--${token})` }}
-                  />
-                  <div className="px-2.5 py-2">
-                    <p className="font-mono text-caption text-fg">{step}</p>
-                    <p className="font-mono text-[10px] text-muted">{hex}</p>
-                  </div>
-                </div>
-              </CopyToken>
-            );
-          })}
-        </div>
-      </div>
-      <dl className="mt-3 grid gap-1 sm:grid-cols-2">
-        {steps.map((step) => (
-          <div key={step} className="flex gap-2 text-caption text-muted">
-            <dt className="w-10 font-mono text-fg">{step}</dt>
-            <dd>{stepRoles[step]}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  );
 }
 
 export default function ColorsPage() {
-  const semanticEntries = Object.entries(semantics.light);
-
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Colors"
-        description="Three scales with Geist-style steps, plus semantic aliases. UI should use semantic names, not raw hex."
+        description="Gray, alpha, and hue scales that semantic tokens build on."
       />
 
-      <section>
-        <h2 className="text-heading-sm font-medium text-fg">Semantic</h2>
-        <p className="mt-1 text-body text-muted">
-          Mapped for light and dark. Click to copy the CSS variable.
-        </p>
-        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          {semanticEntries.map(([name, hex]) => (
-            <CopyToken
-              key={name}
-              value={cssVar(name)}
-              className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3"
-            >
-              <span
-                className="size-10 shrink-0 rounded-md border border-line"
-                style={{ background: `var(--${name})` }}
-              />
-              <span className="min-w-0">
-                <span className="block font-mono text-caption text-fg">
-                  --{name}
-                </span>
-                <span className="block font-mono text-[11px] text-muted">
-                  {hex}
-                </span>
-              </span>
-            </CopyToken>
-          ))}
-        </div>
-      </section>
+      <ColorsPalette />
 
-      {scales.map((scale) => (
-        <ScaleRow key={scale} scale={scale} />
-      ))}
+      <section className="mt-14 mb-8">
+        <h2 className="heading-sm text-fg-primary">Semantic mapping</h2>
+        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
+          Prefer semantic tokens in UI. Reach for raw hue steps only when no
+          semantic token fits.
+        </p>
+        <DocTable headers={["Role", "Tokens", "Source"]}>
+          {(
+            [
+              [
+                "Primary actions",
+                "brand-primary, brand-foreground",
+                "gray-900 / gray-0",
+              ],
+              [
+                "Surfaces & text",
+                "background-*, surface, fg-*",
+                "gray + alpha",
+              ],
+              [
+                "Success / decorative green",
+                "decorative-green",
+                "green scale",
+              ],
+              ["Info", "decorative-blue", "blue scale"],
+              ["Danger", "destructive", "red scale"],
+              ["Warning", "warning", "orange scale"],
+              ["Focus", "ring", "gray-1000"],
+            ] as const
+          ).map(([role, tokens, source]) => (
+            <tr key={role}>
+              <DocCell>{role}</DocCell>
+              <DocCell mono>{tokens}</DocCell>
+              <DocCell mono>{source}</DocCell>
+            </tr>
+          ))}
+        </DocTable>
+
+        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
+          <li>
+            Use <Token>bg-brand-primary</Token> for primary buttons, checked
+            switches, and selected checkboxes
+          </li>
+          <li>
+            Use <Token>bg-background-*</Token> / <Token>bg-fg-*</Token> for
+            foundation diagrams and neutral chrome
+          </li>
+          <li>
+            Use hue scales (<Token>green-*</Token>, <Token>blue-*</Token>, …)
+            for status, data viz, and decorative accents
+          </li>
+        </ul>
+
+        <h3 className="heading-xs mt-8 text-fg-primary">Don't</h3>
+        <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
+          <li>
+            Don't use <Token>green-*</Token> as the default fill for primary
+            actions or docs illustrations
+          </li>
+          <li>
+            Don't invent hex values outside the scales on this page
+          </li>
+          <li>
+            Don't use <Token>destructive</Token> for decorative red — use{" "}
+            <Token>decorative-crimson</Token>
+          </li>
+        </ul>
+      </section>
     </div>
-  );
+  )
 }
