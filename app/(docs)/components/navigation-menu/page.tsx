@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NavigationMenuPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Navigation menu"
         description="Site navigation with optional flyout panels for product sections and resource links."

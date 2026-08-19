@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ProgressPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Progress"
         description="Visualize completion for uploads, sync, and multi-step work. Pair a label with a live value when the percentage matters."

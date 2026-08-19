@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContextMenuPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Context menu"
         description="Right-click (or long-press) menu for in-place actions on a region or object. Same item patterns as Menu."

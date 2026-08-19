@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ComboboxPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Combobox"
         description="Searchable list for picking from known options. Prefer combobox when users need to filter a longer set."

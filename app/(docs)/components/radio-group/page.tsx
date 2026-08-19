@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function RadioGroupPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Radio group"
         description="Single choice from a short list of options. Use when only one selection is valid."

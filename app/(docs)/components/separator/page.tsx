@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function SeparatorPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Separator"
         description="Visual divider for sections and inline groups. Prefer horizontal in stacks; use vertical between related actions."

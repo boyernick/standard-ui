@@ -5,7 +5,7 @@ import { Token } from "@/components/doc-table"
 
 export default function IntroductionPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Introduction"
         description="Standard UI is the shared visual language for product surfaces — tokens, components, and motion on Base UI."

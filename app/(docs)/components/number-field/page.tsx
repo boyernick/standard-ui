@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NumberFieldPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Number field"
         description="Numeric input with increment and decrement steppers. Use for quantities, counts, and bounded values."

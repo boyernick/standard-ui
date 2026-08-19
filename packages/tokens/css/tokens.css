@@ -523,3 +523,12 @@
     filter: blur(0);
   }
 }
+
+@keyframes ticker-scroll {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -50% 0;
+  }
+}

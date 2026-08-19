@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PopoverPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Popover"
         description="Anchored surface for light content next to a control. Use for details and short actions that stay in context."

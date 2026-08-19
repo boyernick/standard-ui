@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function OTPFieldPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="OTP field"
         description="One-time password slots for verification codes. Prefer for SMS and email codes, not general text entry."

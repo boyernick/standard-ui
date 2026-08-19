@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CommandPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Command"
         description="Searchable command menu for quick navigation — filters, keyboard selection, and a centered panel."

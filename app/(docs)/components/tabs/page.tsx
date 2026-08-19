@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TabsPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Tabs"
         description="Switch between related views in the same context. Keep tab labels short and panels self-contained."

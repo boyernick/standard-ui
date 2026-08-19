@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function ButtonPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Button"
         description="Buttons trigger actions. Use primary for the one main action on a surface, lower-emphasis variants for everything else."

@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "File attachment" };
 
 export default function FileAttachmentPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="File attachment"
         description="File picker, dropzone, and composable list parts for attachment interfaces."

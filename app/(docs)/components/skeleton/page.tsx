@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Skeleton" };
 
 export default function SkeletonPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Skeleton"
         description="Shape-preserving placeholders that reduce layout shift while content loads."

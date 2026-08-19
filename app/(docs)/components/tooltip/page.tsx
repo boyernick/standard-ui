@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TooltipPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Tooltip"
         description="Short hint on hover or focus. Use for icon buttons and truncated labels — not for critical instructions."

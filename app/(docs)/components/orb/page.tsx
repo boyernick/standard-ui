@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Orb" };
 
 export default function OrbPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Orb"
         description="Ambient brand loader for spacious, expressive waiting states."

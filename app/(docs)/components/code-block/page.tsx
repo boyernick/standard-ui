@@ -16,7 +16,7 @@ export const SaveButton = () => (
 
 export default function CodeBlockPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Code block"
         description="Syntax-highlighted source code with language labels, line numbers, and a copy action."

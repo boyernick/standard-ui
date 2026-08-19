@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ToolbarPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Toolbar"
         description="Grouped controls with arrow-key navigation. Use for formatting bars, inspector tools, and compact action strips."

@@ -14,7 +14,7 @@ const AVATAR_SRC =
 
 export default function AvatarPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Avatar"
         description="Circular identity for people and accounts. Prefer a photo when available; fall back to initials."

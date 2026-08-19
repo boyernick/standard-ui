@@ -707,6 +707,48 @@ export {
 export { Skeleton, skeletonVariants, type SkeletonProps } from "./skeleton";
 export { Spinner, spinnerVariants, type SpinnerProps } from "./spinner";
 export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  useCarousel,
+  type CarouselApi,
+  type CarouselProps,
+  type CarouselContentProps,
+  type CarouselItemProps,
+  type CarouselPreviousProps,
+  type CarouselNextProps,
+} from "./carousel";
+export {
+  SoundsProvider,
+  Sound,
+  SoundToggle,
+  useSounds,
+  type SoundId,
+  type SoundsProviderProps,
+  type SoundProps,
+  type SoundToggleProps,
+} from "./sounds";
+export {
+  VideoPlayer,
+  type VideoPlayerProps,
+} from "./video-player";
+export {
+  ImageModal,
+  ImageModalTrigger,
+  ImageModalContent,
+  type ImageModalProps,
+  type ImageModalTriggerProps,
+  type ImageModalContentProps,
+} from "./image-modal";
+export {
+  Ticker,
+  TickerItem,
+  type TickerProps,
+  type TickerItemProps,
+} from "./ticker";
+export {
   Table,
   TableHeader,
   TableBody,

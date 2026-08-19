@@ -65,7 +65,7 @@ const DocCell = ({
 
 export default function MaterialsPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Materials"
         description="Elevation, radius, and glass edge fades for depth and scroll chrome."

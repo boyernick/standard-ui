@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TogglePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Toggle"
         description="Pressed or unpressed control for formatting and view options. Group toggles when choices share a context."

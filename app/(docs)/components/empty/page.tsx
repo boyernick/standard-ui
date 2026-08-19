@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Empty" };
 
 export default function EmptyPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Empty"
         description="Composed empty states for missing content, first-run guidance, and zero results."

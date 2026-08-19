@@ -115,7 +115,7 @@ export const contentWidths: LayoutMeasure[] = [
     className: "max-w-6xl",
     value: "72rem",
     px: "1152px",
-    usage: "Wide galleries (e.g. color palettes)",
+    usage: "Optional wide layouts — docs shell stays max-w-5xl",
   },
 ]
 

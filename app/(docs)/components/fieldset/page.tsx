@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function FieldsetPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Fieldset"
         description="Semantic grouping for related fields with a legend — settings sections and checkbox clusters."

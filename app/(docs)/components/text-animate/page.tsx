@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TextAnimatePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Text animate"
         description="Typewriter, decode, fade, and blur reveals for headlines and empty-state copy."

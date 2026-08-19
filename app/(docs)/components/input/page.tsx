@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function InputPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Input"
         description="Single-line text fields for forms and filters. Use sizes to match surrounding controls, and mark invalid fields when validation fails."

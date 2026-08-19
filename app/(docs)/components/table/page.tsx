@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Table" };
 
 export default function TablePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Table"
         description="Semantic data tables with consistent headers, rows, cells, captions, and totals."

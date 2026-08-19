@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function DrawerPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Drawer"
         description="Edge panel with swipe dismissal. Use for side sheets and bottom sheets when Dialog is too centered."

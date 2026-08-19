@@ -21,7 +21,7 @@ const illustrations = [
 
 export default function IllustrationsPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Illustrations"
         description="Simple state illustrations that inherit foreground and brand tokens across themes."

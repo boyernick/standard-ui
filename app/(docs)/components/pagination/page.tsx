@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Pagination" };
 
 export default function PaginationPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Pagination"
         description="Page controls for moving through a bounded collection of results."

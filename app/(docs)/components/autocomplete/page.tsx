@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AutocompletePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Autocomplete"
         description="Text field with filtered suggestions. Prefer Combobox when selecting a closed set of values; use Autocomplete for freeform input with hints."

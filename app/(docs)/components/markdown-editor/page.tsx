@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function MarkdownEditorPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Markdown editor"
         description="A focused editor with simple formatting helpers and a lightweight preview for basic markdown."

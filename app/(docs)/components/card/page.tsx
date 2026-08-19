@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function CardPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Card"
         description="Surface for grouping related content and actions. Use when a bordered container clarifies a unit of work."

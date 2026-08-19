@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function BadgePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Badge"
         description="Compact labels for status, category, and metadata. Keep copy short — a word or two."

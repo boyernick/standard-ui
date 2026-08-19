@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CollapsiblePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Collapsible"
         description="Show and hide a related panel of content. Use for optional details, recovery info, and progressive disclosure."

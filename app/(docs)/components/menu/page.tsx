@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function MenuPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Menu"
         description="Action list anchored to a trigger. Use for overflow actions, account menus, and in-context commands."

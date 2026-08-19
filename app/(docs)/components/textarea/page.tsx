@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TextareaPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Textarea"
         description="Multi-line text fields for notes, comments, and longer form input. Mark invalid when validation fails."

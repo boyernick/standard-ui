@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CalendarPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Calendar"
         description="Month grid for picking a single date. Built on react-day-picker with Standard UI styling."

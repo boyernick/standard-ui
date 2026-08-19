@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AlertDialogPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Alert dialog"
         description="Interruptive confirmation for destructive or irreversible actions. Prefer a regular dialog when the user needs more context or form fields."

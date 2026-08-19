@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function FieldPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Field"
         description="Label, control, description, and error for a single form control — wired to Base UI validation."

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function SliderPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Slider"
         description="Choose a value along a continuous range. Use for volume, opacity, and other numeric settings."

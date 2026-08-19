@@ -8,18 +8,19 @@ export const metadata: Metadata = {
 
 export default function BrandPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Brand"
-        description="Standard UI is named for a shared baseline — a circle of focus with three rules that stand for measure, rhythm, and clarity."
+        description="Standard UI shares the solid disk mark used across nickboyer.com — a focused black circle as the system signature."
       />
 
       <section className="mt-2">
         <h2 className="heading-sm text-fg-primary">Mark</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          The mark is a ring with three horizontal rules. The circle is the
-          system boundary; the rules are the standard. Use it alone as an app
-          icon or favicon, or with the wordmark.
+          The mark is a filled circle. Use it alone as an app icon or favicon,
+          or with the wordmark. In product UI it inherits{" "}
+          <code className="font-mono text-sm">currentColor</code>; the favicon
+          stays near-black for browser chrome.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <div className="flex min-h-40 items-center justify-center rounded-2xl border border-border-primary bg-background-secondary">
@@ -32,18 +33,6 @@ export default function BrandPage() {
             <BrandMark size={24} />
           </div>
         </div>
-        <figure className="mt-6 overflow-hidden rounded-2xl border border-border-primary bg-background-secondary">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/mark-concept.png"
-            alt="Standard UI mark concept — circle with three horizontal rules"
-            className="mx-auto max-h-80 w-auto object-contain p-6"
-          />
-          <figcaption className="text-sm border-t border-border-primary px-4 py-3 text-fg-tertiary">
-            Concept study for the mark (circle of focus, three rules of the
-            standard).
-          </figcaption>
-        </figure>
       </section>
 
       <section className="mt-14">
@@ -78,8 +67,8 @@ export default function BrandPage() {
         <h2 className="heading-sm text-fg-primary">Light and dark</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Draw the mark and wordmark in a single foreground color. Prefer
-          grayscale brand tokens — never recolor the rules separately from the
-          ring.
+          grayscale brand tokens — never recolor the disk independently from
+          the type.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div className="flex min-h-48 items-center justify-center rounded-2xl border border-border-primary bg-white p-8 text-gray-1000">
@@ -104,16 +93,16 @@ export default function BrandPage() {
         <div>
           <h2 className="heading-sm text-fg-primary">Do</h2>
           <ul className="text-md mt-4 list-disc space-y-2 pl-5 text-fg-secondary">
-            <li>Keep the ring and three rules as one mark</li>
+            <li>Keep the solid disk as one mark</li>
             <li>Scale the lockup proportionally</li>
             <li>Use high-contrast surfaces</li>
-            <li>Prefer the full wordmark on marketing and docs headers</li>
+            <li>Match the favicon to the same disk</li>
           </ul>
         </div>
         <div>
           <h2 className="heading-sm text-fg-primary">Don&apos;t</h2>
           <ul className="text-md mt-4 list-disc space-y-2 pl-5 text-fg-secondary">
-            <li>Don&apos;t stretch, rotate, or drop rules from the mark</li>
+            <li>Don&apos;t stretch, rotate, or hollow out the disk</li>
             <li>Don&apos;t add gradients, glows, or multicolor fills</li>
             <li>Don&apos;t replace Signifier with a decorative display face</li>
             <li>Don&apos;t place the mark on busy photography without a scrim</li>

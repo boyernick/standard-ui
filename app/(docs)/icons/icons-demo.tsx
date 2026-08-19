@@ -198,7 +198,7 @@ export const IconsDemo = () => {
           style={tableHeight ? { height: tableHeight } : { maxHeight: "80vh" }}
         >
           <div className="sticky top-0 z-10 shrink-0 border-b border-border-primary bg-surface">
-            <div className="relative px-5">
+            <div className="relative">
               <label className="sr-only" htmlFor="icon-search">
                 Search icons
               </label>
@@ -210,7 +210,7 @@ export const IconsDemo = () => {
                 onChange={handleQueryChange}
                 placeholder="Search icons…"
                 autoComplete="off"
-                className="h-auto rounded-none py-4 pr-10 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+                className="h-auto rounded-none !px-5 !pr-14 py-4 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
               />
               {query ? (
                 <Button
@@ -221,7 +221,7 @@ export const IconsDemo = () => {
                   rounded
                   onClick={handleClearQuery}
                   aria-label="Clear search"
-                  className="absolute top-1/2 right-2 -translate-y-1/2 text-fg-tertiary hover:text-fg-primary"
+                  className="absolute top-1/2 right-5 -translate-y-1/2 justify-end text-fg-tertiary hover:text-fg-primary"
                 >
                   <IconCrossMedium size={16} mode="raw" aria-hidden />
                 </Button>
@@ -230,7 +230,7 @@ export const IconsDemo = () => {
             <div
               role="tablist"
               aria-label="Icon categories"
-              className="flex gap-2 overflow-x-auto border-t border-border-primary px-4 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-2 overflow-x-auto border-t border-border-primary px-5 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {categoryTabs.map((tab) => {
                 const active = tab === category

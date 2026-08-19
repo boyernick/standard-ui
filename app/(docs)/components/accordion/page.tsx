@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AccordionPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Accordion"
         description="Expandable sections for FAQs, settings groups, and progressive disclosure. One item open by default, or allow multiple."

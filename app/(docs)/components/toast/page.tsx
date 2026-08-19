@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ToastPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Toast"
         description="Transient notifications for saves, errors, and confirmations. Stack in a viewport and dismiss with close or timeout."

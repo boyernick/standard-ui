@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ScrollAreaPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Scroll area"
         description="Custom scrollable region with a styled scrollbar. Use when native overflow would break a fixed layout."

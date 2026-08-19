@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function IconsPage() {
   return (
-    <div className="mx-auto max-w-5xl" data-icons-page>
+    <div className="w-full" data-icons-page>
       <PageHeader
         title="Icons"
         description="Rounded outlined icon set. Default size 20px."

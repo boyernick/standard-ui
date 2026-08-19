@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function SelectPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Select"
         description="Single-choice menu for forms and filters. Prefer select when options are longer than a short radio group."

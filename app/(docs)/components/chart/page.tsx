@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ChartPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Chart"
         description="Responsive chart shells built on Recharts. Use ChartContainer for themed colors, then compose area, bar, or line series."

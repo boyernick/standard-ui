@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ColorsPage() {
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className="w-full">
       <PageHeader
         title="Colors"
         description="Gray, alpha, and hue scales that semantic tokens build on."

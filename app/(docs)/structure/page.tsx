@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function StructurePage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Structure"
         description="Spacing, page layout, and breakpoints — how UI sits in the viewport."

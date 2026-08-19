@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Spinner" };
 
 export default function SpinnerPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Spinner"
         description="Compact indeterminate progress indicator for controls and inline loading states."
@@ -28,6 +28,23 @@ export default function SpinnerPage() {
           code={`import { Spinner } from "@standard-ui/react"\n\n<Spinner size="md" />`}
         />
       </section>
+      <section className="mt-14">
+        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <h3 className="heading-xs mt-8 text-fg-primary">In buttons</h3>
+        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
+          Prefer <Token>Button</Token> with <Token>loading</Token> for actions.
+          Use a standalone spinner for panels and inline status copy.
+        </p>
+        <CodeBlock
+          className="mt-4"
+          code={`<Button loading>Saving</Button>
+<p className="inline-flex items-center gap-2">
+  <Spinner size="sm" />
+  Fetching updates…
+</p>`}
+        />
+      </section>
+
       <section className="mt-14">
         <h2 className="heading-sm text-fg-primary">API</h2>
         <DocTable headers={["Prop", "Type", "Default", "Description"]}>

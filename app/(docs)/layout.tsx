@@ -25,7 +25,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             tabIndex={-1}
             className="flex-1 px-4 py-10 outline-none md:px-10 lg:px-14"
           >
-            {children}
+            <div className="mx-auto w-full max-w-5xl">{children}</div>
           </main>
         </div>
       </div>

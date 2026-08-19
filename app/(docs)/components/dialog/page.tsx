@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function DialogPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Dialog"
         description="Modal surface for focused tasks — forms, details, and short flows. Use alert dialog when the action is destructive or irreversible."

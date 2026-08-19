@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function FormPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Form"
         description="Native form with consolidated Field validation and optional server error maps."

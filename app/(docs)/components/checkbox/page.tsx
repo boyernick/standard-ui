@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CheckboxPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Checkbox"
         description="Boolean selection for forms and filters. Use for options that submit with a form, or multi-select lists."

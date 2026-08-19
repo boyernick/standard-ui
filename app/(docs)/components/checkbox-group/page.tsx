@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CheckboxGroupPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Checkbox group"
         description="Shared state for a set of checkboxes — multi-select lists, permissions, and select-all parents."

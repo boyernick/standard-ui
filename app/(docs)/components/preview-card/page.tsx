@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PreviewCardPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Preview card"
         description="Hover or focus card for links and mentions. Use for lightweight previews — prefer Dialog for dense or interactive content."

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function MotionPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Motion"
         description="Shared transition classes for overlays, indicators, and color changes. Prefer CSS scale on centered modals so translate centering stays intact."

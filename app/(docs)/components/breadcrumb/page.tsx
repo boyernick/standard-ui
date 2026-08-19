@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Breadcrumb" };
 
 export default function BreadcrumbPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Breadcrumb"
         description="Hierarchical navigation that shows the current page within a larger structure."

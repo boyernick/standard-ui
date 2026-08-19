@@ -40,7 +40,7 @@ export const Sidebar = () => {
         </div>
 
         <nav className="px-3 pb-14">
-          <p className="text-xs px-2 pt-2 pb-2 text-fg-tertiary">
+          <p className="text-xs px-2 pt-2 pb-2 text-fg-secondary">
             Foundations
           </p>
           <ul className="flex flex-col gap-0.5">
@@ -56,7 +56,7 @@ export const Sidebar = () => {
             })}
           </ul>
 
-          <p className="text-xs mt-6 px-2 pt-2 pb-2 text-fg-tertiary">
+          <p className="text-xs mt-6 px-2 pt-2 pb-2 text-fg-secondary">
             Components
           </p>
           <ul className="flex flex-col gap-0.5">

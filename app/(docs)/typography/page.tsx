@@ -55,7 +55,7 @@ const DocCell = ({
 
 export default function TypographyPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Typography"
         description="Text styles for headings and body content."

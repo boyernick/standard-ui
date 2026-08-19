@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function MenubarPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Menubar"
         description="Persistent application menu bar. Compose with Menu parts for File / Edit / View style commands."

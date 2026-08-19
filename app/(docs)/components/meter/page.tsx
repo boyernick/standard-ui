@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function MeterPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Meter"
         description="Read-only gauge for a value within a range — storage, quotas, scores. Prefer Progress for task completion."

@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Sidebar" };
 
 export default function SidebarPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Sidebar"
         description="Persistent panel structure for application navigation and supporting controls."

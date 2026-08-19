@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function SwitchPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <PageHeader
         title="Switch"
         description="Binary on/off control for settings and preferences. Use when the change takes effect immediately."

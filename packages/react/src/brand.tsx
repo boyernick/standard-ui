@@ -6,7 +6,7 @@ export type BrandMarkProps = SVGProps<SVGSVGElement> & {
   title?: string
 }
 
-/** Circle + three rules — precision / standard. */
+/** Solid disk — same mark as nickboyer.com / the site favicon. */
 export const BrandMark = ({
   size = 24,
   className,
@@ -16,7 +16,7 @@ export const BrandMark = ({
   <svg
     width={size}
     height={size}
-    viewBox="0 0 32 32"
+    viewBox="0 0 128 128"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={cn("shrink-0 text-fg-primary", className)}
@@ -25,19 +25,7 @@ export const BrandMark = ({
     {...props}
   >
     {title ? <title>{title}</title> : null}
-    <circle
-      cx="16"
-      cy="16"
-      r="13"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-    <path
-      d="M9 12h14M9 16h14M9 20h10"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
+    <circle cx="64" cy="64" r="64" fill="currentColor" />
   </svg>
 )
 
@@ -56,7 +44,7 @@ export const BrandWordmark = ({
   compact = false,
   size = "md",
 }: BrandWordmarkProps) => {
-  const resolvedMarkSize = markSize ?? (size === "sm" ? 16 : 28)
+  const resolvedMarkSize = markSize ?? (size === "sm" ? 14 : 28)
 
   return (
     <span
