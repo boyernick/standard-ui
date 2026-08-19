@@ -66,7 +66,7 @@ export default function MenuPage() {
         <h3 className="heading-xs mt-8 text-fg-primary">Trigger</h3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass Button through <Token>render</Token> so the control keeps
-          Standard UI styles without nesting buttons.
+          StandardUI styles without nesting buttons.
         </p>
         <CodeBlock
           className="mt-4"

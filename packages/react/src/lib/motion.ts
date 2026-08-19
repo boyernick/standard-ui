@@ -1,5 +1,5 @@
 /**
- * Shared motion classes for Standard UI.
+ * Shared motion classes for StandardUI.
  * Prefer CSS `scale` on centered modals so `translate` centering stays intact.
  * Anchored popups use `transform-origin` from Base UI.
  */

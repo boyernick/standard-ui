@@ -1,9 +1,9 @@
 ---
 name: standard-ui-tokens
-description: Applies Standard UI semantic tokens, focus rings, cursor behavior, nested radii, and sentence-case copy. Use when styling React components or documentation in this repository.
+description: Applies StandardUI semantic tokens, focus rings, cursor behavior, nested radii, and sentence-case copy. Use when styling React components or documentation in this repository.
 ---
 
-# Standard UI tokens
+# StandardUI tokens
 
 ## Semantic styling
 

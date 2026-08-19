@@ -5,7 +5,7 @@ export type SpacingStep = {
   usage: string
 }
 
-/** 4px base unit — Tailwind spacing steps used across Standard UI */
+/** 4px base unit — Tailwind spacing steps used across StandardUI */
 export const spacingSteps: SpacingStep[] = [
   {
     token: "0.5",

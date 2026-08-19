@@ -1,6 +1,6 @@
 # @standard-ui/react
 
-Styled React components for Standard UI. Interactive controls wrap [Base UI](https://base-ui.com); atoms (Button, Input, Badge) are token-styled DOM.
+Styled React components for StandardUI. Interactive controls wrap [Base UI](https://base-ui.com); atoms (Button, Input, Badge) are token-styled DOM.
 
 ```tsx
 import { Button, Input, Badge, Switch, Checkbox } from "@standard-ui/react"

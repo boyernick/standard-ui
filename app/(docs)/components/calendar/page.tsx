@@ -13,7 +13,7 @@ export default function CalendarPage() {
     <div className="w-full">
       <PageHeader
         title="Calendar"
-        description="Month grid for picking a single date. Built on react-day-picker with Standard UI styling."
+        description="Month grid for picking a single date. Built on react-day-picker with StandardUI styling."
       />
 
       <section className="mt-2">

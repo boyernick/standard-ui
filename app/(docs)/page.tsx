@@ -8,7 +8,7 @@ export default function IntroductionPage() {
     <div className="w-full">
       <PageHeader
         title="Introduction"
-        description="Standard UI is the shared visual language for product surfaces — tokens, components, and motion on Base UI."
+        description="StandardUI is the shared visual language for product surfaces — tokens, components, and motion on Base UI."
       />
 
       <section className="mt-8 max-w-3xl">
@@ -20,7 +20,7 @@ export default function IntroductionPage() {
           >
             Base UI
           </a>
-          ; color, type, and chrome are styled with Standard UI tokens. Prefer
+          ; color, type, and chrome are styled with StandardUI tokens. Prefer
           package components in app chrome so the system stays dogfooded.
         </p>
       </section>

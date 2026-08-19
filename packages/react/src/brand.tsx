@@ -6,11 +6,11 @@ export type BrandMarkProps = SVGProps<SVGSVGElement> & {
   title?: string
 }
 
-/** Solid disk — canonical Standard UI mark. Color via currentColor / parent text. */
+/** Solid disk — canonical StandardUI mark. Color via currentColor / parent text. */
 export const BrandMark = ({
   size = 24,
   className,
-  title = "Standard UI",
+  title = "StandardUI",
   ...props
 }: BrandMarkProps) => (
   <svg
@@ -54,7 +54,7 @@ export const BrandWordmark = ({
         size === "sm" ? "gap-1" : "gap-1.5",
         className,
       )}
-      aria-label="Standard UI"
+      aria-label="StandardUI"
     >
       <BrandMark size={resolvedMarkSize} title="" aria-hidden />
       <span

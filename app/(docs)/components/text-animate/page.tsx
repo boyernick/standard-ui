@@ -33,7 +33,7 @@ export default function TextAnimatePage() {
           code={`import { TextAnimate } from "@standard-ui/react"
 
 <TextAnimate text="Hello" effect="typewriter" />
-<TextAnimate text="Standard UI" effect="decode" speed={30} />`}
+<TextAnimate text="StandardUI" effect="decode" speed={30} />`}
         />
       </section>
 

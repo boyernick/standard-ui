@@ -6,7 +6,7 @@ alwaysApply: true
 
 # Cursor styles
 
-The cursor should communicate **what will happen**. In Standard UI, **buttons and links both use `cursor-pointer`**.
+The cursor should communicate **what will happen**. In StandardUI, **buttons and links both use `cursor-pointer`**.
 
 | Interaction | Cursor | Use when |
 |---|---|---|

@@ -1,7 +1,7 @@
 {
   "name": "@standard-ui/react",
   "version": "0.1.0",
-  "description": "React components for Standard UI",
+  "description": "React components for StandardUI",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,

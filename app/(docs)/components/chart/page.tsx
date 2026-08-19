@@ -114,7 +114,7 @@ export default function ChartPage() {
           </tr>
           <tr>
             <DocCell mono>ChartTooltip</DocCell>
-            <DocCell>Recharts tooltip with Standard UI content by default.</DocCell>
+            <DocCell>Recharts tooltip with StandardUI content by default.</DocCell>
           </tr>
           <tr>
             <DocCell mono>ChartTooltipContent</DocCell>
@@ -122,7 +122,7 @@ export default function ChartPage() {
           </tr>
           <tr>
             <DocCell mono>ChartLegend</DocCell>
-            <DocCell>Legend with Standard UI content by default.</DocCell>
+            <DocCell>Legend with StandardUI content by default.</DocCell>
           </tr>
           <tr>
             <DocCell mono>AreaChart / Area</DocCell>

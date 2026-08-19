@@ -41,7 +41,7 @@ export const SidebarExamples = () => (
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter className="text-xs text-fg-tertiary">
-          Standard UI
+          StandardUI
         </SidebarFooter>
       </Sidebar>
     </ComponentCanvas>

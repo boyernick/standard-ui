@@ -1,6 +1,6 @@
 # @standard-ui/tokens
 
-CSS custom properties and Tailwind v4 `@theme` for Standard UI.
+CSS custom properties and Tailwind v4 `@theme` for StandardUI.
 
 ```css
 @import "@standard-ui/tokens/css/tokens.css";

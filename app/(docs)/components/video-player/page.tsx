@@ -13,7 +13,7 @@ export default function VideoPlayerPage() {
     <div className="w-full">
       <PageHeader
         title="Video player"
-        description="Accessible video surface with play, seek, mute, and fullscreen controls styled with Standard UI tokens."
+        description="Accessible video surface with play, seek, mute, and fullscreen controls styled with StandardUI tokens."
       />
 
       <section className="mt-2">
