@@ -83,9 +83,19 @@ props, and only the snippet is verified.
 
 ## Releasing
 
-Both packages are published from `.github/workflows/publish-packages.yml`, on a
-`v*` tag or manual dispatch. Bump both package versions together — they are
-versioned in lockstep and consumers install them as a pair.
+Two lanes, both publishing with provenance:
+
+- **Canary** — every merge to `main` touching `packages/**` publishes
+  `0.1.<next>-canary.<run>` under the `canary` tag, via `publish-canary.yml`.
+  Consumers opt in with `@canary`; a caret range never resolves to a
+  prerelease, so production sites are unaffected.
+- **Stable** — a `v*` tag or manual dispatch runs `publish-packages.yml` and
+  moves `latest`. Bump both package versions together; they are versioned in
+  lockstep and consumers install them as a pair.
+
+Provenance requires this repository to stay **public**: npm dropped support for
+publishing provenance from private source repositories in 2023, so making the
+repo private would break both workflows.
 
 `@central-icons-react` runs a postinstall license check, so `CENTRAL_LICENSE_KEY`
 must be present for any install, locally and in CI.

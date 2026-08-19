@@ -33,57 +33,51 @@ Copy [`.env.example`](.env.example) to `.env.local` for local installs. Do not c
 
 ## Use in another project
 
-**Two lanes**
+Consumers always install from npm. Three lanes, differing only in which version they pull:
 
-| Lane | When | Dependency |
+| Lane | When | Version |
 | --- | --- | --- |
-| Local link | Day-to-day design loop (docs ↔ apps, instant) | `file:` path to this repo’s packages |
-| Registry | Vercel / CI / other machines | `@boyernick/standard-ui-*` from npm after publish |
+| Stable | Production, CI, anything deployed | `^0.1.0` |
+| Canary | Iterating on a site against unreleased components | `@canary` |
+| Local link | Editing a component while watching a site, uncommitted | a path on your machine |
 
-### Local link (bidirectional)
-
-From a sibling app (example: `Documents/nickboyer.com` → `Projects/standard-ui`):
-
-```bash
-npm install \
-  file:../../Projects/standard-ui/packages/tokens \
-  file:../../Projects/standard-ui/packages/react
-```
-
-Or in `package.json`:
-
-```json
-{
-  "dependencies": {
-    "@boyernick/standard-ui-tokens": "file:../../Projects/standard-ui/packages/tokens",
-    "@boyernick/standard-ui-react": "file:../../Projects/standard-ui/packages/react"
-  }
-}
-```
-
-`file:` installs symlink to these packages. Edits in the docs app or a production app hit the same source. Point Vite `server.fs.allow` / watch at the packages root and exclude `@boyernick/standard-ui-react` from `optimizeDeps` so HMR tracks the real files.
-
-### Registry (deploy)
-
-1. Publish under your `@boyernick` npm account.
-2. Add repo secrets: `NPM_TOKEN` (automation token), `CENTRAL_LICENSE_KEY` (for `npm ci` in CI).
-3. Publish: push a tag `v0.1.0` or run **Publish packages** via Actions → workflow_dispatch.
-4. In consumers:
+### Stable
 
 ```bash
 npm install @boyernick/standard-ui-tokens @boyernick/standard-ui-react
 ```
 
-```json
-{
-  "dependencies": {
-    "@boyernick/standard-ui-tokens": "^0.1.0",
-    "@boyernick/standard-ui-react": "^0.1.0"
-  }
-}
+Published by pushing a `v*` tag or running **Publish packages** via Actions. This moves the `latest` tag.
+
+Repo secrets required: `NPM_TOKEN` (automation token) and `CENTRAL_LICENSE_KEY` (for `npm ci` in CI).
+
+### Canary
+
+Every merge to `main` that touches `packages/**` publishes a prerelease under the `canary` tag, so a component change is installable minutes later without cutting a release.
+
+```bash
+npm install @boyernick/standard-ui-tokens@canary @boyernick/standard-ui-react@canary
 ```
 
-Bump the consumer and redeploy after each publish. For bleeding-edge local work, keep the `file:` lane.
+Canary versions are `0.1.<next>-canary.<run>`. They sort above the current stable release but a caret range never resolves to them, so a site pinned at `^0.1.0` keeps getting stable builds until you opt in. Installing a canary writes the exact version into the consumer's `package.json`; move back to a caret range before deploying.
+
+### Local link
+
+For the tightest loop — editing a component and watching a site repaint — point the consumer at your checkout, without committing it:
+
+```bash
+npm install --no-save \
+  ../standard-ui/packages/tokens \
+  ../standard-ui/packages/react
+```
+
+Two things to know. `--no-save` keeps the machine-specific path out of `package.json`, which is what would otherwise break the Vercel build; `npm install` restores the registry version. And a linked React library resolves its own copy of React, which surfaces as `Invalid hook call` — so the consumer's bundler must dedupe. For Vite:
+
+```ts
+resolve: { dedupe: ["react", "react-dom"] }
+```
+
+Prefer the canary lane for anything lasting more than an afternoon.
 
 Wire CSS once (Tailwind v4). Point `@source` at the react package so component classes are generated:
 
