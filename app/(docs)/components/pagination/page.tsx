@@ -26,7 +26,7 @@ export default function PaginationPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Pagination, PaginationContent, PaginationLink } from "@standard-ui/react"\n\n<Pagination>\n  <PaginationContent>\n    <PaginationLink active>1</PaginationLink>\n  </PaginationContent>\n</Pagination>`}
+          code={`import { Pagination, PaginationContent, PaginationLink } from "@boyernick/standard-ui-react"\n\n<Pagination>\n  <PaginationContent>\n    <PaginationLink active>1</PaginationLink>\n  </PaginationContent>\n</Pagination>`}
         />
       </section>
       <section className="mt-14">

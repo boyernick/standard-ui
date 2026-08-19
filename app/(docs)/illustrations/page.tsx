@@ -5,7 +5,7 @@ import {
   IllustrationError,
   IllustrationSearch,
   IllustrationSuccess,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { PageHeader } from "@/components/page-header"
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ export default function IllustrationsPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { IllustrationEmpty } from "@standard-ui/react"
+          code={`import { IllustrationEmpty } from "@boyernick/standard-ui-react"
 
 <div className="text-fg-tertiary">
   <IllustrationEmpty className="w-60" />

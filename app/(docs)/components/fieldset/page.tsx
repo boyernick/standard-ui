@@ -30,7 +30,7 @@ export default function FieldsetPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Fieldset, FieldsetLegend } from "@standard-ui/react"
+          code={`import { Fieldset, FieldsetLegend } from "@boyernick/standard-ui-react"
 
 <Fieldset>
   <FieldsetLegend>Shipping</FieldsetLegend>

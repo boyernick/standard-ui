@@ -7,7 +7,7 @@ import {
   FieldError,
   FieldLabel,
   Form,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const FormExamples = () => (

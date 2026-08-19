@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Dogfood components in scaffolding
 
-When a `@standard-ui/react` component ships (or gains a variant), **update the docs site chrome** to use it instead of raw HTML / one-off Tailwind.
+When a `@boyernick/standard-ui-react` component ships (or gains a variant), **update the docs site chrome** to use it instead of raw HTML / one-off Tailwind.
 
 ## Prefer package components for
 

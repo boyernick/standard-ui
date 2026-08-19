@@ -34,7 +34,7 @@ export default function CollapsiblePage() {
   Collapsible,
   CollapsibleTrigger,
   CollapsiblePanel,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Collapsible>
   <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>

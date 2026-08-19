@@ -25,7 +25,7 @@ export default function MotionPage() {
         <h2 className="heading-sm text-fg-primary">Overview</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Import <Token>motion</Token> from{" "}
-          <Token>@standard-ui/react</Token> (via component internals) or copy
+          <Token>@boyernick/standard-ui-react</Token> (via component internals) or copy
           the class strings from the table below. All tokens include{" "}
           <Token>motion-reduce:transition-none</Token>. For character-level
           reveals (typewriter, decode, fade, blur), use{" "}
@@ -40,7 +40,7 @@ export default function MotionPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { motion } from "@standard-ui/react"
+          code={`import { motion } from "@boyernick/standard-ui-react"
 
 <div className={cn(motion.backdrop, "fixed inset-0 bg-black/40")} />`}
         />

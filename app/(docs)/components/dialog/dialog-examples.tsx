@@ -11,7 +11,7 @@ import {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const DialogExamples = () => (

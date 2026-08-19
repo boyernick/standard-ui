@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Button, TextAnimate } from "@standard-ui/react"
+import { Button, TextAnimate } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const TextAnimateExamples = () => {

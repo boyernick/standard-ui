@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, IconChevronRightSmall } from "@standard-ui/react"
+import { Button, IconChevronRightSmall } from "@boyernick/standard-ui-react"
 import { useId, useState, type ReactNode } from "react"
 import { CodeBlock } from "@/components/code-block"
 

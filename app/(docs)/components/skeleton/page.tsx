@@ -26,7 +26,7 @@ export default function SkeletonPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Skeleton } from "@standard-ui/react"\n\n<Skeleton variant="text" className="w-48" />`}
+          code={`import { Skeleton } from "@boyernick/standard-ui-react"\n\n<Skeleton variant="text" className="w-48" />`}
         />
       </section>
       <section className="mt-14">

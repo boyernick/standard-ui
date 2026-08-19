@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -89,7 +89,7 @@ export default function CardPage() {
   CardContent,
   CardFooter,
   Button,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Card>
   <CardHeader>

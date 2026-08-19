@@ -36,7 +36,7 @@ export default function ToolbarPage() {
   ToolbarButton,
   ToolbarSeparator,
   ToolbarLink,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Toolbar aria-label="Formatting">
   <ToolbarGroup>

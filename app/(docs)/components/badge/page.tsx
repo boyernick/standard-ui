@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Badge } from "@standard-ui/react"
+import { Badge } from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -43,7 +43,7 @@ export default function BadgePage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Badge } from "@standard-ui/react"
+          code={`import { Badge } from "@boyernick/standard-ui-react"
 
 <Badge>New</Badge>`}
         />

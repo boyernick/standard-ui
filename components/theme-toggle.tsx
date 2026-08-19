@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@standard-ui/react"
+import { Button } from "@boyernick/standard-ui-react"
 import { IconCircleHalfFill } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCircleHalfFill"
 import { useTheme } from "./theme-provider"
 

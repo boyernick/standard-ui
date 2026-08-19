@@ -5,7 +5,7 @@ import {
   MarkdownEditorInput,
   MarkdownEditorPreview,
   MarkdownEditorToolbar,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
@@ -69,7 +69,7 @@ export default function MarkdownEditorPage() {
   MarkdownEditorToolbar,
   MarkdownEditorInput,
   MarkdownEditorPreview,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <MarkdownEditor defaultValue="Hello **world**">
   <MarkdownEditorToolbar />

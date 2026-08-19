@@ -37,7 +37,7 @@ export default function ProgressPage() {
   ProgressValue,
   ProgressTrack,
   ProgressIndicator,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Progress value={60}>
   <ProgressLabel>Uploading</ProgressLabel>

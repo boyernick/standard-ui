@@ -36,7 +36,7 @@ export default function SliderPage() {
   SliderTrack,
   SliderIndicator,
   SliderThumb,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Slider defaultValue={40}>
   <SliderControl>

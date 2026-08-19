@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Textarea } from "@standard-ui/react"
+import { Textarea } from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -113,7 +113,7 @@ export default function TextareaPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Textarea } from "@standard-ui/react"
+          code={`import { Textarea } from "@boyernick/standard-ui-react"
 
 <Textarea
   placeholder="Write a short note…"

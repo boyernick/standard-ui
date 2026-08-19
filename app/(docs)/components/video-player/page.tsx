@@ -30,7 +30,7 @@ export default function VideoPlayerPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { VideoPlayer } from "@standard-ui/react"
+          code={`import { VideoPlayer } from "@boyernick/standard-ui-react"
 
 <VideoPlayer src="/demo.webm" title="Walkthrough" />`}
         />

@@ -1,6 +1,6 @@
 "use client"
 
-import { Checkbox } from "@standard-ui/react"
+import { Checkbox } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const CheckboxExamples = () => (

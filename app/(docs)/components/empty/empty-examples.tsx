@@ -11,7 +11,7 @@ import {
   IllustrationEmpty,
   IllustrationError,
   IllustrationSearch,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const EmptyExamples = () => (

@@ -25,7 +25,7 @@ export default function TablePage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Table, TableBody, TableCell, TableRow } from "@standard-ui/react"\n\n<Table>\n  <TableBody>\n    <TableRow><TableCell>INV-001</TableCell></TableRow>\n  </TableBody>\n</Table>`}
+          code={`import { Table, TableBody, TableCell, TableRow } from "@boyernick/standard-ui-react"\n\n<Table>\n  <TableBody>\n    <TableRow><TableCell>INV-001</TableCell></TableRow>\n  </TableBody>\n</Table>`}
         />
       </section>
       <section className="mt-14">

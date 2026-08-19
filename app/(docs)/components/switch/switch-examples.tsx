@@ -1,6 +1,6 @@
 "use client"
 
-import { Switch } from "@standard-ui/react"
+import { Switch } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const SwitchExamples = () => (

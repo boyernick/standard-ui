@@ -1,6 +1,6 @@
 "use client"
 
-import { Badge, Ticker, TickerItem } from "@standard-ui/react"
+import { Badge, Ticker, TickerItem } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const TickerExamples = () => (

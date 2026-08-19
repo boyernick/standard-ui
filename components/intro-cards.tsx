@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { ReactNode } from "react"
-import { BrandWordmark } from "@standard-ui/react"
+import { BrandWordmark } from "@boyernick/standard-ui-react"
 import { IconFormCircle } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFormCircle"
 
 function Card({

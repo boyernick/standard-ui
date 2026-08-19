@@ -31,7 +31,7 @@ export default function TogglePage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Toggle, ToggleGroup } from "@standard-ui/react"
+          code={`import { Toggle, ToggleGroup } from "@boyernick/standard-ui-react"
 
 <Toggle defaultPressed>Bold</Toggle>
 

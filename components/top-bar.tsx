@@ -4,7 +4,7 @@ import {
   BrandWordmark,
   IconMagnifyingGlass,
   Input,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react"
 import { MobileNav } from "./mobile-nav"

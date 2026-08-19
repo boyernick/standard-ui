@@ -37,7 +37,7 @@ export default function MenubarPage() {
   MenuPositioner,
   MenuPopup,
   MenuItem,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Menubar>
   <Menu>

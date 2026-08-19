@@ -6,7 +6,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const ScrollAreaExamples = () => (

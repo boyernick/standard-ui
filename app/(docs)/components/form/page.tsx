@@ -30,7 +30,7 @@ export default function FormPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Form, Field, FieldLabel, FieldControl, Button } from "@standard-ui/react"
+          code={`import { Form, Field, FieldLabel, FieldControl, Button } from "@boyernick/standard-ui-react"
 
 <Form onFormSubmit={(values) => { /* … */ }}>
   <Field name="email">

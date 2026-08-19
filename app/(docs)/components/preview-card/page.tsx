@@ -37,7 +37,7 @@ export default function PreviewCardPage() {
   PreviewCardPositioner,
   PreviewCardPopup,
   PreviewCardArrow,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <PreviewCard>
   <PreviewCardTrigger render={<a href="…" />}>

@@ -40,7 +40,7 @@ export default function AutocompletePage() {
   AutocompleteEmpty,
   AutocompleteList,
   AutocompleteItem,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Autocomplete items={tags}>
   <AutocompleteInputGroup>

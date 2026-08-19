@@ -38,7 +38,7 @@ export default function ContextMenuPage() {
   ContextMenuPopup,
   ContextMenuItem,
   ContextMenuSeparator,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <ContextMenu>
   <ContextMenuTrigger>Right-click here</ContextMenuTrigger>

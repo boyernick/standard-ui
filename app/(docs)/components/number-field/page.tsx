@@ -36,7 +36,7 @@ export default function NumberFieldPage() {
   NumberFieldDecrement,
   NumberFieldInput,
   NumberFieldIncrement,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <NumberField defaultValue={1} min={0} max={99}>
   <NumberFieldGroup>

@@ -40,7 +40,7 @@ export default function DialogPage() {
   DialogTitle,
   DialogDescription,
   DialogClose,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Dialog>
   <DialogTrigger render={<Button />}>Open dialog</DialogTrigger>

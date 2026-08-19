@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { BrandWordmark } from "@standard-ui/react"
+import { BrandWordmark } from "@boyernick/standard-ui-react"
 import { PageHeader } from "@/components/page-header"
 
 export const metadata: Metadata = {

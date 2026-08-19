@@ -26,7 +26,7 @@ export default function OrbPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Orb } from "@standard-ui/react"\n\n<Orb size="lg" />`}
+          code={`import { Orb } from "@boyernick/standard-ui-react"\n\n<Orb size="lg" />`}
         />
       </section>
       <section className="mt-14">

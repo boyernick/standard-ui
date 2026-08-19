@@ -41,7 +41,7 @@ export default function ToastPage() {
   ToastDescription,
   ToastClose,
   useToastManager,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <ToastProvider>
   <ToastPortal>

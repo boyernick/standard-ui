@@ -39,7 +39,7 @@ export default function PopoverPage() {
   PopoverPopup,
   PopoverTitle,
   PopoverDescription,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Popover>
   <PopoverTrigger render={<Button variant="outline" />}>

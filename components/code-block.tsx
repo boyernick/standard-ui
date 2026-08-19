@@ -1,1 +1,1 @@
-export { CodeBlock, type CodeBlockProps } from "@standard-ui/react"
+export { CodeBlock, type CodeBlockProps } from "@boyernick/standard-ui-react"

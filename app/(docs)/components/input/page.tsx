@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Input } from "@standard-ui/react"
+import { Input } from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -115,7 +115,7 @@ export default function InputPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Input } from "@standard-ui/react"
+          code={`import { Input } from "@boyernick/standard-ui-react"
 
 <Input placeholder="Email address" aria-label="Email address" />`}
         />

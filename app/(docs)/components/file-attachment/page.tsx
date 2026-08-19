@@ -26,7 +26,7 @@ export default function FileAttachmentPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Attachment } from "@standard-ui/react"\n\n<Attachment multiple onFiles={handleFiles}>\n  Choose files or drop them here\n</Attachment>`}
+          code={`import { Attachment } from "@boyernick/standard-ui-react"\n\n<Attachment multiple onFiles={handleFiles}>\n  Choose files or drop them here\n</Attachment>`}
         />
       </section>
       <section className="mt-14">

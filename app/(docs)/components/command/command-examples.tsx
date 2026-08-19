@@ -29,7 +29,7 @@ import {
   CommandToolbar,
   CommandTrigger,
   IconMagnifyingGlass,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 type Article = {

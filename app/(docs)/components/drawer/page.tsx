@@ -45,7 +45,7 @@ export default function DrawerPage() {
   DrawerDescription,
   DrawerClose,
   DrawerHeader,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Drawer swipeDirection="right">
   <DrawerTrigger render={<Button />}>Open drawer</DrawerTrigger>

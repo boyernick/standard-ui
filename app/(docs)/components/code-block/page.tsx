@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { CodeBlock } from "@standard-ui/react"
+import { CodeBlock } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Code block",
 }
 
-const exampleCode = `import { Button } from "@standard-ui/react"
+const exampleCode = `import { Button } from "@boyernick/standard-ui-react"
 
 export const SaveButton = () => (
   <Button variant="primary">Save changes</Button>
@@ -58,7 +58,7 @@ export default function CodeBlockPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { CodeBlock } from "@standard-ui/react"
+          code={`import { CodeBlock } from "@boyernick/standard-ui-react"
 
 <CodeBlock code={source} lang="tsx" />`}
         />

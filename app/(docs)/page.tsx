@@ -40,8 +40,8 @@ export default function IntroductionPage() {
           className="mt-4"
           lang="css"
           code={`@import "tailwindcss";
-@import "@standard-ui/tokens/css/tokens.css";
-@source "./node_modules/@standard-ui/react/src";
+@import "@boyernick/standard-ui-tokens/css/tokens.css";
+@source "./node_modules/@boyernick/standard-ui-react/src";
 
 @custom-variant dark (&:where(.dark, .dark *));`}
         />

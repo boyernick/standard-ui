@@ -30,7 +30,7 @@ export default function CalendarPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Calendar } from "@standard-ui/react"
+          code={`import { Calendar } from "@boyernick/standard-ui-react"
 
 <Calendar />`}
         />

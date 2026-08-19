@@ -1,6 +1,6 @@
 "use client"
 
-import { Toggle, ToggleGroup } from "@standard-ui/react"
+import { Toggle, ToggleGroup } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const ToggleExamples = () => (

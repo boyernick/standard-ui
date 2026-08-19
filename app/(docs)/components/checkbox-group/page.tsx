@@ -31,7 +31,7 @@ export default function CheckboxGroupPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Checkbox, CheckboxGroup } from "@standard-ui/react"
+          code={`import { Checkbox, CheckboxGroup } from "@boyernick/standard-ui-react"
 
 <CheckboxGroup defaultValue={["https"]}>
   <label>
