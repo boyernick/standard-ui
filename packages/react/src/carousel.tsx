@@ -8,7 +8,7 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
+  useSyncExternalStore,
   type ComponentProps,
   type KeyboardEvent,
 } from "react"
@@ -70,14 +70,34 @@ export const Carousel = ({
     },
     plugins,
   )
-  const [canScrollPrev, setCanScrollPrev] = useState(false)
-  const [canScrollNext, setCanScrollNext] = useState(false)
+  // Embla is an external store, so read from it directly rather than mirroring
+  // it into state. Seeding mirrored state meant calling setState synchronously
+  // inside an effect, costing an extra render on mount and on every slide
+  // change. Both snapshots return booleans, so there is no object identity to
+  // keep stable between reads.
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      if (!api) return () => {}
+      api.on("reInit", onStoreChange)
+      api.on("select", onStoreChange)
+      return () => {
+        api.off("reInit", onStoreChange)
+        api.off("select", onStoreChange)
+      }
+    },
+    [api],
+  )
 
-  const handleSelect = useCallback((instance: CarouselApi) => {
-    if (!instance) return
-    setCanScrollPrev(instance.canScrollPrev())
-    setCanScrollNext(instance.canScrollNext())
-  }, [])
+  const canScrollPrev = useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollPrev() ?? false,
+    () => false,
+  )
+  const canScrollNext = useSyncExternalStore(
+    subscribe,
+    () => api?.canScrollNext() ?? false,
+    () => false,
+  )
 
   const scrollPrev = useCallback(() => {
     api?.scrollPrev()
@@ -106,17 +126,6 @@ export const Carousel = ({
     if (!api || !setApi) return
     setApi(api)
   }, [api, setApi])
-
-  useEffect(() => {
-    if (!api) return
-    handleSelect(api)
-    api.on("reInit", handleSelect)
-    api.on("select", handleSelect)
-    return () => {
-      api.off("reInit", handleSelect)
-      api.off("select", handleSelect)
-    }
-  }, [api, handleSelect])
 
   return (
     <CarouselContext.Provider

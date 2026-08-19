@@ -128,7 +128,7 @@ export default function CheckboxPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don't</h3>
+        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use a single checkbox where a switch communicates
