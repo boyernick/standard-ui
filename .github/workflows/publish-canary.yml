@@ -1,0 +1,83 @@
+name: Publish canary
+
+# Every merge that touches the packages publishes a prerelease under the
+# `canary` dist-tag, so consuming sites can pick up a change within minutes
+# without waiting for a tagged release. `latest` only moves on a v* tag, via
+# publish-packages.yml.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish-canary
+  cancel-in-progress: false
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      # @central-icons-react runs a postinstall license check that fails the
+      # whole install when CENTRAL_LICENSE_KEY is unset.
+      - name: Install
+        run: npm ci
+        env:
+          CENTRAL_LICENSE_KEY: ${{ secrets.CENTRAL_LICENSE_KEY }}
+
+      # Prereleases of the current version sort *below* it, so a canary of
+      # 0.1.0 would never satisfy ^0.1.0. Base the canary on the next patch
+      # instead, and use the run number so each publish is unique and ordered.
+      - name: Compute canary version
+        id: version
+        run: |
+          BASE=$(node -p "const [a,b,c]=require('./packages/react/package.json').version.split('-')[0].split('.').map(Number); \`\${a}.\${b}.\${c+1}\`")
+          echo "value=$BASE-canary.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Set versions
+        run: |
+          npm version "${{ steps.version.outputs.value }}" \
+            --no-git-tag-version \
+            --workspace @boyernick/standard-ui-tokens \
+            --workspace @boyernick/standard-ui-react
+
+      - name: Verify
+        run: npm run check
+        env:
+          CENTRAL_LICENSE_KEY: ${{ secrets.CENTRAL_LICENSE_KEY }}
+
+      - name: Publish @boyernick/standard-ui-tokens
+        working-directory: packages/tokens
+        run: npm publish --access public --provenance --tag canary
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @boyernick/standard-ui-react
+        working-directory: packages/react
+        run: npm publish --access public --provenance --tag canary
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Summary
+        run: |
+          echo "Published \`${{ steps.version.outputs.value }}\` under the \`canary\` tag." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo '```bash' >> "$GITHUB_STEP_SUMMARY"
+          echo 'npm install @boyernick/standard-ui-tokens@canary @boyernick/standard-ui-react@canary' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
