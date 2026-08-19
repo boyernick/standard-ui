@@ -31,10 +31,10 @@ export const Sidebar = () => {
           <div className="relative px-5 pt-5 pb-4">
             <Link
               href="/"
-              className="inline-flex cursor-pointer outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+              className="inline-flex cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
               aria-label="Standard UI"
             >
-              <BrandWordmark compact size="sm" />
+              <BrandWordmark size="sm" className="text-inherit" />
             </Link>
           </div>
         </div>

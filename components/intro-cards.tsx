@@ -40,7 +40,7 @@ function Card({
 }
 
 function BrandPreview() {
-  return <BrandWordmark compact markSize={28} />
+  return <BrandWordmark markSize={28} className="text-fg-primary" />
 }
 
 function ComponentsPreview() {

@@ -75,7 +75,7 @@ export const MobileNav = () => {
             <DrawerContent className="gap-4 p-0">
               <DrawerHeader className="flex flex-row items-center justify-between border-b border-border-primary px-4 py-3">
                 <DrawerTitle className="sr-only">Navigation</DrawerTitle>
-                <BrandWordmark compact size="sm" />
+                <BrandWordmark size="sm" className="text-fg-primary" />
                 <DrawerClose
                   render={
                     <Button

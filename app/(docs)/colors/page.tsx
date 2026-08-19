@@ -15,12 +15,6 @@ export default function ColorsPage() {
         description="Gray, alpha, and hue scales that semantic tokens build on."
       />
 
-      <p className="text-md max-w-3xl text-fg-secondary">
-        Primary actions use the grayscale (
-        <Token>brand-primary</Token> → <Token>gray-900</Token>). Hue scales are
-        for status, charts, and decorative accents — not default controls.
-      </p>
-
       <ColorsPalette />
 
       <section className="mt-14 mb-8">
