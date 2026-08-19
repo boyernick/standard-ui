@@ -6,7 +6,7 @@ import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
 
 const avatarVariants = cva(
-  "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-background-tertiary text-fg-primary align-middle select-none",
+  "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-background-tertiary text-fg-primary align-middle shadow-hairline select-none",
   {
     variants: {
       size: {
