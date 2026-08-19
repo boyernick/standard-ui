@@ -25,7 +25,7 @@ export default function SpinnerPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Spinner } from "@standard-ui/react"\n\n<Spinner size="md" />`}
+          code={`import { Spinner } from "@boyernick/standard-ui-react"\n\n<Spinner size="md" />`}
         />
       </section>
       <section className="mt-14">

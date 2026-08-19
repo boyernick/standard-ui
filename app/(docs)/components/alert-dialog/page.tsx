@@ -42,7 +42,7 @@ export default function AlertDialogPage() {
   AlertDialogDescription,
   AlertDialogClose,
   Button,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <AlertDialog>
   <AlertDialogTrigger render={<Button variant="outline" />}>

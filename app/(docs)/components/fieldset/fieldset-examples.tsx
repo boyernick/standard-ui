@@ -1,6 +1,6 @@
 "use client"
 
-import { Checkbox, Fieldset, FieldsetLegend } from "@standard-ui/react"
+import { Checkbox, Fieldset, FieldsetLegend } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const FieldsetExamples = () => (

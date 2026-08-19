@@ -37,7 +37,7 @@ export default function CarouselPage() {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Carousel>
   <CarouselContent>

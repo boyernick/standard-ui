@@ -30,7 +30,7 @@ export default function RadioGroupPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { RadioGroup, Radio, RadioIndicator } from "@standard-ui/react"
+          code={`import { RadioGroup, Radio, RadioIndicator } from "@boyernick/standard-ui-react"
 
 <RadioGroup defaultValue="comfortable" aria-label="Density">
   <label className="flex items-center gap-2">

@@ -1,6 +1,6 @@
 "use client"
 
-import { Checkbox, CheckboxGroup } from "@standard-ui/react"
+import { Checkbox, CheckboxGroup } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 const fruits = ["fuji", "gala", "granny-smith"] as const

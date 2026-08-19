@@ -13,7 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerViewport,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"

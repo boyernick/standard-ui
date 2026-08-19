@@ -28,7 +28,7 @@ export default function EmptyPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Empty, EmptyTitle, EmptyDescription } from "@standard-ui/react"\n\n<Empty>\n  <EmptyTitle>No projects</EmptyTitle>\n  <EmptyDescription>Create a project to get started.</EmptyDescription>\n</Empty>`}
+          code={`import { Empty, EmptyTitle, EmptyDescription } from "@boyernick/standard-ui-react"\n\n<Empty>\n  <EmptyTitle>No projects</EmptyTitle>\n  <EmptyDescription>Create a project to get started.</EmptyDescription>\n</Empty>`}
         />
       </section>
       <section className="mt-14">

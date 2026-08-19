@@ -7,7 +7,7 @@ import {
   SoundToggle,
   useSounds,
   type SoundId,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 const TriggerDemo = () => {

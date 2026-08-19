@@ -41,7 +41,7 @@ export default function ChartPage() {
   ChartTooltip,
   XAxis,
   YAxis,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <ChartContainer className="h-64">
   <AreaChart data={monthlyData}>

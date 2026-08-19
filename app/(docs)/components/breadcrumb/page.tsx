@@ -25,7 +25,7 @@ export default function BreadcrumbPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage } from "@standard-ui/react"\n\n<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbPage>Settings</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>`}
+          code={`import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage } from "@boyernick/standard-ui-react"\n\n<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbPage>Settings</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>`}
         />
       </section>
       <section className="mt-14">

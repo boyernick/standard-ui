@@ -41,7 +41,7 @@ export default function ComboboxPage() {
   ComboboxEmpty,
   ComboboxList,
   ComboboxItem,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 const fruits = ["Apple", "Banana", "Cherry"]
 

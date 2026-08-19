@@ -2,7 +2,7 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   transpilePackages: [
-    "@standard-ui/react",
+    "@boyernick/standard-ui-react",
     "@central-icons-react/round-outlined-radius-2-stroke-1.5",
     "@central-icons-react/round-outlined-radius-2-stroke-2",
   ],

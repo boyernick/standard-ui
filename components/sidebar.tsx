@@ -1,6 +1,6 @@
 "use client"
 
-import { BrandWordmark } from "@standard-ui/react"
+import { BrandWordmark } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { EdgeFade } from "@/components/edge-fade"

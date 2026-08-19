@@ -36,7 +36,7 @@ export default function ScrollAreaPage() {
   ScrollAreaContent,
   ScrollAreaScrollbar,
   ScrollAreaThumb,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <ScrollArea className="h-48">
   <ScrollAreaViewport>

@@ -33,7 +33,7 @@ export default function ImageModalPage() {
   ImageModal,
   ImageModalTrigger,
   ImageModalContent,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <ImageModal>
   <ImageModalTrigger>

@@ -36,7 +36,7 @@ export default function MeterPage() {
   MeterValue,
   MeterTrack,
   MeterIndicator,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Meter value={72}>
   <MeterLabel>Storage used</MeterLabel>

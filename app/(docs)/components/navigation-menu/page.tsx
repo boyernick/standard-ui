@@ -42,7 +42,7 @@ export default function NavigationMenuPage() {
   NavigationMenuPositioner,
   NavigationMenuPopup,
   NavigationMenuViewport,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <NavigationMenu>
   <NavigationMenuList>

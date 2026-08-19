@@ -30,7 +30,7 @@ export default function CheckboxPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Checkbox } from "@standard-ui/react"
+          code={`import { Checkbox } from "@boyernick/standard-ui-react"
 
 <label className="flex items-center gap-2">
   <Checkbox defaultChecked />

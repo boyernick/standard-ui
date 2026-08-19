@@ -37,7 +37,7 @@ export default function TabsPage() {
   TabsTab,
   TabsIndicator,
   TabsPanel,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Tabs defaultValue="overview">
   <TabsList>

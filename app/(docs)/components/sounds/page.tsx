@@ -31,7 +31,7 @@ export default function SoundsPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { SoundsProvider, Sound, useSounds } from "@standard-ui/react"
+          code={`import { SoundsProvider, Sound, useSounds } from "@boyernick/standard-ui-react"
 
 <SoundsProvider>
   <Sound id="success" />

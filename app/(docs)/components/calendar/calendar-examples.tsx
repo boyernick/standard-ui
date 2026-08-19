@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Calendar } from "@standard-ui/react"
+import { Calendar } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const CalendarExamples = () => {

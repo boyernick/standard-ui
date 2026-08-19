@@ -1,6 +1,6 @@
 "use client"
 
-import { Radio, RadioGroup, RadioIndicator } from "@standard-ui/react"
+import { Radio, RadioGroup, RadioIndicator } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const RadioGroupExamples = () => (

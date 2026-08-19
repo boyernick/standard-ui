@@ -40,7 +40,7 @@ export default function MenuPage() {
   MenuPopup,
   MenuItem,
   MenuSeparator,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Menu>
   <MenuTrigger render={<Button variant="outline" />}>

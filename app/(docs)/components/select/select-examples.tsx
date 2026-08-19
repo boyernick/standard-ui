@@ -11,7 +11,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValue,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 const fruitItems = {

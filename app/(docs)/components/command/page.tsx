@@ -48,7 +48,7 @@ export default function CommandPage() {
   CommandList,
   CommandItem,
   CommandEmpty,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Command>
   <CommandTrigger>Search…</CommandTrigger>

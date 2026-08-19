@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Separator } from "@standard-ui/react"
+import { Separator } from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -78,7 +78,7 @@ export default function SeparatorPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Separator } from "@standard-ui/react"
+          code={`import { Separator } from "@boyernick/standard-ui-react"
 
 <Separator />
 <Separator orientation="vertical" />`}

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Spinner } from "@standard-ui/react"
+import { Button, Spinner } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const SpinnerExamples = () => (

@@ -30,7 +30,7 @@ export default function TextAnimatePage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { TextAnimate } from "@standard-ui/react"
+          code={`import { TextAnimate } from "@boyernick/standard-ui-react"
 
 <TextAnimate text="Hello" effect="typewriter" />
 <TextAnimate text="StandardUI" effect="decode" speed={30} />`}

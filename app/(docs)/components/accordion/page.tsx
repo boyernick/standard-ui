@@ -36,7 +36,7 @@ export default function AccordionPage() {
   AccordionHeader,
   AccordionTrigger,
   AccordionPanel,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Accordion defaultValue={["item-1"]}>
   <AccordionItem value="item-1">

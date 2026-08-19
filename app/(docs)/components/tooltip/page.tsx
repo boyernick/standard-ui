@@ -39,7 +39,7 @@ export default function TooltipPage() {
   TooltipPortal,
   TooltipPositioner,
   TooltipPopup,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <TooltipProvider>
   <Tooltip>

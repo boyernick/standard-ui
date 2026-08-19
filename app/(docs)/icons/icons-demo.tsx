@@ -1,7 +1,7 @@
 "use client"
 
 import { IconCrossMedium } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCrossMedium"
-import { Button, Input } from "@standard-ui/react"
+import { Button, Input } from "@boyernick/standard-ui-react"
 import {
   useDeferredValue,
   useEffect,
@@ -302,7 +302,7 @@ export const IconsDemo = () => {
       <section className="mt-10">
         <h2 className="heading-sm text-fg-primary">Usage</h2>
         <ComponentMeta
-          importLine={`import { IconHome } from "@standard-ui/react"`}
+          importLine={`import { IconHome } from "@boyernick/standard-ui-react"`}
         />
       </section>
     </div>

@@ -42,7 +42,7 @@ export default function SelectPage() {
   SelectList,
   SelectItem,
   SelectItemText,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Select
   items={{ apple: "Apple", banana: "Banana", cherry: "Cherry" }}

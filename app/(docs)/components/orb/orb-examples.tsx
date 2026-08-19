@@ -1,6 +1,6 @@
 "use client";
 
-import { Orb } from "@standard-ui/react";
+import { Orb } from "@boyernick/standard-ui-react";
 import { ComponentCanvas } from "@/components/component-canvas";
 
 export const OrbExamples = () => (

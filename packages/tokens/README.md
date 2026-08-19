@@ -1,9 +1,9 @@
-# @standard-ui/tokens
+# @boyernick/standard-ui-tokens
 
 CSS custom properties and Tailwind v4 `@theme` for StandardUI.
 
 ```css
-@import "@standard-ui/tokens/css/tokens.css";
+@import "@boyernick/standard-ui-tokens/css/tokens.css";
 ```
 
 Type families (from local Font Book on macOS; not shipped in the package):

@@ -16,7 +16,7 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
   ComboboxValue,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 const fruits = ["Apple", "Banana", "Cherry", "Dragonfruit", "Elderberry"]

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Dialog, DialogBackdrop, DialogPopup, DialogPortal, DialogTrigger } from "@standard-ui/react"
+import { Button, Dialog, DialogBackdrop, DialogPopup, DialogPortal, DialogTrigger } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const MotionExamples = () => (

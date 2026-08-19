@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Avatar, AvatarFallback, AvatarImage } from "@standard-ui/react"
+import { Avatar, AvatarFallback, AvatarImage } from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -89,7 +89,7 @@ export default function AvatarPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Avatar, AvatarImage, AvatarFallback } from "@standard-ui/react"
+          code={`import { Avatar, AvatarImage, AvatarFallback } from "@boyernick/standard-ui-react"
 
 <Avatar>
   <AvatarImage src="/avatar.jpg" alt="Jordan Lee" />

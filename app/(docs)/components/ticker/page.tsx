@@ -29,7 +29,7 @@ export default function TickerPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Ticker, TickerItem } from "@standard-ui/react"
+          code={`import { Ticker, TickerItem } from "@boyernick/standard-ui-react"
 
 <Ticker duration={24}>
   <TickerItem>Shipping Friday</TickerItem>

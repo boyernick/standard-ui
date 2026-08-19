@@ -6,7 +6,7 @@ import {
   SliderIndicator,
   SliderThumb,
   SliderTrack,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { useState } from "react"
 import { ComponentCanvas } from "@/components/component-canvas"
 

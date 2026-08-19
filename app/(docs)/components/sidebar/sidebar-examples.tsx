@@ -11,7 +11,7 @@ import {
   SidebarHeader,
   SidebarNav,
   SidebarNavItem,
-} from "@standard-ui/react";
+} from "@boyernick/standard-ui-react";
 import { ComponentCanvas } from "@/components/component-canvas";
 
 export const SidebarExamples = () => (

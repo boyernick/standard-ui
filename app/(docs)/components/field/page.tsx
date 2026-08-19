@@ -37,7 +37,7 @@ export default function FieldPage() {
   FieldControl,
   FieldDescription,
   FieldError,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 
 <Field name="email">
   <FieldLabel>Email</FieldLabel>

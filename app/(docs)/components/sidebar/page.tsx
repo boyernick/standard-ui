@@ -25,7 +25,7 @@ export default function SidebarPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Sidebar, SidebarContent, SidebarNavItem } from "@standard-ui/react"\n\n<Sidebar>\n  <SidebarContent>\n    <SidebarNavItem active>Overview</SidebarNavItem>\n  </SidebarContent>\n</Sidebar>`}
+          code={`import { Sidebar, SidebarContent, SidebarNavItem } from "@boyernick/standard-ui-react"\n\n<Sidebar>\n  <SidebarContent>\n    <SidebarNavItem active>Overview</SidebarNavItem>\n  </SidebarContent>\n</Sidebar>`}
         />
       </section>
       <section className="mt-14">

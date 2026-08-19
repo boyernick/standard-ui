@@ -30,7 +30,7 @@ export default function SwitchPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Switch } from "@standard-ui/react"
+          code={`import { Switch } from "@boyernick/standard-ui-react"
 
 <label className="flex items-center gap-2">
   <Switch defaultChecked />

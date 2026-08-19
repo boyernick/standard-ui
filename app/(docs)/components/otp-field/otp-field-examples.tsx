@@ -1,6 +1,6 @@
 "use client"
 
-import { OTPField, OTPFieldInput, OTPFieldSeparator } from "@standard-ui/react"
+import { OTPField, OTPFieldInput, OTPFieldSeparator } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 export const OTPFieldExamples = () => (

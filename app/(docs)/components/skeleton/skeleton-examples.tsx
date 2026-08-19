@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@standard-ui/react";
+import { Skeleton } from "@boyernick/standard-ui-react";
 import { ComponentCanvas } from "@/components/component-canvas";
 
 export const SkeletonExamples = () => (

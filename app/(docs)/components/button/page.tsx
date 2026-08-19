@@ -4,7 +4,7 @@ import {
   IconChevronBottom,
   IconMagnifyingGlass,
   IconPlus,
-} from "@standard-ui/react"
+} from "@boyernick/standard-ui-react"
 import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -187,7 +187,7 @@ export default function ButtonPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { Button } from "@standard-ui/react"
+          code={`import { Button } from "@boyernick/standard-ui-react"
 
 <Button variant="primary" size="md">
   Click me
@@ -282,7 +282,7 @@ export default function ButtonPage() {
         <CodeBlock
           className="mt-4"
           size="sm"
-          code={`import { Button, IconPlus } from "@standard-ui/react"
+          code={`import { Button, IconPlus } from "@boyernick/standard-ui-react"
 
 <Button variant="primary" prefix={<IconPlus size={16} aria-hidden />}>
   Add item

@@ -1,6 +1,6 @@
 "use client"
 
-import { VideoPlayer } from "@standard-ui/react"
+import { VideoPlayer } from "@boyernick/standard-ui-react"
 import { ComponentCanvas } from "@/components/component-canvas"
 
 const SAMPLE =

@@ -22,7 +22,7 @@ Create `app/(docs)/components/<component-name>/page.tsx` with:
 
 - Describe what the component does and when to use it.
 - Use realistic, concise example copy.
-- Import public components from `@standard-ui/react`, not source files.
+- Import public components from `@boyernick/standard-ui-react`, not source files.
 - Use `@/components/code-block`, `component-canvas`, `doc-table`, and `page-header` helpers.
 - Document accessible names, keyboard interaction, invalid states, and disabled behavior when relevant.
 - Keep headings and labels in sentence case. Never use uppercase styling.

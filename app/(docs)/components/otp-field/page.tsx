@@ -30,7 +30,7 @@ export default function OTPFieldPage() {
         </p>
         <CodeBlock
           className="mt-4"
-          code={`import { OTPField, OTPFieldInput, OTPFieldSeparator } from "@standard-ui/react"
+          code={`import { OTPField, OTPFieldInput, OTPFieldSeparator } from "@boyernick/standard-ui-react"
 
 <label htmlFor="verification-code">Verification code</label>
 <OTPField id="verification-code" length={6}>

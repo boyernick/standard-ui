@@ -31,7 +31,7 @@ description: Adds or extends components in the StandardUI React package using re
 
 ## Public API check
 
-- Import the new API from `@standard-ui/react` in its docs example.
+- Import the new API from `@boyernick/standard-ui-react` in its docs example.
 - Confirm prop types are exported when consumers need them.
 - Confirm package dependencies are runtime dependencies, not only root dependencies.
 - Keep docs compatibility wrappers as thin re-exports when existing imports rely on them.
