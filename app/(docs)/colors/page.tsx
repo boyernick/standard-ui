@@ -71,17 +71,17 @@ export default function ColorsPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don't</h3>
+        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
-            Don't use <Token>green-*</Token> as the default fill for primary
+            Don&rsquo;t use <Token>green-*</Token> as the default fill for primary
             actions or docs illustrations
           </li>
           <li>
-            Don't invent hex values outside the scales on this page
+            Don&rsquo;t invent hex values outside the scales on this page
           </li>
           <li>
-            Don't use <Token>destructive</Token> for decorative red — use{" "}
+            Don&rsquo;t use <Token>destructive</Token> for decorative red — use{" "}
             <Token>decorative-crimson</Token>
           </li>
         </ul>

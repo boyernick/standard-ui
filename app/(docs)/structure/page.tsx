@@ -221,20 +221,20 @@ export default function StructurePage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don't</h3>
+        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
-            Don't use arbitrary spacing like <Token>p-[13px]</Token> or custom
+            Don&rsquo;t use arbitrary spacing like <Token>p-[13px]</Token> or custom
             breakpoints like <Token>min-[900px]:</Token>
           </li>
           <li>
-            Don't stretch unbounded content across ultra-wide viewports
+            Don&rsquo;t stretch unbounded content across ultra-wide viewports
           </li>
           <li>
-            Don't design desktop-first and override everything downward
+            Don&rsquo;t design desktop-first and override everything downward
           </li>
           <li>
-            Don't change layout at every breakpoint — reserve jumps for real
+            Don&rsquo;t change layout at every breakpoint — reserve jumps for real
             structure changes
           </li>
         </ul>

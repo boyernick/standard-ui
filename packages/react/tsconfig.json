@@ -8,6 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
+    // Tests import "./cn.ts" so Node's type stripping resolves them directly.
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "esModuleInterop": true
   },

@@ -13,8 +13,9 @@
     "typecheck": "next typegen && tsc --noEmit",
     "typecheck:packages": "npm run typecheck --workspace @boyernick/standard-ui-react",
     "check:docs": "node scripts/check-doc-snippets.mjs",
-    "check": "npm run typecheck:packages && npm run typecheck && npm run check:docs",
-    "publish:packages": "npm publish --workspace @boyernick/standard-ui-tokens --access public && npm publish --workspace @boyernick/standard-ui-react --access public"
+    "check": "npm run lint && npm run typecheck:packages && npm run test && npm run typecheck && npm run check:docs",
+    "publish:packages": "npm publish --workspace @boyernick/standard-ui-tokens --access public && npm publish --workspace @boyernick/standard-ui-react --access public",
+    "test": "npm run test --workspace @boyernick/standard-ui-react"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0-rc.2",

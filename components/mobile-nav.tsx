@@ -16,7 +16,7 @@ import {
 } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { components, foundations } from "@/lib/nav"
 
 const isActive = (pathname: string, href: string) => {
@@ -43,10 +43,15 @@ const MenuIcon = ({ className }: { className?: string }) => (
 export const MobileNav = () => {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [navigatedFrom, setNavigatedFrom] = useState(pathname)
 
-  useEffect(() => {
+  // Close on navigation. Adjusting state during render is React's documented
+  // alternative to an effect here: it re-renders before the browser paints, so
+  // the drawer is never shown open on the new route.
+  if (pathname !== navigatedFrom) {
+    setNavigatedFrom(pathname)
     setOpen(false)
-  }, [pathname])
+  }
 
   return (
     <Drawer
