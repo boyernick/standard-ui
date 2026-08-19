@@ -1,9 +1,9 @@
 ---
 name: write-component-docs
-description: Creates Standard UI component documentation pages with the established examples, overview, usage, API, and guidelines structure. Use when documenting a component or adding a route under app/(docs)/components.
+description: Creates StandardUI component documentation pages with the established examples, overview, usage, API, and guidelines structure. Use when documenting a component or adding a route under app/(docs)/components.
 ---
 
-# Write Standard UI component docs
+# Write StandardUI component docs
 
 ## Page anatomy
 

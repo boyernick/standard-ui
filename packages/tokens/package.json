@@ -1,7 +1,7 @@
 {
   "name": "@standard-ui/tokens",
   "version": "0.1.0",
-  "description": "Design tokens for Standard UI",
+  "description": "Design tokens for StandardUI",
   "license": "MIT",
   "files": [
     "css"

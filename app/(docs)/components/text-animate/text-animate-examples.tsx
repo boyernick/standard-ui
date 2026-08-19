@@ -32,11 +32,11 @@ export const TextAnimateExamples = () => {
       <ComponentCanvas
         label="Decode"
         contentClassName="flex-col items-start gap-4"
-        code={`<TextAnimate text="Standard UI" effect="decode" speed={28} />`}
+        code={`<TextAnimate text="StandardUI" effect="decode" speed={28} />`}
       >
         <TextAnimate
           key={`decode-${key}`}
-          text="Standard UI"
+          text="StandardUI"
           effect="decode"
           speed={28}
           className="heading-lg-serif"

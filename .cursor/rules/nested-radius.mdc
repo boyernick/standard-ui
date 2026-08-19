@@ -11,7 +11,7 @@ When a rounded child sits inside a padded, rounded parent, radii must stay **con
 inner_radius = outer_radius − padding
 ```
 
-Use the Standard UI radius scale (do not invent one-off `rounded-[Npx]`):
+Use the StandardUI radius scale (do not invent one-off `rounded-[Npx]`):
 
 | Token | Size |
 |---|---|

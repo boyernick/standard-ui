@@ -56,7 +56,7 @@ export const EmptyExamples = () => (
         <IllustrationEmpty className="mx-auto h-32 w-auto" />
         <EmptyTitle>No projects yet</EmptyTitle>
         <EmptyDescription>
-          Create a project to start shipping with Standard UI.
+          Create a project to start shipping with StandardUI.
         </EmptyDescription>
         <EmptyActions>
           <Button size="sm">New project</Button>

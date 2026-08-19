@@ -89,7 +89,7 @@ export const PreviewCardExamples = () => (
             <p className="text-sm-strong text-fg-primary">Maya Chen</p>
             <p className="text-sm text-fg-secondary">Product design</p>
             <p className="mt-2 text-sm text-fg-tertiary">
-              Working on structure and materials for Standard UI.
+              Working on structure and materials for StandardUI.
             </p>
           </div>
         </div>
@@ -121,7 +121,7 @@ export const PreviewCardExamples = () => (
                   <p className="text-sm-strong text-fg-primary">Maya Chen</p>
                   <p className="text-sm text-fg-secondary">Product design</p>
                   <p className="mt-2 text-sm text-fg-tertiary">
-                    Working on structure and materials for Standard UI.
+                    Working on structure and materials for StandardUI.
                   </p>
                 </div>
               </div>

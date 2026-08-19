@@ -32,7 +32,7 @@ export const Sidebar = () => {
             <Link
               href="/"
               className="inline-flex cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
-              aria-label="Standard UI"
+              aria-label="StandardUI"
             >
               <BrandWordmark size="sm" className="text-inherit" />
             </Link>

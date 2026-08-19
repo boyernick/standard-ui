@@ -1,5 +1,5 @@
 ---
-description: Sentence case only — never all caps in Standard UI
+description: Sentence case only — never all caps in StandardUI
 alwaysApply: true
 ---
 
@@ -23,4 +23,4 @@ Default to **sentence case** for anything that needs capitalization:
 <span className="font-mono">var(--brand-primary)</span>
 ```
 
-Title Case is only for proper nouns or established product names (e.g. `Standard UI`). Prefer sentence case for UI chrome and docs headings when in doubt.
+Title Case is only for proper nouns or established product names (e.g. `StandardUI`). Prefer sentence case for UI chrome and docs headings when in doubt.

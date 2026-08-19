@@ -30,7 +30,7 @@ export const ScrollAreaExamples = () => (
         <ScrollAreaViewport>
           <ScrollAreaContent className="space-y-3 p-4 text-sm text-fg-secondary">
             <p>
-              Standard UI components share tokens for color, type, and
+              StandardUI components share tokens for color, type, and
               motion so surfaces feel consistent across products.
             </p>
             <p>

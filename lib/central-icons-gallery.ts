@@ -3,7 +3,7 @@ import {
   type CentralIconName,
 } from "@central-icons-react/round-outlined-radius-2-stroke-2/icons"
 
-/** Rogo frequently-used set + Standard UI gallery defaults — shown first. */
+/** Rogo frequently-used set + StandardUI gallery defaults — shown first. */
 const CURATED_ICON_NAMES = [
   "IconHome",
   "IconMagnifyingGlass",

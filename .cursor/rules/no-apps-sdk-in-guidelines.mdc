@@ -8,7 +8,7 @@ alwaysApply: false
 
 In docs **usage guidelines** (Do / Don't, how-to prose, component mapping rationale, and other instructional copy), never mention Apps SDK, Apps SDK UI, OpenAI, Rogo, or other upstream sources.
 
-Write as **Standard UI**. Name tokens and classes directly (`shadow-lg`, `text-md`, `rounded-xl`).
+Write as **StandardUI**. Name tokens and classes directly (`shadow-lg`, `text-md`, `rounded-xl`).
 
 ```tsx
 // ❌ BAD — upstream attribution in guidelines

@@ -1,5 +1,5 @@
 /* Primitive color scales from Apps SDK UI (@openai/apps-sdk-ui).
-   Theme flips via `.dark` to match Standard UI’s theme toggle. */
+   Theme flips via `.dark` to match StandardUI’s theme toggle. */
 
 :root {
   --white: #ffffff;

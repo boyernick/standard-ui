@@ -58,7 +58,7 @@ export const NavigationMenuExamples = () => (
                   <NavigationMenuLink href="#">
                     <span className="font-medium">Overview</span>
                     <span className="text-xs text-fg-tertiary">
-                      What Standard UI includes
+                      What StandardUI includes
                     </span>
                   </NavigationMenuLink>
                 </li>

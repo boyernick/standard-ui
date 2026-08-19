@@ -35,9 +35,7 @@ export default function BrandPage() {
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Sentence case everywhere — never shout in all caps</li>
           <li>Short, precise labels; prefer verbs for actions</li>
-          <li>
-            Logo lockup is “StandardUI”; in prose write “Standard UI”
-          </li>
+            <li>Name the product “StandardUI” in chrome and prose</li>
         </ul>
       </section>
 

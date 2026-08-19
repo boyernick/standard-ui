@@ -1,9 +1,9 @@
 ---
 name: add-standard-ui-component
-description: Adds or extends components in the Standard UI React package using repository conventions. Use when creating a package component, variant, primitive, or public export.
+description: Adds or extends components in the StandardUI React package using repository conventions. Use when creating a package component, variant, primitive, or public export.
 ---
 
-# Add a Standard UI component
+# Add a StandardUI component
 
 ## Workflow
 
@@ -24,7 +24,7 @@ description: Adds or extends components in the Standard UI React package using r
 - Forward native attributes to the rendered element or primitive.
 - Prefer controlled and uncontrolled behavior when the underlying interaction needs both.
 - Use semantic elements, accessible names, keyboard behavior, and visible focus rings.
-- Use Standard UI tokens and radius utilities; never add raw colors or one-off radii.
+- Use StandardUI tokens and radius utilities; never add raw colors or one-off radii.
 - Buttons, links, and triggers use `cursor-pointer`; disabled controls use the matching not-allowed cursor.
 - Keep UI copy in sentence case.
 - Do not add a second component kit.

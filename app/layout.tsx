@@ -4,8 +4,8 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: {
-    default: "Standard UI",
-    template: "%s · Standard UI",
+    default: "StandardUI",
+    template: "%s · StandardUI",
   },
   description:
     "The visual foundations and shared language.",
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     apple: [{ url: "/favicon.svg?v=4", type: "image/svg+xml" }],
   },
   openGraph: {
-    title: "Standard UI",
+    title: "StandardUI",
     description: "The visual foundations and shared language.",
-    siteName: "Standard UI",
+    siteName: "StandardUI",
     type: "website",
   },
 }

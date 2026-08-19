@@ -1,8 +1,8 @@
-# Standard UI
+# StandardUI
 
 Public design-system repository for **standardUI**. Live docs: **[https://ui.nickboyer.com](https://ui.nickboyer.com)** (also [https://standard-ui.vercel.app](https://standard-ui.vercel.app)).
 
-Color primitives and type scale follow [Apps SDK UI](https://openai.github.io/apps-sdk-ui/). Docs layout is inspired by [Rogo](https://design.rogo.ai/system). Components sit on [Base UI](https://base-ui.com) for behavior and are styled with Standard UI tokens.
+Color primitives and type scale follow [Apps SDK UI](https://openai.github.io/apps-sdk-ui/). Docs layout is inspired by [Rogo](https://design.rogo.ai/system). Components sit on [Base UI](https://base-ui.com) for behavior and are styled with StandardUI tokens.
 
 ## Packages
 
@@ -15,7 +15,7 @@ This monorepo also hosts the docs site (Next.js App Router).
 
 ## Icons
 
-Standard UI uses [Central Icons](https://centralicons.com) — package `@central-icons-react/round-outlined-radius-2-stroke-2` (round, outlined, 2px radius, 2px stroke). Wrapped exports default to **20px**.
+StandardUI uses [Central Icons](https://centralicons.com) — package `@central-icons-react/round-outlined-radius-2-stroke-2` (round, outlined, 2px radius, 2px stroke). Wrapped exports default to **20px**.
 
 ```bash
 export CENTRAL_LICENSE_KEY=your_license_key
