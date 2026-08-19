@@ -3,7 +3,6 @@ import { CodeBlock } from "@/components/code-block"
 import {
   BreakpointsPreview,
   GridPreview,
-  LayoutShellPreview,
   SpacingPreviewList,
 } from "@/components/layout-preview"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
@@ -28,17 +27,7 @@ export default function StructurePage() {
         description="Spacing, page layout, and breakpoints — how UI sits in the viewport."
       />
 
-      <p className="text-md max-w-3xl text-fg-secondary">
-        Structure covers the 4px spacing scale, content widths and grids, and
-        the min-width breakpoints that change layout. Prefer these tokens over
-        arbitrary padding, track sizes, or media queries.
-      </p>
-
-      <div className="mt-6">
-        <LayoutShellPreview />
-      </div>
-
-      <section className="mt-14">
+      <section className="mt-2">
         <h2 className="heading-sm text-fg-primary">Spacing</h2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Driven by <Token>--spacing</Token> at <Token>0.25rem</Token> (4px).

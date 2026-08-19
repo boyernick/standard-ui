@@ -28,38 +28,6 @@ export default function BrandPage() {
             <BrandWordmark markSize={40} className="text-inherit" />
           </div>
         </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <div className="flex min-h-32 items-center justify-center rounded-2xl border border-border-primary bg-white p-6 text-[#0d0d0d]">
-            <BrandWordmark size="sm" className="text-inherit" />
-          </div>
-          <div className="flex min-h-32 items-center justify-center rounded-2xl border border-border-primary bg-black p-6 text-white">
-            <BrandWordmark size="sm" className="text-inherit" />
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Chrome</h2>
-        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Docs sidebar, top bar, and mobile nav use the small lockup. Theme tokens keep the
-          disk and type black in light mode and white in dark mode.
-        </p>
-        <div className="mt-6 flex min-h-24 items-center rounded-2xl border border-border-primary bg-surface px-5 text-fg-primary">
-          <BrandWordmark size="sm" />
-        </div>
-      </section>
-
-      <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Clear space</h2>
-        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Leave clear space equal to the mark radius on every side. No type,
-          controls, or illustration should enter this area.
-        </p>
-        <div className="mt-6 flex min-h-64 items-center justify-center rounded-2xl bg-background-tertiary p-8">
-          <div className="border border-dashed border-border-secondary p-12 text-fg-primary">
-            <BrandWordmark markSize={40} className="text-inherit" />
-          </div>
-        </div>
       </section>
 
       <section className="mt-14">
