@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      # @central-icons-react runs a postinstall license check that fails the
+      # whole install when CENTRAL_LICENSE_KEY is unset.
+      - name: Install
+        run: npm ci
+        env:
+          CENTRAL_LICENSE_KEY: ${{ secrets.CENTRAL_LICENSE_KEY }}
+
+      # Advisory for now: the tree carries 37 pre-existing lint errors (34 of
+      # them react/no-unescaped-entities in docs prose). Flip this to blocking
+      # once they are cleared, so a red run always means a new problem.
+      - name: Lint
+        run: npm run lint
+        continue-on-error: true
+
+      # The published package ships raw TypeScript, so consumers compile this
+      # source directly. Typecheck it on its own before the docs app does.
+      - name: Typecheck packages
+        run: npm run typecheck:packages
+
+      - name: Typecheck docs app
+        run: npm run typecheck
+
+      # Doc snippets are strings, independent of the rendered demos beside them.
+      # Compile them against the real component types so they cannot drift.
+      - name: Check doc snippets
+        run: npm run check:docs
+
+      - name: Build
+        run: npm run build
+        env:
+          CENTRAL_LICENSE_KEY: ${{ secrets.CENTRAL_LICENSE_KEY }}
