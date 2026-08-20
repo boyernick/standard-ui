@@ -13,12 +13,14 @@
     "typecheck": "next typegen && tsc --noEmit",
     "typecheck:packages": "npm run typecheck --workspace @boyernick/standard-ui-react",
     "check:docs": "node scripts/check-doc-snippets.mjs",
-    "check": "npm run lint && npm run typecheck:packages && npm run test && npm run typecheck && npm run check:docs",
+    "check": "npm run lint && npm run typecheck:packages && npm run test && npm run typecheck && npm run check:docs && npm run check:api",
     "publish:packages": "npm publish --workspace @boyernick/standard-ui-tokens --access public && npm publish --workspace @boyernick/standard-ui-react --access public",
     "test": "npm run test --workspace @boyernick/standard-ui-react",
     "generate:search": "node scripts/generate-search-index.mjs",
     "prebuild": "node scripts/generate-search-index.mjs",
-    "predev": "node scripts/generate-search-index.mjs"
+    "predev": "node scripts/generate-search-index.mjs",
+    "generate:api": "node scripts/generate-component-api.mjs",
+    "check:api": "node scripts/check-generated-api.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0-rc.2",

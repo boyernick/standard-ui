@@ -1,0 +1,20 @@
+{
+  "module": "orb",
+  "parts": [
+    {
+      "name": "Orb",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

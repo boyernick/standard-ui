@@ -1,0 +1,36 @@
+{
+  "module": "input",
+  "parts": [
+    {
+      "name": "Input",
+      "props": [
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'ghost' | 'default'",
+          "required": false,
+          "default": "\"default\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 307,
+      "universal": 0
+    }
+  ]
+}

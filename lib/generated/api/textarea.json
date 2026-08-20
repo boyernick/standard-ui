@@ -1,0 +1,28 @@
+{
+  "module": "textarea",
+  "parts": [
+    {
+      "name": "Textarea",
+      "props": [
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'ghost' | 'default'",
+          "required": false,
+          "default": "\"default\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 292,
+      "universal": 0
+    }
+  ]
+}

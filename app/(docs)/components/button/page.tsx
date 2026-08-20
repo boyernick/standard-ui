@@ -10,6 +10,8 @@ import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, type GeneratedFamily } from "@/components/api-table"
+import buttonApi from "@/lib/generated/api/button.json"
 
 export const metadata: Metadata = {
   title: "Button",
@@ -349,75 +351,8 @@ export default function ButtonPage() {
 
       <section className="mt-14">
         <H2>API</H2>
-        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Button accepts all standard HTML button attributes.
-        </p>
-        <DocTable headers={["Prop", "Type", "Default", "Description"]}>
-          <tr>
-            <DocCell mono>variant</DocCell>
-            <DocCell mono>
-              &quot;primary&quot; | &quot;secondary&quot; | &quot;outline&quot;
-              | &quot;ghost&quot; | &quot;destructive&quot;
-            </DocCell>
-            <DocCell mono>&quot;primary&quot;</DocCell>
-            <DocCell>Visual style of the button.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>size</DocCell>
-            <DocCell mono>
-              &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;
-            </DocCell>
-            <DocCell mono>&quot;md&quot;</DocCell>
-            <DocCell>Size of the button.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>iconOnly</DocCell>
-            <DocCell mono>boolean</DocCell>
-            <DocCell mono>false</DocCell>
-            <DocCell>Square button for icon-only use.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>rounded</DocCell>
-            <DocCell mono>boolean</DocCell>
-            <DocCell mono>false</DocCell>
-            <DocCell>Pill shape (fully rounded corners).</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>prefix</DocCell>
-            <DocCell mono>ReactNode</DocCell>
-            <DocCell mono>—</DocCell>
-            <DocCell>Element before the label.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>suffix</DocCell>
-            <DocCell mono>ReactNode</DocCell>
-            <DocCell mono>—</DocCell>
-            <DocCell>Element after the label.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>loading</DocCell>
-            <DocCell mono>boolean</DocCell>
-            <DocCell mono>false</DocCell>
-            <DocCell>Shows a spinner and disables the button.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>disabled</DocCell>
-            <DocCell mono>boolean</DocCell>
-            <DocCell mono>false</DocCell>
-            <DocCell>Disables the button.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>type</DocCell>
-            <DocCell mono>
-              &quot;button&quot; | &quot;submit&quot; | &quot;reset&quot;
-            </DocCell>
-            <DocCell mono>&quot;button&quot;</DocCell>
-            <DocCell>Native button type.</DocCell>
-          </tr>
-        </DocTable>
-      </section>
+        <PropsTable family={buttonApi as GeneratedFamily} part="Button" />
 
-      <section className="mt-14 mb-8">
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

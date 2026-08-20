@@ -1,0 +1,101 @@
+{
+  "module": "meter",
+  "parts": [
+    {
+      "name": "Meter",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "The current value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "aria-valuetext",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "A string value that provides a user-friendly name for `aria-valuenow`, the current value of the meter.",
+          "source": "base-ui"
+        },
+        {
+          "name": "format",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "default": null,
+          "description": "Options to format the value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "getAriaValueText",
+          "type": "(formattedValue: string, value: number) => string",
+          "required": false,
+          "default": null,
+          "description": "A function that returns a string value that provides a human-readable text alternative for `aria-valuenow`, the current value of the meter.",
+          "source": "base-ui"
+        },
+        {
+          "name": "locale",
+          "type": "LocalesArgument",
+          "required": false,
+          "default": null,
+          "description": "The locale used by `Intl.NumberFormat` when formatting the value. Defaults to the user's runtime locale.",
+          "source": "base-ui"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "The maximum value",
+          "source": "base-ui"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "The minimum value",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    },
+    {
+      "name": "MeterIndicator",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "MeterLabel",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "MeterTrack",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "MeterValue",
+      "props": [
+        {
+          "name": "children",
+          "type": "((formattedValue: string, value: number) => ReactNode) | null",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    }
+  ]
+}

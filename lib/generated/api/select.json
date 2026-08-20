@@ -1,0 +1,525 @@
+{
+  "module": "select",
+  "parts": [
+    {
+      "name": "Select",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<SelectRootActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `unmount`: Manually unmounts the select. Call this after any externally controlled closing animation finishes.",
+          "source": "base-ui"
+        },
+        {
+          "name": "autoComplete",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Provides a hint to the browser for autofill.",
+          "source": "base-ui"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the select popup is initially open. To render a controlled select popup, use the `open` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultValue",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "The uncontrolled value of the select when it's initially rendered. To render a controlled select, use the `value` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "form",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the form that owns the hidden input. Useful when the select is rendered outside the form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "highlightItemOnHover",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The id of the Select.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the hidden input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "isItemEqualToValue",
+          "type": "(itemValue: unknown, value: unknown) => boolean",
+          "required": false,
+          "default": null,
+          "description": "Custom comparison logic used to determine if a select item value matches the current selected value. Useful when item values are objects without matching referentially. Defaults to `Object.is` comparison.",
+          "source": "base-ui"
+        },
+        {
+          "name": "items",
+          "type": "readonly Group<any>[] | Record<string, ReactNode> | readonly { label: ReactNode; value: a…",
+          "typeFull": "readonly Group<any>[] | Record<string, ReactNode> | readonly { label: ReactNode; value: any; }[]",
+          "required": false,
+          "default": null,
+          "description": "Data structure of the items rendered in the select popup. When specified, `<Select.Value>` renders the label of the selected item instead of the raw value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "itemToStringLabel",
+          "type": "(itemValue: unknown) => string",
+          "required": false,
+          "default": null,
+          "description": "When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for display in the trigger. If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.",
+          "source": "base-ui"
+        },
+        {
+          "name": "itemToStringValue",
+          "type": "(itemValue: unknown) => string",
+          "required": false,
+          "default": null,
+          "description": "When the item values are objects (`<Select.Item value={object}>`), this function converts the object value to a string representation for form submission. If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.",
+          "source": "base-ui"
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Determines if the select enters a modal state when open. - `true`: user interaction is limited to the select: document page scroll is locked and pointer interactions on outside elements are disabled. - `false`: user interaction with the rest of the document is allowed. On touch devices, a `true` modal blocks outside taps but leaves the page scrollable unless the popup spans nearly the full viewport width, matching native iOS behavior.",
+          "source": "base-ui"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether multiple items can be selected.",
+          "source": "base-ui"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the field when a form is submitted.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean, eventDetails: SelectRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the select popup is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChangeComplete",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called after any animations complete when the select popup is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: unknown, eventDetails: SelectRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the value of the select changes.",
+          "source": "base-ui"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the select popup is currently open.",
+          "source": "base-ui"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user should be unable to choose a different option from the select popup.",
+          "source": "base-ui"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user must choose a value before submitting a form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "The value of the select. Use when controlled.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "SelectGroup",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectGroupLabel",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectIcon",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectItem",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Specifies the text label to use when the item is matched during keyboard text navigation. Defaults to the item text content if not provided.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "required": false,
+          "default": "null",
+          "description": "A unique value that identifies this select item.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "SelectItemIndicator",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether to keep the HTML element in the DOM when the item is not selected.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    },
+    {
+      "name": "SelectItemText",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectList",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectPopup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "finalFocus",
+          "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void…",
+          "typeFull": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null)",
+          "required": false,
+          "default": null,
+          "description": "Determines the element to focus when the select popup is closed. - `false`: Do not move focus. - `true`: Move focus based on the default behavior (trigger or previously focused element). - `RefObject`: Move focus to the ref element. - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`). Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    },
+    {
+      "name": "SelectPortal",
+      "props": [
+        {
+          "name": "container",
+          "type": "HTMLElement | ShadowRoot | RefObject<HTMLElement | ShadowRoot | null> | null",
+          "required": false,
+          "default": null,
+          "description": "A parent element to render the portal element into.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectPositioner",
+      "props": [
+        {
+          "name": "align",
+          "type": "Align",
+          "required": false,
+          "default": "'center'",
+          "description": "How to align the popup relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "alignItemWithTrigger",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the positioner overlaps the trigger so the selected item's text is aligned with the trigger's value text. This only applies to mouse input and is automatically disabled if there is not enough space.",
+          "source": "base-ui"
+        },
+        {
+          "name": "alignOffset",
+          "type": "number | OffsetFunction",
+          "required": false,
+          "default": "0",
+          "description": "Additional offset along the alignment axis in pixels. Also accepts a function that returns the offset to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "anchor",
+          "type": "Element | VirtualElement | RefObject<Element | null> | (() => Element | VirtualElement | …",
+          "typeFull": "Element | VirtualElement | RefObject<Element | null> | (() => Element | VirtualElement | null) | null",
+          "required": false,
+          "default": null,
+          "description": "An element to position the popup against. By default, the popup will be positioned against the trigger.",
+          "source": "base-ui"
+        },
+        {
+          "name": "arrowPadding",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "required": false,
+          "default": null,
+          "description": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): - `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`). - `'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible. - `'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows. - `'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit. - `'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: - `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR). - `'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR). - `'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "required": false,
+          "default": "'clipping-ancestors'",
+          "description": "An element or a rectangle that delimits the area that the popup is confined to.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "required": false,
+          "default": "5",
+          "description": "Additional space to maintain from the edge of the collision boundary.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disableAnchorTracking",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+          "source": "base-ui"
+        },
+        {
+          "name": "positionMethod",
+          "type": "'absolute' | 'fixed'",
+          "required": false,
+          "default": "'absolute'",
+          "description": "Determines which CSS `position` property to use.",
+          "source": "base-ui"
+        },
+        {
+          "name": "side",
+          "type": "Side",
+          "required": false,
+          "default": "'bottom'",
+          "description": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
+          "source": "base-ui"
+        },
+        {
+          "name": "sideOffset",
+          "type": "number | OffsetFunction",
+          "required": false,
+          "default": "0",
+          "description": "Distance between the anchor and the popup in pixels. Also accepts a function that returns the distance to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectSeparator",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The orientation of the separator.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SelectTrigger",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 283,
+      "universal": 3
+    },
+    {
+      "name": "SelectValue",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode | ((value: any) => ReactNode)",
+          "required": false,
+          "default": null,
+          "description": "Accepts a function that returns a `ReactNode` to format the selected value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "placeholder",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "The placeholder value to display when no value is selected. This is overridden by `children` if specified, or by a null item's label in `items`.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    }
+  ]
+}

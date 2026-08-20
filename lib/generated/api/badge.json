@@ -1,0 +1,20 @@
+{
+  "module": "badge",
+  "parts": [
+    {
+      "name": "Badge",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'outline' | 'destructive' | 'default'",
+          "required": false,
+          "default": "\"default\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 278,
+      "universal": 0
+    }
+  ]
+}

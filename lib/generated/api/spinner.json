@@ -1,0 +1,20 @@
+{
+  "module": "spinner",
+  "parts": [
+    {
+      "name": "Spinner",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 488,
+      "universal": 0
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "module": "card",
+  "parts": [
+    {
+      "name": "Card",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CardContent",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CardDescription",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CardFooter",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CardHeader",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CardTitle",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    }
+  ]
+}
