@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ToastExamples } from "./toast-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import toastApi from "@/lib/generated/api/toast.json"
 
 export const metadata: Metadata = {
   title: "Toast",
@@ -131,6 +133,10 @@ toastManager.add({
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>ToastProvider props</H3>
+        <PropsTable family={toastApi as GeneratedFamily} part="ToastProvider" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>
