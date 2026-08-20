@@ -6,8 +6,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * White theme syntax (arthurwhite.White): monochrome + bold structure.
- * https://marketplace.visualstudio.com/items?itemName=arthurwhite.White
+ * Syntax colours live in @boyernick/standard-ui-tokens (--sh-*). They carry the
+ * hierarchy on their own, so no weight rule here — the code renders at one
+ * weight, as the theme intends.
  *
  * sugar-high emits a newline between each .sh__line inside <pre>. Those
  * newlines must not add gap — collapse them on the pre, keep indent on lines.
@@ -36,13 +37,6 @@
   text-align: right;
   color: var(--text-quaternary);
   user-select: none;
-}
-
-.sh-code .sh__token--keyword,
-.sh-code .sh__token--entity,
-.sh-code .sh__token--class,
-.sh-code .sh__token--property {
-  font-weight: 700;
 }
 
 .sh-code .sh__token--comment {
