@@ -2,6 +2,7 @@ export const foundations = [
   { href: "/", label: "Introduction" },
   { href: "/installation", label: "Installation" },
   { href: "/theming", label: "Theming" },
+  { href: "/accessibility", label: "Accessibility" },
   { href: "/brand", label: "Brand" },
   { href: "/colors", label: "Colors" },
   { href: "/typography", label: "Typography" },
