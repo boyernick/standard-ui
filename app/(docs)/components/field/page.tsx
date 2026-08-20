@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { FieldExamples } from "./field-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import fieldApi from "@/lib/generated/api/field.json"
 
 export const metadata: Metadata = {
   title: "Field",
@@ -98,6 +100,10 @@ export default function FieldPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Field props</H3>
+        <PropsTable family={fieldApi as GeneratedFamily} part="Field" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
         <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">

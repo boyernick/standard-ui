@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { NumberFieldExamples } from "./number-field-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import numberfieldApi from "@/lib/generated/api/number-field.json"
 
 export const metadata: Metadata = {
   title: "Number field",
@@ -120,6 +122,10 @@ export default function NumberFieldPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>NumberField props</H3>
+        <PropsTable family={numberfieldApi as GeneratedFamily} part="NumberField" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

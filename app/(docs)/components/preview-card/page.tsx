@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { PreviewCardExamples } from "./preview-card-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import previewcardApi from "@/lib/generated/api/preview-card.json"
 
 export const metadata: Metadata = {
   title: "Preview card",
@@ -110,6 +112,10 @@ export default function PreviewCardPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>PreviewCard props</H3>
+        <PropsTable family={previewcardApi as GeneratedFamily} part="PreviewCard" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

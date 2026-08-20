@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { AlertDialogExamples } from "./alert-dialog-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import alertdialogApi from "@/lib/generated/api/alert-dialog.json"
 
 export const metadata: Metadata = {
   title: "Alert dialog",
@@ -145,6 +147,10 @@ export default function AlertDialogPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>AlertDialog props</H3>
+        <PropsTable family={alertdialogApi as GeneratedFamily} part="AlertDialog" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

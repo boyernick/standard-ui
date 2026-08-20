@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { PopoverExamples } from "./popover-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import popoverApi from "@/lib/generated/api/popover.json"
 
 export const metadata: Metadata = {
   title: "Popover",
@@ -141,6 +143,10 @@ export default function PopoverPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Popover props</H3>
+        <PropsTable family={popoverApi as GeneratedFamily} part="Popover" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>
