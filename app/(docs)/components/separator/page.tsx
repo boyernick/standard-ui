@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Separator",
@@ -18,7 +19,7 @@ export default function SeparatorPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
 
         <div className="mt-6 flex flex-col gap-8">
           <ComponentCanvas
@@ -70,7 +71,7 @@ export default function SeparatorPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Separator draws a thin rule between content. Default orientation is
           horizontal. Set <Token>orientation=&quot;vertical&quot;</Token> when
@@ -86,9 +87,9 @@ export default function SeparatorPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Horizontal</h3>
+        <H3>Horizontal</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Place between stacked sections or list groups. The separator spans
           the full width of its container by default.
@@ -103,7 +104,7 @@ export default function SeparatorPage() {
 </div>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Vertical</h3>
+        <H3 className="mt-10">Vertical</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use in a flex row with a fixed height so the vertical rule has room
           to stretch. Common between nav links or toolbar actions.
@@ -120,7 +121,7 @@ export default function SeparatorPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Separator accepts Base UI Separator props.
         </p>
@@ -145,9 +146,9 @@ export default function SeparatorPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Use separators to group related content, not every row</li>
           <li>
@@ -156,7 +157,7 @@ export default function SeparatorPage() {
           <li>Keep spacing consistent around the rule</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t stack many separators — prefer whitespace when possible

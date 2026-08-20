@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { SoundsExamples } from "./sounds-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Sounds",
@@ -17,12 +18,12 @@ export default function SoundsPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <SoundsExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Wrap your app (or a demo) in <Token>SoundsProvider</Token>. Preview
           presets with <Token>Sound</Token>, mute with{" "}
@@ -40,14 +41,14 @@ export default function SoundsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Presets</h3>
+        <H2>Usage</H2>
+        <H3>Presets</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Built-in ids: <Token>click</Token>, <Token>success</Token>,{" "}
           <Token>error</Token>, and <Token>notify</Token>. Tones are synthesized
           with the Web Audio API — no asset files required.
         </p>
-        <h3 className="heading-xs mt-8 text-fg-primary">Accessibility</h3>
+        <H3>Accessibility</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Never rely on sound alone. Prefer mute by default for dense surfaces,
           and always expose a mute control near first play.
@@ -55,7 +56,7 @@ export default function SoundsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Export", "Role"]}>
           <tr>
             <DocCell mono>SoundsProvider</DocCell>
@@ -80,13 +81,13 @@ export default function SoundsPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Trigger sounds from user gestures so AudioContext can resume</li>
           <li>Keep cues short and quiet</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t play on page load or scroll</li>
           <li>Don&apos;t use error tones for routine navigation</li>

@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { CarouselExamples } from "./carousel-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Carousel",
@@ -17,12 +18,12 @@ export default function CarouselPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <CarouselExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Compose <Token>Carousel</Token>, <Token>CarouselContent</Token>, and{" "}
           <Token>CarouselItem</Token>. Add <Token>CarouselPrevious</Token> and{" "}
@@ -51,20 +52,20 @@ export default function CarouselPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Sizing</h3>
+        <H2>Usage</H2>
+        <H3>Sizing</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Override <Token>basis-*</Token> on items for multi-slide peeks. Keep
           room around the region for previous and next controls.
         </p>
-        <h3 className="heading-xs mt-8 text-fg-primary">Keyboard</h3>
+        <H3>Keyboard</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Arrow keys scroll when focus is inside the carousel region.
         </p>
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>Carousel</DocCell>
@@ -86,13 +87,13 @@ export default function CarouselPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Label the region and keep slide content self-explanatory</li>
           <li>Disable empty directions with the built-in previous/next state</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t autoplay critical content without a pause control</li>
           <li>Don&apos;t nest interactive carousels inside each other</li>

@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ToggleExamples } from "./toggle-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Toggle",
@@ -17,12 +18,12 @@ export default function TogglePage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ToggleExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Toggle is a two-state button. Use alone for a single option, or wrap
           several in <Token>ToggleGroup</Token> for alignment and formatting
@@ -44,9 +45,9 @@ export default function TogglePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Single toggle</h3>
+        <H3>Single toggle</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use <Token>defaultPressed</Token> or controlled{" "}
           <Token>pressed</Token> / <Token>onPressedChange</Token>. Provide an
@@ -60,7 +61,7 @@ export default function TogglePage() {
 </Toggle>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Toggle group</h3>
+        <H3 className="mt-10">Toggle group</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Each child <Token>Toggle</Token> needs a <Token>value</Token>. The
           group tracks pressed values as an array via{" "}
@@ -79,7 +80,7 @@ export default function TogglePage() {
 </ToggleGroup>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Multiple</h3>
+        <H3 className="mt-10">Multiple</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass <Token>multiple</Token> so several toggles can stay pressed —
           useful for Bold / Italic / Underline. Without it, pressing one clears
@@ -96,13 +97,13 @@ export default function TogglePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Toggle and ToggleGroup accept Base UI props for pressed state and
           group selection.
         </p>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Toggle</h3>
+        <H3>Toggle</H3>
         <DocTable headers={["Prop", "Type", "Default", "Description"]}>
           <tr>
             <DocCell mono>defaultPressed</DocCell>
@@ -138,7 +139,7 @@ export default function TogglePage() {
           </tr>
         </DocTable>
 
-        <h3 className="heading-xs mt-10 text-fg-primary">ToggleGroup</h3>
+        <H3 className="mt-10">ToggleGroup</H3>
         <DocTable headers={["Prop", "Type", "Default", "Description"]}>
           <tr>
             <DocCell mono>defaultValue</DocCell>
@@ -176,9 +177,9 @@ export default function TogglePage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use toggles for formatting and view options that stay pressed
@@ -193,7 +194,7 @@ export default function TogglePage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use toggles for navigation — use links or tabs

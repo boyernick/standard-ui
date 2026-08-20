@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ProgressExamples } from "./progress-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Progress",
@@ -17,12 +18,12 @@ export default function ProgressPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ProgressExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Progress shows how far a task has gone. Compose label, value, track,
           and indicator under a root that holds the numeric{" "}
@@ -50,9 +51,9 @@ export default function ProgressPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Value</h3>
+        <H3>Value</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass a number from <Token>0</Token> to <Token>100</Token> (or your
           custom max). Update it as work progresses so the indicator width and{" "}
@@ -70,7 +71,7 @@ export default function ProgressPage() {
 </Progress>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Label and value</h3>
+        <H3 className="mt-10">Label and value</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use <Token>ProgressLabel</Token> for the task name and{" "}
           <Token>ProgressValue</Token> for the formatted percentage. The root
@@ -85,7 +86,7 @@ export default function ProgressPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Progress. The root accepts value and related
           props.
@@ -129,9 +130,9 @@ export default function ProgressPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Label the task so users know what is in progress</li>
           <li>Update value as work advances — avoid a stuck bar</li>
@@ -140,7 +141,7 @@ export default function ProgressPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use progress for instant actions that finish in under a

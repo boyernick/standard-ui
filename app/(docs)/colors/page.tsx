@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { ColorsPalette } from "@/components/colors-palette"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Colors",
@@ -18,7 +19,7 @@ export default function ColorsPage() {
       <ColorsPalette />
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Semantic mapping</h2>
+        <H2>Semantic mapping</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer semantic tokens in UI. Reach for raw hue steps only when no
           semantic token fits.
@@ -55,7 +56,7 @@ export default function ColorsPage() {
           ))}
         </DocTable>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use <Token>bg-brand-primary</Token> for primary buttons, checked
@@ -71,7 +72,7 @@ export default function ColorsPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&rsquo;t use <Token>green-*</Token> as the default fill for primary

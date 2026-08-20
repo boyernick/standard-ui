@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { OTPFieldExamples } from "./otp-field-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "OTP field",
@@ -17,12 +18,12 @@ export default function OTPFieldPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <OTPFieldExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           OTP field renders one input per character. Set <Token>length</Token>{" "}
           on the root, label the first slot with a matching <Token>id</Token>,
@@ -46,9 +47,9 @@ export default function OTPFieldPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Grouping</h3>
+        <H3>Grouping</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use <Token>OTPFieldSeparator</Token> to chunk codes such as{" "}
           <Token>123-456</Token> without changing the underlying value.
@@ -67,7 +68,7 @@ export default function OTPFieldPage() {
 </OTPField>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <CodeBlock
           className="mt-4"
           size="sm"
@@ -78,7 +79,7 @@ export default function OTPFieldPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Prop / part", "Type", "Default", "Description"]}>
           <tr>
             <DocCell mono>length</DocCell>
@@ -120,16 +121,16 @@ export default function OTPFieldPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Label the first slot and name the remaining ones</li>
           <li>Match length to the code your product sends</li>
           <li>Keep paste and autofill enabled for one-time codes</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t use OTP field for passwords or long secrets</li>
           <li>Don&apos;t omit length — the root needs it</li>

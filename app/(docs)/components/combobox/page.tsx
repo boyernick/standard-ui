@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ComboboxExamples } from "./combobox-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Combobox",
@@ -17,12 +18,12 @@ export default function ComboboxPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ComboboxExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Combobox pairs an input with a filtered popup list. Pass{" "}
           <Token>items</Token> on the root and render list rows from the list
@@ -69,9 +70,9 @@ const fruits = ["Apple", "Banana", "Cherry"]
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Items</h3>
+        <H3>Items</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Provide an <Token>items</Token> array so filtering and empty states
           work. Item values must match what you pass to each{" "}
@@ -85,7 +86,7 @@ const fruits = ["Apple", "Banana", "Cherry"]
 </Combobox>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <CodeBlock
           className="mt-4"
           size="sm"
@@ -103,7 +104,7 @@ const fruits = ["Apple", "Banana", "Cherry"]
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Root accepts Base UI Combobox props. Common props and parts:
         </p>
@@ -148,16 +149,16 @@ const fruits = ["Apple", "Banana", "Cherry"]
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Use combobox when the option set is long enough to search</li>
           <li>Provide an empty state for no matches</li>
           <li>Give the input an accessible name</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t skip <Token>items</Token> if you rely on built-in filtering

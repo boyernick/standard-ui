@@ -4,6 +4,8 @@ import { BrandWordmark } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { EdgeFade } from "@/components/edge-fade"
+import { SearchDialog } from "@/components/search-dialog"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { components, foundations, upcomingComponents } from "@/lib/nav"
 
 const isActive = (pathname: string, href: string) => {
@@ -29,13 +31,19 @@ export const Sidebar = () => {
             <EdgeFade edge="top" tone="surface" />
           </div>
           <div className="relative px-5 pt-5 pb-4">
-            <Link
-              href="/"
-              className="inline-flex cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
-              aria-label="StandardUI"
-            >
-              <BrandWordmark size="sm" className="text-inherit" />
-            </Link>
+            <div className="flex items-center justify-between gap-2">
+              <Link
+                href="/"
+                className="inline-flex cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+                aria-label="StandardUI"
+              >
+                <BrandWordmark size="sm" className="text-inherit" />
+              </Link>
+              <ThemeToggle />
+            </div>
+            <div className="mt-3">
+              <SearchDialog />
+            </div>
           </div>
         </div>
 

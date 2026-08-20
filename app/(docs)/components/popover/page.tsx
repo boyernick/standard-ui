@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { PopoverExamples } from "./popover-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Popover",
@@ -17,12 +18,12 @@ export default function PopoverPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <PopoverExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Popover opens a positioned popup from a trigger. Compose portal,
           positioner, popup, title, and description. Style the trigger with
@@ -60,9 +61,9 @@ export default function PopoverPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Trigger</h3>
+        <H3>Trigger</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass Button through <Token>render</Token> so the control keeps
           StandardUI styles without nesting buttons.
@@ -75,7 +76,7 @@ export default function PopoverPage() {
 </PopoverTrigger>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Structure</h3>
+        <H3 className="mt-10">Structure</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Always include a title. Description is optional but helpful for
           context. Keep content short — prefer a dialog for longer flows.
@@ -93,7 +94,7 @@ export default function PopoverPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Popover. Prefer{" "}
           <Token>render=&#123;&lt;Button /&gt;&#125;</Token> on the trigger
@@ -140,9 +141,9 @@ export default function PopoverPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Use popovers for lightweight, in-context content</li>
           <li>Provide a clear title and keep copy short</li>
@@ -151,7 +152,7 @@ export default function PopoverPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t nest a Button inside PopoverTrigger — use{" "}

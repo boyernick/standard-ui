@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { SelectExamples } from "./select-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Select",
@@ -17,12 +18,12 @@ export default function SelectPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <SelectExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Select is a composed Base UI control: trigger with value and icon,
           then a portaled popup list of items. Pass an{" "}
@@ -68,9 +69,9 @@ export default function SelectPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Items map</h3>
+        <H3>Items map</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           When you pass <Token>items</Token>, SelectValue renders the matching
           label for the selected value. Keep keys aligned with each item&apos;s{" "}
@@ -87,7 +88,7 @@ export default function SelectPage() {
 </Select>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Compose the full tree so positioning and accessibility stay intact:
           trigger → portal → positioner → popup → list → item.
@@ -109,7 +110,7 @@ export default function SelectPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Root accepts Base UI Select props. Common props and parts:
         </p>
@@ -164,9 +165,9 @@ export default function SelectPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Pass <Token>items</Token> when values differ from display labels
@@ -175,7 +176,7 @@ export default function SelectPage() {
           <li>Use a placeholder on SelectValue when nothing is selected</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t skip SelectPositioner — placement depends on it

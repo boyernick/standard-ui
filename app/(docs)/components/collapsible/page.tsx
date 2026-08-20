@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { CollapsibleExamples } from "./collapsible-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Collapsible",
@@ -17,12 +18,12 @@ export default function CollapsiblePage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <CollapsibleExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Collapsible pairs a trigger with a panel that expands and collapses.
           The trigger includes a chevron that rotates when open. Built on Base
@@ -46,9 +47,9 @@ export default function CollapsiblePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Composition</h3>
+        <H3>Composition</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Wrap <Token>CollapsibleTrigger</Token> and{" "}
           <Token>CollapsiblePanel</Token> in <Token>Collapsible</Token>. Keep
@@ -65,7 +66,7 @@ export default function CollapsiblePage() {
 </Collapsible>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Open state</h3>
+        <H3 className="mt-10">Open state</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use <Token>defaultOpen</Token> for uncontrolled, or{" "}
           <Token>open</Token> with <Token>onOpenChange</Token> when the page
@@ -82,7 +83,7 @@ export default function CollapsiblePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Collapsible. Root owns open state; trigger and
           panel render the control and content.
@@ -102,7 +103,7 @@ export default function CollapsiblePage() {
           </tr>
         </DocTable>
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Collapsible</h3>
+        <H3 className="mt-10">Collapsible</H3>
         <DocTable headers={["Prop", "Type", "Default", "Description"]}>
           <tr>
             <DocCell mono>defaultOpen</DocCell>
@@ -134,9 +135,9 @@ export default function CollapsiblePage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use for optional or secondary content that most users can skip
@@ -147,7 +148,7 @@ export default function CollapsiblePage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t hide required form fields behind a collapsible

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { BrandWordmark } from "@boyernick/standard-ui-react"
 import { PageHeader } from "@/components/page-header"
+import { H2 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Brand",
@@ -15,7 +16,7 @@ export default function BrandPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Wordmark</h2>
+        <H2>Wordmark</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pair the disk with <span className="text-fg-primary">StandardUI</span> in sans —
           one word, no space. Color follows the parent so the lockup flips to white on dark.
@@ -31,7 +32,7 @@ export default function BrandPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Voice</h2>
+        <H2>Voice</H2>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Sentence case everywhere — never shout in all caps</li>
           <li>Short, precise labels; prefer verbs for actions</li>
@@ -41,7 +42,7 @@ export default function BrandPage() {
 
       <section className="mt-14 mb-8 grid gap-10 md:grid-cols-2">
         <div>
-          <h2 className="heading-sm text-fg-primary">Do</h2>
+          <H2>Do</H2>
           <ul className="text-md mt-4 list-disc space-y-2 pl-5 text-fg-secondary">
             <li>Keep the solid disk as one mark</li>
             <li>Invert the full lockup to white on dark backgrounds</li>
@@ -50,7 +51,7 @@ export default function BrandPage() {
           </ul>
         </div>
         <div>
-          <h2 className="heading-sm text-fg-primary">Don&apos;t</h2>
+          <H2>Don&apos;t</H2>
           <ul className="text-md mt-4 list-disc space-y-2 pl-5 text-fg-secondary">
             <li>Don&apos;t leave a black disk on a dark surface</li>
             <li>Don&apos;t stretch, rotate, or hollow out the disk</li>

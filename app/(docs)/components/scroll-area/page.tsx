@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ScrollAreaExamples } from "./scroll-area-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Scroll area",
@@ -17,12 +18,12 @@ export default function ScrollAreaPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ScrollAreaExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Scroll area composes a root, viewport, content, scrollbar, and thumb.
           Give the root a fixed height (or width for horizontal scroll) so
@@ -52,9 +53,9 @@ export default function ScrollAreaPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Structure</h3>
+        <H3>Structure</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Put scrollable children inside <Token>ScrollAreaContent</Token>,
           nested in <Token>ScrollAreaViewport</Token>. Add a scrollbar with
@@ -75,7 +76,7 @@ export default function ScrollAreaPage() {
 </ScrollArea>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Orientation</h3>
+        <H3 className="mt-10">Orientation</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Set <Token>orientation=&quot;vertical&quot;</Token> or{" "}
           <Token>&quot;horizontal&quot;</Token> on the scrollbar. Default is
@@ -91,7 +92,7 @@ export default function ScrollAreaPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Scroll Area. Style the root for size and
           overflow; compose scrollbar and thumb for the track.
@@ -119,9 +120,9 @@ export default function ScrollAreaPage() {
           </tr>
         </DocTable>
 
-        <h3 className="heading-xs mt-10 text-fg-primary">
+        <H3 className="mt-10">
           ScrollAreaScrollbar
-        </h3>
+        </H3>
         <DocTable headers={["Prop", "Type", "Default", "Description"]}>
           <tr>
             <DocCell mono>orientation</DocCell>
@@ -143,9 +144,9 @@ export default function ScrollAreaPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Give the root a constrained size so overflow is intentional
@@ -157,7 +158,7 @@ export default function ScrollAreaPage() {
           <li>Keep paragraphs short so scrolling content stays scannable</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t wrap the whole page — prefer native document scroll

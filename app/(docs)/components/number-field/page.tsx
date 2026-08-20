@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { NumberFieldExamples } from "./number-field-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Number field",
@@ -17,12 +18,12 @@ export default function NumberFieldPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <NumberFieldExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Number field wraps a numeric input with stepper buttons. Set{" "}
           <Token>min</Token>, <Token>max</Token>, and <Token>step</Token> on the
@@ -49,9 +50,9 @@ export default function NumberFieldPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Bounds</h3>
+        <H3>Bounds</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer explicit min and max for form quantities so steppers stop at
           sensible limits.
@@ -64,7 +65,7 @@ export default function NumberFieldPage() {
 </NumberField>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <CodeBlock
           className="mt-4"
           size="sm"
@@ -77,7 +78,7 @@ export default function NumberFieldPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Prop / part", "Type", "Default", "Description"]}>
           <tr>
             <DocCell mono>defaultValue</DocCell>
@@ -119,16 +120,16 @@ export default function NumberFieldPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Set min and max for quantities that must stay in range</li>
           <li>Give the input an accessible name</li>
           <li>Use Slider when the value is approximate or visual</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t use number field for free-form text</li>
           <li>Don&apos;t hide steppers if users need precise increments</li>

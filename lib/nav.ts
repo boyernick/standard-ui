@@ -1,5 +1,6 @@
 export const foundations = [
   { href: "/", label: "Introduction" },
+  { href: "/installation", label: "Installation" },
   { href: "/brand", label: "Brand" },
   { href: "/colors", label: "Colors" },
   { href: "/typography", label: "Typography" },
@@ -73,3 +74,25 @@ export const components = [
 ] as const;
 
 export const upcomingComponents = [] as const;
+
+/**
+ * Ordered reading order across the whole site, used for prev/next. Derived from
+ * the arrays above so it cannot drift out of sync with the sidebar.
+ */
+export const allPages = [...foundations, ...components] as const;
+
+export type NavItem = { href: string; label: string };
+
+/** Previous/next page in reading order, or null at either end. */
+export const getAdjacentPages = (pathname: string) => {
+  const index = allPages.findIndex((item) => item.href === pathname);
+  if (index === -1) return { previous: null, next: null };
+  return {
+    previous: (allPages[index - 1] ?? null) as NavItem | null,
+    next: (allPages[index + 1] ?? null) as NavItem | null,
+  };
+};
+
+/** Section label a route belongs to, for the search palette's filters. */
+export const getSectionForHref = (href: string) =>
+  href.startsWith("/components/") ? "Components" : "Foundations";

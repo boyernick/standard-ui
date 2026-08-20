@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Input",
@@ -18,7 +19,7 @@ export default function InputPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
 
         <div className="mt-6 flex flex-col gap-8">
           <ComponentCanvas
@@ -106,7 +107,7 @@ export default function InputPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Input is a single-line text control. The default variant uses surface,
           border, and focus-ring tokens. Ghost drops the border and fill for
@@ -122,9 +123,9 @@ export default function InputPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Variants</h3>
+        <H3>Variants</H3>
         <DocTable headers={["Variant", "Use it for"]}>
           {[
             [
@@ -149,7 +150,7 @@ export default function InputPage() {
 <Input variant="ghost" placeholder="Search…" aria-label="Search" />`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Sizes</h3>
+        <H3 className="mt-10">Sizes</H3>
         <DocTable headers={["Size", "Height", "Use case"]}>
           {[
             ["sm", "32px", "Dense forms, toolbars, compact filters"],
@@ -171,7 +172,7 @@ export default function InputPage() {
 <Input size="lg" placeholder="Large" />`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Invalid</h3>
+        <H3 className="mt-10">Invalid</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Set <Token>invalid</Token> when the value fails validation. Pair with
           helper or error text so users know how to fix it.{" "}
@@ -183,7 +184,7 @@ export default function InputPage() {
           code={`<Input invalid defaultValue="not-an-email" aria-label="Email" />`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Disabled</h3>
+        <H3 className="mt-10">Disabled</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Disabled inputs use reduced opacity and{" "}
           <Token>cursor-not-allowed</Token>. Prefer explaining why a field is
@@ -197,7 +198,7 @@ export default function InputPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Input accepts all standard HTML input attributes except native{" "}
           <Token>size</Token>, which is reserved for the visual size prop.
@@ -241,9 +242,9 @@ export default function InputPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Always provide an accessible name via <Token>aria-label</Token>,{" "}
@@ -263,7 +264,7 @@ export default function InputPage() {
           <li>Keep placeholders as hints — not as replacements for labels</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t rely on placeholder text as the only field label

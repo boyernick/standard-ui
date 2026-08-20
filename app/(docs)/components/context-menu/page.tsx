@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ContextMenuExamples } from "./context-menu-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Context menu",
@@ -17,12 +18,12 @@ export default function ContextMenuPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ContextMenuExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Context menu opens from a trigger surface instead of a button. Compose
           portal, positioner, and popup the same way as Menu. Prefer Menu when
@@ -56,9 +57,9 @@ export default function ContextMenuPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Trigger</h3>
+        <H3>Trigger</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Style the trigger as the interactive region (canvas, row, card). The
           menu opens on secondary click / context menu gesture.
@@ -71,7 +72,7 @@ export default function ContextMenuPage() {
 </ContextMenuTrigger>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <CodeBlock
           className="mt-4"
           size="sm"
@@ -86,7 +87,7 @@ export default function ContextMenuPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Context Menu and align with Menu.
         </p>
@@ -119,16 +120,16 @@ export default function ContextMenuPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Scope the trigger to the object the actions apply to</li>
           <li>Mirror common OS actions (cut, copy) when they fit</li>
           <li>Keep destructive actions separated at the bottom</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t hide the only path to a primary action in a context menu

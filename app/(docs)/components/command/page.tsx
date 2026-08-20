@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { CommandExamples } from "./command-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Command",
@@ -17,12 +18,12 @@ export default function CommandPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <CommandExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Command builds on Dialog for focus trap and dismiss behavior. Style
           matches a site search palette: soft backdrop, tall surface, filter
@@ -77,9 +78,9 @@ export default function CommandPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Anatomy</h3>
+        <H3>Anatomy</H3>
         <CodeBlock
           className="mt-4"
           size="sm"
@@ -103,7 +104,7 @@ export default function CommandPage() {
         CommandEmpty`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Keyboard</h3>
+        <H3 className="mt-10">Keyboard</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass <Token>activeOptionId</Token> so the input can expose{" "}
           <Token>aria-activedescendant</Token>. Handle ArrowUp / ArrowDown /
@@ -112,7 +113,7 @@ export default function CommandPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>Command</DocCell>
@@ -144,14 +145,14 @@ export default function CommandPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep result labels short and scannable</li>
           <li>Include a dialog title (CommandDialogTitle) for screen readers</li>
           <li>Offer a keyboard shortcut when search is a primary action</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t nest forms or dense tables in the panel</li>
           <li>Don&apos;t omit empty state feedback when filters return nothing</li>

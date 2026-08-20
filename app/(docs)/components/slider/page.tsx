@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { SliderExamples } from "./slider-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Slider",
@@ -17,12 +18,12 @@ export default function SliderPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <SliderExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Slider lets users pick a number by dragging a thumb along a track.
           Compose control, track, indicator, and thumb under the root. Built on
@@ -50,9 +51,9 @@ export default function SliderPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Structure</h3>
+        <H3>Structure</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Nest <Token>SliderControl</Token> → <Token>SliderTrack</Token> →{" "}
           <Token>SliderIndicator</Token> and <Token>SliderThumb</Token>. The
@@ -69,7 +70,7 @@ export default function SliderPage() {
 </SliderControl>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Accessible name</h3>
+        <H3 className="mt-10">Accessible name</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Give the thumb an <Token>aria-label</Token> (or associate a visible
           label) so assistive tech can announce the control.
@@ -82,7 +83,7 @@ export default function SliderPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Slider. Root accepts value and range props.
         </p>
@@ -149,16 +150,16 @@ export default function SliderPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Label the thumb with aria-label or a visible field label</li>
           <li>Show the current value nearby when precision matters</li>
           <li>Use a slider for continuous ranges, not discrete short lists</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use a slider for yes/no settings — prefer a switch

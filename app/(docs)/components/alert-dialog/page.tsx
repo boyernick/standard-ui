@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { AlertDialogExamples } from "./alert-dialog-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Alert dialog",
@@ -17,12 +18,12 @@ export default function AlertDialogPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <AlertDialogExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Alert dialog blocks the page until the user confirms or cancels. Use
           it for discard, delete, and other high-consequence choices. Compose
@@ -54,9 +55,9 @@ export default function AlertDialogPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Actions</h3>
+        <H3>Actions</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Put Cancel as an outline close and the destructive action as a
           destructive close. Both should dismiss the dialog — wire the
@@ -79,7 +80,7 @@ export default function AlertDialogPage() {
 </div>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Copy</h3>
+        <H3 className="mt-10">Copy</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Title the consequence as a question. Description should state what
           is lost and whether it can be undone.
@@ -97,7 +98,7 @@ export default function AlertDialogPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Alert Dialog. Prefer the{" "}
           <Token>render</Token> prop with <Token>Button</Token> on trigger and
@@ -144,9 +145,9 @@ export default function AlertDialogPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Reserve alert dialogs for irreversible or high-risk actions</li>
           <li>
@@ -155,7 +156,7 @@ export default function AlertDialogPage() {
           <li>Keep Cancel available and visually quieter</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use alert dialogs for multi-step forms — use Dialog

@@ -7,6 +7,7 @@ import {
   IllustrationSuccess,
 } from "@boyernick/standard-ui-react"
 import { PageHeader } from "@/components/page-header"
+import { H2 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Illustrations",
@@ -28,7 +29,7 @@ export default function IllustrationsPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">States</h2>
+        <H2>States</H2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {illustrations.map(({ name, Illustration }) => (
             <figure
@@ -47,7 +48,7 @@ export default function IllustrationsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pair an illustration with a concise heading, a useful explanation,
           and an action when recovery is possible. SVG strokes use current
@@ -68,7 +69,7 @@ export default function IllustrationsPage() {
 
       <section className="mt-14 mb-8 grid gap-10 md:grid-cols-2">
         <div>
-          <h2 className="heading-sm text-fg-primary">Do</h2>
+          <H2>Do</H2>
           <ul className="text-md mt-4 list-disc space-y-2 pl-5 text-fg-secondary">
             <li>Choose the illustration that matches the system state</li>
             <li>Keep illustrations secondary to the message and action</li>
@@ -76,7 +77,7 @@ export default function IllustrationsPage() {
           </ul>
         </div>
         <div>
-          <h2 className="heading-sm text-fg-primary">Don&apos;t</h2>
+          <H2>Don&apos;t</H2>
           <ul className="text-md mt-4 list-disc space-y-2 pl-5 text-fg-secondary">
             <li>Don&apos;t use an error illustration for an empty first-run state</li>
             <li>Don&apos;t replace actionable guidance with decoration</li>
