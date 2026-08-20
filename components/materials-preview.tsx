@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, type ReactNode } from "react"
+import { type ReactNode } from "react"
 import { EdgeFade } from "@/components/edge-fade"
 import { glass, radii, shadows } from "@/lib/tokens"
+import { useCopy } from "@/lib/use-copy"
 
 const radiusClassName = {
   "2xs": "rounded-2xs",
@@ -24,17 +25,9 @@ const CopyRow = ({
   copyValue: string
   children: ReactNode
 }) => {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useCopy()
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(copyValue)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1200)
-    } catch {
-      setCopied(false)
-    }
-  }
+  const handleCopy = () => copy(copyValue)
 
   return (
     <button

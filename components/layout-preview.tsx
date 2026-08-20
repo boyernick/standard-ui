@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react"
 import { breakpoints, spacingSteps } from "@/lib/layout"
+import { useCopy } from "@/lib/use-copy"
 
 const CopyRow = ({
   copyValue,
@@ -10,17 +11,9 @@ const CopyRow = ({
   copyValue: string
   children: ReactNode
 }) => {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useCopy()
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(copyValue)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1200)
-    } catch {
-      setCopied(false)
-    }
-  }
+  const handleCopy = () => copy(copyValue)
 
   return (
     <button
@@ -70,40 +63,6 @@ export const SpacingPreviewList = () => (
         </CopyRow>
       )
     })}
-  </div>
-)
-
-export const LayoutShellPreview = () => (
-  <div className="overflow-hidden rounded-xl border border-border-primary bg-background-secondary">
-    <div className="flex min-h-48">
-      <div className="hidden w-16 shrink-0 border-r border-border-primary bg-surface sm:flex sm:flex-col sm:gap-2 sm:p-3 md:w-24">
-        <span className="h-2 w-10 rounded-sm bg-background-tertiary" />
-        <span className="h-2 w-8 rounded-sm bg-background-tertiary" />
-        <span className="h-2 w-9 rounded-sm bg-background-tertiary" />
-        <p className="text-2xs mt-auto font-mono text-fg-quaternary">w-60</p>
-      </div>
-      <div className="flex min-w-0 flex-1 flex-col">
-        <div className="border-b border-border-primary bg-surface px-3 py-2">
-          <p className="text-2xs font-mono text-fg-quaternary">
-            px-4 · md:px-10 · lg:px-14
-          </p>
-        </div>
-        <div className="flex flex-1 items-stretch gap-3 p-3 md:p-5 lg:px-7">
-          <div className="flex min-w-0 flex-1 flex-col justify-end rounded-lg border border-dashed border-border-secondary bg-surface p-3">
-            <p className="text-xs text-fg-secondary">Content</p>
-            <p className="text-2xs mt-1 font-mono text-fg-quaternary">
-              max-w-5xl
-            </p>
-          </div>
-          <div className="hidden w-1/3 flex-col justify-end rounded-lg border border-dashed border-border-secondary bg-surface/60 p-3 md:flex">
-            <p className="text-xs text-fg-tertiary">Prose</p>
-            <p className="text-2xs mt-1 font-mono text-fg-quaternary">
-              max-w-3xl
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 )
 
