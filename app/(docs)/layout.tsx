@@ -1,4 +1,6 @@
+import { DocPagination } from "@/components/doc-pagination"
 import { Sidebar } from "@/components/sidebar"
+import { TableOfContents } from "@/components/toc"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TopBar } from "@/components/top-bar"
 import type { ReactNode } from "react"
@@ -25,7 +27,19 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             tabIndex={-1}
             className="flex-1 px-4 py-10 outline-none md:px-10 lg:px-14"
           >
-            <div className="mx-auto w-full max-w-5xl">{children}</div>
+            <div className="mx-auto flex w-full max-w-5xl gap-12">
+              <div className="min-w-0 flex-1">
+                {children}
+                <DocPagination />
+              </div>
+              {/* The rail only appears where there is room for it beside the
+                  content column; below xl the TOC would squeeze the prose. */}
+              <div className="hidden xl:block">
+                <div className="sticky top-10">
+                  <TableOfContents />
+                </div>
+              </div>
+            </div>
           </main>
         </div>
       </div>
