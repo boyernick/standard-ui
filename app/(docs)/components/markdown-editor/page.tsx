@@ -10,6 +10,8 @@ import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import markdowneditorApi from "@/lib/generated/api/markdown-editor.json"
 
 export const metadata: Metadata = {
   title: "Markdown editor",
@@ -119,6 +121,10 @@ export default function MarkdownEditorPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>MarkdownEditor props</H3>
+        <PropsTable family={markdowneditorApi as GeneratedFamily} part="MarkdownEditor" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
         <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">

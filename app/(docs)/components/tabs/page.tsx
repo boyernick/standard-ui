@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { TabsExamples } from "./tabs-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import tabsApi from "@/lib/generated/api/tabs.json"
 
 export const metadata: Metadata = {
   title: "Tabs",
@@ -148,6 +150,10 @@ export default function TabsPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Tabs props</H3>
+        <PropsTable family={tabsApi as GeneratedFamily} part="Tabs" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

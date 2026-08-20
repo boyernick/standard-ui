@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ContextMenuExamples } from "./context-menu-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import contextmenuApi from "@/lib/generated/api/context-menu.json"
 
 export const metadata: Metadata = {
   title: "Context menu",
@@ -120,6 +122,10 @@ export default function ContextMenuPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>ContextMenu props</H3>
+        <PropsTable family={contextmenuApi as GeneratedFamily} part="ContextMenu" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

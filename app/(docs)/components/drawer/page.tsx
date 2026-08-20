@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { DrawerExamples } from "./drawer-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import drawerApi from "@/lib/generated/api/drawer.json"
 
 export const metadata: Metadata = {
   title: "Drawer",
@@ -137,6 +139,10 @@ export default function DrawerPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Drawer props</H3>
+        <PropsTable family={drawerApi as GeneratedFamily} part="Drawer" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

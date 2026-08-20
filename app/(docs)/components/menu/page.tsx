@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { MenuExamples } from "./menu-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import menuApi from "@/lib/generated/api/menu.json"
 
 export const metadata: Metadata = {
   title: "Menu",
@@ -132,6 +134,10 @@ export default function MenuPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Menu props</H3>
+        <PropsTable family={menuApi as GeneratedFamily} part="Menu" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { CarouselExamples } from "./carousel-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import carouselApi from "@/lib/generated/api/carousel.json"
 
 export const metadata: Metadata = {
   title: "Carousel",
@@ -87,6 +89,10 @@ export default function CarouselPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Carousel props</H3>
+        <PropsTable family={carouselApi as GeneratedFamily} part="Carousel" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
         <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">

@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { AutocompleteExamples } from "./autocomplete-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import autocompleteApi from "@/lib/generated/api/autocomplete.json"
 
 export const metadata: Metadata = {
   title: "Autocomplete",
@@ -130,6 +132,10 @@ export default function AutocompletePage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Autocomplete props</H3>
+        <PropsTable family={autocompleteApi as GeneratedFamily} part="Autocomplete" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>

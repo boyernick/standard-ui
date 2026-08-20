@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { MenubarExamples } from "./menubar-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import menubarApi from "@/lib/generated/api/menubar.json"
 
 export const metadata: Metadata = {
   title: "Menubar",
@@ -70,6 +72,10 @@ export default function MenubarPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>Menubar props</H3>
+        <PropsTable family={menubarApi as GeneratedFamily} part="Menubar" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
         <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
