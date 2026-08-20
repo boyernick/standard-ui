@@ -4,6 +4,8 @@ import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { OTPFieldExamples } from "./otp-field-examples"
 import { H2, H3 } from "@/components/prose"
+import { PropsTable, StylingPropsNote, type GeneratedFamily } from "@/components/api-table"
+import otpfieldApi from "@/lib/generated/api/otp-field.json"
 
 export const metadata: Metadata = {
   title: "OTP field",
@@ -121,6 +123,10 @@ export default function OTPFieldPage() {
       </section>
 
       <section className="mt-14 mb-8">
+        <H3>OTPField props</H3>
+        <PropsTable family={otpfieldApi as GeneratedFamily} part="OTPField" />
+        <StylingPropsNote />
+
         <H2>Guidelines</H2>
 
         <H3>Do</H3>
