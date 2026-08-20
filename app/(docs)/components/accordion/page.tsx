@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { AccordionExamples } from "./accordion-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Accordion",
@@ -17,12 +18,12 @@ export default function AccordionPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <AccordionExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Accordion nests items with a header trigger and a collapsible panel.
           Built on Base UI for keyboard navigation and animated height. Use it
@@ -50,9 +51,9 @@ export default function AccordionPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Structure</h3>
+        <H3>Structure</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Each item needs a unique <Token>value</Token>. Wrap the trigger in{" "}
           <Token>AccordionHeader</Token>, then put body copy in{" "}
@@ -71,7 +72,7 @@ export default function AccordionPage() {
 </AccordionItem>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Multiple open</h3>
+        <H3 className="mt-10">Multiple open</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass <Token>multiple</Token> when several panels can stay open at
           once. Values are always arrays — even with a single open item.
@@ -86,7 +87,7 @@ export default function AccordionPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Accordion. Root open state uses string arrays;
           each item needs a unique <Token>value</Token>.
@@ -146,9 +147,9 @@ export default function AccordionPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Use clear, question-style or topic triggers</li>
           <li>
@@ -159,7 +160,7 @@ export default function AccordionPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t nest interactive forms deep inside every panel by

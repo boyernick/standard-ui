@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ChartExamples } from "./chart-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Chart",
@@ -17,12 +18,12 @@ export default function ChartPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ChartExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           ChartContainer injects chart color CSS variables and wraps a
           ResponsiveContainer. Pass Recharts chart roots as children — AreaChart,
@@ -60,9 +61,9 @@ export default function ChartPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Sizing</h3>
+        <H3>Sizing</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Give ChartContainer an explicit height class such as{" "}
           <Token>h-64</Token>. Width fills the parent by default.
@@ -75,7 +76,7 @@ export default function ChartPage() {
 </ChartContainer>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Series colors</h3>
+        <H3 className="mt-10">Series colors</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer chart tokens for categorical series. Use gray tokens when the
           chart should stay neutral against the surface.
@@ -99,7 +100,7 @@ export default function ChartPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           ChartContainer is a themed wrapper. ChartTooltip defaults to
           ChartTooltipContent. Recharts primitives are re-exported for
@@ -148,9 +149,9 @@ export default function ChartPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Set an explicit height on <Token>ChartContainer</Token>
@@ -161,7 +162,7 @@ export default function ChartPage() {
           <li>Keep tooltips short — label and value only</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t nest another ResponsiveContainer inside ChartContainer

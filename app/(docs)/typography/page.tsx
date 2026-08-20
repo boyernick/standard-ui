@@ -7,6 +7,7 @@ import {
   fontFamilies,
   headingScaleRows,
 } from "@/lib/type-scale"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Typography",
@@ -64,7 +65,7 @@ export default function TypographyPage() {
       <TypeScaleList />
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           The StandardUI typography system is built on three font families and
           a type scale from <code className="font-mono">2xl</code> down to{" "}
@@ -75,7 +76,7 @@ export default function TypographyPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Font families</h2>
+        <H2>Font families</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Three families cover UI, display, and code.
         </p>
@@ -94,9 +95,9 @@ export default function TypographyPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Type scale</h2>
+        <H2>Type scale</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Headings</h3>
+        <H3>Headings</H3>
         <p className="text-md mt-2 max-w-3xl text-fg-secondary">
           Sizes <code className="font-mono">lg</code> through{" "}
           <code className="font-mono">2xl</code> ship as both Söhne (sans)
@@ -127,7 +128,7 @@ export default function TypographyPage() {
           ))}
         </DocTable>
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Body text</h3>
+        <H3 className="mt-10">Body text</H3>
         <p className="text-md mt-2 max-w-3xl text-fg-secondary">
           Body styles use Söhne. Each size has a regular and strong (medium
           weight) variant.
@@ -157,7 +158,7 @@ export default function TypographyPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Text colors</h2>
+        <H2>Text colors</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pair type tokens with semantic text colors for hierarchy. See Colors
           for the full palette.
@@ -184,9 +185,9 @@ export default function TypographyPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage guidelines</h2>
+        <H2>Usage guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use <code className="font-mono">heading-*</code> for titles to keep
@@ -213,7 +214,7 @@ export default function TypographyPage() {
           <li>Keep heading levels sequential — don’t skip steps</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don’t use raw sizes like <code className="font-mono">text-[17px]</code>{" "}
@@ -236,7 +237,7 @@ export default function TypographyPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Responsive typography</h2>
+        <H2>Responsive typography</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           The scale works across breakpoints. Combine with Tailwind prefixes when
           you need a size jump.

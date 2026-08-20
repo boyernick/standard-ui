@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { NavigationMenuExamples } from "./navigation-menu-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Navigation menu",
@@ -17,12 +18,12 @@ export default function NavigationMenuPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <NavigationMenuExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Compose list items with triggers and content, then a shared portal
           popup + viewport. Top-level links without panels use{" "}
@@ -63,7 +64,7 @@ export default function NavigationMenuPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>NavigationMenu</DocCell>
@@ -89,13 +90,13 @@ export default function NavigationMenuPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep panel content scannable — titles plus one short line</li>
           <li>Use a plain link item for destinations without a submenu</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t omit the portal/positioner/popup/viewport tree</li>
           <li>Don&apos;t pack forms or dense tables into nav panels</li>

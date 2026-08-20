@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block";
 import { DocCell, DocTable, Token } from "@/components/doc-table";
 import { PageHeader } from "@/components/page-header";
 import { BreadcrumbExamples } from "./breadcrumb-examples";
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = { title: "Breadcrumb" };
 
@@ -14,11 +15,11 @@ export default function BreadcrumbPage() {
         description="Hierarchical navigation that shows the current page within a larger structure."
       />
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <BreadcrumbExamples />
       </section>
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Build an ordered trail with links, separators, and a final{" "}
           <Token>BreadcrumbPage</Token> marked as current.
@@ -29,7 +30,7 @@ export default function BreadcrumbPage() {
         />
       </section>
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>Breadcrumb</DocCell>
@@ -46,12 +47,12 @@ export default function BreadcrumbPage() {
         </DocTable>
       </section>
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep labels short and recognizable</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t link the current page</li>
         </ul>

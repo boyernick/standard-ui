@@ -9,6 +9,7 @@ import {
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Markdown editor",
@@ -23,7 +24,7 @@ export default function MarkdownEditorPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <div className="mt-6">
           <ComponentCanvas
             label="Editor and preview"
@@ -54,7 +55,7 @@ export default function MarkdownEditorPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Markdown editor manages shared text for its toolbar, input, and
           preview. The default toolbar wraps the current selection in bold,
@@ -80,14 +81,14 @@ export default function MarkdownEditorPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Controlled value</h3>
+        <H2>Usage</H2>
+        <H3>Controlled value</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass <Token>value</Token> and <Token>onValueChange</Token> when the
           editor content belongs to application state. Use{" "}
           <Token>defaultValue</Token> for an uncontrolled editor.
         </p>
-        <h3 className="heading-xs mt-10 text-fg-primary">Preview scope</h3>
+        <H3 className="mt-10">Preview scope</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           The preview is intentionally not a full markdown parser. Use a
           dedicated, sanitized renderer when you need links, lists, headings,
@@ -96,7 +97,7 @@ export default function MarkdownEditorPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>MarkdownEditor</DocCell>
@@ -118,13 +119,13 @@ export default function MarkdownEditorPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Give the input a visible label or accessible name</li>
           <li>Use this editor for short, trusted formatting workflows</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t treat the basic preview as a complete markdown parser</li>
           <li>Don&apos;t render arbitrary HTML from editor content</li>

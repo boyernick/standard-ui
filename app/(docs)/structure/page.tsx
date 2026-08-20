@@ -14,6 +14,7 @@ import {
   shellMeasures,
   spacingSteps,
 } from "@/lib/layout"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Structure",
@@ -28,7 +29,7 @@ export default function StructurePage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Spacing</h2>
+        <H2>Spacing</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Driven by <Token>--spacing</Token> at <Token>0.25rem</Token> (4px).
           Prefer <Token>p-4</Token>, <Token>gap-3</Token>, and{" "}
@@ -82,13 +83,13 @@ export default function StructurePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Widths and grid</h2>
+        <H2>Widths and grid</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Docs pages center content with a max width, then pad the main column
           with responsive gutters. Grids handle multi-column regions without
           inventing custom track sizes.
         </p>
-        <h3 className="heading-xs mt-8 text-fg-primary">Content widths</h3>
+        <H3>Content widths</H3>
         <DocTable headers={["Name", "Class", "Value", "Usage"]}>
           {contentWidths.map((item) => (
             <tr key={item.className}>
@@ -101,7 +102,7 @@ export default function StructurePage() {
             </tr>
           ))}
         </DocTable>
-        <h3 className="heading-xs mt-8 text-fg-primary">Shell measures</h3>
+        <H3>Shell measures</H3>
         <DocTable headers={["Name", "Class", "Value", "Usage"]}>
           {shellMeasures.map((item) => (
             <tr key={item.className}>
@@ -114,7 +115,7 @@ export default function StructurePage() {
             </tr>
           ))}
         </DocTable>
-        <h3 className="heading-xs mt-8 text-fg-primary">Grid patterns</h3>
+        <H3>Grid patterns</H3>
         <div className="mt-4">
           <GridPreview />
         </div>
@@ -130,7 +131,7 @@ export default function StructurePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Breakpoints</h2>
+        <H2>Breakpoints</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Mobile-first min-width steps. Base styles apply below the first step;
           each prefix applies from that width upward via{" "}
@@ -151,7 +152,7 @@ export default function StructurePage() {
             </tr>
           ))}
         </DocTable>
-        <h3 className="heading-xs mt-8 text-fg-primary">Common patterns</h3>
+        <H3>Common patterns</H3>
         <DocTable headers={["Pattern", "Classes", "Notes"]}>
           {[
             [
@@ -193,9 +194,9 @@ export default function StructurePage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Usage guidelines</h2>
+        <H2>Usage guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use spacing scale utilities (<Token>gap-4</Token>,{" "}
@@ -221,7 +222,7 @@ export default function StructurePage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&rsquo;t use arbitrary spacing like <Token>p-[13px]</Token> or custom

@@ -9,6 +9,7 @@ import {
 } from "@/components/materials-preview"
 import { PageHeader } from "@/components/page-header"
 import { glass, radii, shadows } from "@/lib/tokens"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Materials",
@@ -83,7 +84,7 @@ export default function MaterialsPage() {
       </div>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Materials cover how surfaces lift, how corners round, and how scroll
           edges soften. Shadows use elevation levels <Token>100</Token>–
@@ -95,7 +96,7 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Shadow scale</h2>
+        <H2>Shadow scale</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Four elevation levels plus a hairline edge token.
         </p>
@@ -111,7 +112,7 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Component mapping</h2>
+        <H2>Component mapping</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pick elevation from the role of the surface, not from visual preference
           alone.
@@ -154,7 +155,7 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Shadow and hairline</h2>
+        <H2>Shadow and hairline</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Elevation and edge are separate tokens. Choose based on whether the
           surface floats or sits flat in the layout.
@@ -187,7 +188,7 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Hover states</h2>
+        <H2>Hover states</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Increasing elevation on hover signals that a surface is interactive.
         </p>
@@ -218,7 +219,7 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Radius</h2>
+        <H2>Radius</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer these corner radii over arbitrary <Token>rounded-[…]</Token>{" "}
           values.
@@ -238,7 +239,7 @@ export default function MaterialsPage() {
           ))}
         </DocTable>
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Nested radius</h3>
+        <H3 className="mt-10">Nested radius</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           When a rounded child sits inside a padded, rounded parent, keep curves
           concentric:{" "}
@@ -276,7 +277,7 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Glass</h2>
+        <H2>Glass</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Soften content as it scrolls under sticky chrome. Stack a masked blur
           with a tint gradient — not a solid translucent bar. Prefer{" "}
@@ -298,7 +299,7 @@ export default function MaterialsPage() {
           ))}
         </DocTable>
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Composition</h3>
+        <H3 className="mt-10">Composition</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Two absolute layers behind the chrome. Blur and tint share one mask
           so they ease out together — separate fade curves read as a milky wash.
@@ -333,9 +334,9 @@ export default function MaterialsPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Usage guidelines</h2>
+        <H2>Usage guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use <Token>shadow-sm</Token>–<Token>shadow-xl</Token> for elevated
@@ -368,7 +369,7 @@ export default function MaterialsPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don’t invent one-off multi-glow shadows outside the scale</li>
           <li>

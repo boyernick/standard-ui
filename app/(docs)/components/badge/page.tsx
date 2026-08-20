@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Badge",
@@ -18,7 +19,7 @@ export default function BadgePage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
 
         <div className="mt-6 flex flex-col gap-8">
           <ComponentCanvas
@@ -35,7 +36,7 @@ export default function BadgePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Badge is a non-interactive label for status and category. Variants
           encode meaning — default for neutral metadata, outline for quiet tags,
@@ -50,9 +51,9 @@ export default function BadgePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Variants</h3>
+        <H3>Variants</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pick the variant by meaning, not decoration. Prefer{" "}
           <Token>default</Token> or <Token>outline</Token> when unsure.
@@ -88,7 +89,7 @@ export default function BadgePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Badge renders a <Token>span</Token> and accepts standard HTML span
           attributes.
@@ -106,9 +107,9 @@ export default function BadgePage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep labels short — one or two words</li>
           <li>
@@ -117,7 +118,7 @@ export default function BadgePage() {
           <li>Place badges next to the entity they describe</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use badges as buttons — they are not interactive

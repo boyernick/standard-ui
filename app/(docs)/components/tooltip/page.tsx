@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { TooltipExamples } from "./tooltip-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Tooltip",
@@ -17,12 +18,12 @@ export default function TooltipPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <TooltipExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Wrap demos (and usually your app subtree) in{" "}
           <Token>TooltipProvider</Token>. Each tooltip is a root with a trigger,
@@ -55,9 +56,9 @@ export default function TooltipPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Provider</h3>
+        <H3>Provider</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Place one <Token>TooltipProvider</Token> near the top of the tree so
           delay and grouping stay consistent across tooltips.
@@ -70,7 +71,7 @@ export default function TooltipPage() {
 </TooltipProvider>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Copy</h3>
+        <H3 className="mt-10">Copy</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Keep popup text to a few words. Name the action the control performs —
           for example &quot;Save changes&quot; on a Save button.
@@ -83,7 +84,7 @@ export default function TooltipPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Tooltip. Prefer{" "}
           <Token>render=&#123;&lt;Button /&gt;&#125;</Token> on the trigger.
@@ -119,9 +120,9 @@ export default function TooltipPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Wrap with <Token>TooltipProvider</Token>
@@ -130,7 +131,7 @@ export default function TooltipPage() {
           <li>Keep copy short and action-oriented</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t put essential instructions only in a tooltip

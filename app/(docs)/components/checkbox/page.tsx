@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { CheckboxExamples } from "./checkbox-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Checkbox",
@@ -17,12 +18,12 @@ export default function CheckboxPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <CheckboxExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Checkbox selects a single boolean option. Checked state uses brand
           fill and a checkmark. Built on Base UI for accessible keyboard and
@@ -40,9 +41,9 @@ export default function CheckboxPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Labeling</h3>
+        <H3>Labeling</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer wrapping the checkbox in a <Token>label</Token> so the control
           has an accessible name and a larger click target.
@@ -56,7 +57,7 @@ export default function CheckboxPage() {
 </label>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Disabled</h3>
+        <H3 className="mt-10">Disabled</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Disabled checkboxes use reduced opacity and{" "}
           <Token>cursor-not-allowed</Token>. Prefer explaining why an option is
@@ -70,7 +71,7 @@ export default function CheckboxPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Checkbox accepts Base UI Checkbox root props, including controlled and
           uncontrolled checked state.
@@ -112,9 +113,9 @@ export default function CheckboxPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Use checkboxes for multi-select lists and form options that submit
@@ -128,7 +129,7 @@ export default function CheckboxPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use a single checkbox where a switch communicates

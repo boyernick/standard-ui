@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { RadioGroupExamples } from "./radio-group-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Radio group",
@@ -17,12 +18,12 @@ export default function RadioGroupPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <RadioGroupExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Radio group manages mutually exclusive options. Each option is a{" "}
           <Token>Radio</Token> with a <Token>RadioIndicator</Token> for the
@@ -50,9 +51,9 @@ export default function RadioGroupPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Labeling</h3>
+        <H3>Labeling</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Wrap each radio in a <Token>label</Token> for a larger hit target.
           Name the group with <Token>aria-label</Token> or a visible legend.
@@ -70,7 +71,7 @@ export default function RadioGroupPage() {
 </RadioGroup>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Values</h3>
+        <H3 className="mt-10">Values</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Each radio needs a unique <Token>value</Token>. Set{" "}
           <Token>defaultValue</Token> (or controlled <Token>value</Token>) on
@@ -87,7 +88,7 @@ export default function RadioGroupPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Radio Group and Radio.
         </p>
@@ -136,9 +137,9 @@ export default function RadioGroupPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Use radios when exactly one option must be chosen</li>
           <li>Keep the option list short — typically under seven items</li>
@@ -147,7 +148,7 @@ export default function RadioGroupPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use radios for multi-select — use checkboxes

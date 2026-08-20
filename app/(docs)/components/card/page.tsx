@@ -12,6 +12,7 @@ import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Card",
@@ -26,7 +27,7 @@ export default function CardPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
 
         <div className="mt-6 flex flex-col gap-8">
           <ComponentCanvas
@@ -73,7 +74,7 @@ export default function CardPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Card is a presentational shell: header, title, description, content,
           and footer slots. It does not manage state — nest forms, lists, or
@@ -105,9 +106,9 @@ export default function CardPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Slots</h3>
+        <H3>Slots</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use <Token>CardHeader</Token> for title and description,{" "}
           <Token>CardContent</Token> for the main body, and{" "}
@@ -127,7 +128,7 @@ export default function CardPage() {
 </CardFooter>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">When to use</h3>
+        <H3 className="mt-10">When to use</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer a card when the block is a discrete unit — a setting group,
           summary, or call-to-action. Skip cards for simple stacked text on a
@@ -136,7 +137,7 @@ export default function CardPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           All parts render semantic HTML and accept standard attributes plus{" "}
           <Token>className</Token>.
@@ -176,16 +177,16 @@ export default function CardPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep one clear purpose per card</li>
           <li>Put primary actions in the footer</li>
           <li>Use description for a single supporting sentence</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t nest cards inside cards without a strong hierarchy need

@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block";
 import { DocCell, DocTable, Token } from "@/components/doc-table";
 import { PageHeader } from "@/components/page-header";
 import { SidebarExamples } from "./sidebar-examples";
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = { title: "Sidebar" };
 
@@ -14,11 +15,11 @@ export default function SidebarPage() {
         description="Persistent panel structure for application navigation and supporting controls."
       />
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <SidebarExamples />
       </section>
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Compose fixed header and footer regions around scrollable content.
           Mark the current destination with the <Token>active</Token> prop.
@@ -29,7 +30,7 @@ export default function SidebarPage() {
         />
       </section>
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>Sidebar</DocCell>
@@ -46,13 +47,13 @@ export default function SidebarPage() {
         </DocTable>
       </section>
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Group related destinations</li>
           <li>Show one active item</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t overload the footer with navigation</li>
         </ul>

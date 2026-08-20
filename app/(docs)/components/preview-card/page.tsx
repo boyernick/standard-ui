@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { PreviewCardExamples } from "./preview-card-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Preview card",
@@ -17,12 +18,12 @@ export default function PreviewCardPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <PreviewCardExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Preview card opens from a trigger on hover/focus. Compose portal,
           positioner, and popup. Style the trigger with{" "}
@@ -56,9 +57,9 @@ export default function PreviewCardPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Trigger</h3>
+        <H3>Trigger</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass an anchor or button through <Token>render</Token> so semantics
           stay correct.
@@ -73,7 +74,7 @@ export default function PreviewCardPage() {
 </PreviewCardTrigger>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <CodeBlock
           className="mt-4"
           size="sm"
@@ -87,7 +88,7 @@ export default function PreviewCardPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>PreviewCard</DocCell>
@@ -109,16 +110,16 @@ export default function PreviewCardPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep preview content skim-able in a glance</li>
           <li>Use for mentions, links, and lightweight metadata</li>
           <li>Include an arrow when placement might be ambiguous</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t put forms or primary actions only in a preview</li>
           <li>Don&apos;t confuse with Tooltip — tooltips are shorter labels</li>

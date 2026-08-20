@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { AutocompleteExamples } from "./autocomplete-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Autocomplete",
@@ -17,12 +18,12 @@ export default function AutocompletePage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <AutocompleteExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass <Token>items</Token> to the root and render a filtered list in
           the popup. The input stays editable; choosing an item fills the field.
@@ -66,9 +67,9 @@ export default function AutocompletePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Items</h3>
+        <H3>Items</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Infer item type from <Token>items</Token>. List children can be a
           render function over each item.
@@ -87,7 +88,7 @@ export default function AutocompletePage() {
 </Autocomplete>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Auto highlight</h3>
+        <H3 className="mt-10">Auto highlight</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Set <Token>autoHighlight</Token> so the first match highlights as the
           user types.
@@ -100,7 +101,7 @@ export default function AutocompletePage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Autocomplete. Common parts:
         </p>
@@ -129,16 +130,16 @@ export default function AutocompletePage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Allow values outside the list when freeform input is valid</li>
           <li>Show an empty state when nothing matches</li>
           <li>Use Combobox when the value must be one of the items</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t overload Autocomplete as a multi-select — use Combobox</li>
           <li>Don&apos;t hide the clear control on long queries</li>

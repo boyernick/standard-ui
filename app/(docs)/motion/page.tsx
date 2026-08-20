@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { MotionExamples } from "./motion-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Motion",
@@ -17,12 +18,12 @@ export default function MotionPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <MotionExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Import <Token>motion</Token> from{" "}
           <Token>@boyernick/standard-ui-react</Token> (via component internals) or copy
@@ -47,7 +48,7 @@ export default function MotionPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Tokens</h2>
+        <H2>Tokens</H2>
         <DocTable headers={["Token", "Use"]}>
           <tr>
             <DocCell mono>motion.backdrop</DocCell>
@@ -85,13 +86,13 @@ export default function MotionPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H2>Guidelines</H2>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep durations short (150–200ms)</li>
           <li>Use popupCenter for dialogs; popupAnchor for floating UI</li>
         </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t animate translate on centered popups that already use -translate-x/y-1/2</li>
           <li>Don&apos;t skip reduced-motion handling</li>

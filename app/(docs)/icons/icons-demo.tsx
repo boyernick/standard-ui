@@ -19,6 +19,7 @@ import {
   GALLERY_PAGE_SIZE,
   type GalleryIcon,
 } from "@/lib/central-icons-gallery"
+import { H2 } from "@/components/prose"
 
 const IconGlyph = ({ svg }: { svg: string }) => (
   <svg
@@ -300,7 +301,7 @@ export const IconsDemo = () => {
       </section>
 
       <section className="mt-10">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
         <ComponentMeta
           importLine={`import { IconHome } from "@boyernick/standard-ui-react"`}
         />

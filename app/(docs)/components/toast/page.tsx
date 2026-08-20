@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { ToastExamples } from "./toast-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Toast",
@@ -17,12 +18,12 @@ export default function ToastPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <ToastExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Wrap the app (or a demo) in <Token>ToastProvider</Token>, render a
           portal viewport that maps <Token>toasts</Token> from{" "}
@@ -62,9 +63,9 @@ export default function ToastPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Add a toast</h3>
+        <H3>Add a toast</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Call <Token>useToastManager</Token> inside the provider, then pass
           title, description, and optional action props.
@@ -80,7 +81,7 @@ toastManager.add({
 })`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Anatomy</h3>
+        <H3 className="mt-10">Anatomy</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Provider owns the queue; viewport renders each root with content
           parts.
@@ -101,7 +102,7 @@ toastManager.add({
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Parts mirror Base UI Toast. Common pieces:
         </p>
@@ -130,16 +131,16 @@ toastManager.add({
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Keep copy short — title plus one supporting line</li>
           <li>Offer Undo when the action is destructive and reversible</li>
           <li>Mount one provider high in the tree for shared toasts</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t use toasts for critical errors that need a dialog</li>
           <li>Don&apos;t spam the queue — coalesce or replace when possible</li>

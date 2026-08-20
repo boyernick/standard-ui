@@ -3,6 +3,7 @@ import { CodeBlock } from "@/components/code-block"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
 import { MeterExamples } from "./meter-examples"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Meter",
@@ -17,12 +18,12 @@ export default function MeterPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
         <MeterExamples />
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Meter shows where a number sits between <Token>min</Token> and{" "}
           <Token>max</Token>. Compose label, value, track, and indicator under
@@ -49,9 +50,9 @@ export default function MeterPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Range</h3>
+        <H3>Range</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Pass <Token>value</Token> with optional <Token>min</Token> /{" "}
           <Token>max</Token>. Format via Intl options when units matter.
@@ -67,7 +68,7 @@ export default function MeterPage() {
 >`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Meter vs progress</h3>
+        <H3 className="mt-10">Meter vs progress</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use Meter for static measurements (quota filled). Use Progress when
           work is advancing toward completion.
@@ -75,7 +76,7 @@ export default function MeterPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <DocTable headers={["Part", "Role"]}>
           <tr>
             <DocCell mono>Meter</DocCell>
@@ -121,16 +122,16 @@ export default function MeterPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Label what is being measured</li>
           <li>Show the numeric value when the exact figure matters</li>
           <li>Pick min/max that match the real domain</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
+        <H3>Don&apos;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Don&apos;t use Meter for indeterminate loading</li>
           <li>Don&apos;t animate as if work is progressing — use Progress</li>

@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Avatar",
@@ -21,7 +22,7 @@ export default function AvatarPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
 
         <div className="mt-6 flex flex-col gap-8">
           <ComponentCanvas
@@ -81,7 +82,7 @@ export default function AvatarPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Avatar shows a person&apos;s image or initials in a circle. Pair{" "}
           <Token>AvatarImage</Token> with <Token>AvatarFallback</Token> so
@@ -99,9 +100,9 @@ export default function AvatarPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Initials</h3>
+        <H3>Initials</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use one or two characters from the display name. Keep fallback text
           short so it stays readable at <Token>sm</Token>.
@@ -114,7 +115,7 @@ export default function AvatarPage() {
 </Avatar>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Alt text</h3>
+        <H3 className="mt-10">Alt text</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Always pass a meaningful <Token>alt</Token> on{" "}
           <Token>AvatarImage</Token> — usually the person&apos;s name. Decorative
@@ -128,7 +129,7 @@ export default function AvatarPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           <Token>Avatar</Token> accepts Base UI root props plus{" "}
           <Token>size</Token>. Image and fallback pass through to their Base UI
@@ -163,16 +164,16 @@ export default function AvatarPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Always include a fallback for missing images</li>
           <li>Match size to density — sm in lists, lg in profiles</li>
           <li>Use consistent initials rules across the product</li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t omit <Token>alt</Token> on meaningful photos

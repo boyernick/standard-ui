@@ -1,7 +1,9 @@
+import Link from "next/link"
 import { CodeBlock } from "@/components/code-block"
 import { IntroCards } from "@/components/intro-cards"
 import { PageHeader } from "@/components/page-header"
 import { Token } from "@/components/doc-table"
+import { H2 } from "@/components/prose"
 
 export default function IntroductionPage() {
   return (
@@ -26,15 +28,22 @@ export default function IntroductionPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="heading-sm text-fg-primary">Install</h2>
+        <H2>Install</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Until packages are on npm, install from this repo with{" "}
-          <Token>file:</Token> dependencies (or workspace links).
+          Both packages are published to npm. See{" "}
+          <Link
+            href="/installation"
+            className="cursor-pointer text-fg-primary underline-offset-2 hover:underline"
+          >
+            Installation
+          </Link>{" "}
+          for the canary lane, the Tailwind wiring, and the license key the
+          icon package needs.
         </p>
         <CodeBlock
           className="mt-4"
           lang="bash"
-          code={`npm install file:../standard-ui/packages/tokens file:../standard-ui/packages/react`}
+          code={`npm install @boyernick/standard-ui-tokens @boyernick/standard-ui-react`}
         />
         <CodeBlock
           className="mt-4"
@@ -48,7 +57,7 @@ export default function IntroductionPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="heading-sm text-fg-primary">Principles</h2>
+        <H2>Principles</H2>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>Sentence case for UI copy; never force uppercase</li>
           <li>
@@ -61,7 +70,7 @@ export default function IntroductionPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Explore</h2>
+        <H2>Explore</H2>
         <p className="text-md mt-0.5 mb-6 max-w-3xl text-fg-secondary">
           Start with foundations, then browse components A–Z.
         </p>

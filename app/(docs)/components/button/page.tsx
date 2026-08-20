@@ -9,6 +9,7 @@ import { CodeBlock } from "@/components/code-block"
 import { ComponentCanvas } from "@/components/component-canvas"
 import { DocCell, DocTable, Token } from "@/components/doc-table"
 import { PageHeader } from "@/components/page-header"
+import { H2, H3 } from "@/components/prose"
 
 export const metadata: Metadata = {
   title: "Button",
@@ -23,7 +24,7 @@ export default function ButtonPage() {
       />
 
       <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
+        <H2>Examples</H2>
 
         <div className="mt-6 flex flex-col gap-8">
           <ComponentCanvas
@@ -177,7 +178,7 @@ export default function ButtonPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
+        <H2>Overview</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Button is the primary control for triggering actions. It supports
           multiple variants for different emphasis levels, three sizes, icons,
@@ -196,9 +197,9 @@ export default function ButtonPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
+        <H2>Usage</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Variants</h3>
+        <H3>Variants</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Variants encode emphasis, not taste — pick by the action&apos;s role
           on the surface. The ladder, highest to lowest:{" "}
@@ -251,7 +252,7 @@ export default function ButtonPage() {
 <Button variant="destructive">Delete</Button>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Sizes</h3>
+        <H3 className="mt-10">Sizes</H3>
         <DocTable headers={["Size", "Height", "Use case"]}>
           {[
             ["sm", "32px", "Toolbars, inline actions, dense layouts"],
@@ -273,7 +274,7 @@ export default function ButtonPage() {
 <Button size="lg">Get started</Button>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">With icons</h3>
+        <H3 className="mt-10">With icons</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Prefer <Token>prefix</Token> / <Token>suffix</Token> so icons scale
           with the control. You can still pass icons as children. Mark
@@ -289,7 +290,7 @@ export default function ButtonPage() {
 </Button>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Loading</h3>
+        <H3 className="mt-10">Loading</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           When <Token>loading</Token> is true, a spinner replaces the prefix,
           the button disables, and <Token>aria-busy</Token> is set. Keep the
@@ -303,7 +304,7 @@ export default function ButtonPage() {
 </Button>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Icon only</h3>
+        <H3 className="mt-10">Icon only</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Use <Token>iconOnly</Token> for square icon buttons. Always provide
           an <Token>aria-label</Token>.
@@ -316,7 +317,7 @@ export default function ButtonPage() {
 </Button>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Rounded</h3>
+        <H3 className="mt-10">Rounded</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           <Token>rounded</Token> applies a pill shape. Works with all sizes and
           variants, including icon-only.
@@ -333,7 +334,7 @@ export default function ButtonPage() {
 </Button>`}
         />
 
-        <h3 className="heading-xs mt-10 text-fg-primary">Disabled</h3>
+        <H3 className="mt-10">Disabled</H3>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Disabled buttons use reduced opacity and{" "}
           <Token>cursor-not-allowed</Token>. Prefer explaining why an action
@@ -347,7 +348,7 @@ export default function ButtonPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
+        <H2>API</H2>
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Button accepts all standard HTML button attributes.
         </p>
@@ -417,9 +418,9 @@ export default function ButtonPage() {
       </section>
 
       <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
+        <H2>Guidelines</H2>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
+        <H3>Do</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Always pass <Token>variant</Token> explicitly — the default is{" "}
@@ -459,7 +460,7 @@ export default function ButtonPage() {
           </li>
         </ul>
 
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&rsquo;t</h3>
+        <H3>Don&rsquo;t</H3>
         <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
           <li>
             Don&apos;t use multiple <Token>primary</Token> buttons in the same
