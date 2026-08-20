@@ -57,6 +57,31 @@ const literalAttr = (node, name) => {
   }
 }
 
+/**
+ * JSX source carries HTML entities that React decodes before they reach the
+ * DOM — a heading written `Don&rsquo;t` has the id `dont`, not `donrsquot`.
+ * The slug here has to match the one components/prose.tsx derives at runtime,
+ * or the deep link search emits will not resolve.
+ */
+const ENTITIES = {
+  "&rsquo;": "\u2019",
+  "&lsquo;": "\u2018",
+  "&rdquo;": "\u201d",
+  "&ldquo;": "\u201c",
+  "&mdash;": "\u2014",
+  "&ndash;": "\u2013",
+  "&hellip;": "\u2026",
+  "&amp;": "&",
+  "&quot;": '"',
+  "&apos;": "'",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&nbsp;": " ",
+}
+
+const decodeEntities = (text) =>
+  text.replace(/&[a-z]+;/g, (match) => ENTITIES[match] ?? match)
+
 /** Concatenated plain-text children of a JSX element, or undefined if dynamic. */
 const plainTextChildren = (node) => {
   let text = ""
@@ -78,7 +103,7 @@ const plainTextChildren = (node) => {
       return undefined
     }
   }
-  const collapsed = text.replace(/\s+/g, " ").trim()
+  const collapsed = decodeEntities(text).replace(/\s+/g, " ").trim()
   return collapsed || undefined
 }
 
@@ -124,10 +149,16 @@ const indexPage = (file) => {
 
     if (ts.isJsxElement(node)) {
       const tag = tagNameOf(node)
-      if (tag === "h2" || tag === "h3") {
+      // Pages use the H2/H3 components from components/prose.tsx, which give
+      // each heading its anchor id. Raw h2/h3 still appear in a few hand-rolled
+      // spots, so match both — matching only the lowercase tags silently
+      // emptied this index when the pages were swept over to the components.
+      const level =
+        tag === "H2" || tag === "h2" ? "h2" : tag === "H3" || tag === "h3" ? "h3" : null
+      if (level) {
         const text = plainTextChildren(node)
         if (text) {
-          record.headings.push({ text, slug: slugify(text), level: tag })
+          record.headings.push({ text, slug: slugify(text), level })
         }
       }
     }
@@ -170,4 +201,14 @@ console.log(
 const missing = pageFiles.length - records.length
 if (missing > 0) {
   console.log(`generate-search-index: ${missing} page(s) skipped (no title)`)
+}
+
+// Heading records are what make search useful beyond page titles. Zero of them
+// across the whole site means the extractor stopped matching how pages are
+// written, which is exactly how this broke once already.
+if (headingCount === 0) {
+  console.error(
+    "generate-search-index: no headings found — the extractor is not matching the pages.",
+  )
+  process.exit(1)
 }
