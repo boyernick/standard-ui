@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import type { ReactNode } from "react"
 import { PageHeader } from "@/components/page-header"
 import { TypeScaleList } from "@/components/type-scale-list"
 import {
@@ -8,51 +7,11 @@ import {
   headingScaleRows,
 } from "@/lib/type-scale"
 import { H2, H3 } from "@/components/prose"
+import { DocCell, DocTable } from "@/components/doc-table"
 
 export const metadata: Metadata = {
   title: "Typography",
 }
-
-const DocTable = ({
-  headers,
-  children,
-}: {
-  headers: string[]
-  children: ReactNode
-}) => (
-  <div className="mt-4 overflow-x-auto rounded-xl border border-border-primary bg-surface">
-    <table className="w-full min-w-[40rem] border-collapse text-left">
-      <thead>
-        <tr className="border-b border-border-primary">
-          {headers.map((header) => (
-            <th
-              key={header}
-              scope="col"
-              className="text-xs-strong px-4 py-3 text-fg-tertiary"
-            >
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className="text-sm text-fg-secondary">{children}</tbody>
-    </table>
-  </div>
-)
-
-const DocCell = ({
-  children,
-  mono = false,
-}: {
-  children: ReactNode
-  mono?: boolean
-}) => (
-  <td
-    className={`px-4 py-3 align-top ${mono ? "font-mono text-fg-primary" : ""}`}
-  >
-    {children}
-  </td>
-)
 
 export default function TypographyPage() {
   return (
@@ -163,7 +122,7 @@ export default function TypographyPage() {
           Pair type tokens with semantic text colors for hierarchy. See Colors
           for the full palette.
         </p>
-        <DocTable headers={["Tailwind class", "Usage"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Tailwind class", "Usage"]}>
           {[
             ["text-fg-primary", "Headings and emphasized content."],
             ["text-fg-secondary", "Body text and standard content."],
@@ -242,7 +201,7 @@ export default function TypographyPage() {
           The scale works across breakpoints. Combine with Tailwind prefixes when
           you need a size jump.
         </p>
-        <DocTable headers={["Pattern", "Usage"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Pattern", "Usage"]}>
           {[
             [
               "heading-xl-serif md:heading-2xl-serif",

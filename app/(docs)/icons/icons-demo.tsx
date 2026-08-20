@@ -20,6 +20,7 @@ import {
   type GalleryIcon,
 } from "@/lib/central-icons-gallery"
 import { H2 } from "@/components/prose"
+import { useCopy } from "@/lib/use-copy"
 
 const IconGlyph = ({ svg }: { svg: string }) => (
   <svg
@@ -32,17 +33,9 @@ const IconGlyph = ({ svg }: { svg: string }) => (
 )
 
 const IconCell = ({ icon }: { icon: GalleryIcon }) => {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useCopy()
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(icon.name)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1200)
-    } catch {
-      setCopied(false)
-    }
-  }
+  const handleCopy = () => copy(icon.name)
 
   return (
     <button

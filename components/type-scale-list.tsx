@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { typeScale, type TypeSpecimen } from "@/lib/type-scale"
+import { useCopy } from "@/lib/use-copy"
 
 const SpecKbd = ({ children }: { children: string }) => (
   <kbd className="text-xs inline-flex w-fit rounded-md border border-border-primary bg-background-tertiary px-1.5 py-0.5 font-mono text-fg-secondary tabular-nums">
@@ -13,17 +13,9 @@ const styleLabel = (item: TypeSpecimen) =>
   item.family === "Signifier" ? "Serif" : "Sans"
 
 const TypeSpecimenRow = ({ item }: { item: TypeSpecimen }) => {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useCopy()
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(item.token)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1200)
-    } catch {
-      setCopied(false)
-    }
-  }
+  const handleCopy = () => copy(item.token)
 
   return (
     <button

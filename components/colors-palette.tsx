@@ -3,6 +3,7 @@
 import { IconClipboard } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconClipboard"
 import type { ReactNode } from "react"
 import { useEffect, useId, useRef, useState } from "react"
+import { useCopy } from "@/lib/use-copy"
 import {
   alphaRow,
   grayscaleRows,
@@ -31,17 +32,9 @@ const CopyChip = ({
   label: string
   value: string
 }) => {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useCopy()
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(value)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1200)
-    } catch {
-      setCopied(false)
-    }
-  }
+  const handleCopy = () => copy(value)
 
   return (
     <button

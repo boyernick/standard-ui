@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import type { ReactNode } from "react"
 import { CodeBlock } from "@/components/code-block"
 import {
   GlassPreview,
@@ -10,59 +9,11 @@ import {
 import { PageHeader } from "@/components/page-header"
 import { glass, radii, shadows } from "@/lib/tokens"
 import { H2, H3 } from "@/components/prose"
+import { DocCell, DocTable, Token } from "@/components/doc-table"
 
 export const metadata: Metadata = {
   title: "Materials",
 }
-
-const Token = ({ children }: { children: ReactNode }) => (
-  <code className="text-sm rounded-md bg-background-tertiary px-1.5 py-0.5 font-mono text-fg-secondary">
-    {children}
-  </code>
-)
-
-const DocTable = ({
-  headers,
-  children,
-}: {
-  headers: string[]
-  children: ReactNode
-}) => (
-  <div className="mt-4 overflow-x-auto rounded-xl border border-border-primary bg-surface">
-    <table className="w-full min-w-[36rem] border-collapse text-left">
-      <thead>
-        <tr className="border-b border-border-primary">
-          {headers.map((header) => (
-            <th
-              key={header}
-              scope="col"
-              className="text-xs-strong px-4 py-3 text-fg-quaternary"
-            >
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-border-primary text-sm text-fg-secondary">
-        {children}
-      </tbody>
-    </table>
-  </div>
-)
-
-const DocCell = ({
-  children,
-  mono = false,
-}: {
-  children: ReactNode
-  mono?: boolean
-}) => (
-  <td
-    className={`px-4 py-3 align-top ${mono ? "font-mono text-fg-primary" : ""}`}
-  >
-    {children}
-  </td>
-)
 
 export default function MaterialsPage() {
   return (
@@ -100,7 +51,7 @@ export default function MaterialsPage() {
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Four elevation levels plus a hairline edge token.
         </p>
-        <DocTable headers={["Class", "Level", "Usage"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Class", "Level", "Usage"]}>
           {shadows.map((item) => (
             <tr key={item.name}>
               <DocCell mono>{item.className}</DocCell>
@@ -117,7 +68,7 @@ export default function MaterialsPage() {
           Pick elevation from the role of the surface, not from visual preference
           alone.
         </p>
-        <DocTable headers={["Component type", "Recommended shadow", "Rationale"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Component type", "Recommended shadow", "Rationale"]}>
           {[
             [
               "Switch thumbs, chips",
@@ -160,7 +111,7 @@ export default function MaterialsPage() {
           Elevation and edge are separate tokens. Choose based on whether the
           surface floats or sits flat in the layout.
         </p>
-        <DocTable headers={["Pattern", "When to use"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Pattern", "When to use"]}>
           <tr>
             <DocCell mono>shadow-sm … shadow-xl</DocCell>
             <DocCell>
@@ -192,7 +143,7 @@ export default function MaterialsPage() {
         <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
           Increasing elevation on hover signals that a surface is interactive.
         </p>
-        <DocTable headers={["State", "Class", "Usage"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["State", "Class", "Usage"]}>
           <tr>
             <DocCell>Default</DocCell>
             <DocCell mono>shadow-sm</DocCell>
@@ -227,7 +178,7 @@ export default function MaterialsPage() {
         <div className="mt-6">
           <RadiusPreviewList />
         </div>
-        <DocTable headers={["Class", "Value", "Usage"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Class", "Value", "Usage"]}>
           {radii.map((item) => (
             <tr key={item.name}>
               <DocCell mono>{`rounded-${item.name}`}</DocCell>
@@ -246,7 +197,7 @@ export default function MaterialsPage() {
           <Token>inner = outer − padding</Token>. Pick the nearest lower scale
           step when the result is not exact.
         </p>
-        <DocTable headers={["Outer", "Padding", "Inner"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Outer", "Padding", "Inner"]}>
           {(
             [
               ["rounded-md (8)", "p-1 (4)", "rounded-xs (4)"],
@@ -289,7 +240,7 @@ export default function MaterialsPage() {
         <div className="mt-6">
           <GlassTokenList />
         </div>
-        <DocTable headers={["Layer", "Recipe", "Role"]}>
+        <DocTable minWidthClass="min-w-[40rem]" headers={["Layer", "Recipe", "Role"]}>
           {glass.map((item) => (
             <tr key={item.name}>
               <DocCell>{item.label}</DocCell>
