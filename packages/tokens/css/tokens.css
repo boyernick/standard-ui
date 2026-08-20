@@ -25,6 +25,7 @@
   --text-primary-inverted: var(--gray-0);
   --text-secondary-inverted: var(--gray-200);
 
+  --border-subtle: var(--alpha-06);
   --border-primary: var(--alpha-10);
   --border-primary-solid: var(--gray-100);
   --border-secondary: var(--alpha-15);
@@ -190,6 +191,7 @@
   --color-fg-inverted: var(--text-primary-inverted);
   --color-fg-inverted-secondary: var(--text-secondary-inverted);
 
+  --color-border-subtle: var(--border-subtle);
   --color-border-primary: var(--border-primary);
   --color-border-primary-solid: var(--border-primary-solid);
   --color-border-secondary: var(--border-secondary);
@@ -391,7 +393,7 @@
   font-family: var(--font-sans);
   font-size: 2.25rem;
   line-height: 2.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -399,7 +401,7 @@
   font-family: var(--font-display);
   font-size: 2.25rem;
   line-height: 2.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -407,7 +409,7 @@
   font-family: var(--font-sans);
   font-size: 2rem;
   line-height: 2.375rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -415,7 +417,7 @@
   font-family: var(--font-display);
   font-size: 2rem;
   line-height: 2.375rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -423,7 +425,7 @@
   font-family: var(--font-sans);
   font-size: 1.5rem;
   line-height: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -431,7 +433,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   line-height: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -439,7 +441,7 @@
   font-family: var(--font-sans);
   font-size: 1.25rem;
   line-height: 1.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -447,7 +449,7 @@
   font-family: var(--font-sans);
   font-size: 1.125rem;
   line-height: 1.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -455,7 +457,7 @@
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
