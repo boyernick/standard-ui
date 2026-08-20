@@ -1,0 +1,346 @@
+{
+  "module": "drawer",
+  "parts": [
+    {
+      "name": "Drawer",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<DrawerRootActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `unmount`: Manually unmounts the drawer. Call this after any externally controlled closing animation finishes. - `close`: Closes the drawer imperatively when called.",
+          "source": "base-ui"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode | PayloadChildRenderFunction<unknown>",
+          "required": false,
+          "default": null,
+          "description": "The content of the drawer.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the drawer is initially open. To render a controlled drawer, use the `open` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultSnapPoint",
+          "type": "DrawerSnapPoint | null",
+          "required": false,
+          "default": null,
+          "description": "The initial snap point value when uncontrolled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultTriggerId",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger that the drawer is associated with. This is useful in conjunction with the `defaultOpen` prop to create an initially open drawer.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disablePointerDismissal",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to prevent the drawer from closing on outside presses. For non-modal drawers, this also prevents the drawer from closing when focus moves outside of it.",
+          "source": "base-ui"
+        },
+        {
+          "name": "handle",
+          "type": "DrawerHandle<unknown>",
+          "required": false,
+          "default": null,
+          "description": "A handle to associate the drawer with a trigger. If specified, allows detached triggers to control the drawer's open state. Can be created with the Drawer.createHandle() method.",
+          "source": "base-ui"
+        },
+        {
+          "name": "modal",
+          "type": "boolean | 'trap-focus'",
+          "required": false,
+          "default": "true",
+          "description": "Determines if the drawer enters a modal state when open. - `true`: user interaction is limited to just the drawer: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled. - `false`: user interaction with the rest of the document is allowed. - `'trap-focus'`: focus is trapped inside the drawer, but document page scroll is not locked and pointer interactions outside of it remain enabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean, eventDetails: DrawerRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the drawer is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChangeComplete",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called after any animations complete when the drawer is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onSnapPointChange",
+          "type": "(snapPoint: DrawerSnapPoint | null, eventDetails: DrawerRootSnapPointChangeEventDetails) …",
+          "typeFull": "(snapPoint: DrawerSnapPoint | null, eventDetails: DrawerRootSnapPointChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback fired when the snap point changes.",
+          "source": "base-ui"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the drawer is currently open.",
+          "source": "base-ui"
+        },
+        {
+          "name": "snapPoint",
+          "type": "DrawerSnapPoint | null",
+          "required": false,
+          "default": null,
+          "description": "The currently active snap point. Use with `onSnapPointChange` to control the snap point.",
+          "source": "base-ui"
+        },
+        {
+          "name": "snapPoints",
+          "type": "DrawerSnapPoint[]",
+          "required": false,
+          "default": null,
+          "description": "Snap points used to position the drawer. Use numbers between 0 and 1 to represent fractions of the viewport height, numbers greater than 1 as pixel values, or strings in `px`/`rem` units (for example, `'148px'` or `'30rem'`).",
+          "source": "base-ui"
+        },
+        {
+          "name": "snapToSequentialPoints",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables velocity-based snap skipping so drag distance determines the next snap point.",
+          "source": "base-ui"
+        },
+        {
+          "name": "swipeDirection",
+          "type": "SwipeDirection",
+          "required": false,
+          "default": "'down'",
+          "description": "The swipe direction used to dismiss the drawer.",
+          "source": "base-ui"
+        },
+        {
+          "name": "triggerId",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger that the drawer is associated with. This is useful in conjunction with the `open` prop to create a controlled drawer. There's no need to specify this prop when the drawer is uncontrolled (that is, when the `open` prop is not set).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "DrawerBackdrop",
+      "props": [
+        {
+          "name": "forceRender",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the backdrop is forced to render even when nested.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerClose",
+      "props": [
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 285,
+      "universal": 3
+    },
+    {
+      "name": "DrawerContent",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerDescription",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerHeader",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "DrawerIndent",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerIndentBackground",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerPopup",
+      "props": [
+        {
+          "name": "finalFocus",
+          "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void…",
+          "typeFull": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null)",
+          "required": false,
+          "default": null,
+          "description": "Determines the element to focus when the drawer is closed. - `false`: Do not move focus. - `true`: Move focus based on the default behavior (trigger or previously focused element). - `RefObject`: Move focus to the ref element. - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`). Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.",
+          "source": "base-ui"
+        },
+        {
+          "name": "initialFocus",
+          "type": "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void …",
+          "typeFull": "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null)",
+          "required": false,
+          "default": null,
+          "description": "Determines the element to focus when the drawer is opened. - `false`: Do not move focus. - `true`: Move focus based on the default behavior (first tabbable element or popup). - `RefObject`: Move focus to the ref element. - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`). Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerPortal",
+      "props": [
+        {
+          "name": "container",
+          "type": "HTMLElement | ShadowRoot | RefObject<HTMLElement | ShadowRoot | null> | null",
+          "required": false,
+          "default": null,
+          "description": "A parent element to render the portal element into.",
+          "source": "base-ui"
+        },
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerProvider",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "DrawerSwipeArea",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the swipe area is disabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "swipeDirection",
+          "type": "SwipeDirection",
+          "required": false,
+          "default": null,
+          "description": "The swipe direction that opens the drawer. Defaults to the opposite of `Drawer.Root` `swipeDirection`.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerTitle",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "DrawerTrigger",
+      "props": [
+        {
+          "name": "handle",
+          "type": "DrawerHandle<unknown>",
+          "required": false,
+          "default": null,
+          "description": "A handle to associate the trigger with a drawer. Can be created with the Drawer.createHandle() method.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for drawers in controlled mode (with the Drawer.Root `triggerId` prop).",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        },
+        {
+          "name": "payload",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "A payload to pass to the drawer when it is opened.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 284,
+      "universal": 3
+    },
+    {
+      "name": "DrawerViewport",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

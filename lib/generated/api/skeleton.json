@@ -1,0 +1,20 @@
+{
+  "module": "skeleton",
+  "parts": [
+    {
+      "name": "Skeleton",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'circle' | 'text' | 'block'",
+          "required": false,
+          "default": "\"block\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

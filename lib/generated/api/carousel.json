@@ -1,0 +1,182 @@
+{
+  "module": "carousel",
+  "parts": [
+    {
+      "name": "Carousel",
+      "props": [
+        {
+          "name": "opts",
+          "type": "Partial<OptionsType>",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "plugins",
+          "type": "CreatePluginType<LoosePluginType, {}>[]",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "setApi",
+          "type": "(api: EmblaCarouselType) => void",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "CarouselContent",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "CarouselItem",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "CarouselNext",
+      "props": [
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Square control sized to the height of `size` — pass an icon as children",
+          "source": "own"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Shows a spinner, sets aria-busy, and disables the button",
+          "source": "own"
+        },
+        {
+          "name": "prefix",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Icon before the label (replaced by spinner when loading)",
+          "source": "own"
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Pill shape (`rounded-full`)",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | null",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "suffix",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Icon after the label",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | null",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 287,
+      "universal": 0
+    },
+    {
+      "name": "CarouselPrevious",
+      "props": [
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Square control sized to the height of `size` — pass an icon as children",
+          "source": "own"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Shows a spinner, sets aria-busy, and disables the button",
+          "source": "own"
+        },
+        {
+          "name": "prefix",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Icon before the label (replaced by spinner when loading)",
+          "source": "own"
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Pill shape (`rounded-full`)",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | null",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "suffix",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Icon after the label",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | null",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 287,
+      "universal": 0
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "module": "breadcrumb",
+  "parts": [
+    {
+      "name": "Breadcrumb",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "BreadcrumbItem",
+      "props": [],
+      "reactPassthrough": 281,
+      "universal": 0
+    },
+    {
+      "name": "BreadcrumbLink",
+      "props": [],
+      "reactPassthrough": 288,
+      "universal": 0
+    },
+    {
+      "name": "BreadcrumbList",
+      "props": [],
+      "reactPassthrough": 283,
+      "universal": 0
+    },
+    {
+      "name": "BreadcrumbPage",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "BreadcrumbSeparator",
+      "props": [],
+      "reactPassthrough": 281,
+      "universal": 0
+    }
+  ]
+}

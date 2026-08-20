@@ -1,0 +1,283 @@
+{
+  "module": "preview-card",
+  "parts": [
+    {
+      "name": "PreviewCard",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<PreviewCardRootActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `unmount`: Unmounts the preview card popup. - `close`: Closes the preview card imperatively when called.",
+          "source": "base-ui"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode | PayloadChildRenderFunction<unknown>",
+          "required": false,
+          "default": null,
+          "description": "The content of the preview card. This can be a regular React node or a render function that receives the `payload` of the active trigger.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the preview card is initially open. To render a controlled preview card, use the `open` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultTriggerId",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger that the preview card is associated with. This is useful in conjunction with the `defaultOpen` prop to create an initially open preview card.",
+          "source": "base-ui"
+        },
+        {
+          "name": "handle",
+          "type": "PreviewCardHandle<unknown>",
+          "required": false,
+          "default": null,
+          "description": "A handle to associate the preview card with a trigger. If specified, allows external triggers to control the card's open state. Can be created with the PreviewCard.createHandle() method.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean, eventDetails: PreviewCardRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the preview card is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChangeComplete",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called after any animations complete when the preview card is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the preview card is currently open.",
+          "source": "base-ui"
+        },
+        {
+          "name": "triggerId",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger that the preview card is associated with. This is useful in conjunction with the `open` prop to create a controlled preview card. There's no need to specify this prop when the preview card is uncontrolled (that is, when the `open` prop is not set).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "PreviewCardArrow",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "PreviewCardBackdrop",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "PreviewCardPopup",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "PreviewCardPortal",
+      "props": [
+        {
+          "name": "container",
+          "type": "HTMLElement | ShadowRoot | RefObject<HTMLElement | ShadowRoot | null> | null",
+          "required": false,
+          "default": null,
+          "description": "A parent element to render the portal element into.",
+          "source": "base-ui"
+        },
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "PreviewCardPositioner",
+      "props": [
+        {
+          "name": "align",
+          "type": "Align",
+          "required": false,
+          "default": "'center'",
+          "description": "How to align the popup relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "alignOffset",
+          "type": "number | OffsetFunction",
+          "required": false,
+          "default": "0",
+          "description": "Additional offset along the alignment axis in pixels. Also accepts a function that returns the offset to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "anchor",
+          "type": "Element | VirtualElement | RefObject<Element | null> | (() => Element | VirtualElement | …",
+          "typeFull": "Element | VirtualElement | RefObject<Element | null> | (() => Element | VirtualElement | null) | null",
+          "required": false,
+          "default": null,
+          "description": "An element to position the popup against. By default, the popup will be positioned against the trigger.",
+          "source": "base-ui"
+        },
+        {
+          "name": "arrowPadding",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "required": false,
+          "default": null,
+          "description": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): - `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`). - `'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible. - `'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows. - `'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit. - `'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: - `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR). - `'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR). - `'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "required": false,
+          "default": "'clipping-ancestors'",
+          "description": "An element or a rectangle that delimits the area that the popup is confined to.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "required": false,
+          "default": "5",
+          "description": "Additional space to maintain from the edge of the collision boundary.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disableAnchorTracking",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+          "source": "base-ui"
+        },
+        {
+          "name": "positionMethod",
+          "type": "'absolute' | 'fixed'",
+          "required": false,
+          "default": "'absolute'",
+          "description": "Determines which CSS `position` property to use.",
+          "source": "base-ui"
+        },
+        {
+          "name": "side",
+          "type": "Side",
+          "required": false,
+          "default": "'bottom'",
+          "description": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
+          "source": "base-ui"
+        },
+        {
+          "name": "sideOffset",
+          "type": "number | OffsetFunction",
+          "required": false,
+          "default": "0",
+          "description": "Distance between the anchor and the popup in pixels. Also accepts a function that returns the distance to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "PreviewCardTrigger",
+      "props": [
+        {
+          "name": "closeDelay",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "description": "How long to wait before closing the preview card. Specified in milliseconds.",
+          "source": "base-ui"
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": "600",
+          "description": "How long to wait before the preview card opens. Specified in milliseconds.",
+          "source": "base-ui"
+        },
+        {
+          "name": "handle",
+          "type": "PreviewCardHandle<unknown>",
+          "required": false,
+          "default": null,
+          "description": "A handle to associate the trigger with a preview card.",
+          "source": "base-ui"
+        },
+        {
+          "name": "payload",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "A payload to pass to the preview card when it is opened.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 283,
+      "universal": 3
+    },
+    {
+      "name": "PreviewCardViewport",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "The content to render inside the transition container.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    }
+  ]
+}

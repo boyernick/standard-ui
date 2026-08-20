@@ -1,0 +1,52 @@
+{
+  "module": "code-block",
+  "parts": [
+    {
+      "name": "CodeBlock",
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "bare",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Removes border and radius chrome for nesting inside another frame.",
+          "source": "own"
+        },
+        {
+          "name": "lang",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Label shown in the header (for example, tsx). TSX uses TypeScript highlighting.",
+          "source": "own"
+        },
+        {
+          "name": "showHeader",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 1
+    }
+  ]
+}

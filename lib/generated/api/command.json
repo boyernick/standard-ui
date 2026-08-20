@@ -1,0 +1,346 @@
+{
+  "module": "command",
+  "parts": [
+    {
+      "name": "Command",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<DialogRootActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `unmount`: Manually unmounts the dialog. Call this after any externally controlled closing animation finishes. - `close`: Closes the dialog imperatively when called.",
+          "source": "base-ui"
+        },
+        {
+          "name": "activeOptionId",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode | PayloadChildRenderFunction<unknown>",
+          "required": false,
+          "default": null,
+          "description": "The content of the dialog. This can be a regular React node or a render function that receives the `payload` of the active trigger.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the dialog is initially open. To render a controlled dialog, use the `open` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultTriggerId",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger that the dialog is associated with. This is useful in conjunction with the `defaultOpen` prop to create an initially open dialog.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disablePointerDismissal",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to prevent the dialog from closing on outside presses. For non-modal dialogs, this also prevents the dialog from closing when focus moves outside of it.",
+          "source": "base-ui"
+        },
+        {
+          "name": "handle",
+          "type": "DialogHandle<unknown>",
+          "required": false,
+          "default": null,
+          "description": "A handle to associate the dialog with a trigger. If specified, allows external triggers to control the dialog's open state. Can be created with the Dialog.createHandle() method.",
+          "source": "base-ui"
+        },
+        {
+          "name": "modal",
+          "type": "boolean | 'trap-focus'",
+          "required": false,
+          "default": "true",
+          "description": "Determines if the dialog enters a modal state when open. - `true`: user interaction is limited to just the dialog: focus is trapped, document page scroll is locked, and pointer interactions on outside elements are disabled. - `false`: user interaction with the rest of the document is allowed. - `'trap-focus'`: focus is trapped inside the dialog, but document page scroll is not locked and pointer interactions outside of it remain enabled. When `modal` is `true` or `'trap-focus'`, render `<Dialog.Close>` inside `<Dialog.Popup>` so touch screen readers can escape the popup.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean, eventDetails: DialogRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the dialog is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChangeComplete",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called after any animations complete when the dialog is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the dialog is currently open.",
+          "source": "base-ui"
+        },
+        {
+          "name": "triggerId",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger that the dialog is associated with. This is useful in conjunction with the `open` prop to create a controlled dialog. There's no need to specify this prop when the dialog is uncontrolled (that is, when the `open` prop is not set).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "CommandActions",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandBackdrop",
+      "props": [
+        {
+          "name": "forceRender",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the backdrop is forced to render even when nested.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "CommandClear",
+      "props": [],
+      "reactPassthrough": 288,
+      "universal": 0
+    },
+    {
+      "name": "CommandClose",
+      "props": [
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 285,
+      "universal": 3
+    },
+    {
+      "name": "CommandContent",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandDialogTitle",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "CommandDivider",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandEmpty",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandFilter",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 288,
+      "universal": 0
+    },
+    {
+      "name": "CommandFilters",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandInput",
+      "props": [],
+      "reactPassthrough": 307,
+      "universal": 0
+    },
+    {
+      "name": "CommandItem",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandList",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandPopup",
+      "props": [
+        {
+          "name": "finalFocus",
+          "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void…",
+          "typeFull": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null)",
+          "required": false,
+          "default": null,
+          "description": "Determines the element to focus when the dialog is closed. - `false`: Do not move focus. - `true`: Move focus based on the default behavior (trigger or previously focused element). - `RefObject`: Move focus to the ref element. - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`). Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing.",
+          "source": "base-ui"
+        },
+        {
+          "name": "initialFocus",
+          "type": "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void …",
+          "typeFull": "boolean | RefObject<HTMLElement | null> | ((openType: InteractionType) => boolean | void | HTMLElement | null)",
+          "required": false,
+          "default": null,
+          "description": "Determines the element to focus when the dialog is opened. By default, focus moves to the first tabbable element inside the popup, except when the dialog is opened by touch — then the popup itself is focused to avoid opening the virtual keyboard. - `false`: Do not move focus. - `true`: Move focus based on the default behavior (first tabbable element or popup). - `RefObject`: Move focus to the ref element. - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`). Return an element to focus, `true` to use the default behavior, `null` to fall back to the default behavior, or `false`/`undefined` to do nothing.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "CommandPortal",
+      "props": [
+        {
+          "name": "container",
+          "type": "HTMLElement | ShadowRoot | RefObject<HTMLElement | ShadowRoot | null> | null",
+          "required": false,
+          "default": null,
+          "description": "A parent element to render the portal element into.",
+          "source": "base-ui"
+        },
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "CommandTitle",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 1
+    },
+    {
+      "name": "CommandToolbar",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 0
+    },
+    {
+      "name": "CommandTrigger",
+      "props": [
+        {
+          "name": "handle",
+          "type": "DialogHandle<unknown>",
+          "required": false,
+          "default": null,
+          "description": "A handle to associate the trigger with a dialog. Can be created with the Dialog.createHandle() method.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "ID of the trigger. In addition to being forwarded to the rendered element, it is also used to specify the active trigger for the dialog in controlled mode (with the DialogRoot `triggerId` prop).",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        },
+        {
+          "name": "payload",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "A payload to pass to the dialog when it is opened.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 284,
+      "universal": 3
+    }
+  ]
+}

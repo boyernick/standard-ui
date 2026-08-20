@@ -1,0 +1,155 @@
+{
+  "module": "radio",
+  "parts": [
+    {
+      "name": "Radio",
+      "props": [
+        {
+          "name": "value",
+          "type": "unknown",
+          "required": true,
+          "default": null,
+          "description": "The unique identifying value of the radio in a group.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the hidden input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the user should be unable to select the radio button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the user must choose a value before submitting a form.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "RadioGroup",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "The uncontrolled value of the radio button that should be initially selected. To render a controlled radio group, use the `value` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "form",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the form that owns the radio inputs. Useful when the radio group is rendered outside the form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the hidden input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the field when a form is submitted.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: unknown, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowP…",
+          "typeFull": "(value: unknown, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback fired when the value changes.",
+          "source": "base-ui"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user should be unable to select a different radio button in the group.",
+          "source": "base-ui"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user must choose a value before submitting a form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "unknown",
+          "required": false,
+          "default": null,
+          "description": "The controlled value of the radio item that should be currently selected. To render an uncontrolled radio group, use the `defaultValue` prop instead.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "RadioIndicator",
+      "props": [
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the HTML element in the DOM when the radio button is inactive.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

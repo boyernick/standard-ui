@@ -1,0 +1,492 @@
+{
+  "module": "calendar",
+  "parts": [
+    {
+      "name": "Calendar",
+      "props": [
+        {
+          "name": "animate",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Animate navigating between months.",
+          "source": "other"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The aria-label attribute to add to the container element.",
+          "source": "other"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The aria-labelledby attribute to add to the container element.",
+          "source": "other"
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "When a selection mode is set, DayPicker will focus the first selected day (if set) or today's date (if not disabled). Use this prop when you need to focus DayPicker after a user action, for improved accessibility.",
+          "source": "other"
+        },
+        {
+          "name": "broadcastCalendar",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Display the weeks in the month following the broadcast calendar. Setting this prop will ignore {@link weekStartsOn} (always Monday) and {@link showOutsideDays} will default to true.",
+          "source": "other"
+        },
+        {
+          "name": "captionLayout",
+          "type": "'label' | 'dropdown' | 'dropdown-months' | 'dropdown-years'",
+          "required": false,
+          "default": null,
+          "description": "Show dropdowns to navigate between months or years. - `label`: Displays the month and year as a label. Default value. - `dropdown`: Displays dropdowns for both month and year navigation. - `dropdown-months`: Displays a dropdown only for the month navigation. - `dropdown-years`: Displays a dropdown only for the year navigation. **Note:** By default, showing the dropdown will set the {@link startMonth} to 100 years ago and {@link endMonth} to the end of the current year. You can override this behavior by explicitly setting `startMonth` and `endMonth`.",
+          "source": "other"
+        },
+        {
+          "name": "classNames",
+          "type": "Partial<ClassNames>",
+          "required": false,
+          "default": null,
+          "description": "Change the class names used by DayPicker. Use this prop when you need to change the default class names — for example, when importing the style via CSS modules or when using a CSS framework.",
+          "source": "other"
+        },
+        {
+          "name": "components",
+          "type": "Partial<CustomComponents>",
+          "required": false,
+          "default": null,
+          "description": "Change the components used for rendering the calendar elements.",
+          "source": "other"
+        },
+        {
+          "name": "dateLib",
+          "type": "Partial<DateLib>",
+          "required": false,
+          "default": null,
+          "description": "Replace the default date library with a custom one. Experimental: not guaranteed to be stable (may not respect semver).",
+          "source": "other"
+        },
+        {
+          "name": "defaultMonth",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": "The initial month to show in the calendar. Use this prop to let DayPicker control the current month. If you need to set the month programmatically, use {@link month} and {@link onMonthChange}.",
+          "source": "other"
+        },
+        {
+          "name": "dir",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The text direction of the calendar. Use `ltr` for left-to-right (default) or `rtl` for right-to-left.",
+          "source": "other"
+        },
+        {
+          "name": "disabled",
+          "type": "Matcher | Matcher[]",
+          "required": false,
+          "default": null,
+          "description": "Apply the `disabled` modifier to the matching days. Disabled days cannot be selected when in a selection mode is set.",
+          "source": "other"
+        },
+        {
+          "name": "disableNavigation",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Disable the navigation between months. This prop won't hide the navigation: to hide the navigation, use {@link hideNavigation}.",
+          "source": "other"
+        },
+        {
+          "name": "endMonth",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": "The latest month to end the month navigation.",
+          "source": "other"
+        },
+        {
+          "name": "firstWeekContainsDate",
+          "type": "1 | 4",
+          "required": false,
+          "default": null,
+          "description": "The day of January that is always in the first week of the year.",
+          "source": "other"
+        },
+        {
+          "name": "fixedWeeks",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Display always 6 weeks per each month, regardless of the month’s number of weeks. Weeks will be filled with the days from the next month.",
+          "source": "other"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Add a footer to the calendar, acting as a live region. Use this prop to communicate the calendar's status to screen readers. Prefer strings over complex UI elements.",
+          "source": "other"
+        },
+        {
+          "name": "formatters",
+          "type": "Partial<Formatters>",
+          "required": false,
+          "default": null,
+          "description": "Formatters used to format dates to strings. Use this prop to override the default functions.",
+          "source": "other"
+        },
+        {
+          "name": "hidden",
+          "type": "Matcher | Matcher[]",
+          "required": false,
+          "default": null,
+          "description": "Apply the `hidden` modifier to the matching days. Will hide them from the calendar.",
+          "source": "other"
+        },
+        {
+          "name": "hideNavigation",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Hide the navigation buttons. This prop won't disable the navigation: to disable the navigation, use {@link disableNavigation}.",
+          "source": "other"
+        },
+        {
+          "name": "hideWeekdays",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Hide the row displaying the weekday row header.",
+          "source": "other"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "A unique id to add to the root element.",
+          "source": "other"
+        },
+        {
+          "name": "ISOWeek",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Use ISO week dates instead of the locale setting. Setting this prop will ignore `weekStartsOn` and `firstWeekContainsDate`.",
+          "source": "other"
+        },
+        {
+          "name": "labels",
+          "type": "Partial<Labels>",
+          "required": false,
+          "default": null,
+          "description": "Labels creators to override the defaults. Use this prop to customize the aria-label attributes in DayPicker.",
+          "source": "other"
+        },
+        {
+          "name": "lang",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Add the language tag to the container element. When omitted, DayPicker uses the active locale code (`locale.code`). Set this prop to override the language tag.",
+          "source": "other"
+        },
+        {
+          "name": "locale",
+          "type": "Partial<DayPickerLocale>",
+          "required": false,
+          "default": null,
+          "description": "The locale object used to localize dates. Pass a locale from `react-day-picker/locale` to localize the calendar.",
+          "source": "other"
+        },
+        {
+          "name": "mode",
+          "type": "'multiple' | 'single' | 'range'",
+          "required": false,
+          "default": null,
+          "description": "Enable the selection of a single day, multiple days, or a range of days.",
+          "source": "other"
+        },
+        {
+          "name": "modifiers",
+          "type": "Record<string, Matcher | Matcher[]>",
+          "required": false,
+          "default": null,
+          "description": "Add modifiers to the matching days.",
+          "source": "other"
+        },
+        {
+          "name": "modifiersClassNames",
+          "type": "ModifiersClassNames",
+          "required": false,
+          "default": null,
+          "description": "Change the class name for the day matching the `modifiers`.",
+          "source": "other"
+        },
+        {
+          "name": "modifiersStyles",
+          "type": "ModifiersStyles",
+          "required": false,
+          "default": null,
+          "description": "Change the class name for the day matching the {@link modifiers}.",
+          "source": "other"
+        },
+        {
+          "name": "month",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": "The month displayed in the calendar. As opposed to `defaultMonth`, use this prop with `onMonthChange` to change the month programmatically.",
+          "source": "other"
+        },
+        {
+          "name": "navLayout",
+          "type": "'around' | 'after'",
+          "required": false,
+          "default": null,
+          "description": "Adjust the positioning of the navigation buttons. - `around`: Displays the buttons on either side of the caption. - `after`: Displays the buttons after the caption. This ensures the tab order matches the visual order. If not set, DayPicker preserves its legacy layout, but the tab order may not align with the visual order when using `captionLayout=\"dropdown\"`.",
+          "source": "other"
+        },
+        {
+          "name": "nonce",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "A cryptographic nonce (\"number used once\") which can be used by Content Security Policy for the inline `style` attributes.",
+          "source": "other"
+        },
+        {
+          "name": "noonSafe",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Keep calendar math at noon in the configured {@link timeZone} to avoid historical second-level offsets drifting dates across midnight. This prop sets the time of the dates to noon (12:00).",
+          "source": "other"
+        },
+        {
+          "name": "numberOfMonths",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "The number of displayed months.",
+          "source": "other"
+        },
+        {
+          "name": "numerals",
+          "type": "Numerals",
+          "required": false,
+          "default": null,
+          "description": "The numeral system to use when formatting dates. - `latn`: Latin (Western Arabic) - `arab`: Arabic-Indic - `arabext`: Eastern Arabic-Indic (Persian) - `deva`: Devanagari - `beng`: Bengali - `guru`: Gurmukhi - `gujr`: Gujarati - `orya`: Oriya - `tamldec`: Tamil - `telu`: Telugu - `knda`: Kannada - `mlym`: Malayalam",
+          "source": "other"
+        },
+        {
+          "name": "onDayBlur",
+          "type": "DayEventHandler<FocusEvent<Element, Element>>",
+          "required": false,
+          "default": null,
+          "description": "Event handler when a day is blurred.",
+          "source": "other"
+        },
+        {
+          "name": "onDayClick",
+          "type": "DayEventHandler<MouseEvent<Element, MouseEvent>>",
+          "required": false,
+          "default": null,
+          "description": "Event handler when a day is clicked.",
+          "source": "other"
+        },
+        {
+          "name": "onDayFocus",
+          "type": "DayEventHandler<FocusEvent<Element, Element>>",
+          "required": false,
+          "default": null,
+          "description": "Event handler when a day is focused.",
+          "source": "other"
+        },
+        {
+          "name": "onDayKeyDown",
+          "type": "DayEventHandler<KeyboardEvent<Element>>",
+          "required": false,
+          "default": null,
+          "description": "Event handler when a key is pressed on a day.",
+          "source": "other"
+        },
+        {
+          "name": "onDayMouseEnter",
+          "type": "DayEventHandler<MouseEvent<Element, MouseEvent>>",
+          "required": false,
+          "default": null,
+          "description": "Event handler when the mouse enters a day.",
+          "source": "other"
+        },
+        {
+          "name": "onDayMouseLeave",
+          "type": "DayEventHandler<MouseEvent<Element, MouseEvent>>",
+          "required": false,
+          "default": null,
+          "description": "Event handler when the mouse leaves a day.",
+          "source": "other"
+        },
+        {
+          "name": "onMonthChange",
+          "type": "MonthChangeEventHandler",
+          "required": false,
+          "default": null,
+          "description": "Event fired when the user navigates between months.",
+          "source": "other"
+        },
+        {
+          "name": "onNextClick",
+          "type": "MonthChangeEventHandler",
+          "required": false,
+          "default": null,
+          "description": "Event handler when the next month button is clicked.",
+          "source": "other"
+        },
+        {
+          "name": "onPrevClick",
+          "type": "MonthChangeEventHandler",
+          "required": false,
+          "default": null,
+          "description": "Event handler when the previous month button is clicked.",
+          "source": "other"
+        },
+        {
+          "name": "pagedNavigation",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Paginate the month navigation displaying the `numberOfMonths` at a time.",
+          "source": "other"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the selection is required.",
+          "source": "other"
+        },
+        {
+          "name": "reverseMonths",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Render the months in reversed order (when {@link numberOfMonths} is set) to display the most recent month first.",
+          "source": "other"
+        },
+        {
+          "name": "reverseYears",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Reverse the order of years in the dropdown when using `captionLayout=\"dropdown\"` or `captionLayout=\"dropdown-years\"`.",
+          "source": "other"
+        },
+        {
+          "name": "role",
+          "type": "'dialog' | 'application'",
+          "required": false,
+          "default": null,
+          "description": "The role attribute to add to the container element.",
+          "source": "other"
+        },
+        {
+          "name": "showOutsideDays",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Show the outside days (days falling in the next or the previous month). **Note:** when a {@link broadcastCalendar} is set, this prop defaults to true.",
+          "source": "other"
+        },
+        {
+          "name": "showWeekNumber",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Show the week numbers column. Weeks are numbered according to the local week index.",
+          "source": "other"
+        },
+        {
+          "name": "startMonth",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": "The earliest month to start the month navigation.",
+          "source": "other"
+        },
+        {
+          "name": "styles",
+          "type": "Partial<Styles>",
+          "required": false,
+          "default": null,
+          "description": "Change the inline styles of the HTML elements.",
+          "source": "other"
+        },
+        {
+          "name": "timeZone",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The time zone (IANA or UTC offset) to use in the calendar (experimental). See [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the possible values.",
+          "source": "other"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Add a `title` attribute to the container element.",
+          "source": "other"
+        },
+        {
+          "name": "today",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": "The today’s date. Default is the current date. This date will get the `today` modifier to style the day.",
+          "source": "other"
+        },
+        {
+          "name": "useAdditionalDayOfYearTokens",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Enable `YY` and `YYYY` for day of year tokens when formatting or parsing dates.",
+          "source": "other"
+        },
+        {
+          "name": "useAdditionalWeekYearTokens",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Enable `DD` and `DDDD` for week year tokens when formatting or parsing dates.",
+          "source": "other"
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1 | 2 | 3 | 4 | 5 | 6",
+          "required": false,
+          "default": null,
+          "description": "The index of the first day of the week (0 - Sunday). Overrides the locale's default.",
+          "source": "other"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 2
+    }
+  ]
+}

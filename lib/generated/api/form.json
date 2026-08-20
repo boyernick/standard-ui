@@ -1,0 +1,44 @@
+{
+  "module": "form",
+  "parts": [
+    {
+      "name": "Form",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<FormActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `validate`: Validates all fields when called. Optionally pass a field name to validate a single field.",
+          "source": "base-ui"
+        },
+        {
+          "name": "errors",
+          "type": "Errors",
+          "required": false,
+          "default": null,
+          "description": "Validation errors returned externally, typically after submission by a server or a form action. This should be an object where keys correspond to the `name` attribute on `<Field.Root>`, and values correspond to error(s) related to that field.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onFormSubmit",
+          "type": "(formValues: Record<string, any>, eventDetails: { reason: 'none'; event: Event; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the form is submitted. `preventDefault()` is called on the native submit event when used.",
+          "source": "base-ui"
+        },
+        {
+          "name": "validationMode",
+          "type": "FormValidationMode",
+          "required": false,
+          "default": "'onSubmit'",
+          "description": "Determines when the form should be validated. The `validationMode` prop on `<Field.Root>` takes precedence over this. - `onSubmit` (default): validates the field when the form is submitted, afterwards fields will re-validate on change. - `onBlur`: validates a field when it loses focus. - `onChange`: validates the field on every change to its value.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 283,
+      "universal": 3
+    }
+  ]
+}

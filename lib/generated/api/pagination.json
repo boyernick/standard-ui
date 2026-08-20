@@ -1,0 +1,74 @@
+{
+  "module": "pagination",
+  "parts": [
+    {
+      "name": "Pagination",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "PaginationContent",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "PaginationEllipsis",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "PaginationItem",
+      "props": [],
+      "reactPassthrough": 281,
+      "universal": 0
+    },
+    {
+      "name": "PaginationLink",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 290,
+      "universal": 0
+    },
+    {
+      "name": "PaginationNext",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 290,
+      "universal": 0
+    },
+    {
+      "name": "PaginationPrevious",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 290,
+      "universal": 0
+    }
+  ]
+}

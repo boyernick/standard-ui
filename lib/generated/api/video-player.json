@@ -1,0 +1,28 @@
+{
+  "module": "video-player",
+  "parts": [
+    {
+      "name": "VideoPlayer",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "poster",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

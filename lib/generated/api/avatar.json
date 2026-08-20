@@ -1,0 +1,50 @@
+{
+  "module": "avatar",
+  "parts": [
+    {
+      "name": "Avatar",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "AvatarFallback",
+      "props": [
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "How long to wait before showing the fallback. Specified in milliseconds.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "AvatarImage",
+      "props": [
+        {
+          "name": "onLoadingStatusChange",
+          "type": "(status: ImageLoadingStatus) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback fired when the loading status changes.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 287,
+      "universal": 3
+    }
+  ]
+}

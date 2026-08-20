@@ -1,0 +1,44 @@
+{
+  "module": "menubar",
+  "parts": [
+    {
+      "name": "Menubar",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the whole menubar is disabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "loopFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to loop keyboard focus back to the first item when the end of the list is reached while using the arrow keys.",
+          "source": "base-ui"
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the menubar is modal.",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "MenuRootOrientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The orientation of the menubar.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "module": "checkbox-group",
+  "parts": [
+    {
+      "name": "CheckboxGroup",
+      "props": [
+        {
+          "name": "allValues",
+          "type": "string[]",
+          "required": false,
+          "default": null,
+          "description": "Names of all checkboxes in the group. Use this when creating a parent checkbox.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "default": null,
+          "description": "Names of the checkboxes in the group that should be initially ticked. To render a controlled checkbox group, use the `value` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string[], eventDetails: { reason: 'none'; event: Event; cancel: () => void; allow…",
+          "typeFull": "(value: string[], eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when a checkbox in the group is ticked or unticked. Provides the new value as an argument.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "default": null,
+          "description": "Names of the checkboxes in the group that should be ticked. To render an uncontrolled checkbox group, use the `defaultValue` prop instead.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

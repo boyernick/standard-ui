@@ -1,0 +1,117 @@
+{
+  "module": "switch",
+  "parts": [
+    {
+      "name": "Switch",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the switch is currently active. To render an uncontrolled switch, use the `defaultChecked` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the switch is initially active. To render a controlled switch, use the `checked` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "form",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the form that owns the hidden input. Useful when the switch is rendered outside the form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The id of the hidden input element. When `nativeButton` is `true`, the id is applied to the root element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the hidden `<input>` element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the field when a form is submitted.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allo…",
+          "typeFull": "(checked: boolean, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the switch is activated or deactivated.",
+          "source": "base-ui"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user should be unable to activate or deactivate the switch.",
+          "source": "base-ui"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user must activate the switch before submitting a form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "uncheckedValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The value submitted with the form when the switch is off. By default, unchecked switches do not submit any value, matching native checkbox behavior.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The value submitted with the form when the switch is on. By default, switch submits the \"on\" value, matching native checkbox behavior.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    }
+  ]
+}

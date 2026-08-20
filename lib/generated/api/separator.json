@@ -1,0 +1,20 @@
+{
+  "module": "separator",
+  "parts": [
+    {
+      "name": "Separator",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The orientation of the separator.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

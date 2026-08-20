@@ -1,0 +1,784 @@
+{
+  "module": "context-menu",
+  "parts": [
+    {
+      "name": "ContextMenu",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<MenuRootActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `unmount`: Manually unmounts the menu. Call this after any externally controlled closing animation finishes. - `close`: When specified, the menu can be closed imperatively.",
+          "source": "base-ui"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "closeParentOnEsc",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When in a submenu, determines whether pressing the Escape key closes the entire menu, or only the current child menu.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the menu is initially open. To render a controlled menu, use the `open` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "highlightItemOnHover",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.",
+          "source": "base-ui"
+        },
+        {
+          "name": "loopFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to loop keyboard focus back to the first item when the end of the list is reached while using the arrow keys.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean, eventDetails: ContextMenuRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the menu is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChangeComplete",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called after any animations complete when the menu is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the menu is currently open.",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "MenuRootOrientation",
+          "required": false,
+          "default": "'vertical'",
+          "description": "The visual orientation of the menu. Controls whether roving focus uses up/down or left/right arrow keys.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "ContextMenuArrow",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuBackdrop",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuCheckboxItem",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the checkbox item is currently ticked. To render an uncontrolled checkbox item, use the `defaultChecked` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to close the menu when the item is clicked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the checkbox item is initially ticked. To render a controlled checkbox item, use the `checked` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Overrides the text label to use when the item is matched during keyboard text navigation.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean, eventDetails: MenuRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the checkbox item is ticked or unticked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onClick",
+          "type": "(event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void",
+          "required": false,
+          "default": null,
+          "description": "The click handler for the menu item.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuCheckboxItemIndicator",
+      "props": [
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the HTML element in the DOM when the checkbox item is not checked.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuGroup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "The content of the component.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuGroupLabel",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuItem",
+      "props": [
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to close the menu when the item is clicked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Overrides the text label to use when the item is matched during keyboard text navigation.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onClick",
+          "type": "(event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void",
+          "required": false,
+          "default": null,
+          "description": "The click handler for the menu item.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuLinkItem",
+      "props": [
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to close the menu when the item is clicked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Overrides the text label to use when the item is matched during keyboard text navigation.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 282,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuPopup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "finalFocus",
+          "type": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void…",
+          "typeFull": "boolean | RefObject<HTMLElement | null> | ((closeType: InteractionType) => boolean | void | HTMLElement | null)",
+          "required": false,
+          "default": null,
+          "description": "Determines the element to focus when the menu is closed. - `false`: Do not move focus. - `true`: Move focus based on the default behavior (trigger or previously focused element). - `RefObject`: Move focus to the ref element. - `function`: Called with the interaction type (`mouse`, `touch`, `pen`, or `keyboard`). Return an element to focus, `true` to use the default behavior, or `false`/`undefined` to do nothing.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuPortal",
+      "props": [
+        {
+          "name": "container",
+          "type": "HTMLElement | ShadowRoot | RefObject<HTMLElement | ShadowRoot | null> | null",
+          "required": false,
+          "default": null,
+          "description": "A parent element to render the portal element into.",
+          "source": "base-ui"
+        },
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the portal mounted in the DOM while the popup is hidden.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuPositioner",
+      "props": [
+        {
+          "name": "align",
+          "type": "Align",
+          "required": false,
+          "default": "'center'",
+          "description": "How to align the popup relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "alignOffset",
+          "type": "number | OffsetFunction",
+          "required": false,
+          "default": "0",
+          "description": "Additional offset along the alignment axis in pixels. Also accepts a function that returns the offset to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "anchor",
+          "type": "Element | VirtualElement | RefObject<Element | null> | (() => Element | VirtualElement | …",
+          "typeFull": "Element | VirtualElement | RefObject<Element | null> | (() => Element | VirtualElement | null) | null",
+          "required": false,
+          "default": null,
+          "description": "An element to position the popup against. By default, the popup will be positioned against the trigger.",
+          "source": "base-ui"
+        },
+        {
+          "name": "arrowPadding",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Minimum distance to maintain between the arrow and the edges of the popup. Use it to prevent the arrow element from hanging out of the rounded corners of a popup.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionAvoidance",
+          "type": "CollisionAvoidance",
+          "required": false,
+          "default": null,
+          "description": "Determines how to handle collisions when positioning the popup. `side` controls overflow on the preferred placement axis (`top`/`bottom` or `left`/`right`): - `'flip'`: keep the requested side when it fits; otherwise try the opposite side (`top` and `bottom`, or `left` and `right`). - `'shift'`: never change side; keep the requested side and move the popup within the clipping boundary so it stays visible. - `'none'`: do not correct side-axis overflow. `align` controls overflow on the alignment axis (`start`/`center`/`end`): - `'flip'`: keep side, but swap `start` and `end` when the requested alignment overflows. - `'shift'`: keep side and requested alignment, then nudge the popup along the alignment axis to fit. - `'none'`: do not correct alignment-axis overflow. `fallbackAxisSide` controls fallback behavior on the perpendicular axis when the preferred axis cannot fit: - `'start'`: allow perpendicular fallback and try the logical start side first (`top` before `bottom`, or `left` before `right` in LTR). - `'end'`: allow perpendicular fallback and try the logical end side first (`bottom` before `top`, or `right` before `left` in LTR). - `'none'`: do not fallback to the perpendicular axis. When `side` is `'shift'`, explicitly setting `align` only supports `'shift'` or `'none'`. If `align` is omitted, it defaults to `'flip'`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionBoundary",
+          "type": "Boundary",
+          "required": false,
+          "default": "'clipping-ancestors'",
+          "description": "An element or a rectangle that delimits the area that the popup is confined to.",
+          "source": "base-ui"
+        },
+        {
+          "name": "collisionPadding",
+          "type": "Padding",
+          "required": false,
+          "default": "5",
+          "description": "Additional space to maintain from the edge of the collision boundary.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disableAnchorTracking",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to disable the popup from tracking any layout shift of its positioning anchor.",
+          "source": "base-ui"
+        },
+        {
+          "name": "positionMethod",
+          "type": "'absolute' | 'fixed'",
+          "required": false,
+          "default": "'absolute'",
+          "description": "Determines which CSS `position` property to use.",
+          "source": "base-ui"
+        },
+        {
+          "name": "side",
+          "type": "Side",
+          "required": false,
+          "default": "'bottom'",
+          "description": "Which side of the anchor element to align the popup against. May automatically change to avoid collisions.",
+          "source": "base-ui"
+        },
+        {
+          "name": "sideOffset",
+          "type": "number | OffsetFunction",
+          "required": false,
+          "default": "0",
+          "description": "Distance between the anchor and the popup in pixels. Also accepts a function that returns the distance to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
+          "source": "base-ui"
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to maintain the popup in the viewport after the anchor element was scrolled out of view.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuRadioGroup",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "The content of the component.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultValue",
+          "type": "any",
+          "required": false,
+          "default": null,
+          "description": "The uncontrolled value of the radio item that should be initially selected. To render a controlled radio group, use the `value` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: any, eventDetails: MenuRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Function called when the selected value changes.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "required": false,
+          "default": null,
+          "description": "The controlled value of the radio item that should be currently selected. To render an uncontrolled radio group, use the `defaultValue` prop instead.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 274,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuRadioItem",
+      "props": [
+        {
+          "name": "value",
+          "type": "any",
+          "required": true,
+          "default": null,
+          "description": "Value of the radio item. This is the value that will be set in the MenuRadioGroup when the item is selected.",
+          "source": "base-ui"
+        },
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to close the menu when the item is clicked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Overrides the text label to use when the item is matched during keyboard text navigation.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onClick",
+          "type": "(event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void",
+          "required": false,
+          "default": null,
+          "description": "The click handler for the menu item.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuRadioItemIndicator",
+      "props": [
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the HTML element in the DOM when the radio item is inactive.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuSeparator",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The orientation of the separator.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuSubmenuRoot",
+      "props": [
+        {
+          "name": "actionsRef",
+          "type": "RefObject<MenuRootActions | null>",
+          "required": false,
+          "default": null,
+          "description": "A ref to imperative actions. - `unmount`: Manually unmounts the menu. Call this after any externally controlled closing animation finishes. - `close`: When specified, the menu can be closed imperatively.",
+          "source": "base-ui"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "The content of the submenu.",
+          "source": "base-ui"
+        },
+        {
+          "name": "closeParentOnEsc",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When in a submenu, determines whether pressing the Escape key closes the entire menu, or only the current child menu.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the menu is initially open. To render a controlled menu, use the `open` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "highlightItemOnHover",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether moving the pointer over items should highlight them. Disabling this prop allows CSS `:hover` to be differentiated from the `:focus` (`data-highlighted`) state.",
+          "source": "base-ui"
+        },
+        {
+          "name": "loopFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to loop keyboard focus back to the first item when the end of the list is reached while using the arrow keys.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean, eventDetails: MenuRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the menu is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onOpenChangeComplete",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called after any animations complete when the menu is opened or closed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the menu is currently open.",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "MenuRootOrientation",
+          "required": false,
+          "default": "'vertical'",
+          "description": "The visual orientation of the menu. Controls whether roving focus uses up/down or left/right arrow keys.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "ContextMenuSubmenuTrigger",
+      "props": [
+        {
+          "name": "closeDelay",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "How long to wait before closing the menu that was opened on hover. Specified in milliseconds. Requires the `openOnHover` prop.",
+          "source": "base-ui"
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "How long to wait before the menu may be opened on hover. Specified in milliseconds. Requires the `openOnHover` prop.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Overrides the text label to use when the item is matched during keyboard text navigation.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onClick",
+          "type": "(event: BaseUIEvent<MouseEvent<HTMLDivElement, MouseEvent>>) => void",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "openOnHover",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the menu should also open when the trigger is hovered.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "ContextMenuTrigger",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}
