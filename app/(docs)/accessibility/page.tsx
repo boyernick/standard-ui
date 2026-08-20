@@ -80,7 +80,12 @@ export default function AccessibilityPage() {
         <CodeBlock
           className="mt-4"
           lang="tsx"
-          code={`className="outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"`}
+          code={`<button
+  type="button"
+  className="outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+>
+  Save changes
+</button>`}
         />
         <p className="text-md mt-4 max-w-3xl text-fg-secondary">
           Always <Token>:focus-visible</Token>, never <Token>:focus</Token> — a
@@ -147,11 +152,13 @@ export default function AccessibilityPage() {
         <CodeBlock
           className="mt-4"
           lang="tsx"
-          code={`{/* Wrong — announces as "button" */}
-<Button iconOnly><IconTrash /></Button>
+          code={`import { Button, IconX } from "@boyernick/standard-ui-react"
+
+{/* Wrong — announces as "button" */}
+<Button iconOnly><IconX /></Button>
 
 {/* Right */}
-<Button iconOnly aria-label="Delete item"><IconTrash /></Button>`}
+<Button iconOnly aria-label="Dismiss"><IconX /></Button>`}
         />
         <p className="text-md mt-4 max-w-3xl text-fg-secondary">
           Decorative icons take <Token>aria-hidden</Token> so they are not
