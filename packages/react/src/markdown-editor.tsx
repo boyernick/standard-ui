@@ -108,7 +108,7 @@ type Format = {
 }
 
 const formats: Format[] = [
-  { label: "Bold", marker: "**", className: "font-semibold" },
+  { label: "Bold", marker: "**", className: "font-medium" },
   { label: "Italic", marker: "*", className: "italic" },
   { label: "Code", marker: "`", className: "font-mono" },
 ]
