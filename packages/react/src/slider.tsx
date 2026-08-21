@@ -38,7 +38,7 @@ export const SliderIndicator = ({
 }: SliderIndicatorProps) => (
   <BaseSlider.Indicator
     className={cn(
-      "absolute h-full rounded-full bg-brand-primary transition-[width] duration-150 ease-out motion-reduce:transition-none",
+      "absolute h-full rounded-full bg-brand-primary transition-[width] duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none",
       className,
     )}
     {...props}

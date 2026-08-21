@@ -1,6 +1,8 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  // Dev-only: lets the preview browser reach the server over the loopback IP.
+  allowedDevOrigins: ["127.0.0.1"],
   transpilePackages: [
     "@boyernick/standard-ui-react",
     "@central-icons-react/round-outlined-radius-2-stroke-1.5",
@@ -8,9 +10,12 @@ const nextConfig: NextConfig = {
   ],
   async redirects() {
     return [
-      { source: "/spacing", destination: "/structure", permanent: true },
-      { source: "/layout", destination: "/structure", permanent: true },
-      { source: "/breakpoints", destination: "/structure", permanent: true },
+      { source: "/structure", destination: "/", permanent: true },
+      { source: "/illustrations", destination: "/", permanent: true },
+      { source: "/spacing", destination: "/", permanent: true },
+      { source: "/layout", destination: "/", permanent: true },
+      { source: "/breakpoints", destination: "/", permanent: true },
+      { source: "/colors/:slug", destination: "/colors", permanent: true },
     ]
   },
 }

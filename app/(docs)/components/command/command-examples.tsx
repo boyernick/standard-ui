@@ -138,35 +138,7 @@ export const CommandExamples = () => {
 
   return (
     <div className="mt-6 flex flex-col gap-8">
-      <ComponentCanvas
-        label="Search"
-        code={`<Command open={open} onOpenChange={setOpen} activeOptionId={activeOptionId}>
-  <CommandTrigger render={<Button variant="outline" />}>
-    Search…
-  </CommandTrigger>
-  <CommandPortal>
-    <CommandBackdrop />
-    <CommandPopup>
-      <CommandDialogTitle>Search</CommandDialogTitle>
-      <CommandToolbar>
-        <CommandInput placeholder="Search…" />
-        <CommandActions>
-          <CommandClose />
-        </CommandActions>
-      </CommandToolbar>
-      <CommandContent>
-        <CommandFilters>
-          <CommandFilter selected>All</CommandFilter>
-          …
-        </CommandFilters>
-        <CommandList>
-          <CommandItem>First principles</CommandItem>
-        </CommandList>
-      </CommandContent>
-    </CommandPopup>
-  </CommandPortal>
-</Command>`}
-      >
+      <ComponentCanvas label="Search">
         <Command
           open={open}
           onOpenChange={handleOpenChange}

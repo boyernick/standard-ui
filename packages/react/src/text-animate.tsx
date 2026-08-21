@@ -124,9 +124,9 @@ export const TextAnimate = ({
         className={cn(
           "inline-block text-fg-primary",
           effect === "fade" &&
-            "animate-[text-fade-in_0.6s_ease-out_both] motion-reduce:animate-none",
+            "animate-[text-fade-in_0.6s_var(--ease-enter)_both] motion-reduce:animate-none",
           effect === "blur" &&
-            "animate-[text-blur-in_0.7s_ease-out_both] motion-reduce:animate-none",
+            "animate-[text-blur-in_0.7s_var(--ease-enter)_both] motion-reduce:animate-none",
           className,
         )}
         style={{ animationDelay: `${delay}ms` }}

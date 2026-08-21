@@ -30,7 +30,6 @@ export const FileAttachmentExamples = () => {
       <ComponentCanvas
         label="Upload files"
         contentClassName="w-full max-w-md flex-col items-stretch gap-3"
-        code={`<Attachment multiple onFiles={handleFiles}>\n  <IconPlus />\n  <span>Choose files or drop them here</span>\n</Attachment>`}
       >
         <Attachment multiple onFiles={handleFiles}>
           <IconPlus />

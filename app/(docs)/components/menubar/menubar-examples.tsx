@@ -14,28 +14,7 @@ import { ComponentCanvas } from "@/components/component-canvas"
 
 export const MenubarExamples = () => (
   <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Application"
-      code={`<Menubar>
-  <Menu>
-    <MenuTrigger>File</MenuTrigger>
-    <MenuPortal>
-      <MenuPositioner>
-        <MenuPopup>
-          <MenuItem>New</MenuItem>
-          <MenuItem>Open…</MenuItem>
-          <MenuSeparator />
-          <MenuItem>Save</MenuItem>
-        </MenuPopup>
-      </MenuPositioner>
-    </MenuPortal>
-  </Menu>
-  <Menu>
-    <MenuTrigger>Edit</MenuTrigger>
-    …
-  </Menu>
-</Menubar>`}
-    >
+    <ComponentCanvas label="Application">
       <Menubar>
         <Menu>
           <MenuTrigger>File</MenuTrigger>

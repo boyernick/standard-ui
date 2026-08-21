@@ -13,10 +13,7 @@ import { ComponentCanvas } from "@/components/component-canvas";
 
 export const PaginationExamples = () => (
   <div className="mt-6">
-    <ComponentCanvas
-      label="Pages"
-      code={`<Pagination>\n  <PaginationContent>\n    <PaginationItem><PaginationPrevious /></PaginationItem>\n    <PaginationItem><PaginationLink active>1</PaginationLink></PaginationItem>\n    <PaginationItem><PaginationNext /></PaginationItem>\n  </PaginationContent>\n</Pagination>`}
-    >
+    <ComponentCanvas label="Pages">
       <Pagination>
         <PaginationContent>
           <PaginationItem>

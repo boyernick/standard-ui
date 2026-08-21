@@ -19,7 +19,6 @@ export const SidebarExamples = () => (
     <ComponentCanvas
       label="Application navigation"
       contentClassName="h-96 items-stretch p-0"
-      code={`<Sidebar>\n  <SidebarHeader>Workspace</SidebarHeader>\n  <SidebarContent>\n    <SidebarNav>\n      <SidebarNavItem active>Overview</SidebarNavItem>\n      <SidebarNavItem>Settings</SidebarNavItem>\n    </SidebarNav>\n  </SidebarContent>\n</Sidebar>`}
     >
       <Sidebar className="h-full">
         <SidebarHeader className="text-sm-strong text-fg-primary">

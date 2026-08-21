@@ -8,7 +8,6 @@ export const SkeletonExamples = () => (
     <ComponentCanvas
       label="Content placeholder"
       contentClassName="w-full max-w-sm"
-      code={`<Skeleton variant="circle" className="size-10" />\n<Skeleton variant="text" className="w-48" />\n<Skeleton className="h-16 w-full" />`}
     >
       <div className="flex w-full max-w-sm gap-3">
         <Skeleton variant="circle" className="size-10 shrink-0" />

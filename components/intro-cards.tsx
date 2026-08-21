@@ -126,26 +126,6 @@ function MaterialsPreview() {
   )
 }
 
-function StructurePreview() {
-  return (
-    <div className="flex w-full max-w-xs flex-col gap-2">
-      <div className="flex items-end gap-1">
-        {[4, 8, 12, 16, 24].map((px) => (
-          <span
-            key={px}
-            className="rounded-sm bg-fg-primary"
-            style={{ width: px, height: 20 }}
-            aria-hidden
-          />
-        ))}
-      </div>
-      <div className="flex overflow-hidden rounded-lg border border-border-primary bg-background-secondary">
-        <span className="w-6 shrink-0 border-r border-border-primary bg-surface" />
-        <span className="m-1.5 h-10 flex-1 rounded-xs border border-dashed border-border-secondary bg-surface" />
-      </div>
-    </div>
-  )
-}
 
 function TypographyPreview() {
   return (
@@ -189,13 +169,6 @@ export function IntroCards() {
         <ComponentsPreview />
       </Card>
       <Card
-        href="/structure"
-        title="Structure"
-        description="Spacing, widths, grids, and breakpoints."
-      >
-        <StructurePreview />
-      </Card>
-      <Card
         href="/materials"
         title="Materials"
         description="Radius and elevation shadows for surfaces and overlays."
@@ -221,15 +194,6 @@ export function IntroCards() {
           <span className="size-10 rounded-md bg-background-tertiary opacity-70" />
           <span className="size-12 rounded-md border border-border-primary bg-surface shadow-md" />
         </div>
-      </Card>
-      <Card
-        href="/illustrations"
-        title="Illustrations"
-        description="Empty, error, success, and search artwork for product states."
-      >
-        <span className="text-fg-tertiary">
-          <IconFormCircle size={40} mode="raw" aria-hidden />
-        </span>
       </Card>
     </div>
   )

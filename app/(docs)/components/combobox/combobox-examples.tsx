@@ -27,29 +27,6 @@ export const ComboboxExamples = () => (
     <ComponentCanvas
       label="Fruit"
       contentClassName="w-full max-w-xs"
-      code={`const fruits = ["Apple", "Banana", "Cherry", "Dragonfruit", "Elderberry"]
-
-<Combobox items={fruits}>
-  <ComboboxInputGroup>
-    <ComboboxInput placeholder="Search fruit…" />
-    <ComboboxClear />
-    <ComboboxTrigger />
-  </ComboboxInputGroup>
-  <ComboboxPortal>
-    <ComboboxPositioner>
-      <ComboboxPopup>
-        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxPopup>
-    </ComboboxPositioner>
-  </ComboboxPortal>
-</Combobox>`}
     >
       <Combobox items={fruits}>
         <ComboboxInputGroup>
@@ -80,38 +57,6 @@ export const ComboboxExamples = () => (
     <ComponentCanvas
       label="Multiple"
       contentClassName="w-full max-w-sm"
-      code={`<Combobox items={fruits} multiple defaultValue={["Apple"]}>
-  <ComboboxInputGroup>
-    <ComboboxChips>
-      <ComboboxValue>
-        {(selected: string[]) =>
-          selected.map((item) => (
-            <ComboboxChip key={item}>
-              {item}
-              <ComboboxChipRemove aria-label={\`Remove \${item}\`} />
-            </ComboboxChip>
-          ))
-        }
-      </ComboboxValue>
-      <ComboboxInput placeholder="Add fruit…" />
-    </ComboboxChips>
-    <ComboboxTrigger />
-  </ComboboxInputGroup>
-  <ComboboxPortal>
-    <ComboboxPositioner>
-      <ComboboxPopup>
-        <ComboboxEmpty>No fruits found.</ComboboxEmpty>
-        <ComboboxList>
-          {(item) => (
-            <ComboboxItem key={item} value={item}>
-              {item}
-            </ComboboxItem>
-          )}
-        </ComboboxList>
-      </ComboboxPopup>
-    </ComboboxPositioner>
-  </ComboboxPortal>
-</Combobox>`}
     >
       <Combobox items={fruits} multiple defaultValue={["Apple"]}>
         <ComboboxInputGroup>

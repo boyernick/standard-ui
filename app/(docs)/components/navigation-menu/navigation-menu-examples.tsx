@@ -20,33 +20,6 @@ export const NavigationMenuExamples = () => (
     <ComponentCanvas
       label="Basic"
       contentClassName="min-h-48 items-start justify-center"
-      code={`<NavigationMenu>
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Product</NavigationMenuTrigger>
-      <NavigationMenuContent>
-        <ul className="grid w-64 gap-1">
-          <li>
-            <NavigationMenuLink href="#">Overview</NavigationMenuLink>
-          </li>
-          …
-        </ul>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-    <NavigationMenuItem>
-      <NavigationMenuLink href="#" className={navigationMenuTriggerClassName}>
-        Pricing
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-  <NavigationMenuPortal>
-    <NavigationMenuPositioner>
-      <NavigationMenuPopup>
-        <NavigationMenuViewport />
-      </NavigationMenuPopup>
-    </NavigationMenuPositioner>
-  </NavigationMenuPortal>
-</NavigationMenu>`}
     >
       <NavigationMenu>
         <NavigationMenuList>

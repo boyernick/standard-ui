@@ -1,16 +1,23 @@
 "use client"
 
 import { IconCrossMedium } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCrossMedium"
-import { Button, Input } from "@boyernick/standard-ui-react"
+import {
+  Button,
+  Input,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@boyernick/standard-ui-react"
 import {
   useDeferredValue,
-  useEffect,
-  useLayoutEffect,
-  useRef,
+  useMemo,
   useState,
   type ChangeEvent,
 } from "react"
-import { ComponentMeta } from "@/components/component-demo"
 import {
   ALL_ICONS_CATEGORY,
   filterGalleryIcons,
@@ -19,12 +26,20 @@ import {
   GALLERY_PAGE_SIZE,
   type GalleryIcon,
 } from "@/lib/central-icons-gallery"
+import { PAGE_INNER } from "@/lib/chrome"
+
+/** A cell grid rather than the table used elsewhere: icons are picked by eye,
+ *  so density and a scannable glyph matter more than aligned columns.
+ *  Hairlines come from the container's top/left plus each cell's right/bottom,
+ *  which closes the grid at any column count. */
+const GRID =
+  "mt-6 grid grid-cols-2 border-t border-l border-border-primary-solid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 
 const IconGlyph = ({ svg }: { svg: string }) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
-    className="size-7 shrink-0 text-fg-primary"
+    className="size-6 shrink-0 text-fg-primary"
     aria-hidden
     dangerouslySetInnerHTML={{ __html: svg }}
   />
@@ -39,7 +54,7 @@ const IconCell = ({ icon }: { icon: GalleryIcon }) => {
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1200)
     } catch {
-      setCopied(false)
+      // Clipboard unavailable — nothing useful to show.
     }
   }
 
@@ -47,264 +62,234 @@ const IconCell = ({ icon }: { icon: GalleryIcon }) => {
     <button
       type="button"
       onClick={handleCopy}
-      aria-label={copied ? "Copied" : `Copy ${icon.name}`}
-      title={copied ? "Copied" : `Copy ${icon.name}`}
-      className="flex h-32 w-full cursor-copy flex-col items-center justify-center gap-3 border-b border-r border-border-primary px-2 transition-colors hover:bg-background-tertiary focus-visible:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 sm:h-40 [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r sm:[&:nth-child(4n)]:border-r-0"
+      title={`Copy ${icon.name}`}
+      className="flex h-28 cursor-copy flex-col items-center justify-center gap-3 border-r border-b border-border-primary-solid px-2 outline-none transition-colors hover:bg-background-secondary focus-visible:bg-background-secondary focus-visible:ring-[3px] focus-visible:ring-inset focus-visible:ring-ring/20"
     >
       <IconGlyph svg={icon.svg} />
-      <span className="text-xs max-w-full truncate px-1 text-center text-fg-secondary">
+      {/* Wrap rather than truncate: names are camelCase with no break
+          opportunities, and the ellipsis would eat the suffix that separates
+          near-identical icons (ArrowsRepeatRightLeft vs …Off). */}
+      <span className="text-xs line-clamp-2 max-w-full text-center break-all text-fg-secondary">
         {copied ? "Copied" : icon.displayName}
       </span>
+      <span className="sr-only">{copied ? "Copied" : icon.name}</span>
     </button>
   )
 }
 
-const categoryTabs = [ALL_ICONS_CATEGORY, ...galleryCategories]
-
 export const IconsDemo = () => {
   const [query, setQuery] = useState("")
+  const [category, setCategory] = useState<string>(ALL_ICONS_CATEGORY)
+  const [page, setPage] = useState(1)
   const deferredQuery = useDeferredValue(query)
-  const [category, setCategory] = useState(ALL_ICONS_CATEGORY)
-  const [loaded, setLoaded] = useState({
-    query: "",
-    category: ALL_ICONS_CATEGORY,
-    count: GALLERY_PAGE_SIZE,
-  })
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  const [tableHeight, setTableHeight] = useState<number | null>(null)
-  const shellRef = useRef<HTMLDivElement>(null)
-  const scrollRootRef = useRef<HTMLDivElement>(null)
-  const loadMoreRef = useRef<HTMLDivElement>(null)
+  const filterKey = `${deferredQuery}|${category}`
+  const [lastFilterKey, setLastFilterKey] = useState(filterKey)
 
-  const filtered = filterGalleryIcons(galleryIcons, deferredQuery, category)
-  const filterKey = `${deferredQuery}::${category}`
-  const loadedKey = `${loaded.query}::${loaded.category}`
-  const visibleCount =
-    loadedKey === filterKey ? loaded.count : GALLERY_PAGE_SIZE
-  const visible = filtered.slice(0, visibleCount)
-  const hasMore = visibleCount < filtered.length
+  const categoryTabs = useMemo(
+    () => [ALL_ICONS_CATEGORY, ...galleryCategories],
+    [],
+  )
 
-  const handleIncreaseVisible = () => {
-    setLoaded({
-      query: deferredQuery,
-      category,
-      count: Math.min(visibleCount + GALLERY_PAGE_SIZE, filtered.length),
-    })
-  }
-
-  const handleScrollTop = () => {
-    scrollRootRef.current?.scrollTo({ top: 0, behavior: "smooth" })
-  }
-
-  const handleCategorySelect = (next: string) => {
-    setCategory(next)
-    scrollRootRef.current?.scrollTo({ top: 0 })
-  }
-
-  useLayoutEffect(() => {
-    const updateHeight = () => {
-      const shell = shellRef.current
-      if (!shell) return
-
-      const page = shell.closest("[data-icons-page]")
-      const title = page?.querySelector("h1")
-      if (!title) return
-
-      // Use document-space positions so page scroll doesn't resize the table.
-      const shellTop = shell.getBoundingClientRect().top + window.scrollY
-      const titleBottom = title.getBoundingClientRect().bottom + window.scrollY
-      const gap = Math.max(0, shellTop - titleBottom)
-      const next = Math.floor(window.innerHeight - shellTop - gap)
-      setTableHeight(Math.max(320, next))
-    }
-
-    updateHeight()
-    window.addEventListener("resize", updateHeight)
-    return () => {
-      window.removeEventListener("resize", updateHeight)
-    }
-  }, [])
-
-  useEffect(() => {
-    const root = scrollRootRef.current
-    if (!root) return
-
-    const handleScroll = () => {
-      setShowScrollTop(root.scrollTop > 160)
-    }
-
-    handleScroll()
-    root.addEventListener("scroll", handleScroll, { passive: true })
-    return () => root.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const node = loadMoreRef.current
-    const root = scrollRootRef.current
-    if (!node || !root || !hasMore) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return
-        setLoaded((prev) => {
-          const prevKey = `${prev.query}::${prev.category}`
-          const currentCount =
-            prevKey === filterKey ? prev.count : GALLERY_PAGE_SIZE
-          if (currentCount >= filtered.length) return prev
-          return {
-            query: deferredQuery,
-            category,
-            count: Math.min(
-              currentCount + GALLERY_PAGE_SIZE,
-              filtered.length,
-            ),
-          }
-        })
-      },
-      { root, rootMargin: "240px" },
+  /** Sorted by category so the visible slice groups into whole bands. */
+  const filtered = useMemo(() => {
+    const matches = filterGalleryIcons(galleryIcons, deferredQuery, category)
+    return [...matches].sort(
+      (a, b) => a.category.localeCompare(b.category) || 0,
     )
+  }, [deferredQuery, category])
 
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [
-    hasMore,
-    filtered.length,
-    deferredQuery,
-    category,
-    filterKey,
-    visible.length,
-  ])
+  const pageCount = Math.max(1, Math.ceil(filtered.length / GALLERY_PAGE_SIZE))
+  const current = Math.min(page, pageCount)
+  const start = (current - 1) * GALLERY_PAGE_SIZE
+  const visible = useMemo(
+    () => filtered.slice(start, start + GALLERY_PAGE_SIZE),
+    [filtered, start],
+  )
+
+  /** Group the visible slice into category bands. */
+  const bands = useMemo(() => {
+    const map = new Map<string, GalleryIcon[]>()
+    for (const icon of visible) {
+      const list = map.get(icon.category)
+      if (list) list.push(icon)
+      else map.set(icon.category, [icon])
+    }
+    return [...map.entries()]
+  }, [visible])
+
+  // Adjusting state during render rather than in an effect — a new filter
+  // returns to page one, and React re-renders before painting.
+  if (filterKey !== lastFilterKey) {
+    setLastFilterKey(filterKey)
+    setPage(1)
+  }
+
+  const goTo = (next: number) => {
+    setPage(Math.min(Math.max(next, 1), pageCount))
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  /** First, last, and a window around the current page. */
+  const pageItems = useMemo(() => {
+    const window_ = new Set([1, pageCount, current, current - 1, current + 1])
+    const pages = [...window_]
+      .filter((n) => n >= 1 && n <= pageCount)
+      .sort((a, b) => a - b)
+    const items: (number | "gap")[] = []
+    pages.forEach((n, i) => {
+      if (i > 0 && n - pages[i - 1] > 1) items.push("gap")
+      items.push(n)
+    })
+    return items
+  }, [current, pageCount])
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
   }
 
-  const handleClearQuery = () => {
-    setQuery("")
-  }
-
-  const emptyLabel = deferredQuery.trim()
-    ? `No icons found for "${deferredQuery.trim()}"`
+  const trimmed = deferredQuery.trim()
+  const emptyLabel = trimmed
+    ? `No icons found for "${trimmed}"`
     : category === ALL_ICONS_CATEGORY
       ? "No icons found"
       : `No icons found in ${category}`
 
   return (
     <div>
-      <section>
-        <div
-          ref={shellRef}
-          className="relative flex flex-col overflow-hidden rounded-xl border border-border-primary bg-surface"
-          style={tableHeight ? { height: tableHeight } : { maxHeight: "80vh" }}
-        >
-          <div className="sticky top-0 z-10 shrink-0 border-b border-border-primary bg-surface">
-            <div className="relative">
-              <label className="sr-only" htmlFor="icon-search">
-                Search icons
-              </label>
-              <Input
-                id="icon-search"
-                type="search"
-                variant="ghost"
-                value={query}
-                onChange={handleQueryChange}
-                placeholder="Search icons…"
-                autoComplete="off"
-                className="h-auto rounded-none !px-5 !pr-14 py-4 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
-              />
-              {query ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="md"
-                  iconOnly
-                  rounded
-                  onClick={handleClearQuery}
-                  aria-label="Clear search"
-                  className="absolute top-1/2 right-5 -translate-y-1/2 justify-end text-fg-tertiary hover:text-fg-primary"
-                >
-                  <IconCrossMedium size={16} mode="raw" aria-hidden />
-                </Button>
-              ) : null}
-            </div>
-            <div
-              role="tablist"
-              aria-label="Icon categories"
-              className="flex gap-2 overflow-x-auto border-t border-border-primary px-5 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {categoryTabs.map((tab) => {
-                const active = tab === category
-                return (
-                  <button
-                    key={tab}
-                    type="button"
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => handleCategorySelect(tab)}
-                    className={`text-sm shrink-0 rounded-full px-3 py-1.5 whitespace-nowrap transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
-                      active
-                        ? "bg-background-tertiary text-fg-primary"
-                        : "text-fg-tertiary hover:text-fg-secondary"
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-
-          <div
-            ref={scrollRootRef}
-            className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {filtered.length === 0 ? (
-              <p className="text-sm py-16 text-center text-fg-tertiary">
-                {emptyLabel}
-              </p>
-            ) : (
-              <>
-                <div className="grid grid-cols-2 sm:grid-cols-4">
-                  {visible.map((icon) => (
-                    <IconCell key={icon.name} icon={icon} />
-                  ))}
-                </div>
-                {hasMore ? (
-                  <div
-                    ref={loadMoreRef}
-                    className="flex justify-center border-t border-border-primary py-6"
-                  >
-                    <button
-                      type="button"
-                      onClick={handleIncreaseVisible}
-                      className="text-sm rounded-lg border border-border-primary px-4 py-2 text-fg-secondary transition-colors hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
-                    >
-                      Load more
-                    </button>
-                  </div>
-                ) : null}
-              </>
-            )}
-          </div>
-
-          {showScrollTop ? (
-            <button
+      <div className="border-b border-border-primary">
+        {/* A flex row, not absolute positioning: the clear button then lands on
+            the content edge alongside the theme toggle at every breakpoint,
+            instead of mirroring the padding scale and drifting when it grows. */}
+        <div className={`${PAGE_INNER} flex items-center gap-2`}>
+          <label className="sr-only" htmlFor="icon-search">
+            Search icons
+          </label>
+          <Input
+            id="icon-search"
+            type="search"
+            variant="ghost"
+            value={query}
+            onChange={handleQueryChange}
+            placeholder="Search icons…"
+            autoComplete="off"
+            className="h-auto min-w-0 flex-1 rounded-none !px-0 py-4 [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+          />
+          {query ? (
+            <Button
               type="button"
-              onClick={handleScrollTop}
-              className="text-sm absolute bottom-4 left-1/2 z-20 inline-flex -translate-x-1/2 cursor-pointer items-center rounded-full border border-border-primary bg-surface/40 px-3.5 py-2 text-fg-secondary shadow-sm backdrop-blur-xl transition-colors hover:bg-surface/60 hover:text-fg-primary focus-visible:bg-surface/60 focus-visible:text-fg-primary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+              variant="ghost"
+              size="md"
+              iconOnly
+              rounded
+              onClick={() => setQuery("")}
+              aria-label="Clear search"
+              className="shrink-0 text-fg-tertiary hover:text-fg-primary"
             >
-              Scroll to top
-            </button>
+              <IconCrossMedium size={16} mode="raw" aria-hidden />
+            </Button>
           ) : null}
         </div>
-      </section>
+      </div>
 
-      <section className="mt-10">
-        <h2 className="heading-sm text-fg-primary">Usage</h2>
-        <ComponentMeta
-          importLine={`import { IconHome } from "@boyernick/standard-ui-react"`}
-        />
-      </section>
+      <div className="border-b border-border-primary">
+      <div
+        role="tablist"
+        aria-label="Icon categories"
+        className={`${PAGE_INNER} flex gap-2 overflow-x-auto py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
+      >
+        {categoryTabs.map((tab) => {
+          const active = tab === category
+          return (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => setCategory(tab)}
+              className={`text-sm shrink-0 rounded-full px-3 py-1.5 whitespace-nowrap transition-colors outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+                active
+                  ? "bg-background-tertiary text-fg-primary"
+                  : "text-fg-tertiary hover:text-fg-secondary"
+              }`}
+            >
+              {tab}
+            </button>
+          )
+        })}
+      </div>
+      </div>
+
+      {filtered.length === 0 ? (
+        <p className={`${PAGE_INNER} text-sm py-16 text-center text-fg-tertiary`}>
+          {emptyLabel}
+        </p>
+      ) : (
+        bands.map(([name, icons], index) => (
+          <section
+            key={name}
+            aria-labelledby={`icons-${name.replace(/\W+/g, "-").toLowerCase()}`}
+            className={index === 0 ? "" : "border-t border-border-primary"}
+          >
+            <div className={`${PAGE_INNER} py-10`}>
+              <h2
+                id={`icons-${name.replace(/\W+/g, "-").toLowerCase()}`}
+                className="heading-sm text-fg-primary"
+              >
+                {name}
+              </h2>
+              <p className="text-sm mt-1 text-fg-secondary">
+                {icons.length} {icons.length === 1 ? "icon" : "icons"}
+              </p>
+
+              <div className={GRID}>
+                {icons.map((icon) => (
+                  <IconCell key={icon.name} icon={icon} />
+                ))}
+              </div>
+            </div>
+          </section>
+        ))
+      )}
+
+      {pageCount > 1 ? (
+        <div className="border-t border-border-primary">
+          <div className={`${PAGE_INNER} py-8`}>
+            <Pagination aria-label="Icon pages">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    disabled={current === 1}
+                    onClick={() => goTo(current - 1)}
+                  />
+                </PaginationItem>
+                {pageItems.map((item, index) =>
+                  item === "gap" ? (
+                    <PaginationItem key={`gap-${index}`}>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  ) : (
+                    <PaginationItem key={item}>
+                      <PaginationLink
+                        active={item === current}
+                        aria-current={item === current ? "page" : undefined}
+                        onClick={() => goTo(item)}
+                      >
+                        {item}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ),
+                )}
+                <PaginationItem>
+                  <PaginationNext
+                    disabled={current === pageCount}
+                    onClick={() => goTo(current + 1)}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

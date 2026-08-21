@@ -101,7 +101,7 @@ export const NavigationMenuIcon = ({
 }: NavigationMenuIconProps) => (
   <BaseNavigationMenu.Icon
     className={cn(
-      "inline-flex text-fg-tertiary transition-transform duration-150 ease-out motion-reduce:transition-none data-popup-open:rotate-180",
+      "inline-flex text-fg-tertiary transition-transform duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none data-popup-open:rotate-180",
       className,
     )}
     {...props}
@@ -178,7 +178,7 @@ export const NavigationMenuPopup = ({
   <BaseNavigationMenu.Popup
     className={cn(
       "relative z-50 w-[var(--popup-width)] overflow-hidden rounded-xl border border-border-primary bg-surface shadow-md outline-none",
-      "h-[var(--popup-height)] transition-[width,height,opacity] duration-200 ease-out motion-reduce:transition-none",
+      "h-[var(--popup-height)] transition-[width,height,opacity] duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
       "data-starting-style:opacity-0 data-ending-style:opacity-0",
       className,
     )}

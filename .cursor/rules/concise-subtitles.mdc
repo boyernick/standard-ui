@@ -1,0 +1,24 @@
+---
+description: Subtitles across the StandardUI docs site are a single sentence.
+globs: ["app/(docs)/**/*.tsx", "lib/semantic-colors.ts", "components/doc-page.tsx"]
+alwaysApply: false
+---
+
+# Subtitles are one sentence
+
+Every subtitle on the docs site — the `description` on `DocPage`, and the
+description on any grouped section — is a single sentence. Say what the thing
+is, as briefly as it can be said, and stop.
+
+Do not append a second sentence of usage guidance ("Use X when…", "Prefer Y
+over Z…"). That is documentation, and this site shows components rather than
+explaining them. If two facts genuinely both matter, merge them into one
+sentence instead of adding another.
+
+```tsx
+// Yes
+description="Single-choice menu for forms and filters."
+
+// No — the second sentence is guidance
+description="Single-choice menu for forms and filters. Prefer select when options are longer than a short radio group."
+```

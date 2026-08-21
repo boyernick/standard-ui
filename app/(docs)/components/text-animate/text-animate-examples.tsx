@@ -16,7 +16,6 @@ export const TextAnimateExamples = () => {
       <ComponentCanvas
         label="Typewriter"
         contentClassName="flex-col items-start gap-4"
-        code={`<TextAnimate text="Build once. Ship the standard." effect="typewriter" />`}
       >
         <TextAnimate
           key={`type-${key}`}
@@ -32,7 +31,6 @@ export const TextAnimateExamples = () => {
       <ComponentCanvas
         label="Decode"
         contentClassName="flex-col items-start gap-4"
-        code={`<TextAnimate text="StandardUI" effect="decode" speed={28} />`}
       >
         <TextAnimate
           key={`decode-${key}`}
@@ -46,8 +44,6 @@ export const TextAnimateExamples = () => {
       <ComponentCanvas
         label="Fade and blur"
         contentClassName="flex-col items-start gap-6"
-        code={`<TextAnimate text="Fade in" effect="fade" />
-<TextAnimate text="Blur in" effect="blur" delay={120} />`}
       >
         <TextAnimate
           key={`fade-${key}`}

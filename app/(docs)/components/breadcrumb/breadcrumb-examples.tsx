@@ -12,10 +12,7 @@ import { ComponentCanvas } from "@/components/component-canvas";
 
 export const BreadcrumbExamples = () => (
   <div className="mt-6">
-    <ComponentCanvas
-      label="Page trail"
-      code={`<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>Settings</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>`}
-    >
+    <ComponentCanvas label="Page trail">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

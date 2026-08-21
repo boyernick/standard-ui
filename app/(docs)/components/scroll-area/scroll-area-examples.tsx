@@ -15,16 +15,6 @@ export const ScrollAreaExamples = () => (
       label="Vertical"
       contentClassName="w-full max-w-md"
       minHeightClass="min-h-64"
-      code={`<ScrollArea className="h-48 w-full rounded-md border border-border-secondary">
-  <ScrollAreaViewport>
-    <ScrollAreaContent className="space-y-3 p-4 text-sm text-fg-secondary">
-      {/* long content */}
-    </ScrollAreaContent>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar orientation="vertical">
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-</ScrollArea>`}
     >
       <ScrollArea className="h-48 w-full rounded-md border border-border-secondary">
         <ScrollAreaViewport>
@@ -62,23 +52,6 @@ export const ScrollAreaExamples = () => (
     <ComponentCanvas
       label="Horizontal"
       contentClassName="w-full max-w-md"
-      code={`<ScrollArea className="w-full rounded-md border border-border-secondary">
-  <ScrollAreaViewport>
-    <ScrollAreaContent className="flex w-max gap-3 p-4">
-      {["One", "Two", "Three", "Four", "Five", "Six"].map((label) => (
-        <div
-          key={label}
-          className="flex size-20 shrink-0 items-center justify-center rounded-md bg-background-tertiary text-sm text-fg-primary"
-        >
-          {label}
-        </div>
-      ))}
-    </ScrollAreaContent>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar orientation="horizontal">
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-</ScrollArea>`}
     >
       <ScrollArea className="w-full rounded-md border border-border-secondary">
         <ScrollAreaViewport>

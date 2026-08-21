@@ -10,16 +10,6 @@ export const CheckboxGroupExamples = () => (
     <ComponentCanvas
       label="Basic"
       contentClassName="flex-col items-start"
-      code={`<CheckboxGroup defaultValue={["https"]} aria-labelledby="protocols-label">
-  <div id="protocols-label" className="text-sm text-fg-primary">
-    Protocols
-  </div>
-  <label className="flex items-center gap-2">
-    <Checkbox value="http" />
-    HTTP
-  </label>
-  …
-</CheckboxGroup>`}
     >
       <CheckboxGroup
         defaultValue={["https"]}
@@ -47,19 +37,6 @@ export const CheckboxGroupExamples = () => (
     <ComponentCanvas
       label="Parent"
       contentClassName="flex-col items-start"
-      code={`<CheckboxGroup allValues={["fuji", "gala", "granny-smith"]} defaultValue={["fuji"]}>
-  <label className="flex items-center gap-2">
-    <Checkbox parent />
-    Apples
-  </label>
-  <div className="ml-6 flex flex-col gap-2">
-    <label className="flex items-center gap-2">
-      <Checkbox value="fuji" />
-      Fuji
-    </label>
-    …
-  </div>
-</CheckboxGroup>`}
     >
       <CheckboxGroup
         allValues={[...fruits]}

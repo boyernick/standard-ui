@@ -15,15 +15,6 @@ export const FormExamples = () => (
     <ComponentCanvas
       label="Submit"
       contentClassName="w-full max-w-sm flex-col items-stretch"
-      code={`<Form onFormSubmit={(values) => console.log(values)}>
-  <Field name="username">
-    <FieldLabel>Username</FieldLabel>
-    <FieldControl required minLength={3} />
-    <FieldError match="valueMissing">Required.</FieldError>
-    <FieldError match="tooShort">At least 3 characters.</FieldError>
-  </Field>
-  <Button type="submit">Continue</Button>
-</Form>`}
     >
       <Form onFormSubmit={() => {}} className="w-full">
         <Field name="username">

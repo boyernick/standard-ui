@@ -17,7 +17,7 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { components, foundations } from "@/lib/nav"
+import { navGroups } from "@/lib/nav"
 
 const isActive = (pathname: string, href: string) => {
   if (href === "/") return pathname === "/"
@@ -99,50 +99,33 @@ export const MobileNav = () => {
                 </DrawerClose>
               </DrawerHeader>
               <nav className="overflow-y-auto px-3 pb-8">
-                <p className="text-xs px-2 pt-2 pb-2 text-fg-secondary">
-                  Foundations
-                </p>
-                <ul className="flex flex-col gap-0.5">
-                  {foundations.map((item) => {
-                    const active = isActive(pathname, item.href)
-                    return (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
-                            active
-                              ? "text-sm bg-background-tertiary text-fg-primary"
-                              : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    )
-                  })}
-                </ul>
-                <p className="text-xs mt-6 px-2 pt-2 pb-2 text-fg-secondary">
-                  Components
-                </p>
-                <ul className="flex flex-col gap-0.5">
-                  {components.map((item) => {
-                    const active = isActive(pathname, item.href)
-                    return (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
-                            active
-                              ? "text-sm bg-background-tertiary text-fg-primary"
-                              : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    )
-                  })}
-                </ul>
+                {navGroups.map((group, index) => (
+                  <div key={group.label}>
+                    <p
+                      className={`text-xs px-2 pt-2 pb-2 text-fg-secondary ${
+                        index === 0 ? "" : "mt-6"
+                      }`}
+                    >
+                      {group.label}
+                    </p>
+                    <ul className="flex flex-col gap-0.5">
+                      {group.items.map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+                              isActive(pathname, item.href)
+                                ? "text-sm bg-background-tertiary text-fg-primary"
+                                : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </nav>
             </DrawerContent>
           </DrawerPopup>

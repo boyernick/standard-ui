@@ -13,19 +13,7 @@ import { ComponentCanvas } from "@/components/component-canvas"
 
 export const TooltipExamples = () => (
   <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="On hover"
-      code={`<TooltipProvider>
-  <Tooltip>
-    <TooltipTrigger render={<Button />}>Save</TooltipTrigger>
-    <TooltipPortal>
-      <TooltipPositioner>
-        <TooltipPopup>Save changes</TooltipPopup>
-      </TooltipPositioner>
-    </TooltipPortal>
-  </Tooltip>
-</TooltipProvider>`}
-    >
+    <ComponentCanvas label="On hover">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger render={<Button />}>Save</TooltipTrigger>

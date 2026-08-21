@@ -5,10 +5,7 @@ import { ComponentCanvas } from "@/components/component-canvas";
 
 export const OrbExamples = () => (
   <div className="mt-6">
-    <ComponentCanvas
-      label="Sizes"
-      code={`<Orb size="sm" />\n<Orb size="md" />\n<Orb size="lg" />`}
-    >
+    <ComponentCanvas label="Sizes">
       <div className="flex items-center gap-6">
         <Orb size="sm" />
         <Orb size="md" />

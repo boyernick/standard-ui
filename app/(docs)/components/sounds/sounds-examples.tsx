@@ -41,10 +41,6 @@ export const SoundsExamples = () => (
       <ComponentCanvas
         label="Catalog"
         contentClassName="w-full flex-col items-stretch gap-3"
-        code={`<SoundsProvider>
-  <Sound id="click" />
-  <Sound id="success" />
-</SoundsProvider>`}
       >
         <div className="flex justify-end">
           <SoundToggle />
@@ -58,9 +54,6 @@ export const SoundsExamples = () => (
       <ComponentCanvas
         label="Trigger from actions"
         contentClassName="w-full flex-col items-start gap-4"
-        code={`const { play } = useSounds()
-
-<Button onClick={() => play("success")}>Save</Button>`}
       >
         <TriggerDemo />
       </ComponentCanvas>

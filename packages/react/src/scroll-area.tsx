@@ -49,7 +49,7 @@ export const ScrollAreaScrollbar = ({
 }: ScrollAreaScrollbarProps) => (
   <BaseScrollArea.Scrollbar
     className={cn(
-      "flex touch-none p-0.5 opacity-100 transition-opacity duration-150 ease-out motion-reduce:transition-none data-[orientation=horizontal]:h-2 data-[orientation=vertical]:w-2",
+      "flex touch-none p-0.5 opacity-100 transition-opacity duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none data-[orientation=horizontal]:h-2 data-[orientation=vertical]:w-2",
       className,
     )}
     {...props}

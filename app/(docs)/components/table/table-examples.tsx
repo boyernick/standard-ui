@@ -16,7 +16,6 @@ export const TableExamples = () => (
     <ComponentCanvas
       label="Invoices"
       contentClassName="w-full"
-      code={`<Table>\n  <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>\n  <TableBody><TableRow><TableCell>INV-001</TableCell><TableCell>Paid</TableCell></TableRow></TableBody>\n</Table>`}
     >
       <Table>
         <TableCaption>Recent invoices</TableCaption>

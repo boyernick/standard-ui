@@ -13,15 +13,6 @@ export const CollapsibleExamples = () => (
       label="Basic"
       contentClassName="mx-auto w-full max-w-md"
       minHeightClass="min-h-40"
-      code={`<Collapsible>
-  <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>
-  <CollapsiblePanel>
-    Store these keys somewhere safe. Each key can be used once to
-    regain access if you lose your authenticator.
-
-    A3F9-K2LM-8PQR · B7NX-4HWD-9CJT · E1QS-6YVB-2MZK
-  </CollapsiblePanel>
-</Collapsible>`}
     >
       <Collapsible className="w-full">
         <CollapsibleTrigger>Recovery keys</CollapsibleTrigger>

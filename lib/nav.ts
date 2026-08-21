@@ -3,11 +3,9 @@ export const foundations = [
   { href: "/brand", label: "Brand" },
   { href: "/colors", label: "Colors" },
   { href: "/typography", label: "Typography" },
-  { href: "/structure", label: "Structure" },
   { href: "/materials", label: "Materials" },
   { href: "/motion", label: "Motion" },
   { href: "/icons", label: "Icons" },
-  { href: "/illustrations", label: "Illustrations" },
 ] as const;
 
 export const components = [
@@ -73,3 +71,33 @@ export const components = [
 ] as const;
 
 export const upcomingComponents = [] as const;
+
+export type NavItem = { href: string; label: string }
+
+export type NavGroup = { label: string; items: readonly NavItem[] }
+
+/** Sidebar structure. Order here is the order on screen and in paging. */
+export const navGroups: readonly NavGroup[] = [
+  { label: "Foundations", items: foundations },
+  { label: "Components", items: components },
+]
+
+/** Sidebar order, flattened — drives ⌘K search and prev/next paging. */
+export const allPages: readonly NavItem[] = navGroups.flatMap(
+  (group) => group.items,
+)
+
+export const sectionLabels = navGroups.map((group) => group.label)
+
+export const pageSection = (href: string) =>
+  navGroups.find((group) => group.items.some((item) => item.href === href))
+    ?.label ?? "Components"
+
+export const adjacentPages = (pathname: string) => {
+  const index = allPages.findIndex((item) => item.href === pathname)
+  if (index === -1) return { previous: undefined, next: undefined }
+  return {
+    previous: index > 0 ? allPages[index - 1] : undefined,
+    next: index < allPages.length - 1 ? allPages[index + 1] : undefined,
+  }
+}

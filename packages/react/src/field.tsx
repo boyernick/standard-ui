@@ -49,7 +49,7 @@ export const FieldError = ({ className, ...props }: FieldErrorProps) => (
 export const FieldControl = ({ className, ...props }: FieldControlProps) => (
   <BaseField.Control
     className={cn(
-      "text-sm flex h-9 w-full cursor-text rounded-md border border-border-secondary bg-surface px-3 text-fg-primary inset-shadow-outline-top outline-none transition-[color,box-shadow] duration-150 ease-out placeholder:text-fg-quaternary",
+      "text-sm flex h-9 w-full cursor-text rounded-md border border-border-secondary bg-surface px-3 text-fg-primary inset-shadow-outline-top outline-none transition-[color,box-shadow] duration-[var(--duration-sm)] ease-enter placeholder:text-fg-quaternary",
       "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
       "data-invalid:border-destructive data-invalid:focus-visible:border-destructive data-invalid:focus-visible:ring-destructive/20",
       "aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20",

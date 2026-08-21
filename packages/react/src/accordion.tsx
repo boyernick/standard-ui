@@ -79,6 +79,6 @@ export const AccordionPanel = ({
     )}
     {...props}
   >
-    <div className="px-4 pt-0 pb-4 leading-relaxed">{children}</div>
+    <div className="px-4 pt-2 pb-4 leading-relaxed">{children}</div>
   </BaseAccordion.Panel>
 )

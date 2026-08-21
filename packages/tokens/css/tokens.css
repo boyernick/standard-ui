@@ -82,6 +82,24 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1920px;
+
+  /* Motion — one ladder ordered by onset: how fast a transition commits.
+     passive (system-initiated, ambient) → enter (surfaces arriving) →
+     move (things travelling) → snap (direct response to a pointer).
+     Every curve ends at y=1 so motion always settles; none overshoot. */
+  --ease-passive: cubic-bezier(0.5, 0, 0.1, 1);
+  --ease-enter: cubic-bezier(0.32, 0.08, 0.24, 1);
+  --ease-move: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.1, 0.9, 0.2, 1);
+
+  /* Exits clamp to --duration-exit regardless of how long the entrance ran,
+     so dismissing anything always costs the same. */
+  --duration-xs: 100ms;
+  --duration-sm: 150ms;
+  --duration-md: 200ms;
+  --duration-lg: 300ms;
+  --duration-exit: 150ms;
 
   /* Radius values live in @theme (Apps SDK UI scale) */
 
@@ -336,6 +354,12 @@
   --breakpoint-lg: 64rem;
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 96rem;
+  --breakpoint-3xl: 120rem;
+
+  --ease-passive: cubic-bezier(0.5, 0, 0.1, 1);
+  --ease-enter: cubic-bezier(0.32, 0.08, 0.24, 1);
+  --ease-move: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.1, 0.9, 0.2, 1);
 
   /* Radius — Apps SDK UI */
   --radius-2xs: 0.125rem;
@@ -349,10 +373,13 @@
   --radius-4xl: 1.5rem;
   --radius-full: 9999px;
 
-  --shadow-sm: var(--shadow-100);
-  --shadow-md: var(--shadow-200);
-  --shadow-lg: var(--shadow-300);
-  --shadow-xl: var(--shadow-400);
+  /* Every elevation composes the hairline ring under its drop shadow, so a
+     raised surface keeps a crisp edge against a same-colour background.
+     --shadow-hairline is that ring on its own. */
+  --shadow-sm: var(--elevation-hairline), var(--shadow-100);
+  --shadow-md: var(--elevation-hairline), var(--shadow-200);
+  --shadow-lg: var(--elevation-hairline), var(--shadow-300);
+  --shadow-xl: var(--elevation-hairline), var(--shadow-400);
   --shadow-hairline: var(--elevation-hairline);
   --inset-shadow-hairline: inset var(--elevation-hairline);
   --inset-shadow-solid-top: var(--elevation-solid-top);
@@ -391,7 +418,7 @@
   font-family: var(--font-sans);
   font-size: 2.25rem;
   line-height: 2.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -399,7 +426,7 @@
   font-family: var(--font-display);
   font-size: 2.25rem;
   line-height: 2.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -407,7 +434,7 @@
   font-family: var(--font-sans);
   font-size: 2rem;
   line-height: 2.375rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -415,7 +442,7 @@
   font-family: var(--font-display);
   font-size: 2rem;
   line-height: 2.375rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -423,7 +450,7 @@
   font-family: var(--font-sans);
   font-size: 1.5rem;
   line-height: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -431,7 +458,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   line-height: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -439,7 +466,7 @@
   font-family: var(--font-sans);
   font-size: 1.25rem;
   line-height: 1.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -447,7 +474,7 @@
   font-family: var(--font-sans);
   font-size: 1.125rem;
   line-height: 1.625rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 
@@ -455,7 +482,7 @@
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0em;
 }
 

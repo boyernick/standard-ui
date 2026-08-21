@@ -12,61 +12,77 @@ import {
   AlertDialogTrigger,
   Button,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ReactNode } from "react"
+import { DocBand } from "@/components/doc-band"
+
+const Confirm = ({
+  trigger,
+  title,
+  description,
+  confirm,
+  variant,
+}: {
+  trigger: string
+  title: string
+  description: ReactNode
+  confirm: string
+  variant: "primary" | "destructive"
+}) => (
+  <AlertDialog>
+    {/* The trigger carries the same variant as the action it confirms, so the
+        stakes read before the dialog opens. */}
+    <AlertDialogTrigger render={<Button variant={variant} />}>
+      {trigger}
+    </AlertDialogTrigger>
+    <AlertDialogPortal>
+      <AlertDialogBackdrop />
+      <AlertDialogPopup>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <div className="flex justify-end gap-2">
+          <AlertDialogClose render={<Button variant="outline" />}>
+            Cancel
+          </AlertDialogClose>
+          <AlertDialogClose render={<Button variant={variant} />}>
+            {confirm}
+          </AlertDialogClose>
+        </div>
+      </AlertDialogPopup>
+    </AlertDialogPortal>
+  </AlertDialog>
+)
 
 export const AlertDialogExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Confirm discard"
-      code={`<AlertDialog>
-  <AlertDialogTrigger render={<Button variant="outline" />}>
-    Discard draft
-  </AlertDialogTrigger>
-  <AlertDialogPortal>
-    <AlertDialogBackdrop />
-    <AlertDialogPopup>
-      <AlertDialogHeader>
-        <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-        <AlertDialogDescription>
-          Your unsaved changes will be lost. This can't be undone.
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-      <div className="flex justify-end gap-2">
-        <AlertDialogClose render={<Button variant="outline" />}>
-          Cancel
-        </AlertDialogClose>
-        <AlertDialogClose render={<Button variant="destructive" />}>
-          Discard
-        </AlertDialogClose>
-      </div>
-    </AlertDialogPopup>
-  </AlertDialogPortal>
-</AlertDialog>`}
+  <div>
+    <DocBand
+      first
+      id="confirm"
+      title="Confirm"
+      description="An interruption that is consequential but recoverable."
     >
-      <AlertDialog>
-        <AlertDialogTrigger render={<Button variant="outline" />}>
-          Discard draft
-        </AlertDialogTrigger>
-        <AlertDialogPortal>
-          <AlertDialogBackdrop />
-          <AlertDialogPopup>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Discard draft?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Your unsaved changes will be lost. This can&apos;t be undone.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <div className="flex justify-end gap-2">
-              <AlertDialogClose render={<Button variant="outline" />}>
-                Cancel
-              </AlertDialogClose>
-              <AlertDialogClose render={<Button variant="destructive" />}>
-                Discard
-              </AlertDialogClose>
-            </div>
-          </AlertDialogPopup>
-        </AlertDialogPortal>
-      </AlertDialog>
-    </ComponentCanvas>
+      <Confirm
+        trigger="Publish changes"
+        title="Publish to production?"
+        description="Everyone with access sees these changes straight away."
+        confirm="Publish"
+        variant="primary"
+      />
+    </DocBand>
+
+    <DocBand
+      id="destructive"
+      title="Destructive"
+      description="The confirm that loses work — pair it with a destructive button."
+    >
+      <Confirm
+        trigger="Discard draft"
+        title="Discard draft?"
+        description="Your unsaved changes will be lost. This can’t be undone."
+        confirm="Discard"
+        variant="destructive"
+      />
+    </DocBand>
   </div>
 )

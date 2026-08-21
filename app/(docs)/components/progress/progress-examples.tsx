@@ -25,13 +25,6 @@ export const ProgressExamples = () => {
       <ComponentCanvas
         label="Basic"
         contentClassName="w-full max-w-sm flex-col items-stretch"
-        code={`<Progress value={60}>
-  <ProgressLabel>Uploading</ProgressLabel>
-  <ProgressValue />
-  <ProgressTrack>
-    <ProgressIndicator />
-  </ProgressTrack>
-</Progress>`}
       >
         <Progress value={60}>
           <ProgressLabel>Uploading</ProgressLabel>
@@ -45,22 +38,6 @@ export const ProgressExamples = () => {
       <ComponentCanvas
         label="Animated"
         contentClassName="w-full max-w-sm flex-col items-stretch"
-        code={`const [value, setValue] = useState(20)
-
-useEffect(() => {
-  const id = setInterval(() => {
-    setValue((prev) => (prev >= 100 ? 20 : prev + 10))
-  }, 900)
-  return () => clearInterval(id)
-}, [])
-
-<Progress value={value}>
-  <ProgressLabel>Syncing</ProgressLabel>
-  <ProgressValue />
-  <ProgressTrack>
-    <ProgressIndicator />
-  </ProgressTrack>
-</Progress>`}
       >
         <Progress value={value}>
           <ProgressLabel>Syncing</ProgressLabel>

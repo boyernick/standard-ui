@@ -19,12 +19,6 @@ export const EmptyExamples = () => (
     <ComponentCanvas
       label="No results"
       contentClassName="w-full"
-      code={`<Empty>
-  <EmptyIcon><IconMagnifyingGlass /></EmptyIcon>
-  <EmptyTitle>No results</EmptyTitle>
-  <EmptyDescription>Try another search.</EmptyDescription>
-  <EmptyActions><Button size="sm">Clear search</Button></EmptyActions>
-</Empty>`}
     >
       <Empty className="w-full">
         <EmptyIcon>
@@ -43,14 +37,6 @@ export const EmptyExamples = () => (
     <ComponentCanvas
       label="With illustration"
       contentClassName="w-full"
-      code={`<Empty>
-  <IllustrationEmpty className="mx-auto h-32 w-auto" />
-  <EmptyTitle>No projects yet</EmptyTitle>
-  <EmptyDescription>Create a project to get started.</EmptyDescription>
-  <EmptyActions>
-    <Button size="sm">New project</Button>
-  </EmptyActions>
-</Empty>`}
     >
       <Empty className="w-full">
         <IllustrationEmpty className="mx-auto h-32 w-auto" />
@@ -70,11 +56,6 @@ export const EmptyExamples = () => (
     <ComponentCanvas
       label="Error and search"
       contentClassName="w-full flex-col gap-8"
-      code={`<Empty>
-  <IllustrationError className="mx-auto h-28 w-auto" />
-  <EmptyTitle>Something went wrong</EmptyTitle>
-  <EmptyDescription>Refresh and try again.</EmptyDescription>
-</Empty>`}
     >
       <Empty className="w-full">
         <IllustrationError className="mx-auto h-28 w-auto" />

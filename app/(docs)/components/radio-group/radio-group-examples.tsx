@@ -8,26 +8,6 @@ export const RadioGroupExamples = () => (
     <ComponentCanvas
       label="Basic"
       contentClassName="flex-col items-start"
-      code={`<RadioGroup defaultValue="comfortable" aria-label="Density">
-  <label className="flex items-center gap-2">
-    <Radio value="compact">
-      <RadioIndicator />
-    </Radio>
-    Compact
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio value="comfortable">
-      <RadioIndicator />
-    </Radio>
-    Comfortable
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio value="spacious">
-      <RadioIndicator />
-    </Radio>
-    Spacious
-  </label>
-</RadioGroup>`}
     >
       <RadioGroup
         defaultValue="comfortable"
@@ -58,30 +38,6 @@ export const RadioGroupExamples = () => (
     <ComponentCanvas
       label="Horizontal"
       contentClassName="flex-col items-start"
-      code={`<RadioGroup
-  defaultValue="day"
-  aria-label="Schedule"
-  className="flex-row gap-4"
->
-  <label className="flex items-center gap-2">
-    <Radio value="day">
-      <RadioIndicator />
-    </Radio>
-    Day
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio value="week">
-      <RadioIndicator />
-    </Radio>
-    Week
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio value="month">
-      <RadioIndicator />
-    </Radio>
-    Month
-  </label>
-</RadioGroup>`}
     >
       <RadioGroup
         defaultValue="day"
@@ -112,20 +68,6 @@ export const RadioGroupExamples = () => (
     <ComponentCanvas
       label="Disabled"
       contentClassName="flex-col items-start"
-      code={`<RadioGroup defaultValue="pro" aria-label="Plan" disabled>
-  <label className="flex items-center gap-2">
-    <Radio value="free">
-      <RadioIndicator />
-    </Radio>
-    Free
-  </label>
-  <label className="flex items-center gap-2">
-    <Radio value="pro">
-      <RadioIndicator />
-    </Radio>
-    Pro
-  </label>
-</RadioGroup>`}
     >
       <RadioGroup
         defaultValue="pro"

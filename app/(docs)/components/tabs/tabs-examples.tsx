@@ -15,23 +15,6 @@ export const TabsExamples = () => (
       label="Sections"
       contentClassName="w-full max-w-md items-stretch"
       minHeightClass="min-h-48"
-      code={`<Tabs defaultValue="overview">
-  <TabsList>
-    <TabsTab value="overview">Overview</TabsTab>
-    <TabsTab value="projects">Projects</TabsTab>
-    <TabsTab value="account">Account</TabsTab>
-    <TabsIndicator />
-  </TabsList>
-  <TabsPanel value="overview">
-    Summary of activity and recent updates.
-  </TabsPanel>
-  <TabsPanel value="projects">
-    Active projects and ownership.
-  </TabsPanel>
-  <TabsPanel value="account">
-    Profile, email, and security settings.
-  </TabsPanel>
-</Tabs>`}
     >
       <Tabs defaultValue="overview" className="w-full">
         <TabsList>

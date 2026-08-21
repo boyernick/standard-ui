@@ -17,15 +17,11 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           <Sidebar />
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
-          <div className="sticky top-0 z-40 md:hidden">
+          <div className="sticky top-0 z-40">
             <TopBar />
           </div>
-          <main
-            id="main-content"
-            tabIndex={-1}
-            className="flex-1 px-4 py-10 outline-none md:px-10 lg:px-14"
-          >
-            <div className="mx-auto w-full max-w-5xl">{children}</div>
+          <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
+            {children}
           </main>
         </div>
       </div>

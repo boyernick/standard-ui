@@ -52,7 +52,7 @@ export const ProgressIndicator = ({
 }: ProgressIndicatorProps) => (
   <BaseProgress.Indicator
     className={cn(
-      "h-full rounded-full bg-brand-primary transition-[width] duration-300 ease-out motion-reduce:transition-none",
+      "h-full rounded-full bg-brand-primary transition-[width] duration-[var(--duration-lg)] ease-enter motion-reduce:transition-none",
       className,
     )}
     {...props}

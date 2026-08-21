@@ -41,7 +41,7 @@ export const ToastRoot = ({ className, ...props }: ToastRootProps) => (
     className={cn(
       "relative z-[calc(1000-var(--toast-index))] mb-2 box-border w-full rounded-xl border border-border-primary bg-surface p-4 shadow-lg outline-none",
       "h-[var(--toast-frontmost-height,var(--toast-height))]",
-      "transition-[transform,opacity] duration-200 ease-out motion-reduce:transition-none",
+      "transition-[transform,opacity] duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
       "data-starting-style:opacity-0 data-starting-style:translate-y-2",
       "data-ending-style:opacity-0 data-ending-style:translate-y-2",
       "data-expanded:h-[var(--toast-height)] data-expanded:translate-y-[var(--toast-offset-y)]",
@@ -56,7 +56,7 @@ export const ToastRoot = ({ className, ...props }: ToastRootProps) => (
 export const ToastContent = ({ className, ...props }: ToastContentProps) => (
   <BaseToast.Content
     className={cn(
-      "flex flex-col gap-1 overflow-hidden transition-opacity duration-150",
+      "flex flex-col gap-1 overflow-hidden transition-opacity duration-[var(--duration-sm)]",
       "data-behind:pointer-events-none data-behind:opacity-0 data-expanded:data-behind:opacity-100",
       className,
     )}

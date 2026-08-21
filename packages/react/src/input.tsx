@@ -5,7 +5,7 @@ import { forwardRef, type InputHTMLAttributes } from "react"
 import { cn } from "./lib/cn"
 
 const inputVariants = cva(
-  "text-sm flex w-full cursor-text rounded-md text-fg-primary transition-[color,box-shadow] duration-150 ease-out placeholder:text-fg-quaternary outline-none aria-invalid:border-destructive disabled:cursor-not-allowed disabled:opacity-50",
+  "text-sm flex w-full cursor-text rounded-md text-fg-primary transition-[color,box-shadow] duration-[var(--duration-sm)] ease-enter placeholder:text-fg-quaternary outline-none aria-invalid:border-destructive disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {

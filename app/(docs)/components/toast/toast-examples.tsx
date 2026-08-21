@@ -91,49 +91,13 @@ const ToastWithActionDemo = () => {
 
 export const ToastExamples = () => (
   <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Basic"
-      code={`const toastManager = useToastManager()
-const { toasts } = useToastManager()
-
-toastManager.add({
-  title: "Saved draft",
-  description: "Your changes are stored locally.",
-})
-
-<ToastProvider>
-  <Button onClick={…}>Show toast</Button>
-  <ToastPortal>
-    <ToastViewport>
-      {toasts.map((toast) => (
-        <ToastRoot key={toast.id} toast={toast}>
-          <ToastContent>
-            <ToastTitle />
-            <ToastDescription />
-            <ToastClose aria-label="Close" />
-          </ToastContent>
-        </ToastRoot>
-      ))}
-    </ToastViewport>
-  </ToastPortal>
-</ToastProvider>`}
-    >
+    <ComponentCanvas label="Basic">
       <ToastProvider>
         <ToastDemo />
       </ToastProvider>
     </ComponentCanvas>
 
-    <ComponentCanvas
-      label="With action"
-      code={`toastManager.add({
-  title: "File deleted",
-  description: "report.pdf was moved to trash.",
-  actionProps: {
-    children: "Undo",
-    onClick: () => { /* restore */ },
-  },
-})`}
-    >
+    <ComponentCanvas label="With action">
       <ToastProvider>
         <ToastWithActionDemo />
       </ToastProvider>

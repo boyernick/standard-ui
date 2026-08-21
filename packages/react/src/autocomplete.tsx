@@ -66,8 +66,7 @@ export const AutocompleteInputGroup = ({
 }: AutocompleteInputGroupProps) => (
   <BaseAutocomplete.InputGroup
     className={cn(
-      "relative flex min-h-9 w-full items-center rounded-md border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[color,box-shadow]",
-      "has-[[data-popup-open]]:bg-background-tertiary/60",
+      "relative flex min-h-9 w-full items-center rounded-xl border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[color,box-shadow]",
       "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20",
       "aria-invalid:border-destructive aria-invalid:focus-within:border-destructive aria-invalid:focus-within:ring-destructive/20",
       "has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20",
@@ -84,7 +83,7 @@ export const AutocompleteInput = ({
 }: AutocompleteInputProps) => (
   <BaseAutocomplete.Input
     className={cn(
-      "h-9 min-w-0 flex-1 cursor-text rounded-md bg-transparent px-3 text-sm text-fg-primary outline-none placeholder:text-fg-quaternary focus-visible:ring-0",
+      "h-9 min-w-0 flex-1 cursor-text rounded-xl bg-transparent px-3 text-sm text-fg-primary outline-none placeholder:text-fg-quaternary focus-visible:ring-0",
       className,
     )}
     {...props}
@@ -134,7 +133,7 @@ export const AutocompleteClear = ({
     {...props}
   >
     {children ?? (
-      <IconCrossSmall size={14} className="size-3.5" aria-hidden />
+      <IconCrossSmall size={16} className="size-4" aria-hidden />
     )}
   </BaseAutocomplete.Clear>
 )
@@ -151,7 +150,7 @@ export const AutocompleteBackdrop = ({
 )
 
 export const AutocompletePositioner = ({
-  sideOffset = 4,
+  sideOffset = 6,
   className,
   ...props
 }: AutocompletePositionerProps) => (
@@ -168,7 +167,7 @@ export const AutocompletePopup = ({
 }: AutocompletePopupProps) => (
   <BaseAutocomplete.Popup
     className={cn(
-      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden rounded-md border border-border-primary bg-surface shadow-md outline-none",
+      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden rounded-xl border border-border-primary-solid bg-surface shadow-lg outline-none",
       motion.popupAnchor,
       className,
     )}
@@ -199,7 +198,7 @@ export const AutocompleteList = ({
   ...props
 }: AutocompleteListProps) => (
   <BaseAutocomplete.List
-    className={cn("max-h-[inherit] overflow-y-auto p-1 outline-none", className)}
+    className={cn("max-h-[inherit] overflow-y-auto p-1.5 outline-none empty:p-0", className)}
     {...props}
   />
 )
@@ -210,7 +209,7 @@ export const AutocompleteItem = ({
 }: AutocompleteItemProps) => (
   <BaseAutocomplete.Item
     className={cn(
-      "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+      "flex min-h-9 cursor-default items-center gap-2 rounded-sm px-3 py-2 text-sm text-fg-primary outline-none select-none",
       motion.colors,
       "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary data-highlighted:text-fg-primary",
       className,
@@ -224,7 +223,7 @@ export const AutocompleteEmpty = ({
   ...props
 }: AutocompleteEmptyProps) => (
   <BaseAutocomplete.Empty
-    className={cn("px-2.5 py-2 text-sm text-fg-tertiary empty:hidden", className)}
+    className={cn("px-3 py-2 text-sm text-fg-tertiary empty:hidden", className)}
     {...props}
   />
 )
@@ -234,7 +233,7 @@ export const AutocompleteStatus = ({
   ...props
 }: AutocompleteStatusProps) => (
   <BaseAutocomplete.Status
-    className={cn("px-2.5 py-2 text-sm text-fg-tertiary", className)}
+    className={cn("px-3 py-2 text-sm text-fg-tertiary", className)}
     {...props}
   />
 )
@@ -251,7 +250,7 @@ export const AutocompleteGroupLabel = ({
   ...props
 }: AutocompleteGroupLabelProps) => (
   <BaseAutocomplete.GroupLabel
-    className={cn("px-2.5 py-1.5 text-xs text-fg-tertiary", className)}
+    className={cn("px-3 py-1.5 text-xs text-fg-tertiary", className)}
     {...props}
   />
 )

@@ -20,13 +20,6 @@ export const CarouselExamples = () => (
     <ComponentCanvas
       label="Basic"
       contentClassName="w-full px-12"
-      code={`<Carousel className="w-full max-w-md">
-  <CarouselContent>
-    <CarouselItem>…</CarouselItem>
-  </CarouselContent>
-  <CarouselPrevious />
-  <CarouselNext />
-</Carousel>`}
     >
       <Carousel className="w-full max-w-md">
         <CarouselContent>
@@ -47,13 +40,6 @@ export const CarouselExamples = () => (
     <ComponentCanvas
       label="Peek"
       contentClassName="w-full px-12"
-      code={`<Carousel opts={{ align: "start" }} className="w-full">
-  <CarouselContent>
-    <CarouselItem className="basis-1/2 md:basis-1/3">…</CarouselItem>
-  </CarouselContent>
-  <CarouselPrevious />
-  <CarouselNext />
-</Carousel>`}
     >
       <Carousel opts={{ align: "start" }} className="w-full">
         <CarouselContent>

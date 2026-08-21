@@ -8,10 +8,6 @@ export const TickerExamples = () => (
     <ComponentCanvas
       label="Default"
       contentClassName="w-full"
-      code={`<Ticker>
-  <TickerItem>New components shipping weekly</TickerItem>
-  <TickerItem>Focus rings use ring-ring/20</TickerItem>
-</Ticker>`}
     >
       <Ticker className="w-full">
         <TickerItem>
@@ -33,9 +29,6 @@ export const TickerExamples = () => (
     <ComponentCanvas
       label="Faster reverse"
       contentClassName="w-full"
-      code={`<Ticker duration={16} reverse>
-  <TickerItem>…</TickerItem>
-</Ticker>`}
     >
       <Ticker className="w-full" duration={16} reverse>
         <TickerItem>Carousel</TickerItem>

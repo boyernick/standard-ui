@@ -25,36 +25,6 @@ export const SelectExamples = () => (
     <ComponentCanvas
       label="Fruit"
       contentClassName="w-full max-w-xs"
-      code={`<Select
-  items={{
-    apple: "Apple",
-    banana: "Banana",
-    cherry: "Cherry",
-  }}
-  defaultValue="apple"
->
-  <SelectTrigger>
-    <SelectValue />
-    <SelectIcon />
-  </SelectTrigger>
-  <SelectPortal>
-    <SelectPositioner>
-      <SelectPopup>
-        <SelectList>
-          <SelectItem value="apple">
-            <SelectItemText>Apple</SelectItemText>
-          </SelectItem>
-          <SelectItem value="banana">
-            <SelectItemText>Banana</SelectItemText>
-          </SelectItem>
-          <SelectItem value="cherry">
-            <SelectItemText>Cherry</SelectItemText>
-          </SelectItem>
-        </SelectList>
-      </SelectPopup>
-    </SelectPositioner>
-  </SelectPortal>
-</Select>`}
     >
       <Select items={fruitItems} defaultValue="apple">
         <SelectTrigger>

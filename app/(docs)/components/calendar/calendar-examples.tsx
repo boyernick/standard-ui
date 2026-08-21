@@ -22,7 +22,6 @@ export const CalendarExamples = () => {
         label="Single select"
         contentClassName="flex-col"
         minHeightClass="min-h-72"
-        code={`<Calendar />`}
       >
         <Calendar />
       </ComponentCanvas>
@@ -31,18 +30,6 @@ export const CalendarExamples = () => {
         label="Controlled"
         contentClassName="flex-col gap-4"
         minHeightClass="min-h-80"
-        code={`const [selected, setSelected] = useState<Date>()
-
-<>
-  <p className="text-sm text-fg-secondary">
-    Selected: {selected?.toLocaleDateString() ?? "None"}
-  </p>
-  <Calendar
-    mode="single"
-    selected={selected}
-    onSelect={setSelected}
-  />
-</>`}
       >
         <p className="text-sm text-fg-secondary">Selected: {selectedLabel}</p>
         <Calendar

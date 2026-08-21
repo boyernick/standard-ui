@@ -8,17 +8,6 @@ export const FieldsetExamples = () => (
     <ComponentCanvas
       label="Legend"
       contentClassName="w-full max-w-sm flex-col items-stretch"
-      code={`<Fieldset>
-  <FieldsetLegend>Notifications</FieldsetLegend>
-  <label className="flex items-center gap-2">
-    <Checkbox defaultChecked />
-    Product updates
-  </label>
-  <label className="flex items-center gap-2">
-    <Checkbox />
-    Marketing emails
-  </label>
-</Fieldset>`}
     >
       <Fieldset>
         <FieldsetLegend>Notifications</FieldsetLegend>

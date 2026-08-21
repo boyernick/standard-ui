@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
-import { CodeBlock } from "@/components/code-block"
-import { DocCell, DocTable, Token } from "@/components/doc-table"
-import { PageHeader } from "@/components/page-header"
+import { DocPage } from "@/components/doc-page"
 import { CheckboxGroupExamples } from "./checkbox-group-examples"
 
 export const metadata: Metadata = {
@@ -10,72 +8,11 @@ export const metadata: Metadata = {
 
 export default function CheckboxGroupPage() {
   return (
-    <div className="w-full">
-      <PageHeader
-        title="Checkbox group"
-        description="Shared state for a set of checkboxes — multi-select lists, permissions, and select-all parents."
-      />
-
-      <section className="mt-2">
-        <h2 className="heading-sm text-fg-primary">Examples</h2>
-        <CheckboxGroupExamples />
-      </section>
-
-      <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">Overview</h2>
-        <p className="text-md mt-0.5 max-w-3xl text-fg-secondary">
-          Checkbox group holds a <Token>string[]</Token> value. Child checkboxes
-          use <Token>value</Token> matching that array. Pass{" "}
-          <Token>allValues</Token> and <Token>parent</Token> on a checkbox for
-          select-all with an indeterminate state.
-        </p>
-        <CodeBlock
-          className="mt-4"
-          code={`import { Checkbox, CheckboxGroup } from "@boyernick/standard-ui-react"
-
-<CheckboxGroup defaultValue={["https"]}>
-  <label>
-    <Checkbox value="http" />
-    HTTP
-  </label>
-  <label>
-    <Checkbox value="https" />
-    HTTPS
-  </label>
-</CheckboxGroup>`}
-        />
-      </section>
-
-      <section className="mt-14">
-        <h2 className="heading-sm text-fg-primary">API</h2>
-        <DocTable headers={["Part", "Role"]}>
-          <tr>
-            <DocCell mono>CheckboxGroup</DocCell>
-            <DocCell>Root value state for child checkboxes.</DocCell>
-          </tr>
-          <tr>
-            <DocCell mono>Checkbox</DocCell>
-            <DocCell>
-              Use <Token>value</Token> for items; <Token>parent</Token> for
-              select-all.
-            </DocCell>
-          </tr>
-        </DocTable>
-      </section>
-
-      <section className="mt-14 mb-8">
-        <h2 className="heading-sm text-fg-primary">Guidelines</h2>
-        <h3 className="heading-xs mt-8 text-fg-primary">Do</h3>
-        <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
-          <li>Label the group with a legend, heading, or aria-labelledby</li>
-          <li>Use parent + allValues when select-all is expected</li>
-        </ul>
-        <h3 className="heading-xs mt-8 text-fg-primary">Don&apos;t</h3>
-        <ul className="text-md mt-3 list-disc space-y-2 pl-5 text-fg-secondary">
-          <li>Don&apos;t use a group for a single independent checkbox</li>
-          <li>Don&apos;t omit value on children inside a controlled group</li>
-        </ul>
-      </section>
-    </div>
+    <DocPage
+      title="Checkbox group"
+      description="Shared state for a set of checkboxes — multi-select lists, permissions, and select-all parents."
+    >
+      <CheckboxGroupExamples />
+    </DocPage>
   )
 }

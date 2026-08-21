@@ -15,12 +15,6 @@ export const ImageModalExamples = () => (
     <ComponentCanvas
       label="Lightbox"
       contentClassName="w-full"
-      code={`<ImageModal>
-  <ImageModalTrigger>
-    <img src="…" alt="…" className="…" />
-  </ImageModalTrigger>
-  <ImageModalContent src="…" alt="…" caption="…" />
-</ImageModal>`}
     >
       <ImageModal>
         <ImageModalTrigger className="block w-full max-w-sm overflow-hidden rounded-xl border border-border-primary">

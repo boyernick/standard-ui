@@ -69,7 +69,7 @@ export const DrawerPopup = ({ className, ...props }: DrawerPopupProps) => (
   <BaseDrawer.Popup
     className={cn(
       "fixed z-50 flex flex-col border-border-primary bg-surface shadow-md outline-none",
-      "transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+      "transition-[transform,opacity] duration-[var(--duration-lg)] ease-move motion-reduce:transition-none",
       "data-swiping:duration-0",
       // Right panel (swipeDirection="right")
       "data-[swipe-direction=right]:top-0 data-[swipe-direction=right]:right-0 data-[swipe-direction=right]:h-full data-[swipe-direction=right]:w-full data-[swipe-direction=right]:max-w-sm data-[swipe-direction=right]:border-l",

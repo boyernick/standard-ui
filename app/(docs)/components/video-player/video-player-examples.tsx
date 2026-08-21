@@ -11,11 +11,6 @@ export const VideoPlayerExamples = () => (
     <ComponentCanvas
       label="Default"
       contentClassName="w-full"
-      code={`<VideoPlayer
-  src="/demo.webm"
-  title="Product walkthrough"
-  poster="/poster.jpg"
-/>`}
     >
       <VideoPlayer
         className="w-full max-w-2xl"
