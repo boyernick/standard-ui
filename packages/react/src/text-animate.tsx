@@ -45,7 +45,6 @@ export const TextAnimate = ({
 
   useEffect(() => {
     let cancelled = false
-    let frame = 0
     let timeoutId: ReturnType<typeof setTimeout> | undefined
 
     const start = () => {
@@ -114,7 +113,6 @@ export const TextAnimate = ({
     return () => {
       cancelled = true
       if (timeoutId) clearTimeout(timeoutId)
-      cancelAnimationFrame(frame)
     }
   }, [chars, delay, effect, replay, speed, text])
 

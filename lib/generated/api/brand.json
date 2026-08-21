@@ -1,0 +1,59 @@
+{
+  "module": "brand",
+  "parts": [
+    {
+      "name": "BrandMark",
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 488,
+      "universal": 0
+    },
+    {
+      "name": "BrandWordmark",
+      "props": [
+        {
+          "name": "compact",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Dense chrome: mark + “UI” only. Default lockup is mark + “StandardUI”.",
+          "source": "own"
+        },
+        {
+          "name": "markSize",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "required": false,
+          "default": null,
+          "description": "Chrome lockups use sm; marketing uses md",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 1
+    }
+  ]
+}

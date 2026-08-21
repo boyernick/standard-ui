@@ -1,0 +1,268 @@
+{
+  "module": "number-field",
+  "parts": [
+    {
+      "name": "NumberField",
+      "props": [
+        {
+          "name": "allowOutOfRange",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When true, direct text entry may be outside the `min`/`max` range without clamping, so native range underflow/overflow validation can occur. Step-based interactions (keyboard arrows, buttons, wheel, scrub) still clamp.",
+          "source": "base-ui"
+        },
+        {
+          "name": "allowWheelScrub",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to allow the user to scrub the input value with the mouse wheel while focused and hovering over the input.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "The uncontrolled value of the field when it's initially rendered. To render a controlled number field, use the `value` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "form",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the form that owns the hidden input. Useful when the number field is rendered outside the form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "format",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "default": null,
+          "description": "Options to format the input value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The id of the input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the hidden input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "largeStep",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "The large step value of the input element when incrementing while the shift key is held. Snaps to multiples of this value when `snapOnStep` is enabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "locale",
+          "type": "LocalesArgument",
+          "required": false,
+          "default": null,
+          "description": "The locale of the input element. Defaults to the user's runtime locale.",
+          "source": "base-ui"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "The maximum value of the input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "The minimum value of the input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the field when a form is submitted.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: number | null, eventDetails: NumberFieldRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback fired when the number value changes. The `eventDetails.reason` indicates what triggered the change: - `'input-change'` for parseable typing or programmatic text updates - `'input-clear'` when the field becomes empty - `'input-blur'` when formatting (and clamping, if enabled) occurs on blur - `'input-paste'` for paste interactions - `'keyboard'` for arrow-key/Home/End stepping (typing digits uses `'input-change'`/`'input-clear'`) - `'increment-press'` / `'decrement-press'` for button presses on the increment and decrement controls - `'wheel'` for wheel-based scrubbing - `'scrub'` for scrub area drags",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueCommitted",
+          "type": "(value: number | null, eventDetails: NumberFieldRootCommitEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback function that is fired when the value is committed. It runs later than `onValueChange`, when: - The input is blurred after typing a value. - The pointer is released after scrubbing or pressing the increment/decrement buttons. It runs simultaneously with `onValueChange` when interacting with the keyboard or the mouse wheel. **Warning**: This is a generic event not a change event.",
+          "source": "base-ui"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user should be unable to change the field value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user must enter a value before submitting a form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "smallStep",
+          "type": "number",
+          "required": false,
+          "default": "0.1",
+          "description": "The small step value of the input element when incrementing while the alt key is held. Snaps to multiples of this value when `snapOnStep` is enabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "snapOnStep",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the value should snap to the nearest step when incrementing or decrementing.",
+          "source": "base-ui"
+        },
+        {
+          "name": "step",
+          "type": "number | 'any'",
+          "required": false,
+          "default": "1",
+          "description": "Amount to increment and decrement with the buttons and arrow keys, or to scrub with pointer movement in the scrub area. To always enable step validation on form submission, specify the `min` prop explicitly in conjunction with this prop. Specify `step=\"any\"` to always disable step validation; interactive stepping then uses a base amount of `1`, while the alt and shift keys still step by `smallStep` and `largeStep`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "number | null",
+          "required": false,
+          "default": null,
+          "description": "The raw numeric value of the field.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    },
+    {
+      "name": "NumberFieldDecrement",
+      "props": [
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 285,
+      "universal": 3
+    },
+    {
+      "name": "NumberFieldGroup",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "NumberFieldIncrement",
+      "props": [
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 285,
+      "universal": 3
+    },
+    {
+      "name": "NumberFieldInput",
+      "props": [
+        {
+          "name": "aria-roledescription",
+          "type": "string",
+          "required": false,
+          "default": "'Number field'",
+          "description": "A user-friendly description of the input's role for assistive tech. This is a role description, not an accessible name — use `Field.Label` or `aria-label` to name the control.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 304,
+      "universal": 3
+    },
+    {
+      "name": "NumberFieldScrubArea",
+      "props": [
+        {
+          "name": "direction",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "Cursor movement direction in the scrub area.",
+          "source": "base-ui"
+        },
+        {
+          "name": "pixelSensitivity",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "description": "Determines how many pixels the cursor must move before the value changes. A higher value will make scrubbing less sensitive.",
+          "source": "base-ui"
+        },
+        {
+          "name": "teleportDistance",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "If specified, determines the distance that the cursor may move from the center of the scrub area before it will loop back around.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "NumberFieldScrubAreaCursor",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

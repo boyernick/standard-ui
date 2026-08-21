@@ -1,0 +1,125 @@
+{
+  "module": "toggle",
+  "parts": [
+    {
+      "name": "Toggle",
+      "props": [
+        {
+          "name": "defaultPressed",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the toggle button is currently pressed. This is the uncontrolled counterpart of `pressed`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        },
+        {
+          "name": "onPressedChange",
+          "type": "(pressed: boolean, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allo…",
+          "typeFull": "(pressed: boolean, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback fired when the pressed state is changed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "pressed",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Whether the toggle button is currently pressed. This is the controlled counterpart of `defaultPressed`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "A unique string that identifies the toggle when used inside a toggle group.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 283,
+      "universal": 3
+    },
+    {
+      "name": "ToggleGroup",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "readonly string[]",
+          "required": false,
+          "default": null,
+          "description": "The pressed state of the toggle group represented by an array of the values of all pressed toggle buttons. This is the uncontrolled counterpart of `value`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the toggle group should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "loopFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to loop keyboard focus back to the first item when the end of the list is reached while using the arrow keys.",
+          "source": "base-ui"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When `false` only one item in the group can be pressed. If any item in the group becomes pressed, the others will become unpressed. When `true` multiple items can be pressed.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(groupValue: string[], eventDetails: { reason: 'none'; event: Event; cancel: () => void; …",
+          "typeFull": "(groupValue: string[], eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback fired when the pressed states of the toggle group changes.",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "readonly string[]",
+          "required": false,
+          "default": null,
+          "description": "The pressed state of the toggle group represented by an array of the values of all pressed toggle buttons. This is the controlled counterpart of `defaultValue`.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

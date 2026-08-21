@@ -1,0 +1,134 @@
+{
+  "module": "toolbar",
+  "parts": [
+    {
+      "name": "Toolbar",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "loopFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "If `true`, using keyboard navigation will wrap focus to the other end of the toolbar once the end is reached.",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The orientation of the toolbar.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ToolbarButton",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When `true` the item is disabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "focusableWhenDisabled",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "When `true` the item remains focusable when disabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `false` if the rendered element is not a button (for example, `<div>`).",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 284,
+      "universal": 3
+    },
+    {
+      "name": "ToolbarGroup",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When `true` all toolbar items in the group are disabled.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ToolbarInput",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | number | readonly string[]",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "When `true` the item is disabled.",
+          "source": "base-ui"
+        },
+        {
+          "name": "focusableWhenDisabled",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "When `true` the item remains focusable when disabled.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 304,
+      "universal": 3
+    },
+    {
+      "name": "ToolbarLink",
+      "props": [],
+      "reactPassthrough": 283,
+      "universal": 3
+    },
+    {
+      "name": "ToolbarSeparator",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The orientation of the separator. Defaults to the opposite of the toolbar's orientation, so a horizontal toolbar renders vertical separators.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

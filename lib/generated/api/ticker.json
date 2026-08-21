@@ -1,0 +1,42 @@
+{
+  "module": "ticker",
+  "parts": [
+    {
+      "name": "Ticker",
+      "props": [
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Animation duration for one full loop.",
+          "source": "own"
+        },
+        {
+          "name": "pauseOnHover",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Pause scrolling while hovered or focused.",
+          "source": "own"
+        },
+        {
+          "name": "reverse",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Reverse scroll direction.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "TickerItem",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

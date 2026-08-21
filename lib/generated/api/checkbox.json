@@ -1,0 +1,133 @@
+{
+  "module": "checkbox",
+  "parts": [
+    {
+      "name": "Checkbox",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "default": "undefined",
+          "description": "Whether the checkbox is currently ticked. To render an uncontrolled checkbox, use the `defaultChecked` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the checkbox is initially ticked. To render a controlled checkbox, use the `checked` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "form",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the form that owns the hidden input. Useful when the checkbox is rendered outside the form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The id of the input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the checkbox is in a mixed state: neither ticked, nor unticked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the hidden `<input>` element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": "undefined",
+          "description": "Identifies the field when a form is submitted.",
+          "source": "base-ui"
+        },
+        {
+          "name": "nativeButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the component renders a native `<button>` element when replacing it via the `render` prop. Set to `true` if the rendered element is a native button.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allo…",
+          "typeFull": "(checked: boolean, eventDetails: { reason: 'none'; event: Event; cancel: () => void; allowPropagation: () => void; isCanceled: boolean; isPropagationAllowed: boolean; trigger: Element; }) => void",
+          "required": false,
+          "default": null,
+          "description": "Event handler called when the checkbox is ticked or unticked.",
+          "source": "base-ui"
+        },
+        {
+          "name": "parent",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the checkbox controls a group of child checkboxes. Must be used in a [Checkbox Group](https://base-ui.com/react/components/checkbox-group).",
+          "source": "base-ui"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user should be unable to tick or untick the checkbox.",
+          "source": "base-ui"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the user must tick the checkbox before submitting a form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "uncheckedValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The value submitted with the form when the checkbox is unchecked. By default, unchecked checkboxes do not submit any value, matching native checkbox behavior.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The checkbox's value. Identifies it within a [Checkbox Group](https://base-ui.com/react/components/checkbox-group), falling back to `name` when omitted. When submitting a form, a checked box submits `value`; with no `value`, it submits the native \"on\".",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 273,
+      "universal": 3
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "module": "scroll-area",
+  "parts": [
+    {
+      "name": "ScrollArea",
+      "props": [
+        {
+          "name": "overflowEdgeThreshold",
+          "type": "number | Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number; }>",
+          "required": false,
+          "default": "0",
+          "description": "The threshold in pixels that must be passed before the overflow edge attributes are applied. Accepts a single number for all edges or an object to configure them individually.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ScrollAreaContent",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ScrollAreaScrollbar",
+      "props": [
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to keep the HTML element in the DOM when the viewport isn't scrollable.",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": "'vertical'",
+          "description": "Whether the scrollbar controls vertical or horizontal scroll.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ScrollAreaThumb",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "ScrollAreaViewport",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

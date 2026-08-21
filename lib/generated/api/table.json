@@ -1,0 +1,53 @@
+{
+  "module": "table",
+  "parts": [
+    {
+      "name": "Table",
+      "props": [],
+      "reactPassthrough": 289,
+      "universal": 0
+    },
+    {
+      "name": "TableBody",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "TableCaption",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "TableCell",
+      "props": [],
+      "reactPassthrough": 289,
+      "universal": 0
+    },
+    {
+      "name": "TableFooter",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "TableHead",
+      "props": [],
+      "reactPassthrough": 286,
+      "universal": 0
+    },
+    {
+      "name": "TableHeader",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "TableRow",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

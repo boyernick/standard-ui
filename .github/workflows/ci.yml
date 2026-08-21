@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      # @central-icons-react runs a postinstall license check that fails the
+      # whole install when CENTRAL_LICENSE_KEY is unset.
+      - name: Install
+        run: npm ci
+        env:
+          CENTRAL_LICENSE_KEY: ${{ secrets.CENTRAL_LICENSE_KEY }}
+
+      - name: Lint
+        run: npm run lint
+
+      # The published package ships raw TypeScript, so consumers compile this
+      # source directly. Typecheck it on its own before the docs app does.
+      - name: Typecheck packages
+        run: npm run typecheck:packages
+
+      # cn() resolves Tailwind conflicts. A misfiled custom utility is silently
+      # dropped rather than loudly broken, so it needs coverage.
+      - name: Test packages
+        run: npm test
+
+      - name: Typecheck docs app
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+        env:
+          CENTRAL_LICENSE_KEY: ${{ secrets.CENTRAL_LICENSE_KEY }}

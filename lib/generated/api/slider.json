@@ -1,0 +1,253 @@
+{
+  "module": "slider",
+  "parts": [
+    {
+      "name": "Slider",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "number | readonly number[]",
+          "required": false,
+          "default": null,
+          "description": "The uncontrolled value of the slider when it's initially rendered. To render a controlled slider, use the `value` prop instead.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the slider should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "form",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the form that owns the slider inputs. Useful when the slider is rendered outside the form.",
+          "source": "base-ui"
+        },
+        {
+          "name": "format",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "default": null,
+          "description": "Options to format the value.",
+          "source": "base-ui"
+        },
+        {
+          "name": "largeStep",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "The granularity with which the slider can step through values when using Page Up/Page Down or Shift + Arrow Up/Arrow Down.",
+          "source": "base-ui"
+        },
+        {
+          "name": "locale",
+          "type": "LocalesArgument",
+          "required": false,
+          "default": null,
+          "description": "The locale used by `Intl.NumberFormat` when formatting the value. Defaults to the user's runtime locale.",
+          "source": "base-ui"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "The maximum allowed value of the slider. Should not be equal to min.",
+          "source": "base-ui"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "The minimum allowed value of the slider. Should not be equal to max.",
+          "source": "base-ui"
+        },
+        {
+          "name": "minStepsBetweenValues",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "The minimum steps between values in a range slider.",
+          "source": "base-ui"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Identifies the field when a form is submitted.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback function that is fired when the slider's value changed. Receives the new value as the first argument; the originating event is available as `eventDetails.event`. The value is also reflected on `eventDetails.event.target.value` for form integration. The `eventDetails.reason` indicates what triggered the change: - `'input-change'` when the hidden range input emits a change event (for example, via form integration) - `'track-press'` when the control track is pressed - `'drag'` while dragging a thumb - `'keyboard'` for keyboard input - `'none'` when the change is triggered without a specific interaction",
+          "source": "base-ui"
+        },
+        {
+          "name": "onValueCommitted",
+          "type": "(value: number | readonly number[], eventDetails: SliderRootCommitEventDetails) => void",
+          "required": false,
+          "default": null,
+          "description": "Callback function that is fired when a value change is committed. Does not fire if the value did not change, or if the change was canceled. **Warning**: This is a generic event, not a change event. The `eventDetails.reason` indicates what triggered the commit: - `'drag'` while dragging a thumb - `'track-press'` when the control track is pressed - `'keyboard'` for keyboard input - `'input-change'` when the hidden range input emits a change event (for example, via form integration) - `'none'` when the commit occurs without a specific interaction",
+          "source": "base-ui"
+        },
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "default": "'horizontal'",
+          "description": "The component orientation.",
+          "source": "base-ui"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "The granularity with which the slider can step through values. (A \"discrete\" slider.) The `min` prop serves as the origin for the valid values. We recommend (max - min) to be evenly divisible by the step.",
+          "source": "base-ui"
+        },
+        {
+          "name": "thumbAlignment",
+          "type": "'center' | 'edge' | 'edge-client-only'",
+          "required": false,
+          "default": "'center'",
+          "description": "How the thumb(s) are aligned relative to `Slider.Control` when the value is at `min` or `max`: - `center`: The center of the thumb is aligned with the control edge - `edge`: The thumb is inset within the control such that its edge is aligned with the control edge - `edge-client-only`: Same as `edge` but renders after React hydration on the client, reducing bundle size in return",
+          "source": "base-ui"
+        },
+        {
+          "name": "thumbCollisionBehavior",
+          "type": "'push' | 'none' | 'swap'",
+          "required": false,
+          "default": "'push'",
+          "description": "Controls how thumbs behave when they collide during pointer interactions. - `'push'` (default): Thumbs push each other without restoring their previous positions when dragged back. - `'swap'`: Thumbs swap places when dragged past each other. - `'none'`: Thumbs cannot move past each other; excess movement is ignored.",
+          "source": "base-ui"
+        },
+        {
+          "name": "value",
+          "type": "number | readonly number[]",
+          "required": false,
+          "default": null,
+          "description": "The value of the slider. For range sliders, provide an array with one value per thumb.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SliderControl",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SliderIndicator",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    },
+    {
+      "name": "SliderThumb",
+      "props": [
+        {
+          "name": "aria-valuetext",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "A string value forwarded to the [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext) attribute of the `input`. Ignored when `getAriaValueText` is provided.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the thumb should ignore user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "getAriaLabel",
+          "type": "((index: number) => string) | null",
+          "required": false,
+          "default": null,
+          "description": "A function which returns a string value for the [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute of the `input`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "getAriaValueText",
+          "type": "((formattedValue: string, value: number, index: number) => string) | null",
+          "required": false,
+          "default": null,
+          "description": "A function which returns a string value for the [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext) attribute of the `input`. This is important for screen reader users.",
+          "source": "base-ui"
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "The index of the thumb which corresponds to the index of its value in the `value` or `defaultValue` array. This prop is required to support server-side rendering for range sliders with multiple thumbs.",
+          "source": "base-ui"
+        },
+        {
+          "name": "inputRef",
+          "type": "Ref<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A ref to access the nested input element.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onBlur",
+          "type": "FocusEventHandler<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A blur handler forwarded to the `input`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onFocus",
+          "type": "FocusEventHandler<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A focus handler forwarded to the `input`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "onKeyDown",
+          "type": "KeyboardEventHandler<HTMLInputElement>",
+          "required": false,
+          "default": null,
+          "description": "A keydown handler forwarded to the `input`.",
+          "source": "base-ui"
+        },
+        {
+          "name": "tabIndex",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Optional tab index attribute forwarded to the `input`.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 270,
+      "universal": 3
+    },
+    {
+      "name": "SliderTrack",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

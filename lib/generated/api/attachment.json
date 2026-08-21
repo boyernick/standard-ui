@@ -1,0 +1,74 @@
+{
+  "module": "attachment",
+  "parts": [
+    {
+      "name": "Attachment",
+      "props": [
+        {
+          "name": "accept",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "onFiles",
+          "type": "(files: File[]) => void",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 281,
+      "universal": 0
+    },
+    {
+      "name": "AttachmentItem",
+      "props": [],
+      "reactPassthrough": 281,
+      "universal": 0
+    },
+    {
+      "name": "AttachmentList",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "AttachmentName",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "AttachmentPreview",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "AttachmentRemove",
+      "props": [],
+      "reactPassthrough": 290,
+      "universal": 0
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "module": "fieldset",
+  "parts": [
+    {
+      "name": "Fieldset",
+      "props": [],
+      "reactPassthrough": 278,
+      "universal": 3
+    },
+    {
+      "name": "FieldsetLegend",
+      "props": [],
+      "reactPassthrough": 275,
+      "universal": 3
+    }
+  ]
+}

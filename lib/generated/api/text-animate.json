@@ -1,0 +1,60 @@
+{
+  "module": "text-animate",
+  "parts": [
+    {
+      "name": "TextAnimate",
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "as",
+          "type": "'span' | 'h1' | 'h2' | 'h3' | 'p'",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Delay before animation starts.",
+          "source": "own"
+        },
+        {
+          "name": "effect",
+          "type": "TextAnimateEffect",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "replay",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Replay when `text` changes. Default true.",
+          "source": "own"
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Milliseconds per character (typewriter / decode).",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 278,
+      "universal": 0
+    }
+  ]
+}

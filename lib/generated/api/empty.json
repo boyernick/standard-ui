@@ -1,0 +1,35 @@
+{
+  "module": "empty",
+  "parts": [
+    {
+      "name": "Empty",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "EmptyActions",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "EmptyDescription",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "EmptyIcon",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "EmptyTitle",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}
