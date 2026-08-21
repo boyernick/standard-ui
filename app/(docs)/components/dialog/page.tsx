@@ -10,7 +10,9 @@ export default function DialogPage() {
   return (
     <DocPage
       title="Dialog"
-      description="Modal surface for focused tasks — forms, details, and short flows."
+      description="Modal surface for a focused task."
+      heading={null}
+      bleed
     >
       <DialogExamples />
     </DocPage>

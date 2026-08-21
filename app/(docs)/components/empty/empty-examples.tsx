@@ -11,69 +11,115 @@ import {
   IllustrationEmpty,
   IllustrationError,
   IllustrationSearch,
+  IllustrationSuccess,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ReactNode } from "react"
+import { DocBand } from "@/components/doc-band"
+
+/** Media, then a title and its description, then whatever the reader can do. */
+const State = ({
+  media,
+  title,
+  description,
+  actions,
+}: {
+  media: ReactNode
+  title: string
+  description: string
+  actions?: ReactNode
+}) => (
+  <Empty className="w-full">
+    {media}
+    <EmptyTitle>{title}</EmptyTitle>
+    <EmptyDescription>{description}</EmptyDescription>
+    {actions ? <EmptyActions>{actions}</EmptyActions> : null}
+  </Empty>
+)
 
 export const EmptyExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="No results"
-      contentClassName="w-full"
+  <div>
+    <DocBand
+      first
+      id="no-results"
+      title="No results"
+      description="A filter or query that matched nothing."
+      contentClassName="max-w-lg"
     >
-      <Empty className="w-full">
-        <EmptyIcon>
-          <IconMagnifyingGlass />
-        </EmptyIcon>
-        <EmptyTitle>No results</EmptyTitle>
-        <EmptyDescription>
-          Try another search or clear your filters.
-        </EmptyDescription>
-        <EmptyActions>
-          <Button size="sm">Clear search</Button>
-        </EmptyActions>
-      </Empty>
-    </ComponentCanvas>
+      <State
+        media={
+          <EmptyIcon>
+            <IconMagnifyingGlass />
+          </EmptyIcon>
+        }
+        title="No results"
+        description="Try another search or clear your filters."
+        actions={<Button size="sm">Clear search</Button>}
+      />
+    </DocBand>
 
-    <ComponentCanvas
-      label="With illustration"
-      contentClassName="w-full"
+    <DocBand
+      id="first-run"
+      title="First run"
+      description="A surface the reader has not put anything into yet."
+      contentClassName="max-w-lg"
     >
-      <Empty className="w-full">
-        <IllustrationEmpty className="mx-auto h-32 w-auto" />
-        <EmptyTitle>No projects yet</EmptyTitle>
-        <EmptyDescription>
-          Create a project to start shipping with StandardUI.
-        </EmptyDescription>
-        <EmptyActions>
-          <Button size="sm">New project</Button>
-          <Button size="sm" variant="ghost">
-            Learn more
-          </Button>
-        </EmptyActions>
-      </Empty>
-    </ComponentCanvas>
+      <State
+        media={<IllustrationEmpty className="mb-4" />}
+        title="No projects yet"
+        description="Create a project to start shipping with StandardUI."
+        actions={
+          <>
+            <Button size="sm">New project</Button>
+            <Button size="sm" variant="ghost">
+              Learn more
+            </Button>
+          </>
+        }
+      />
+    </DocBand>
 
-    <ComponentCanvas
-      label="Error and search"
-      contentClassName="w-full flex-col gap-8"
+    <DocBand
+      id="search"
+      title="Before searching"
+      description="A results pane waiting on a query."
+      contentClassName="max-w-lg"
     >
-      <Empty className="w-full">
-        <IllustrationError className="mx-auto h-28 w-auto" />
-        <EmptyTitle>Something went wrong</EmptyTitle>
-        <EmptyDescription>Refresh the page and try again.</EmptyDescription>
-        <EmptyActions>
+      <State
+        media={<IllustrationSearch className="mb-4" />}
+        title="Start searching"
+        description="Results will appear here when you type a query."
+      />
+    </DocBand>
+
+    <DocBand
+      id="error"
+      title="Error"
+      description="Nothing to show because the request failed."
+      contentClassName="max-w-lg"
+    >
+      <State
+        media={<IllustrationError className="mb-4" />}
+        title="Something went wrong"
+        description="Refresh the page and try again."
+        actions={
           <Button size="sm" variant="outline">
             Retry
           </Button>
-        </EmptyActions>
-      </Empty>
-      <Empty className="w-full">
-        <IllustrationSearch className="mx-auto h-28 w-auto" />
-        <EmptyTitle>Start searching</EmptyTitle>
-        <EmptyDescription>
-          Results will appear here when you type a query.
-        </EmptyDescription>
-      </Empty>
-    </ComponentCanvas>
+        }
+      />
+    </DocBand>
+
+    <DocBand
+      id="done"
+      title="All caught up"
+      description="Empty because the work is finished, not because it is missing."
+      contentClassName="max-w-lg"
+    >
+      <State
+        media={<IllustrationSuccess className="mb-4" />}
+        title="Inbox zero"
+        description="Nothing needs your attention right now."
+      />
+    </DocBand>
   </div>
 )

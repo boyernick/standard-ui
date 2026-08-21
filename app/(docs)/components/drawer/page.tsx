@@ -11,6 +11,8 @@ export default function DrawerPage() {
     <DocPage
       title="Drawer"
       description="Edge panel with swipe dismissal."
+      heading={null}
+      bleed
     >
       <DrawerExamples />
     </DocPage>

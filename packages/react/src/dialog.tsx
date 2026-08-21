@@ -44,7 +44,7 @@ export const DialogBackdrop = ({
 export const DialogPopup = ({ className, ...props }: DialogPopupProps) => (
   <BaseDialog.Popup
     className={cn(
-      "fixed top-1/2 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-6 rounded-xl border border-border-primary bg-surface-raised p-5 shadow-md outline-none max-sm:max-w-[calc(100vw-2rem)]",
+      "fixed top-1/2 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-6 rounded-xl border border-border-primary bg-surface-raised p-5 shadow-md outline-none max-h-[calc(100dvh-2rem)] overflow-y-auto max-sm:max-w-[calc(100vw-2rem)]",
       motion.popupCenter,
       className,
     )}

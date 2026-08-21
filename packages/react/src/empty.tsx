@@ -10,7 +10,7 @@ export type EmptyActionsProps = ComponentProps<"div">;
 export const Empty = ({ className, ...props }: EmptyProps) => (
   <div
     className={cn(
-      "flex min-h-48 flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border-primary bg-surface p-8 text-center",
+      "flex min-h-48 flex-col items-center justify-center rounded-xl border border-dashed border-border-primary bg-surface p-8 text-center",
       className,
     )}
     {...props}
@@ -20,7 +20,7 @@ export const Empty = ({ className, ...props }: EmptyProps) => (
 export const EmptyIcon = ({ className, ...props }: EmptyIconProps) => (
   <div
     className={cn(
-      "flex size-10 items-center justify-center rounded-lg bg-background-tertiary text-fg-secondary [&_svg]:size-5",
+      "mb-4 flex size-10 items-center justify-center rounded-lg bg-background-tertiary text-fg-secondary [&_svg]:size-5",
       className,
     )}
     {...props}
@@ -36,7 +36,7 @@ export const EmptyDescription = ({
   ...props
 }: EmptyDescriptionProps) => (
   <p
-    className={cn("max-w-sm text-sm text-fg-secondary", className)}
+    className={cn("mt-1 max-w-sm text-sm text-fg-secondary", className)}
     {...props}
   />
 );
@@ -44,7 +44,7 @@ export const EmptyDescription = ({
 export const EmptyActions = ({ className, ...props }: EmptyActionsProps) => (
   <div
     className={cn(
-      "mt-1 flex flex-wrap items-center justify-center gap-2",
+      "mt-4 flex flex-wrap items-center justify-center gap-2",
       className,
     )}
     {...props}

@@ -10,7 +10,9 @@ export default function FieldPage() {
   return (
     <DocPage
       title="Field"
-      description="Label, control, description, and error for a single form control — wired to Base UI validation."
+      description="Label, control, and validation for one form control."
+      heading={null}
+      bleed
     >
       <FieldExamples />
     </DocPage>

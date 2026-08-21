@@ -846,7 +846,11 @@ export {
   IllustrationError,
   IllustrationSuccess,
   IllustrationSearch,
+  IllustrationUpload,
+  IllustrationFile,
   type IllustrationProps,
+  type IllustrationFileProps,
+  type FileIllustrationType,
 } from "./illustrations"
 export { BrandMark, BrandWordmark, type BrandMarkProps, type BrandWordmarkProps } from "./brand"
 export {

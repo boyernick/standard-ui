@@ -8,7 +8,9 @@ export default function FileAttachmentPage() {
   return (
     <DocPage
       title="File attachment"
-      description="File picker, dropzone, and composable list parts for attachment interfaces."
+      description="Picker and dropzone for attaching files."
+      heading={null}
+      bleed
     >
       <FileAttachmentExamples />
     </DocPage>

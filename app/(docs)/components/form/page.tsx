@@ -10,7 +10,9 @@ export default function FormPage() {
   return (
     <DocPage
       title="Form"
-      description="Native form with consolidated Field validation and optional server error maps."
+      description="Native form that coordinates validation across its fields."
+      heading={null}
+      bleed
     >
       <FormExamples />
     </DocPage>

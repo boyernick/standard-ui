@@ -8,7 +8,9 @@ export default function EmptyPage() {
   return (
     <DocPage
       title="Empty"
-      description="Composed empty states for missing content, first-run guidance, and zero results."
+      description="Placeholder for a surface with nothing to show."
+      heading={null}
+      bleed
     >
       <EmptyExamples />
     </DocPage>
