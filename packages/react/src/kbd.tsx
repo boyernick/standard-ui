@@ -11,9 +11,12 @@ const kbdVariants = cva(
     variants: {
       variant: {
         default: "border-border-primary bg-background-tertiary text-fg-secondary",
-        // The default fill is a light grey that vanishes on a dark surface,
-        // so an inverted keycap lifts off the surface rather than tinting it.
-        inverted: "border-white/10 bg-white/10 text-fg-inverted",
+        // The default fill is a light grey that vanishes on a dark surface, so
+        // an inverted keycap tints with the inverted foreground instead. It has
+        // to be that token rather than a literal `white`: the grey ramp flips
+        // under `.dark`, so a hardcoded white wash would sit invisibly on the
+        // now-light inverted surface.
+        inverted: "border-fg-inverted/10 bg-fg-inverted/10 text-fg-inverted",
       },
       size: {
         sm: "h-4 min-w-3.5 rounded-2xs",

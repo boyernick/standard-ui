@@ -1,6 +1,7 @@
 "use client"
 
 import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip"
+import { cva, type VariantProps } from "class-variance-authority"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
@@ -12,7 +13,8 @@ export type TooltipPortalProps = ComponentProps<typeof BaseTooltip.Portal>
 export type TooltipPositionerProps = ComponentProps<
   typeof BaseTooltip.Positioner
 >
-export type TooltipPopupProps = ComponentProps<typeof BaseTooltip.Popup>
+export type TooltipPopupProps = ComponentProps<typeof BaseTooltip.Popup> &
+  VariantProps<typeof tooltipPopupVariants>
 
 export const TooltipProvider = (props: TooltipProviderProps) => (
   <BaseTooltip.Provider {...props} />
@@ -43,13 +45,34 @@ export const TooltipPositioner = ({
   />
 )
 
-export const TooltipPopup = ({ className, ...props }: TooltipPopupProps) => (
+// `shadow-md` already composes `--elevation-hairline`, so neither variant
+// needs a border — the light one would otherwise stack a second edge.
+const tooltipPopupVariants = cva(
+  "z-50 max-w-xs rounded-md px-2.5 py-1 text-xs shadow-md outline-none",
+  {
+    variants: {
+      variant: {
+        // Dark on light is the conventional tooltip, and stays the default so
+        // existing consumers are unaffected.
+        inverted: "bg-surface-inverted text-fg-inverted",
+        // For tooltips over dark or busy surfaces, where an inverted popup
+        // would sink into its background instead of lifting off it.
+        light: "bg-surface text-fg-primary",
+      },
+    },
+    defaultVariants: { variant: "inverted" },
+  },
+)
+
+export const TooltipPopup = ({
+  className,
+  variant,
+  ...props
+}: TooltipPopupProps) => (
   <BaseTooltip.Popup
-    className={cn(
-      "z-50 max-w-xs rounded-md bg-surface-inverted px-2.5 py-1 text-xs text-fg-inverted shadow-md outline-none",
-      motion.popupAnchor,
-      className,
-    )}
+    className={cn(tooltipPopupVariants({ variant }), motion.popupAnchor, className)}
     {...props}
   />
 )
+
+export { tooltipPopupVariants }

@@ -791,6 +791,7 @@ export {
   TooltipPortal,
   TooltipPositioner,
   TooltipPopup,
+  tooltipPopupVariants,
   type TooltipProviderProps,
   type TooltipProps,
   type TooltipTriggerProps,
