@@ -609,6 +609,17 @@
   }
 }
 
+/* Indeterminate progress. A stripe crossing the track, because there is no
+   proportion to fill — the movement is the only thing carrying "still going". */
+@keyframes progress-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
 @keyframes ticker-scroll {
   from {
     translate: 0 0;

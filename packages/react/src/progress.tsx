@@ -53,6 +53,11 @@ export const ProgressIndicator = ({
   <BaseProgress.Indicator
     className={cn(
       "h-full rounded-full bg-brand-primary transition-[width] duration-[var(--duration-lg)] ease-enter motion-reduce:transition-none",
+      // Base UI flags a null value with data-indeterminate and leaves the
+      // indicator full width, so without this the bar reads as complete.
+      // A quarter-width stripe crossing the track on the passive curve —
+      // ambient, system-initiated movement.
+      "data-indeterminate:w-1/4 data-indeterminate:animate-[progress-indeterminate_1.4s_var(--ease-passive)_infinite] motion-reduce:animate-none",
       className,
     )}
     {...props}

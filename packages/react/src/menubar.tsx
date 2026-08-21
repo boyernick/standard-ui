@@ -10,6 +10,11 @@ export const Menubar = ({ className, ...props }: MenubarProps) => (
   <BaseMenubar
     className={cn(
       "inline-flex items-center gap-0.5 rounded-lg border border-border-primary bg-background-secondary p-0.5",
+      // Base UI sets data-orientation and handles the arrow keys, but the
+      // layout is ours: without this a vertical menubar still renders as a
+      // row, so the prop looks supported and does nothing.
+      "data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
+      "data-[orientation=vertical]:[&_button]:justify-start",
       "[&_button]:inline-flex [&_button]:h-8 [&_button]:cursor-pointer [&_button]:items-center [&_button]:justify-center [&_button]:gap-1.5 [&_button]:rounded-md [&_button]:px-2.5 [&_button]:text-sm [&_button]:text-fg-secondary [&_button]:outline-none",
       "[&_button]:hover:bg-background-tertiary [&_button]:hover:text-fg-primary",
       "[&_button]:focus-visible:border-ring [&_button]:focus-visible:ring-[3px] [&_button]:focus-visible:ring-offset-1 [&_button]:focus-visible:ring-offset-background-primary [&_button]:focus-visible:ring-ring/20",

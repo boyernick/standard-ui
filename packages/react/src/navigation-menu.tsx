@@ -46,7 +46,12 @@ export type NavigationMenuIconProps = ComponentProps<
 >
 
 const navigationMenuTriggerClassName = cn(
-  "inline-flex h-9 cursor-pointer items-center gap-1 rounded-md px-3 text-sm text-fg-secondary outline-none",
+  // flex-row and py-0 are here for the link case. This class is exported so
+  // a plain link can sit in the bar beside real triggers, but Link's own
+  // base is flex-col with p-2.5 — without overriding the direction and the
+  // vertical padding, tailwind-merge leaves both, and the link renders as a
+  // top-padded column whose text sits below the triggers next to it.
+  "inline-flex h-9 cursor-pointer flex-row items-center gap-1 rounded-md px-3 py-0 text-sm text-fg-secondary outline-none",
   motion.colors,
   "hover:bg-background-tertiary hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-popup-open:bg-background-tertiary data-popup-open:text-fg-primary",
 )
