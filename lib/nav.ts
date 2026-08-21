@@ -44,7 +44,6 @@ export const components = [
   { href: "/components/meter", label: "Meter" },
   { href: "/components/navigation-menu", label: "Navigation menu" },
   { href: "/components/number-field", label: "Number field" },
-  { href: "/components/orb", label: "Orb" },
   { href: "/components/otp-field", label: "OTP field" },
   { href: "/components/pagination", label: "Pagination" },
   { href: "/components/popover", label: "Popover" },
