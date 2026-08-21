@@ -10,7 +10,9 @@ export default function TextAnimatePage() {
   return (
     <DocPage
       title="Text animate"
-      description="Typewriter, decode, fade, and blur reveals for headlines and empty-state copy."
+      description="Reveals for headlines and empty-state copy."
+      heading={null}
+      bleed
     >
       <TextAnimateExamples />
     </DocPage>

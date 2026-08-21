@@ -11,6 +11,8 @@ export default function TabsPage() {
     <DocPage
       title="Tabs"
       description="Switch between related views in the same context."
+      heading={null}
+      bleed
     >
       <TabsExamples />
     </DocPage>

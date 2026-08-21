@@ -1,19 +1,45 @@
-"use client"
-
 import { Button, Spinner } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ReactNode } from "react"
+import { DocBand } from "@/components/doc-band"
+
+const BAND = "max-w-md"
+
+/** A specimen with its size named underneath. */
+const Size = ({ name, children }: { name: string; children: ReactNode }) => (
+  <div className="flex flex-col items-center gap-2 text-fg-primary">
+    {children}
+    <span className="text-xs text-fg-tertiary">{name}</span>
+  </div>
+)
 
 export const SpinnerExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas label="Sizes">
-      <div className="flex items-center gap-6 text-fg-primary">
-        <Spinner size="sm" />
-        <Spinner size="md" />
-        <Spinner size="lg" />
+  <div>
+    <DocBand
+      first
+      id="sizes"
+      title="Sizes"
+      description="Three sizes, each matching the text or control beside it."
+      contentClassName={BAND}
+    >
+      <div className="flex items-end gap-6">
+        <Size name="sm">
+          <Spinner size="sm" />
+        </Size>
+        <Size name="md">
+          <Spinner size="md" />
+        </Size>
+        <Size name="lg">
+          <Spinner size="lg" />
+        </Size>
       </div>
-    </ComponentCanvas>
+    </DocBand>
 
-    <ComponentCanvas label="In a button">
+    <DocBand
+      id="button"
+      title="In a button"
+      description="The loading prop fills the icon slot and disables the press."
+      contentClassName={BAND}
+    >
       <div className="flex flex-wrap items-center gap-3">
         <Button loading>Saving</Button>
         <Button variant="outline" loading>
@@ -21,16 +47,18 @@ export const SpinnerExamples = () => (
         </Button>
         <Button variant="ghost" loading iconOnly aria-label="Loading" />
       </div>
-    </ComponentCanvas>
+    </DocBand>
 
-    <ComponentCanvas
-      label="Inline status"
-      contentClassName="flex-col items-start gap-2"
+    <DocBand
+      id="inline"
+      title="Inline"
+      description="Set in a line of text it takes the colour it inherits."
+      contentClassName={BAND}
     >
       <p className="text-sm inline-flex items-center gap-2 text-fg-secondary">
         <Spinner size="sm" />
         Fetching updates…
       </p>
-    </ComponentCanvas>
+    </DocBand>
   </div>
 )

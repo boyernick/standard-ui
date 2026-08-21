@@ -11,6 +11,8 @@ export default function SwitchPage() {
     <DocPage
       title="Switch"
       description="Binary on/off control for settings and preferences."
+      heading={null}
+      bleed
     >
       <SwitchExamples />
     </DocPage>

@@ -11,6 +11,8 @@ export default function MenubarPage() {
     <DocPage
       title="Menubar"
       description="Persistent application menu bar."
+      heading={null}
+      bleed
     >
       <MenubarExamples />
     </DocPage>

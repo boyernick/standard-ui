@@ -11,6 +11,8 @@ export default function RadioGroupPage() {
     <DocPage
       title="Radio group"
       description="Single choice from a short list of options."
+      heading={null}
+      bleed
     >
       <RadioGroupExamples />
     </DocPage>

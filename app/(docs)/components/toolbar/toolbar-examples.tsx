@@ -1,5 +1,3 @@
-"use client"
-
 import {
   IconHome,
   IconMinus,
@@ -12,11 +10,19 @@ import {
   ToolbarLink,
   ToolbarSeparator,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
+
+const BAND = "max-w-lg"
 
 export const ToolbarExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas label="Editor">
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="Controls gathered into one enclosure, walked with the arrow keys."
+      contentClassName={BAND}
+    >
       <Toolbar aria-label="Formatting">
         <ToolbarGroup>
           <ToolbarButton aria-label="Bold" className="font-semibold">
@@ -41,9 +47,14 @@ export const ToolbarExamples = () => (
         <ToolbarSeparator />
         <ToolbarLink href="#">Docs</ToolbarLink>
       </Toolbar>
-    </ComponentCanvas>
+    </DocBand>
 
-    <ComponentCanvas label="With input">
+    <DocBand
+      id="input"
+      title="With an input"
+      description="A field joins the same roving focus as the buttons around it."
+      contentClassName={BAND}
+    >
       <Toolbar aria-label="Search tools">
         <ToolbarButton aria-label="Home">
           <IconHome size={16} className="size-4" aria-hidden />
@@ -54,6 +65,20 @@ export const ToolbarExamples = () => (
         <ToolbarSeparator />
         <ToolbarInput placeholder="Filter…" aria-label="Filter" />
       </Toolbar>
-    </ComponentCanvas>
+    </DocBand>
+
+    <DocBand
+      id="disabled"
+      title="Disabled"
+      description="A single control can be withdrawn while the rest stay reachable."
+      contentClassName={BAND}
+    >
+      <Toolbar aria-label="History">
+        <ToolbarButton>Undo</ToolbarButton>
+        <ToolbarButton disabled>Redo</ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton>Reset</ToolbarButton>
+      </Toolbar>
+    </DocBand>
   </div>
 )

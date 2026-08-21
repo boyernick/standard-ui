@@ -1,22 +1,28 @@
-"use client"
-
 import { VideoPlayer } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
 
-const SAMPLE =
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+const SAMPLE = "https://mdn.github.io/shared-assets/videos/flower.webm"
+const POSTER = "https://mdn.github.io/shared-assets/images/examples/flowers.jpg"
 
 export const VideoPlayerExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Default"
-      contentClassName="w-full"
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="Play, seek, mute and fullscreen over the video surface."
+      contentClassName="max-w-2xl"
     >
-      <VideoPlayer
-        className="w-full max-w-2xl"
-        src={SAMPLE}
-        title="Flower (sample)"
-      />
-    </ComponentCanvas>
+      <VideoPlayer src={SAMPLE} title="Flower (sample)" />
+    </DocBand>
+
+    <DocBand
+      id="poster"
+      title="Poster"
+      description="A still holds the frame until the first play."
+      contentClassName="max-w-2xl"
+    >
+      <VideoPlayer src={SAMPLE} poster={POSTER} title="Flower (with a poster)" />
+    </DocBand>
   </div>
 )

@@ -1,42 +1,58 @@
-"use client"
-
 import { Badge, Ticker, TickerItem } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
+
+const components = [
+  "Carousel",
+  "Sounds",
+  "Video player",
+  "Image modal",
+  "Ticker",
+]
 
 export const TickerExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Default"
-      contentClassName="w-full"
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="A line that scrolls on forever, pausing under the pointer."
+      contentClassName="max-w-2xl"
     >
-      <Ticker className="w-full">
+      <Ticker>
         <TickerItem>
-          <Badge>Update</Badge>
+          <Badge size="xs">Update</Badge>
           New components shipping weekly
         </TickerItem>
-        <TickerItem>
-          Soft focus rings — ring-ring/20 with a 1px offset
-        </TickerItem>
-        <TickerItem>
-          Prefer package components in app chrome
-        </TickerItem>
-        <TickerItem>
-          Sentence case for UI copy
-        </TickerItem>
+        <TickerItem>Soft focus rings, offset by a pixel</TickerItem>
+        <TickerItem>Prefer package components in app chrome</TickerItem>
+        <TickerItem>Sentence case for interface copy</TickerItem>
       </Ticker>
-    </ComponentCanvas>
+    </DocBand>
 
-    <ComponentCanvas
-      label="Faster reverse"
-      contentClassName="w-full"
+    <DocBand
+      id="reverse"
+      title="Reverse"
+      description="The same loop running the other way, and faster."
+      contentClassName="max-w-2xl"
     >
-      <Ticker className="w-full" duration={16} reverse>
-        <TickerItem>Carousel</TickerItem>
-        <TickerItem>Sounds</TickerItem>
-        <TickerItem>Video player</TickerItem>
-        <TickerItem>Image modal</TickerItem>
-        <TickerItem>Ticker</TickerItem>
+      <Ticker duration={16} reverse>
+        {components.map((name) => (
+          <TickerItem key={name}>{name}</TickerItem>
+        ))}
       </Ticker>
-    </ComponentCanvas>
+    </DocBand>
+
+    <DocBand
+      id="continuous"
+      title="Without pause"
+      description="Turning off pauseOnHover keeps it moving under the pointer."
+      contentClassName="max-w-2xl"
+    >
+      <Ticker pauseOnHover={false}>
+        {components.map((name) => (
+          <TickerItem key={name}>{name}</TickerItem>
+        ))}
+      </Ticker>
+    </DocBand>
   </div>
 )

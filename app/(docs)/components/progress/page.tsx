@@ -10,7 +10,9 @@ export default function ProgressPage() {
   return (
     <DocPage
       title="Progress"
-      description="Visualize completion for uploads, sync, and multi-step work."
+      description="Completion of a job that is under way."
+      heading={null}
+      bleed
     >
       <ProgressExamples />
     </DocPage>

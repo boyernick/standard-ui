@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import {
   Progress,
   ProgressIndicator,
@@ -8,7 +7,25 @@ import {
   ProgressTrack,
   ProgressValue,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ComponentProps } from "react"
+import { useEffect, useState } from "react"
+import { DocBand } from "@/components/doc-band"
+
+const BAND = "max-w-sm"
+
+/** Label and readout over a track — the shape every specimen shares. */
+const Bar = ({
+  label,
+  ...root
+}: { label: string } & ComponentProps<typeof Progress>) => (
+  <Progress {...root}>
+    <ProgressLabel>{label}</ProgressLabel>
+    <ProgressValue />
+    <ProgressTrack>
+      <ProgressIndicator />
+    </ProgressTrack>
+  </Progress>
+)
 
 export const ProgressExamples = () => {
   const [value, setValue] = useState(20)
@@ -21,32 +38,43 @@ export const ProgressExamples = () => {
   }, [])
 
   return (
-    <div className="mt-6 flex flex-col gap-8">
-      <ComponentCanvas
-        label="Basic"
-        contentClassName="w-full max-w-sm flex-col items-stretch"
+    <div>
+      <DocBand
+        first
+        id="default"
+        title="Default"
+        description="How much of a known job is done."
+        contentClassName={BAND}
       >
-        <Progress value={60}>
-          <ProgressLabel>Uploading</ProgressLabel>
-          <ProgressValue />
-          <ProgressTrack>
-            <ProgressIndicator />
-          </ProgressTrack>
-        </Progress>
-      </ComponentCanvas>
+        <Bar label="Uploading" value={60} />
+      </DocBand>
 
-      <ComponentCanvas
-        label="Animated"
-        contentClassName="w-full max-w-sm flex-col items-stretch"
+      <DocBand
+        id="progressing"
+        title="Progressing"
+        description="The fill eases between values as the work advances."
+        contentClassName={BAND}
       >
-        <Progress value={value}>
-          <ProgressLabel>Syncing</ProgressLabel>
-          <ProgressValue />
-          <ProgressTrack>
-            <ProgressIndicator />
-          </ProgressTrack>
-        </Progress>
-      </ComponentCanvas>
+        <Bar label="Syncing" value={value} />
+      </DocBand>
+
+      <DocBand
+        id="indeterminate"
+        title="Indeterminate"
+        description="A null value, for work with no measurable end."
+        contentClassName={BAND}
+      >
+        <Bar label="Connecting" value={null} />
+      </DocBand>
+
+      <DocBand
+        id="complete"
+        title="Complete"
+        description="At the maximum the bar fills and the status settles."
+        contentClassName={BAND}
+      >
+        <Bar label="Uploaded" value={100} />
+      </DocBand>
     </div>
   )
 }

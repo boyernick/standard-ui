@@ -10,7 +10,9 @@ export default function ToastPage() {
   return (
     <DocPage
       title="Toast"
-      description="Transient notifications for saves, errors, and confirmations."
+      description="Transient notification for saves, errors and confirmations."
+      heading={null}
+      bleed
     >
       <ToastExamples />
     </DocPage>

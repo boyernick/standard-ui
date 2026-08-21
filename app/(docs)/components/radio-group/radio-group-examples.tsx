@@ -1,93 +1,70 @@
 "use client"
 
 import { Radio, RadioGroup, RadioIndicator } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ComponentProps, ReactNode } from "react"
+import { DocBand } from "@/components/doc-band"
+
+/** A labelled radio. The label dims off the control's own `data-disabled`,
+ *  which Base UI sets whether the radio or the whole group was disabled. */
+const Option = ({
+  children,
+  ...props
+}: { children: ReactNode } & ComponentProps<typeof Radio>) => (
+  <label className="text-sm flex items-center gap-2 text-fg-primary has-[[data-disabled]]:text-fg-tertiary">
+    <Radio {...props}>
+      <RadioIndicator />
+    </Radio>
+    {children}
+  </label>
+)
 
 export const RadioGroupExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Basic"
-      contentClassName="flex-col items-start"
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="One choice from a short list, stacked."
+      contentClassName="max-w-sm"
     >
-      <RadioGroup
-        defaultValue="comfortable"
-        aria-label="Density"
-        className="text-sm text-fg-primary"
-      >
-        <label className="flex items-center gap-2">
-          <Radio value="compact">
-            <RadioIndicator />
-          </Radio>
-          Compact
-        </label>
-        <label className="flex items-center gap-2">
-          <Radio value="comfortable">
-            <RadioIndicator />
-          </Radio>
-          Comfortable
-        </label>
-        <label className="flex items-center gap-2">
-          <Radio value="spacious">
-            <RadioIndicator />
-          </Radio>
-          Spacious
-        </label>
+      <RadioGroup defaultValue="comfortable" aria-label="Density">
+        <Option value="compact">Compact</Option>
+        <Option value="comfortable">Comfortable</Option>
+        <Option value="spacious">Spacious</Option>
+        {/* One option out of reach while the rest stay live. */}
+        <Option value="custom" disabled>
+          Custom
+        </Option>
       </RadioGroup>
-    </ComponentCanvas>
+    </DocBand>
 
-    <ComponentCanvas
-      label="Horizontal"
-      contentClassName="flex-col items-start"
+    <DocBand
+      id="horizontal"
+      title="Horizontal"
+      description="Laid out in a row where the options are short."
+      contentClassName="max-w-sm"
     >
       <RadioGroup
         defaultValue="day"
         aria-label="Schedule"
-        className="flex-row gap-4 text-sm text-fg-primary"
+        className="flex-row gap-4"
       >
-        <label className="flex items-center gap-2">
-          <Radio value="day">
-            <RadioIndicator />
-          </Radio>
-          Day
-        </label>
-        <label className="flex items-center gap-2">
-          <Radio value="week">
-            <RadioIndicator />
-          </Radio>
-          Week
-        </label>
-        <label className="flex items-center gap-2">
-          <Radio value="month">
-            <RadioIndicator />
-          </Radio>
-          Month
-        </label>
+        <Option value="day">Day</Option>
+        <Option value="week">Week</Option>
+        <Option value="month">Month</Option>
       </RadioGroup>
-    </ComponentCanvas>
+    </DocBand>
 
-    <ComponentCanvas
-      label="Disabled"
-      contentClassName="flex-col items-start"
+    <DocBand
+      id="disabled"
+      title="Disabled"
+      description="Disabling the group disables every option in it."
+      contentClassName="max-w-sm"
     >
-      <RadioGroup
-        defaultValue="pro"
-        aria-label="Plan"
-        disabled
-        className="text-sm text-fg-primary"
-      >
-        <label className="flex items-center gap-2">
-          <Radio value="free">
-            <RadioIndicator />
-          </Radio>
-          Free
-        </label>
-        <label className="flex items-center gap-2">
-          <Radio value="pro">
-            <RadioIndicator />
-          </Radio>
-          Pro
-        </label>
+      <RadioGroup defaultValue="pro" aria-label="Plan" disabled>
+        <Option value="free">Free</Option>
+        <Option value="pro">Pro</Option>
       </RadioGroup>
-    </ComponentCanvas>
+    </DocBand>
   </div>
 )

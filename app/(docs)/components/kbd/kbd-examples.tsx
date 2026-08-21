@@ -47,7 +47,7 @@ export const KbdExamples = () => (
     >
       {/* Shown on the inverted surface it is built for — a tooltip is the
           usual home for a keycap on dark. */}
-      <div className="text-sm inline-flex items-center gap-4 rounded-md bg-surface-inverted px-4 py-2 text-fg-inverted">
+      <div className="text-sm flex w-full max-w-xs items-center justify-between gap-4 rounded-md bg-surface-inverted px-4 py-2 text-fg-inverted">
         Change model
         <KbdGroup>
           <Kbd variant="inverted">⌘</Kbd>

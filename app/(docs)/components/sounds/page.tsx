@@ -10,7 +10,9 @@ export default function SoundsPage() {
   return (
     <DocPage
       title="Sounds"
-      description="Short UI cues generated in the browser — click, success, error, and notify — with mute and volume control."
+      description="Short interface cues generated in the browser."
+      heading={null}
+      bleed
     >
       <SoundsExamples />
     </DocPage>

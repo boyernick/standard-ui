@@ -11,6 +11,8 @@ export default function ToolbarPage() {
     <DocPage
       title="Toolbar"
       description="Grouped controls with arrow-key navigation."
+      heading={null}
+      bleed
     >
       <ToolbarExamples />
     </DocPage>

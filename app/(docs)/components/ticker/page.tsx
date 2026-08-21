@@ -10,7 +10,9 @@ export default function TickerPage() {
   return (
     <DocPage
       title="Ticker"
-      description="Continuous marquee for short status lines and announcements."
+      description="Continuous marquee for short status lines."
+      heading={null}
+      bleed
     >
       <TickerExamples />
     </DocPage>

@@ -11,6 +11,8 @@ export default function TogglePage() {
     <DocPage
       title="Toggle"
       description="Pressed or unpressed control for formatting and view options."
+      heading={null}
+      bleed
     >
       <ToggleExamples />
     </DocPage>

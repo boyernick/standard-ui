@@ -11,6 +11,8 @@ export default function OTPFieldPage() {
     <DocPage
       title="OTP field"
       description="One-time password slots for verification codes."
+      heading={null}
+      bleed
     >
       <OTPFieldExamples />
     </DocPage>

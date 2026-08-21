@@ -14,8 +14,12 @@ import {
   useToastManager,
 } from "@boyernick/standard-ui-react"
 import { useState } from "react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
 
+const BAND = "max-w-md"
+
+/** One viewport serves the whole page — toasts stack in the corner however
+ *  many buttons on the page raise them. */
 const ToastList = () => {
   const { toasts } = useToastManager()
 
@@ -37,70 +41,121 @@ const ToastList = () => {
   )
 }
 
-const ToastDemo = () => {
-  const toastManager = useToastManager()
+const Basic = () => {
+  const toast = useToastManager()
   const [count, setCount] = useState(0)
 
-  const handleCreate = () => {
-    const next = count + 1
-    setCount(next)
-    toastManager.add({
-      title: `Saved draft ${next}`,
-      description: "Your changes are stored locally.",
-    })
-  }
-
   return (
-    <>
-      <Button type="button" variant="outline" onClick={handleCreate}>
-        Show toast
-      </Button>
-      <ToastList />
-    </>
+    <Button
+      type="button"
+      variant="outline"
+      onClick={() => {
+        const next = count + 1
+        setCount(next)
+        toast.add({
+          title: `Saved draft ${next}`,
+          description: "Your changes are stored locally.",
+        })
+      }}
+    >
+      Show toast
+    </Button>
   )
 }
 
-const ToastWithActionDemo = () => {
-  const toastManager = useToastManager()
-
-  const handleCreate = () => {
-    toastManager.add({
-      title: "File deleted",
-      description: "report.pdf was moved to trash.",
-      actionProps: {
-        children: "Undo",
-        onClick: () => {
-          toastManager.add({
-            title: "Restored",
-            description: "report.pdf is back.",
-          })
-        },
-      },
-    })
-  }
+const WithAction = () => {
+  const toast = useToastManager()
 
   return (
-    <>
-      <Button type="button" variant="outline" onClick={handleCreate}>
-        Delete file
+    <Button
+      type="button"
+      variant="outline"
+      onClick={() =>
+        toast.add({
+          title: "File deleted",
+          description: "report.pdf was moved to trash.",
+          actionProps: {
+            children: "Undo",
+            onClick: () =>
+              toast.add({
+                title: "Restored",
+                description: "report.pdf is back.",
+              }),
+          },
+        })
+      }
+    >
+      Delete file
+    </Button>
+  )
+}
+
+const Types = () => {
+  const toast = useToastManager()
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() =>
+          toast.add({
+            type: "success",
+            title: "Deployed",
+            description: "Version 1.4.0 is live.",
+          })
+        }
+      >
+        Success
       </Button>
-      <ToastList />
-    </>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() =>
+          toast.add({
+            type: "error",
+            title: "Deploy failed",
+            description: "The build did not complete.",
+          })
+        }
+      >
+        Error
+      </Button>
+    </div>
   )
 }
 
 export const ToastExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas label="Basic">
-      <ToastProvider>
-        <ToastDemo />
-      </ToastProvider>
-    </ComponentCanvas>
+  <ToastProvider>
+    <div>
+      <DocBand
+        first
+        id="default"
+        title="Default"
+        description="A title and a line of detail, raised from an action."
+        contentClassName={BAND}
+      >
+        <Basic />
+      </DocBand>
 
-    <ComponentCanvas label="With action">
-      <ToastProvider>
-        <ToastWithActionDemo />
-      </ToastProvider>
-    </ComponentCanvas>
-  </div>
+      <DocBand
+        id="action"
+        title="With an action"
+        description="One control on the toast, for undoing what just happened."
+        contentClassName={BAND}
+      >
+        <WithAction />
+      </DocBand>
+
+      <DocBand
+        id="types"
+        title="Types"
+        description="An error carries a red edge; other types keep the plain surface."
+        contentClassName={BAND}
+      >
+        <Types />
+      </DocBand>
+    </div>
+    <ToastList />
+  </ToastProvider>
 )

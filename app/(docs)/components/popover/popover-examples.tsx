@@ -3,7 +3,6 @@
 import {
   Button,
   Popover,
-  PopoverArrow,
   PopoverClose,
   PopoverDescription,
   PopoverPopup,
@@ -12,51 +11,88 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ComponentProps, ReactNode } from "react"
+import { DocBand } from "@/components/doc-band"
+
+/** Trigger and anchored panel — the shape every specimen shares. */
+const Anchored = ({
+  trigger,
+  title,
+  description,
+  children,
+  ...positioner
+}: {
+  trigger: string
+  title: string
+  description: string
+  children?: ReactNode
+} & ComponentProps<typeof PopoverPositioner>) => (
+  <Popover>
+    <PopoverTrigger render={<Button variant="outline" />}>
+      {trigger}
+    </PopoverTrigger>
+    <PopoverPortal>
+      <PopoverPositioner {...positioner}>
+        <PopoverPopup>
+          <PopoverTitle>{title}</PopoverTitle>
+          <PopoverDescription>{description}</PopoverDescription>
+          {children}
+        </PopoverPopup>
+      </PopoverPositioner>
+    </PopoverPortal>
+  </Popover>
+)
 
 export const PopoverExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas label="Basic">
-      <Popover>
-        <PopoverTrigger render={<Button variant="outline" />}>
-          Notifications
-        </PopoverTrigger>
-        <PopoverPortal>
-          <PopoverPositioner>
-            <PopoverPopup>
-              <PopoverTitle>Notifications</PopoverTitle>
-              <PopoverDescription>
-                You&apos;re all caught up. New alerts will show up here.
-              </PopoverDescription>
-            </PopoverPopup>
-          </PopoverPositioner>
-        </PopoverPortal>
-      </Popover>
-    </ComponentCanvas>
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="A titled panel anchored under its trigger."
+    >
+      <Anchored
+        trigger="Notifications"
+        title="Notifications"
+        description="You’re all caught up. New alerts will show up here."
+      />
+    </DocBand>
 
-    <ComponentCanvas label="With actions">
-      <Popover>
-        <PopoverTrigger render={<Button variant="outline" />}>
-          Dimensions
-        </PopoverTrigger>
-        <PopoverPortal>
-          <PopoverPositioner>
-            <PopoverPopup>
-              <PopoverArrow />
-              <PopoverTitle>Dimensions</PopoverTitle>
-              <PopoverDescription>
-                Set the dimensions for the layer.
-              </PopoverDescription>
-              <div className="mt-3 flex justify-end gap-2">
-                <PopoverClose render={<Button variant="ghost" size="sm" />}>
-                  Cancel
-                </PopoverClose>
-                <PopoverClose render={<Button size="sm" />}>Apply</PopoverClose>
-              </div>
-            </PopoverPopup>
-          </PopoverPositioner>
-        </PopoverPortal>
-      </Popover>
-    </ComponentCanvas>
+    <DocBand
+      id="actions"
+      title="With actions"
+      description="Anything that closes the popover goes through PopoverClose."
+    >
+      <Anchored
+        trigger="Dimensions"
+        title="Dimensions"
+        description="Set the dimensions for the layer."
+      >
+        <div className="mt-3 flex justify-end gap-2">
+          <PopoverClose render={<Button variant="ghost" size="sm" />}>
+            Cancel
+          </PopoverClose>
+          <PopoverClose render={<Button size="sm" />}>Apply</PopoverClose>
+        </div>
+      </Anchored>
+    </DocBand>
+
+    <DocBand
+      id="placement"
+      title="Placement"
+      description="side picks the edge it opens from, and flips if it would not fit."
+    >
+      <div className="flex flex-wrap gap-3">
+        {(["top", "right", "bottom", "left"] as const).map((side) => (
+          <Anchored
+            key={side}
+            side={side}
+            trigger={side}
+            title={`Opens ${side}`}
+            description="Anchored to the trigger on that edge."
+          />
+        ))}
+      </div>
+    </DocBand>
   </div>
 )

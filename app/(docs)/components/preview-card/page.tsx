@@ -11,6 +11,8 @@ export default function PreviewCardPage() {
     <DocPage
       title="Preview card"
       description="Hover or focus card for links and mentions."
+      heading={null}
+      bleed
     >
       <PreviewCardExamples />
     </DocPage>

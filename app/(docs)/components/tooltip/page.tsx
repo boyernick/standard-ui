@@ -10,7 +10,9 @@ export default function TooltipPage() {
   return (
     <DocPage
       title="Tooltip"
-      description="Short hint on hover or focus."
+      description="Short hint shown on hover or focus."
+      heading={null}
+      bleed
     >
       <TooltipExamples />
     </DocPage>

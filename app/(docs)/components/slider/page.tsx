@@ -11,6 +11,8 @@ export default function SliderPage() {
     <DocPage
       title="Slider"
       description="Choose a value along a continuous range."
+      heading={null}
+      bleed
     >
       <SliderExamples />
     </DocPage>

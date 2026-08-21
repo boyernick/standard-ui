@@ -11,6 +11,8 @@ export default function MenuPage() {
     <DocPage
       title="Menu"
       description="Action list anchored to a trigger."
+      heading={null}
+      bleed
     >
       <MenuExamples />
     </DocPage>

@@ -11,6 +11,8 @@ export default function PopoverPage() {
     <DocPage
       title="Popover"
       description="Anchored surface for light content next to a control."
+      heading={null}
+      bleed
     >
       <PopoverExamples />
     </DocPage>

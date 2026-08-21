@@ -11,6 +11,8 @@ export default function NumberFieldPage() {
     <DocPage
       title="Number field"
       description="Numeric input with increment and decrement steppers."
+      heading={null}
+      bleed
     >
       <NumberFieldExamples />
     </DocPage>

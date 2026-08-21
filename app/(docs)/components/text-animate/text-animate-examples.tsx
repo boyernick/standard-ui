@@ -1,64 +1,86 @@
 "use client"
 
-import { useState } from "react"
 import { Button, TextAnimate } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { useState } from "react"
+import { DocBand } from "@/components/doc-band"
+
+const BAND = "max-w-lg"
 
 export const TextAnimateExamples = () => {
-  const [key, setKey] = useState(0)
-
-  const handleReplay = () => {
-    setKey((value) => value + 1)
-  }
+  // Remounting is what restarts a reveal, so every specimen is keyed off one
+  // counter and the Replay button bumps it.
+  const [run, setRun] = useState(0)
 
   return (
-    <div className="mt-6 flex flex-col gap-8">
-      <ComponentCanvas
-        label="Typewriter"
-        contentClassName="flex-col items-start gap-4"
+    <div>
+      <DocBand
+        first
+        id="typewriter"
+        title="Typewriter"
+        description="Characters arrive one at a time, at the given speed."
+        contentClassName={BAND}
       >
-        <TextAnimate
-          key={`type-${key}`}
-          text="Build once. Ship the standard."
-          effect="typewriter"
-          className="heading-md"
-        />
-        <Button type="button" variant="outline" size="sm" onClick={handleReplay}>
-          Replay
-        </Button>
-      </ComponentCanvas>
+        <div className="flex flex-col items-start gap-4">
+          <TextAnimate
+            key={`type-${run}`}
+            text="Build once. Ship the standard."
+            effect="typewriter"
+            className="heading-md"
+          />
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setRun((value) => value + 1)}
+          >
+            Replay
+          </Button>
+        </div>
+      </DocBand>
 
-      <ComponentCanvas
-        label="Decode"
-        contentClassName="flex-col items-start gap-4"
+      <DocBand
+        id="decode"
+        title="Decode"
+        description="Each slot cycles through glyphs before settling on its letter."
+        contentClassName={BAND}
       >
         <TextAnimate
-          key={`decode-${key}`}
+          key={`decode-${run}`}
           text="StandardUI"
           effect="decode"
           speed={28}
           className="heading-lg-serif"
         />
-      </ComponentCanvas>
+      </DocBand>
 
-      <ComponentCanvas
-        label="Fade and blur"
-        contentClassName="flex-col items-start gap-6"
+      <DocBand
+        id="fade"
+        title="Fade"
+        description="The whole line rises into place rather than typing out."
+        contentClassName={BAND}
       >
         <TextAnimate
-          key={`fade-${key}`}
+          key={`fade-${run}`}
           text="Fade in from below"
           effect="fade"
           className="heading-md"
         />
+      </DocBand>
+
+      <DocBand
+        id="blur"
+        title="Blur"
+        description="The same reveal, sharpening as it arrives, after a short delay."
+        contentClassName={BAND}
+      >
         <TextAnimate
-          key={`blur-${key}`}
+          key={`blur-${run}`}
           text="Blur into focus"
           effect="blur"
           delay={120}
           className="heading-md"
         />
-      </ComponentCanvas>
+      </DocBand>
     </div>
   )
 }

@@ -11,6 +11,8 @@ export default function ScrollAreaPage() {
     <DocPage
       title="Scroll area"
       description="Custom scrollable region with a styled scrollbar."
+      heading={null}
+      bleed
     >
       <ScrollAreaExamples />
     </DocPage>

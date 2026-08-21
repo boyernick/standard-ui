@@ -10,7 +10,9 @@ export default function VideoPlayerPage() {
   return (
     <DocPage
       title="Video player"
-      description="Accessible video surface with play, seek, mute, and fullscreen controls styled with StandardUI tokens."
+      description="Video surface with play, seek, mute and fullscreen controls."
+      heading={null}
+      bleed
     >
       <VideoPlayerExamples />
     </DocPage>

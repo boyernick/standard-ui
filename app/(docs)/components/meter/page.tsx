@@ -11,6 +11,8 @@ export default function MeterPage() {
     <DocPage
       title="Meter"
       description="Read-only gauge for a value within a range."
+      heading={null}
+      bleed
     >
       <MeterExamples />
     </DocPage>

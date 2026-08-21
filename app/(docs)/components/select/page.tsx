@@ -10,7 +10,9 @@ export default function SelectPage() {
   return (
     <DocPage
       title="Select"
-      description="Single-choice menu for forms and filters."
+      description="Menu for choosing from a known list."
+      heading={null}
+      bleed
     >
       <SelectExamples />
     </DocPage>

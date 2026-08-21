@@ -7,39 +7,82 @@ import {
   MeterTrack,
   MeterValue,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { ComponentProps } from "react"
+import { DocBand } from "@/components/doc-band"
+
+const BAND = "max-w-sm"
+
+/** Label and readout over a track — the shape every specimen shares. */
+const Gauge = ({
+  label,
+  ...root
+}: { label: string } & ComponentProps<typeof Meter>) => (
+  <Meter {...root}>
+    <MeterLabel>{label}</MeterLabel>
+    <MeterValue />
+    <MeterTrack>
+      <MeterIndicator />
+    </MeterTrack>
+  </Meter>
+)
 
 export const MeterExamples = () => (
-  <div className="mt-6 flex flex-col gap-8">
-    <ComponentCanvas
-      label="Storage"
-      contentClassName="w-full max-w-sm flex-col items-stretch"
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="A value read against a scale of 0 to 100."
+      contentClassName={BAND}
     >
-      <Meter value={72}>
-        <MeterLabel>Storage used</MeterLabel>
-        <MeterValue />
-        <MeterTrack>
-          <MeterIndicator />
-        </MeterTrack>
-      </Meter>
-    </ComponentCanvas>
+      <div className="flex flex-col gap-5">
+        <Gauge label="Storage used" value={24} />
+        <Gauge label="Storage used" value={72} />
+        <Gauge label="Storage used" value={96} />
+      </div>
+    </DocBand>
 
-    <ComponentCanvas
-      label="Custom format"
-      contentClassName="w-full max-w-sm flex-col items-stretch"
+    <DocBand
+      id="range"
+      title="Custom range"
+      description="min and max set the ends of the scale."
+      contentClassName={BAND}
     >
-      <Meter
-        value={3.2}
+      {/* The readout defaults to a percentage of the range, so without a
+          format this renders "70%" and looks no different from a default
+          meter at 70. A bare format surfaces the raw 7 instead, which is the
+          only thing that makes the custom scale visible. */}
+      <Gauge
+        label="Review score"
+        value={7}
         min={0}
-        max={5}
-        format={{ style: "unit", unit: "gigabyte", maximumFractionDigits: 1 }}
-      >
-        <MeterLabel>Bandwidth</MeterLabel>
-        <MeterValue />
-        <MeterTrack>
-          <MeterIndicator />
-        </MeterTrack>
-      </Meter>
-    </ComponentCanvas>
+        max={10}
+        format={{ maximumFractionDigits: 0 }}
+      />
+    </DocBand>
+
+    <DocBand
+      id="format"
+      title="Formatted value"
+      description="The readout runs through Intl.NumberFormat."
+      contentClassName={BAND}
+    >
+      <div className="flex flex-col gap-5">
+        <Gauge
+          label="Bandwidth"
+          value={3.2}
+          min={0}
+          max={5}
+          format={{ style: "unit", unit: "gigabyte", maximumFractionDigits: 1 }}
+        />
+        <Gauge
+          label="Budget spent"
+          value={1840}
+          min={0}
+          max={5000}
+          format={{ style: "currency", currency: "USD", maximumFractionDigits: 0 }}
+        />
+      </div>
+    </DocBand>
   </div>
 )
