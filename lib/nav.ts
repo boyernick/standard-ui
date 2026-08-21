@@ -37,6 +37,7 @@ export const components = [
   { href: "/components/form", label: "Form" },
   { href: "/components/image-modal", label: "Image modal" },
   { href: "/components/input", label: "Input" },
+  { href: "/components/kbd", label: "Kbd" },
   { href: "/components/markdown-editor", label: "Markdown editor" },
   { href: "/components/menu", label: "Menu" },
   { href: "/components/menubar", label: "Menubar" },

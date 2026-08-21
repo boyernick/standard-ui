@@ -4,8 +4,10 @@ import { Dialog as BaseDialog } from "@base-ui/react/dialog"
 import {
   createContext,
   useContext,
+  useEffect,
   useId,
   useMemo,
+  useRef,
   type ButtonHTMLAttributes,
   type ComponentProps,
   type HTMLAttributes,
@@ -222,7 +224,7 @@ export const CommandContent = ({
 }: CommandContentProps) => (
   <div
     className={cn(
-      "flex min-h-0 flex-1 flex-col gap-3 overflow-x-visible overflow-y-auto overscroll-contain px-4 pt-1 pb-5",
+      "flex min-h-0 flex-1 flex-col gap-3 overflow-hidden px-4 pt-1 pb-5",
       className,
     )}
     {...props}
@@ -276,7 +278,7 @@ export const CommandList = ({ className, ...props }: CommandListProps) => {
       id={listboxId}
       role="listbox"
       className={cn(
-        "grid min-h-0 flex-1 content-start gap-0 overflow-visible overscroll-contain py-0.5",
+        "grid min-h-0 flex-1 content-start gap-0 overflow-y-auto overscroll-contain py-0.5",
         className,
       )}
       {...props}
@@ -294,6 +296,15 @@ export const CommandItem = ({
   onClick,
   ...props
 }: CommandItemProps) => {
+  const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null)
+
+  // Keyboard selection moves the highlight without moving focus, so nothing
+  // scrolls the list on its own. `nearest` only acts when the row is actually
+  // out of view, which leaves hover-driven selection alone.
+  useEffect(() => {
+    if (selected) ref.current?.scrollIntoView({ block: "nearest" })
+  }, [selected])
+
   const itemClassName = cn(
     "flex h-15 min-h-15 w-full cursor-pointer items-center justify-between gap-4 rounded-lg border border-transparent px-4 text-left text-sm font-medium text-fg-primary outline-none select-none",
     motion.colors,
@@ -307,6 +318,7 @@ export const CommandItem = ({
     <li role="presentation" className="m-0">
       {href ? (
         <a
+          ref={ref}
           id={id}
           href={disabled ? undefined : href}
           role="option"
@@ -322,6 +334,7 @@ export const CommandItem = ({
         </a>
       ) : (
         <button
+          ref={ref}
           id={id}
           type="button"
           role="option"

@@ -1,5 +1,12 @@
 export { Button, buttonVariants, type ButtonProps } from "./button";
 export { Input, inputVariants, type InputProps } from "./input";
+export {
+  Kbd,
+  KbdGroup,
+  kbdVariants,
+  type KbdGroupProps,
+  type KbdProps,
+} from "./kbd";
 export { Badge, badgeVariants, type BadgeProps } from "./badge";
 export { Switch, type SwitchProps } from "./switch";
 export { Checkbox, type CheckboxProps } from "./checkbox";

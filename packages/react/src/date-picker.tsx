@@ -62,11 +62,16 @@ const DatePickerTrigger = ({
     render={
       <Button
         type="button"
-        size="sm"
+        // Default md height, so the trigger lines up with every other field
+        // in a form rather than sitting 4px short of them.
+        size="md"
         variant="outline"
         disabled={disabled}
         prefix={<IconCalendar1 aria-hidden />}
-        className={cn("w-56 justify-start", className)}
+        // The outline button fills on hover, which is right for a button and
+        // wrong here: this reads as a field, and fields in the system keep
+        // their surface. The border and the popover carry the state.
+        className={cn("w-56 justify-start hover:bg-surface", className)}
       />
     }
   >

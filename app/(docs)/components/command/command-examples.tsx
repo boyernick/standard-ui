@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
   type KeyboardEvent,
+  type ReactNode,
 } from "react"
 import {
   Button,
@@ -28,6 +29,9 @@ import {
   CommandTitle,
   CommandToolbar,
   CommandTrigger,
+  IconMagnifyingGlass,
+  Kbd,
+  KbdGroup,
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 import { navGroups } from "@/lib/nav"
@@ -54,7 +58,9 @@ const filters = [
   ...Array.from(new Set(entries.map((entry) => entry.category))).sort(),
 ]
 
-export const CommandExamples = () => {
+/** The whole menu, minus the control that opens it — so each band can show
+ *  a different trigger against an otherwise identical specimen. */
+const SearchCommand = ({ trigger }: { trigger: ReactNode }) => {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [filter, setFilter] = useState("All")
@@ -134,24 +140,12 @@ export const CommandExamples = () => {
   }
 
   return (
-    <div>
-      <DocBand
-        first
-        id="default"
-        title="Default"
-        description="Opens on ⌘K, filters by category, and moves with the arrow keys."
-      >
-        <Command
-          open={open}
-          onOpenChange={handleOpenChange}
-          activeOptionId={activeOptionId}
-        >
-          <CommandTrigger render={<Button variant="outline" />}>
-            Search…
-            <kbd className="text-xs ml-2 rounded-xs border border-border-primary bg-background-secondary px-1.5 py-0.5 text-fg-tertiary">
-              ⌘K
-            </kbd>
-          </CommandTrigger>
+    <Command
+      open={open}
+      onOpenChange={handleOpenChange}
+      activeOptionId={activeOptionId}
+    >
+      {trigger}
           <CommandPortal>
             <CommandBackdrop />
             <CommandPopup>
@@ -215,10 +209,52 @@ export const CommandExamples = () => {
                   </CommandList>
                 )}
               </CommandContent>
-            </CommandPopup>
-          </CommandPortal>
-        </Command>
-      </DocBand>
-    </div>
+      </CommandPopup>
+    </CommandPortal>
+  </Command>
   )
 }
+
+export const CommandExamples = () => (
+  <div>
+    <DocBand
+      first
+      id="default"
+      title="Default"
+      description="Opens on ⌘K, filters by category, and moves with the arrow keys."
+      contentClassName="max-w-sm"
+    >
+      <SearchCommand
+        trigger={
+          <CommandTrigger
+            render={
+              <Button variant="outline" className="w-full justify-between" />
+            }
+          >
+            Search…
+            <KbdGroup>
+              <Kbd aria-hidden>⌘</Kbd>
+              <Kbd>K</Kbd>
+            </KbdGroup>
+          </CommandTrigger>
+        }
+      />
+    </DocBand>
+
+    <DocBand
+      id="icon"
+      title="Icon trigger"
+      description="A compact opener for a toolbar, where a full field would not fit."
+    >
+      <SearchCommand
+        trigger={
+          <CommandTrigger
+            render={<Button variant="outline" iconOnly aria-label="Search" />}
+          >
+            <IconMagnifyingGlass size={16} aria-hidden />
+          </CommandTrigger>
+        }
+      />
+    </DocBand>
+  </div>
+)
