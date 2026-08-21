@@ -11,6 +11,8 @@ export default function CheckboxPage() {
     <DocPage
       title="Checkbox"
       description="Boolean selection for forms and filters."
+      heading={null}
+      bleed
     >
       <CheckboxExamples />
     </DocPage>

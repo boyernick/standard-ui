@@ -10,7 +10,9 @@ export default function CheckboxGroupPage() {
   return (
     <DocPage
       title="Checkbox group"
-      description="Shared state for a set of checkboxes — multi-select lists, permissions, and select-all parents."
+      description="Shared state for a set of related checkboxes."
+      heading={null}
+      bleed
     >
       <CheckboxGroupExamples />
     </DocPage>

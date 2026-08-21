@@ -87,13 +87,19 @@ export const motionGroups: MotionGroup[] = [
   {
     id: "panels",
     title: "Panels and indicators",
-    description: "Size and position changes on surfaces that stay mounted.",
+    description: "Parts of a control that expand, slide, or appear in place.",
     tokens: [
       {
         name: "motion.accordionPanel",
         usage: "Height expand and collapse",
         duration: "200 → 150ms",
         easing: "move",
+      },
+      {
+        name: "motion.checkIndicator",
+        usage: "Check and minus glyphs inside a small control",
+        duration: "150 → 150ms",
+        easing: "snap → move",
       },
       {
         name: "motion.tabsIndicator",

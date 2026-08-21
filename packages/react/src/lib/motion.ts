@@ -14,7 +14,8 @@
  *
  * Two kinds of token live here, and they behave differently:
  *
- *   Mount tokens  — backdrop, popupCenter, popupAnchor, accordionPanel.
+ *   Mount tokens  — backdrop, popupCenter, popupAnchor, accordionPanel,
+ *     checkIndicator.
  *     These carry separate enter and exit behaviour. Base UI flags the exit
  *     with `data-ending-style`, and the `data-ending-style:` variants below
  *     re-declare duration and easing for that direction. Exits always run at
@@ -87,6 +88,20 @@ export const motion = {
     REDUCED,
     "data-starting-style:h-0",
     "data-ending-style:h-0",
+    EXIT_DURATION,
+    "data-ending-style:ease-move",
+  ].join(" "),
+
+  /** Check and minus glyphs mounting inside a small control. Snaps, because
+   *  it answers a click directly, and scales from the centre so the mark
+   *  reads as landing in the box rather than fading onto it. */
+  checkIndicator: [
+    "transition-[scale,opacity]",
+    DURATION.sm,
+    "ease-snap",
+    REDUCED,
+    "data-starting-style:scale-50 data-starting-style:opacity-0",
+    "data-ending-style:scale-50 data-ending-style:opacity-0",
     EXIT_DURATION,
     "data-ending-style:ease-move",
   ].join(" "),
