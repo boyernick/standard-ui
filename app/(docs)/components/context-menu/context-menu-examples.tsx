@@ -18,80 +18,98 @@ import {
   ContextMenuSubmenuTrigger,
   ContextMenuTrigger,
 } from "@boyernick/standard-ui-react"
+import type { ReactNode } from "react"
 import { useState } from "react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
+
+/** The right-click target every specimen shares. */
+const Region = ({ label, children }: { label: string; children: ReactNode }) => (
+  <ContextMenu>
+    <ContextMenuTrigger className="flex h-32 w-full cursor-default items-center justify-center rounded-xl border border-dashed border-border-primary bg-background-secondary text-sm text-fg-secondary">
+      {label}
+    </ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuPositioner>
+        <ContextMenuPopup>{children}</ContextMenuPopup>
+      </ContextMenuPositioner>
+    </ContextMenuPortal>
+  </ContextMenu>
+)
 
 export const ContextMenuExamples = () => {
   const [showGrid, setShowGrid] = useState(true)
   const [view, setView] = useState("list")
 
   return (
-    <div className="mt-6 flex flex-col gap-8">
-      <ComponentCanvas label="Basic">
-        <ContextMenu>
-          <ContextMenuTrigger className="flex h-32 w-full max-w-sm cursor-default items-center justify-center rounded-xl border border-dashed border-border-primary bg-background-secondary text-sm text-fg-secondary">
-            Right-click here
-          </ContextMenuTrigger>
-          <ContextMenuPortal>
-            <ContextMenuPositioner>
-              <ContextMenuPopup>
-                <ContextMenuItem>Cut</ContextMenuItem>
-                <ContextMenuItem>Copy</ContextMenuItem>
-                <ContextMenuItem>Paste</ContextMenuItem>
-                <ContextMenuSeparator />
-                <ContextMenuItem>Delete</ContextMenuItem>
-              </ContextMenuPopup>
-            </ContextMenuPositioner>
-          </ContextMenuPortal>
-        </ContextMenu>
-      </ComponentCanvas>
+    <div>
+      <DocBand
+        first
+        id="default"
+        title="Default"
+        description="Actions for the region under the pointer."
+        contentClassName="max-w-sm"
+      >
+        <Region label="Right-click here">
+          <ContextMenuItem>Cut</ContextMenuItem>
+          <ContextMenuItem>Copy</ContextMenuItem>
+          <ContextMenuItem>Paste</ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem>Delete</ContextMenuItem>
+        </Region>
+      </DocBand>
 
-      <ComponentCanvas label="Checkbox, radio, submenu">
-        <ContextMenu>
-          <ContextMenuTrigger className="flex h-32 w-full max-w-sm cursor-default items-center justify-center rounded-xl border border-dashed border-border-primary bg-background-secondary text-sm text-fg-secondary">
-            Right-click for options
-          </ContextMenuTrigger>
-          <ContextMenuPortal>
-            <ContextMenuPositioner>
-              <ContextMenuPopup>
-                <ContextMenuGroup>
-                  <ContextMenuGroupLabel>Display</ContextMenuGroupLabel>
-                  <ContextMenuCheckboxItem
-                    checked={showGrid}
-                    onCheckedChange={setShowGrid}
-                  >
-                    <ContextMenuCheckboxItemIndicator />
-                    Show grid
-                  </ContextMenuCheckboxItem>
-                </ContextMenuGroup>
-                <ContextMenuSeparator />
-                <ContextMenuRadioGroup value={view} onValueChange={setView}>
-                  <ContextMenuRadioItem value="list">
-                    <ContextMenuRadioItemIndicator />
-                    List
-                  </ContextMenuRadioItem>
-                  <ContextMenuRadioItem value="grid">
-                    <ContextMenuRadioItemIndicator />
-                    Grid
-                  </ContextMenuRadioItem>
-                </ContextMenuRadioGroup>
-                <ContextMenuSeparator />
-                <ContextMenuSubmenuRoot>
-                  <ContextMenuSubmenuTrigger>Share</ContextMenuSubmenuTrigger>
-                  <ContextMenuPortal>
-                    <ContextMenuPositioner>
-                      <ContextMenuPopup>
-                        <ContextMenuItem>Email</ContextMenuItem>
-                        <ContextMenuItem>Link</ContextMenuItem>
-                      </ContextMenuPopup>
-                    </ContextMenuPositioner>
-                  </ContextMenuPortal>
-                </ContextMenuSubmenuRoot>
-              </ContextMenuPopup>
-            </ContextMenuPositioner>
-          </ContextMenuPortal>
-        </ContextMenu>
-      </ComponentCanvas>
+      <DocBand
+        id="checkbox-radio"
+        title="Checkbox and radio"
+        description="Items that carry state, toggled or chosen in place."
+        contentClassName="max-w-sm"
+      >
+        <Region label="Right-click for options">
+          <ContextMenuGroup>
+            <ContextMenuGroupLabel>Display</ContextMenuGroupLabel>
+            <ContextMenuCheckboxItem
+              checked={showGrid}
+              onCheckedChange={setShowGrid}
+            >
+              <ContextMenuCheckboxItemIndicator />
+              Show grid
+            </ContextMenuCheckboxItem>
+          </ContextMenuGroup>
+          <ContextMenuSeparator />
+          <ContextMenuRadioGroup value={view} onValueChange={setView}>
+            <ContextMenuRadioItem value="list">
+              <ContextMenuRadioItemIndicator />
+              List
+            </ContextMenuRadioItem>
+            <ContextMenuRadioItem value="grid">
+              <ContextMenuRadioItemIndicator />
+              Grid
+            </ContextMenuRadioItem>
+          </ContextMenuRadioGroup>
+        </Region>
+      </DocBand>
+
+      <DocBand
+        id="submenu"
+        title="Submenu"
+        description="A nested menu that opens beside its parent."
+        contentClassName="max-w-sm"
+      >
+        <Region label="Right-click to share">
+          <ContextMenuItem>Rename</ContextMenuItem>
+          <ContextMenuSubmenuRoot>
+            <ContextMenuSubmenuTrigger>Share</ContextMenuSubmenuTrigger>
+            <ContextMenuPortal>
+              <ContextMenuPositioner>
+                <ContextMenuPopup>
+                  <ContextMenuItem>Email</ContextMenuItem>
+                  <ContextMenuItem>Link</ContextMenuItem>
+                </ContextMenuPopup>
+              </ContextMenuPositioner>
+            </ContextMenuPortal>
+          </ContextMenuSubmenuRoot>
+        </Region>
+      </DocBand>
     </div>
   )
 }

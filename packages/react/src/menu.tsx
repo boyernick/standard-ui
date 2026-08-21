@@ -5,6 +5,7 @@ import type { ComponentProps } from "react"
 import { IconCheckmark1, IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupInset, popupItem, popupLabel, popupSurface } from "./lib/popup"
 
 export type MenuProps = ComponentProps<typeof BaseMenu.Root>
 export type MenuTriggerProps = ComponentProps<typeof BaseMenu.Trigger>
@@ -34,7 +35,7 @@ export type MenuSubmenuTriggerProps = ComponentProps<
 export type MenuViewportProps = ComponentProps<typeof BaseMenu.Viewport>
 
 const menuItemClassName = cn(
-  "flex h-8 cursor-default items-center gap-2 rounded-sm px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+  popupItem,
   motion.colors,
   "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary",
 )
@@ -73,7 +74,9 @@ export const MenuPositioner = ({
 export const MenuPopup = ({ className, ...props }: MenuPopupProps) => (
   <BaseMenu.Popup
     className={cn(
-      "z-50 min-w-40 overflow-hidden rounded-xl border border-[var(--border-faint)] bg-surface p-1.5 shadow-lg outline-none",
+      "z-50 min-w-40 overflow-hidden",
+      popupSurface,
+      popupInset,
       motion.popupAnchor,
       className,
     )}
@@ -123,7 +126,7 @@ export const MenuGroupLabel = ({
   ...props
 }: MenuGroupLabelProps) => (
   <BaseMenu.GroupLabel
-    className={cn("px-2.5 py-1.5 text-xs text-fg-tertiary", className)}
+    className={cn(popupLabel, className)}
     {...props}
   />
 )

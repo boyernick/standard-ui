@@ -5,6 +5,7 @@ import type { ComponentProps, ReactElement } from "react"
 import { IconChevronDownSmall, IconCrossSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupInset, popupItem, popupLabel, popupMessage, popupSurface } from "./lib/popup"
 
 export type AutocompleteProps = ComponentProps<typeof BaseAutocomplete.Root>
 export type AutocompleteValueProps = ComponentProps<typeof BaseAutocomplete.Value>
@@ -167,7 +168,8 @@ export const AutocompletePopup = ({
 }: AutocompletePopupProps) => (
   <BaseAutocomplete.Popup
     className={cn(
-      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden rounded-xl border border-border-primary-solid bg-surface shadow-lg outline-none",
+      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden",
+      popupSurface,
       motion.popupAnchor,
       className,
     )}
@@ -198,7 +200,7 @@ export const AutocompleteList = ({
   ...props
 }: AutocompleteListProps) => (
   <BaseAutocomplete.List
-    className={cn("max-h-[inherit] overflow-y-auto p-1.5 outline-none empty:p-0", className)}
+    className={cn("max-h-[inherit] overflow-y-auto outline-none", popupInset, className)}
     {...props}
   />
 )
@@ -209,7 +211,7 @@ export const AutocompleteItem = ({
 }: AutocompleteItemProps) => (
   <BaseAutocomplete.Item
     className={cn(
-      "flex min-h-9 cursor-default items-center gap-2 rounded-sm px-3 py-2 text-sm text-fg-primary outline-none select-none",
+      popupItem,
       motion.colors,
       "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary data-highlighted:text-fg-primary",
       className,
@@ -223,7 +225,7 @@ export const AutocompleteEmpty = ({
   ...props
 }: AutocompleteEmptyProps) => (
   <BaseAutocomplete.Empty
-    className={cn("px-3 py-2 text-sm text-fg-tertiary empty:hidden", className)}
+    className={cn(cn(popupMessage, "empty:hidden"), className)}
     {...props}
   />
 )
@@ -233,7 +235,7 @@ export const AutocompleteStatus = ({
   ...props
 }: AutocompleteStatusProps) => (
   <BaseAutocomplete.Status
-    className={cn("px-3 py-2 text-sm text-fg-tertiary", className)}
+    className={cn(popupMessage, className)}
     {...props}
   />
 )
@@ -250,7 +252,7 @@ export const AutocompleteGroupLabel = ({
   ...props
 }: AutocompleteGroupLabelProps) => (
   <BaseAutocomplete.GroupLabel
-    className={cn("px-3 py-1.5 text-xs text-fg-tertiary", className)}
+    className={cn(popupLabel, className)}
     {...props}
   />
 )

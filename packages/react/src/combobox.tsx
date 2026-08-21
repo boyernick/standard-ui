@@ -5,6 +5,7 @@ import type { ComponentProps, ReactElement } from "react"
 import { IconChevronDownSmall, IconCrossSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupInset, popupItem, popupLabel, popupMessage, popupSurface } from "./lib/popup"
 
 export type ComboboxProps<
   Value,
@@ -138,7 +139,7 @@ export const ComboboxClear = ({
     {...props}
   >
     {children ?? (
-      <IconCrossSmall size={14} className="size-3.5" aria-hidden />
+      <IconCrossSmall size={16} className="size-4" aria-hidden />
     )}
   </BaseCombobox.Clear>
 )
@@ -159,7 +160,7 @@ export const ComboboxBackdrop = ({
 )
 
 export const ComboboxPositioner = ({
-  sideOffset = 4,
+  sideOffset = 6,
   className,
   ...props
 }: ComboboxPositionerProps) => (
@@ -173,7 +174,8 @@ export const ComboboxPositioner = ({
 export const ComboboxPopup = ({ className, ...props }: ComboboxPopupProps) => (
   <BaseCombobox.Popup
     className={cn(
-      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden rounded-md border border-border-primary bg-surface shadow-md outline-none",
+      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden",
+      popupSurface,
       motion.popupAnchor,
       className,
     )}
@@ -198,7 +200,7 @@ export const ComboboxArrow = ({ className, ...props }: ComboboxArrowProps) => (
 
 export const ComboboxList = ({ className, ...props }: ComboboxListProps) => (
   <BaseCombobox.List
-    className={cn("max-h-[inherit] overflow-y-auto p-1 outline-none", className)}
+    className={cn("max-h-[inherit] overflow-y-auto outline-none", popupInset, className)}
     {...props}
   />
 )
@@ -206,7 +208,7 @@ export const ComboboxList = ({ className, ...props }: ComboboxListProps) => (
 export const ComboboxItem = ({ className, ...props }: ComboboxItemProps) => (
   <BaseCombobox.Item
     className={cn(
-      "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+      popupItem,
       motion.colors,
       "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary data-highlighted:text-fg-primary",
       className,
@@ -237,14 +239,14 @@ export const ComboboxItemIndicator = ({
 
 export const ComboboxEmpty = ({ className, ...props }: ComboboxEmptyProps) => (
   <BaseCombobox.Empty
-    className={cn("px-2.5 py-2 text-sm text-fg-tertiary empty:hidden", className)}
+    className={cn(cn(popupMessage, "empty:hidden"), className)}
     {...props}
   />
 )
 
 export const ComboboxStatus = ({ className, ...props }: ComboboxStatusProps) => (
   <BaseCombobox.Status
-    className={cn("px-2.5 py-2 text-sm text-fg-tertiary", className)}
+    className={cn(popupMessage, className)}
     {...props}
   />
 )
@@ -258,7 +260,7 @@ export const ComboboxGroupLabel = ({
   ...props
 }: ComboboxGroupLabelProps) => (
   <BaseCombobox.GroupLabel
-    className={cn("px-2.5 py-1.5 text-xs text-fg-tertiary", className)}
+    className={cn(popupLabel, className)}
     {...props}
   />
 )
@@ -290,7 +292,7 @@ export const ComboboxChips = ({ className, ...props }: ComboboxChipsProps) => (
 export const ComboboxChip = ({ className, ...props }: ComboboxChipProps) => (
   <BaseCombobox.Chip
     className={cn(
-      "inline-flex h-6 items-center gap-1 rounded-xs bg-background-tertiary px-1.5 text-xs text-fg-primary",
+      "inline-flex h-6 items-center gap-1 rounded-xs bg-background-tertiary px-1.5 text-xs-strong text-fg-primary",
       className,
     )}
     {...props}
@@ -304,13 +306,13 @@ export const ComboboxChipRemove = ({
 }: ComboboxChipRemoveProps) => (
   <BaseCombobox.ChipRemove
     className={cn(
-      "inline-flex size-3.5 cursor-pointer items-center justify-center text-fg-tertiary outline-none hover:text-fg-primary focus-visible:outline-none",
+      "inline-flex size-3.5 cursor-pointer items-center justify-center text-fg-primary outline-none focus-visible:outline-none",
       className,
     )}
     {...props}
   >
     {children ?? (
-      <IconCrossSmall size={12} className="size-3" aria-hidden />
+      <IconCrossSmall size={14} className="size-3.5" aria-hidden />
     )}
   </BaseCombobox.ChipRemove>
 )

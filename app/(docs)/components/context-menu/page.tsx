@@ -11,6 +11,8 @@ export default function ContextMenuPage() {
     <DocPage
       title="Context menu"
       description="Right-click menu for in-place actions on a region or object."
+      heading={null}
+      bleed
     >
       <ContextMenuExamples />
     </DocPage>

@@ -4,6 +4,7 @@ import { Popover as BasePopover } from "@base-ui/react/popover"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupSurface } from "./lib/popup"
 
 export type PopoverProps = ComponentProps<typeof BasePopover.Root>
 export type PopoverTriggerProps = ComponentProps<typeof BasePopover.Trigger>
@@ -47,7 +48,8 @@ export const PopoverPositioner = ({
 export const PopoverPopup = ({ className, ...props }: PopoverPopupProps) => (
   <BasePopover.Popup
     className={cn(
-      "z-50 flex w-72 flex-col gap-1 rounded-xl border border-border-primary bg-surface p-4 shadow-md outline-none",
+      "z-50 flex w-72 flex-col gap-1 p-4",
+      popupSurface,
       motion.popupAnchor,
       className,
     )}

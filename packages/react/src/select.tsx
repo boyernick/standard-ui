@@ -5,6 +5,7 @@ import type { ComponentProps } from "react"
 import { IconChevronDownSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupInset, popupItem, popupLabel, popupSurface } from "./lib/popup"
 
 export type SelectProps = ComponentProps<typeof BaseSelect.Root>
 export type SelectTriggerProps = ComponentProps<typeof BaseSelect.Trigger>
@@ -71,7 +72,7 @@ export const SelectPortal = (props: SelectPortalProps) => (
 
 export const SelectPositioner = ({
   alignItemWithTrigger = false,
-  sideOffset = 4,
+  sideOffset = 6,
   className,
   ...props
 }: SelectPositionerProps) => (
@@ -86,7 +87,8 @@ export const SelectPositioner = ({
 export const SelectPopup = ({ className, ...props }: SelectPopupProps) => (
   <BaseSelect.Popup
     className={cn(
-      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden rounded-md border border-border-primary bg-surface shadow-md outline-none",
+      "z-50 max-h-[min(24rem,var(--available-height))] w-[var(--anchor-width)] overflow-hidden",
+      popupSurface,
       motion.popupAnchor,
       className,
     )}
@@ -96,7 +98,7 @@ export const SelectPopup = ({ className, ...props }: SelectPopupProps) => (
 
 export const SelectList = ({ className, ...props }: SelectListProps) => (
   <BaseSelect.List
-    className={cn("max-h-[inherit] overflow-y-auto p-1 outline-none", className)}
+    className={cn("max-h-[inherit] overflow-y-auto outline-none", popupInset, className)}
     {...props}
   />
 )
@@ -104,7 +106,7 @@ export const SelectList = ({ className, ...props }: SelectListProps) => (
 export const SelectItem = ({ className, ...props }: SelectItemProps) => (
   <BaseSelect.Item
     className={cn(
-      "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+      popupItem,
       motion.colors,
       "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary data-selected:text-fg-primary",
       className,
@@ -145,7 +147,7 @@ export const SelectGroupLabel = ({
   ...props
 }: SelectGroupLabelProps) => (
   <BaseSelect.GroupLabel
-    className={cn("px-2.5 py-1.5 text-xs text-fg-tertiary", className)}
+    className={cn(popupLabel, className)}
     {...props}
   />
 )

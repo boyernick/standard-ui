@@ -5,6 +5,7 @@ import type { ComponentProps } from "react"
 import { IconChevronDownSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupSurface } from "./lib/popup"
 
 export type NavigationMenuProps = ComponentProps<typeof BaseNavigationMenu.Root>
 export type NavigationMenuListProps = ComponentProps<
@@ -177,7 +178,8 @@ export const NavigationMenuPopup = ({
 }: NavigationMenuPopupProps) => (
   <BaseNavigationMenu.Popup
     className={cn(
-      "relative z-50 w-[var(--popup-width)] overflow-hidden rounded-xl border border-border-primary bg-surface shadow-md outline-none",
+      "relative z-50 w-[var(--popup-width)] overflow-hidden",
+      popupSurface,
       "h-[var(--popup-height)] transition-[width,height,opacity] duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
       "data-starting-style:opacity-0 data-ending-style:opacity-0",
       className,

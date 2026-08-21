@@ -11,6 +11,8 @@ export default function ComboboxPage() {
     <DocPage
       title="Combobox"
       description="Searchable list for picking from known options."
+      heading={null}
+      bleed
     >
       <ComboboxExamples />
     </DocPage>

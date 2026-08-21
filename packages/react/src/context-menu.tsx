@@ -5,6 +5,7 @@ import type { ComponentProps } from "react"
 import { IconCheckmark1, IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupInset, popupItem, popupLabel, popupSurface } from "./lib/popup"
 
 export type ContextMenuProps = ComponentProps<typeof BaseContextMenu.Root>
 export type ContextMenuTriggerProps = ComponentProps<
@@ -53,7 +54,7 @@ export type ContextMenuSubmenuTriggerProps = ComponentProps<
 >
 
 const itemClassName = cn(
-  "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+  popupItem,
   motion.colors,
   "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary",
 )
@@ -100,7 +101,9 @@ export const ContextMenuPopup = ({
 }: ContextMenuPopupProps) => (
   <BaseContextMenu.Popup
     className={cn(
-      "z-50 min-w-40 overflow-hidden rounded-md border border-border-primary bg-surface p-1 shadow-md outline-none",
+      "z-50 min-w-40 overflow-hidden",
+      popupSurface,
+      popupInset,
       motion.popupAnchor,
       className,
     )}
@@ -165,7 +168,7 @@ export const ContextMenuGroupLabel = ({
   ...props
 }: ContextMenuGroupLabelProps) => (
   <BaseContextMenu.GroupLabel
-    className={cn("px-2.5 py-1.5 text-xs text-fg-tertiary", className)}
+    className={cn(popupLabel, className)}
     {...props}
   />
 )

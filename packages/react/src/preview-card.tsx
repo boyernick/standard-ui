@@ -4,6 +4,7 @@ import { PreviewCard as BasePreviewCard } from "@base-ui/react/preview-card"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupSurface } from "./lib/popup"
 
 export type PreviewCardProps = ComponentProps<typeof BasePreviewCard.Root>
 export type PreviewCardTriggerProps = ComponentProps<
@@ -67,7 +68,8 @@ export const PreviewCardPopup = ({
 }: PreviewCardPopupProps) => (
   <BasePreviewCard.Popup
     className={cn(
-      "z-50 w-72 overflow-hidden rounded-xl border border-border-primary bg-surface p-4 shadow-md outline-none",
+      "z-50 w-72 overflow-hidden p-4",
+      popupSurface,
       motion.popupAnchor,
       className,
     )}
