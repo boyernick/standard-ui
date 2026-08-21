@@ -77,7 +77,6 @@ export const ComboboxInputGroup = ({
   <BaseCombobox.InputGroup
     className={cn(
       "relative flex min-h-9 w-full items-center rounded-md border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[color,box-shadow]",
-      "has-[[data-popup-open]]:bg-background-tertiary/60",
       "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20",
       "aria-invalid:border-destructive aria-invalid:focus-within:border-destructive aria-invalid:focus-within:ring-destructive/20",
       "has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20",

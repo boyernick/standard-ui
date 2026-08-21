@@ -11,6 +11,8 @@ export default function CollapsiblePage() {
     <DocPage
       title="Collapsible"
       description="Show and hide a related panel of content."
+      heading={null}
+      bleed
     >
       <CollapsibleExamples />
     </DocPage>
