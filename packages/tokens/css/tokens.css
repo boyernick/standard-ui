@@ -142,10 +142,14 @@
   --elevation-200-geo: 0 2px 4px -1px;
   --elevation-300-geo: 0 4px 8px -2px;
   --elevation-400-geo: 0 8px 16px -4px;
+  /* Centred modals. No offset, so the surface reads as floating in the
+     viewport rather than lit from above like the raised controls. */
+  --elevation-ambient-geo: 0 0 72px 0;
   --shadow-alpha-100: 0.08;
   --shadow-alpha-200: 0.08;
   --shadow-alpha-300: 0.1;
   --shadow-alpha-400: 0.12;
+  --shadow-alpha-ambient: 0.16;
   --shadow-hairline-width: 1px;
   --shadow-hairline-color: rgb(0 0 0 / 8%);
   --elevation-hairline: 0 0 0 var(--shadow-hairline-width)
@@ -158,6 +162,8 @@
     rgb(var(--shadow-color) / var(--shadow-alpha-300));
   --shadow-400: var(--elevation-400-geo)
     rgb(var(--shadow-color) / var(--shadow-alpha-400));
+  --shadow-ambient-layer: var(--elevation-ambient-geo)
+    rgb(var(--shadow-color) / var(--shadow-alpha-ambient));
   /* Raised solid controls — top edge highlight (primary / destructive) */
   --elevation-solid-top: inset 0 1px 0 0
     color-mix(in oklab, var(--white) 18%, transparent);
@@ -211,6 +217,7 @@
   --shadow-alpha-200: 0.2;
   --shadow-alpha-300: 0.36;
   --shadow-alpha-400: 0.3;
+  --shadow-alpha-ambient: 0.5;
   --shadow-hairline-width: 1px;
   --shadow-hairline-color: rgb(255 255 255 / 10%);
 }
@@ -430,6 +437,7 @@
   --shadow-md: var(--elevation-hairline), var(--shadow-200);
   --shadow-lg: var(--elevation-hairline), var(--shadow-300);
   --shadow-xl: var(--elevation-hairline), var(--shadow-400);
+  --shadow-ambient: var(--elevation-hairline), var(--shadow-ambient-layer);
   --shadow-hairline: var(--elevation-hairline);
   --inset-shadow-hairline: inset var(--elevation-hairline);
   --inset-shadow-solid-top: var(--elevation-solid-top);

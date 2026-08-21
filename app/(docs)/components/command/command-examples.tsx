@@ -28,33 +28,30 @@ import {
   CommandTitle,
   CommandToolbar,
   CommandTrigger,
-  IconMagnifyingGlass,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
+import { navGroups } from "@/lib/nav"
 
-type Article = {
+type Entry = {
   slug: string
   title: string
   category: string
 }
 
-const articles: Article[] = [
-  {
-    slug: "first-principles",
-    title: "First principles",
-    category: "Mental models",
-  },
-  {
-    slug: "doing-less-is-more",
-    title: "Doing less is more",
-    category: "Productivity",
-  },
-  { slug: "lexicon", title: "Lexicon", category: "Notes" },
-]
+/** Every page in the sidebar, so the specimen can't drift out of sync with
+ *  the real navigation the way a hand-listed subset would. */
+const entries: Entry[] = navGroups.flatMap((group) =>
+  group.items.map((item) => ({
+    // Hrefs carry slashes, which are awkward inside an element id.
+    slug: item.href.split("/").filter(Boolean).join("-") || "introduction",
+    title: item.label,
+    category: group.label,
+  })),
+)
 
 const filters = [
   "All",
-  ...Array.from(new Set(articles.map((article) => article.category))).sort(),
+  ...Array.from(new Set(entries.map((entry) => entry.category))).sort(),
 ]
 
 export const CommandExamples = () => {
@@ -68,14 +65,14 @@ export const CommandExamples = () => {
     const normalized = query.trim().toLowerCase()
     const categoryFiltered =
       filter === "All"
-        ? articles
-        : articles.filter((article) => article.category === filter)
+        ? entries
+        : entries.filter((entry) => entry.category === filter)
 
     if (!normalized) return categoryFiltered
 
-    return categoryFiltered.filter((article) => {
+    return categoryFiltered.filter((entry) => {
       const haystack =
-        `${article.title} ${article.category}`.toLowerCase()
+        `${entry.title} ${entry.category}`.toLowerCase()
       return haystack.includes(normalized)
     })
   }, [filter, query])
@@ -137,21 +134,19 @@ export const CommandExamples = () => {
   }
 
   return (
-    <div className="mt-6 flex flex-col gap-8">
-      <ComponentCanvas label="Search">
+    <div>
+      <DocBand
+        first
+        id="default"
+        title="Default"
+        description="Opens on ⌘K, filters by category, and moves with the arrow keys."
+      >
         <Command
           open={open}
           onOpenChange={handleOpenChange}
           activeOptionId={activeOptionId}
         >
-          <CommandTrigger
-            render={
-              <Button
-                variant="outline"
-                prefix={<IconMagnifyingGlass size={16} aria-hidden />}
-              />
-            }
-          >
+          <CommandTrigger render={<Button variant="outline" />}>
             Search…
             <kbd className="text-xs ml-2 rounded-xs border border-border-primary bg-background-secondary px-1.5 py-0.5 text-fg-tertiary">
               ⌘K
@@ -160,7 +155,7 @@ export const CommandExamples = () => {
           <CommandPortal>
             <CommandBackdrop />
             <CommandPopup>
-              <CommandDialogTitle>Search articles</CommandDialogTitle>
+              <CommandDialogTitle>Search the system</CommandDialogTitle>
               <CommandToolbar>
                 <CommandInput
                   placeholder="Search…"
@@ -188,7 +183,7 @@ export const CommandExamples = () => {
                 </CommandActions>
               </CommandToolbar>
               <CommandContent>
-                <CommandFilters aria-label="Filter articles">
+                <CommandFilters aria-label="Filter by section">
                   {filters.map((option) => (
                     <CommandFilter
                       key={option}
@@ -205,16 +200,16 @@ export const CommandExamples = () => {
                 {results.length === 0 ? (
                   <CommandEmpty>No results</CommandEmpty>
                 ) : (
-                  <CommandList aria-label="Articles">
-                    {results.map((article, index) => (
+                  <CommandList aria-label="Pages">
+                    {results.map((entry, index) => (
                       <CommandItem
-                        key={article.slug}
-                        id={`${optionPrefix}-${article.slug}`}
+                        key={entry.slug}
+                        id={`${optionPrefix}-${entry.slug}`}
                         selected={index === highlightedIndex}
                         onMouseEnter={() => setActiveIndex(index)}
                         onClick={() => handleOpenChange(false)}
                       >
-                        <CommandTitle>{article.title}</CommandTitle>
+                        <CommandTitle>{entry.title}</CommandTitle>
                       </CommandItem>
                     ))}
                   </CommandList>
@@ -223,7 +218,7 @@ export const CommandExamples = () => {
             </CommandPopup>
           </CommandPortal>
         </Command>
-      </ComponentCanvas>
+      </DocBand>
     </div>
   )
 }

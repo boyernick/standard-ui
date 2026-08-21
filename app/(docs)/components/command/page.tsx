@@ -10,7 +10,9 @@ export default function CommandPage() {
   return (
     <DocPage
       title="Command"
-      description="Searchable command menu for quick navigation — filters, keyboard selection, and a centered panel."
+      description="Searchable command menu for quick navigation."
+      heading={null}
+      bleed
     >
       <CommandExamples />
     </DocPage>

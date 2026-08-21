@@ -108,7 +108,7 @@ export const CommandBackdrop = ({
 export const CommandPopup = ({ className, ...props }: CommandPopupProps) => (
   <BaseDialog.Popup
     className={cn(
-      "fixed top-1/2 left-1/2 z-50 flex h-[min(80vh,32rem)] w-full max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-border-primary bg-surface-raised shadow-xl outline-none max-sm:max-w-[calc(100vw-2rem)]",
+      "fixed top-1/2 left-1/2 z-50 flex h-[min(80vh,32rem)] w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl bg-surface-raised shadow-ambient outline-none max-sm:max-w-[calc(100vw-2rem)]",
       motion.popupCenter,
       className,
     )}
@@ -147,7 +147,6 @@ export const CommandInput = ({
       aria-activedescendant={activeOptionId}
       className={cn(
         "h-9 min-w-0 flex-1 cursor-text rounded-md bg-transparent px-2.5 text-base text-fg-primary outline-none placeholder:text-fg-quaternary",
-        "focus-visible:bg-background-tertiary/60 focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
         "[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none",
         className,
       )}
@@ -174,9 +173,9 @@ export const CommandClear = ({
   <button
     type="button"
     className={cn(
-      "cursor-pointer rounded-full px-3 py-1.5 text-sm text-fg-quaternary outline-none",
+      "inline-flex h-8 cursor-pointer items-center rounded-full border border-transparent px-3 text-sm text-fg-quaternary outline-none",
       motion.colors,
-      "hover:bg-background-tertiary hover:text-fg-primary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-[active=true]:text-fg-primary",
+      "hover:bg-background-tertiary hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-[active=true]:text-fg-primary",
       className,
     )}
     {...props}
@@ -203,9 +202,9 @@ export const CommandClose = ({
 }: CommandCloseProps) => (
   <BaseDialog.Close
     className={cn(
-      "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-fg-primary outline-none",
+      "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent text-fg-primary outline-none",
       motion.colors,
-      "hover:bg-background-tertiary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "hover:bg-background-tertiary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
       className,
     )}
     aria-label={props["aria-label"] ?? "Close"}
@@ -256,9 +255,9 @@ export const CommandFilter = ({
       aria-pressed={selected}
       data-selected={selected || undefined}
       className={cn(
-        "cursor-pointer rounded-full px-4 py-2 text-sm text-fg-quaternary outline-none",
+        "inline-flex h-9 cursor-pointer items-center rounded-full border border-transparent px-4 text-sm text-fg-quaternary outline-none",
         motion.colors,
-        "hover:text-fg-primary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+        "hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
         "data-selected:bg-background-tertiary data-selected:text-fg-primary",
         className,
       )}
@@ -296,11 +295,11 @@ export const CommandItem = ({
   ...props
 }: CommandItemProps) => {
   const itemClassName = cn(
-    "flex h-15 min-h-15 w-full cursor-pointer items-center justify-between gap-4 rounded-lg px-4 text-left text-sm font-medium text-fg-primary outline-none select-none",
+    "flex h-15 min-h-15 w-full cursor-pointer items-center justify-between gap-4 rounded-lg border border-transparent px-4 text-left text-sm font-medium text-fg-primary outline-none select-none",
     motion.colors,
     "hover:bg-background-tertiary data-selected:bg-background-tertiary",
     "data-disabled:cursor-not-allowed data-disabled:opacity-50",
-    "focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+    "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
     className,
   )
 
