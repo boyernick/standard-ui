@@ -33,7 +33,16 @@
     },
     {
       "name": "BreadcrumbSeparator",
-      "props": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'slash' | 'chevron'",
+          "required": false,
+          "default": "\"chevron\"",
+          "description": "",
+          "source": "own"
+        }
+      ],
       "reactPassthrough": 281,
       "universal": 0
     }

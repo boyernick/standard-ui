@@ -8,6 +8,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useSyncExternalStore,
   type ComponentProps,
   type KeyboardEvent,
@@ -20,6 +21,9 @@ type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
 type CarouselOptions = UseCarouselParameters[0]
 type CarouselPlugin = UseCarouselParameters[1]
+
+const TRACKPAD_SWIPE_THRESHOLD = 24
+const TRACKPAD_GESTURE_END_DELAY = 140
 
 type CarouselContextValue = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0]
@@ -46,6 +50,8 @@ export type CarouselProps = ComponentProps<"div"> & {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+  /** Adds directional edge fades wherever more slides are available. */
+  fade?: boolean
 }
 
 export type CarouselContentProps = ComponentProps<"div">
@@ -53,16 +59,54 @@ export type CarouselItemProps = ComponentProps<"div">
 export type CarouselPreviousProps = ComponentProps<typeof Button>
 export type CarouselNextProps = ComponentProps<typeof Button>
 
+const CarouselEdgeFades = () => {
+  const { orientation, canScrollPrev, canScrollNext } = useCarousel()
+  const horizontal = orientation === "horizontal"
+  const sharedClassName =
+    "pointer-events-none absolute z-10 opacity-0 transition-opacity duration-[var(--duration-lg)] ease-enter data-[visible=true]:opacity-100 motion-reduce:transition-none"
+
+  return (
+    <>
+      <div
+        aria-hidden="true"
+        data-slot={horizontal ? "carousel-fade-left" : "carousel-fade-top"}
+        data-visible={canScrollPrev}
+        className={cn(
+          sharedClassName,
+          horizontal
+            ? "-top-px -bottom-px -left-px w-20 bg-linear-to-r from-surface via-surface/60 via-40% to-transparent"
+            : "-top-px -right-px -left-px h-20 bg-linear-to-b from-surface via-surface/60 via-40% to-transparent",
+        )}
+      />
+      <div
+        aria-hidden="true"
+        data-slot={horizontal ? "carousel-fade-right" : "carousel-fade-bottom"}
+        data-visible={canScrollNext}
+        className={cn(
+          sharedClassName,
+          horizontal
+            ? "-top-px -right-px -bottom-px w-20 bg-linear-to-l from-surface via-surface/60 via-40% to-transparent"
+            : "-right-px -bottom-px -left-px h-20 bg-linear-to-t from-surface via-surface/60 via-40% to-transparent",
+        )}
+      />
+    </>
+  )
+}
+
 export const Carousel = ({
   orientation = "horizontal",
+  fade = false,
   opts,
   setApi,
   plugins,
   className,
   children,
   onKeyDownCapture,
+  tabIndex,
+  ref: forwardedRef,
   ...props
 }: CarouselProps) => {
+  const carouselRootRef = useRef<HTMLDivElement | null>(null)
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
@@ -107,6 +151,35 @@ export const Carousel = ({
     api?.scrollNext()
   }, [api])
 
+  const canScrollPrevRef = useRef(canScrollPrev)
+  const canScrollNextRef = useRef(canScrollNext)
+  const scrollPrevRef = useRef(scrollPrev)
+  const scrollNextRef = useRef(scrollNext)
+
+  useEffect(() => {
+    canScrollPrevRef.current = canScrollPrev
+    canScrollNextRef.current = canScrollNext
+    scrollPrevRef.current = scrollPrev
+    scrollNextRef.current = scrollNext
+  }, [canScrollNext, canScrollPrev, scrollNext, scrollPrev])
+
+  const trackpadDelta = useRef(0)
+  const trackpadGestureHandled = useRef(false)
+  const trackpadGestureTimeout = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  )
+
+  const scheduleTrackpadGestureEnd = useCallback(() => {
+    if (trackpadGestureTimeout.current) {
+      clearTimeout(trackpadGestureTimeout.current)
+    }
+    trackpadGestureTimeout.current = setTimeout(() => {
+      trackpadDelta.current = 0
+      trackpadGestureHandled.current = false
+      trackpadGestureTimeout.current = null
+    }, TRACKPAD_GESTURE_END_DELAY)
+  }, [])
+
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       onKeyDownCapture?.(event)
@@ -120,6 +193,72 @@ export const Carousel = ({
       }
     },
     [onKeyDownCapture, scrollNext, scrollPrev],
+  )
+
+  const handleWheel = useCallback(
+    (event: globalThis.WheelEvent) => {
+      if (event.defaultPrevented || orientation !== "horizontal") return
+
+      const deltaMultiplier =
+        event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? 100 : 1
+      const horizontalDelta = event.deltaX * deltaMultiplier
+      const verticalDelta = event.deltaY * deltaMultiplier
+
+      if (
+        Math.abs(horizontalDelta) <= Math.abs(verticalDelta) ||
+        Math.abs(horizontalDelta) < 1
+      ) {
+        return
+      }
+
+      if (trackpadGestureHandled.current) {
+        event.preventDefault()
+        scheduleTrackpadGestureEnd()
+        return
+      }
+
+      const canScrollInDirection =
+        horizontalDelta > 0
+          ? canScrollNextRef.current
+          : canScrollPrevRef.current
+      if (!canScrollInDirection) return
+
+      event.preventDefault()
+      trackpadDelta.current += horizontalDelta
+      scheduleTrackpadGestureEnd()
+
+      if (Math.abs(trackpadDelta.current) < TRACKPAD_SWIPE_THRESHOLD) return
+
+      trackpadGestureHandled.current = true
+      trackpadDelta.current = 0
+      if (horizontalDelta > 0) scrollNextRef.current()
+      else scrollPrevRef.current()
+    },
+    [orientation, scheduleTrackpadGestureEnd],
+  )
+
+  useEffect(() => {
+    const root = carouselRootRef.current
+    if (!root) return
+
+    root.addEventListener("wheel", handleWheel, { passive: false })
+    return () => {
+      root.removeEventListener("wheel", handleWheel)
+      if (trackpadGestureTimeout.current) {
+        clearTimeout(trackpadGestureTimeout.current)
+      }
+      trackpadDelta.current = 0
+      trackpadGestureHandled.current = false
+    }
+  }, [handleWheel])
+
+  const setCarouselRootRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      carouselRootRef.current = node
+      if (typeof forwardedRef === "function") forwardedRef(node)
+      else if (forwardedRef) forwardedRef.current = node
+    },
+    [forwardedRef],
   )
 
   useEffect(() => {
@@ -140,14 +279,23 @@ export const Carousel = ({
       }}
     >
       <div
+        ref={setCarouselRootRef}
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
-        className={cn("relative", className)}
+        data-fade={fade || undefined}
+        className={cn(
+          "relative",
+          fade &&
+            "rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+          className,
+        )}
         onKeyDownCapture={handleKeyDown}
+        tabIndex={tabIndex ?? (fade ? 0 : undefined)}
         {...props}
       >
         {children}
+        {fade ? <CarouselEdgeFades /> : null}
       </div>
     </CarouselContext.Provider>
   )
@@ -160,7 +308,16 @@ export const CarouselContent = ({
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-viewport">
+    <div
+      ref={carouselRef}
+      className={cn(
+        "overflow-hidden",
+        orientation === "horizontal"
+          ? "touch-pan-y overscroll-x-contain"
+          : "touch-pan-x overscroll-y-contain",
+      )}
+      data-slot="carousel-viewport"
+    >
       <div
         data-slot="carousel-content"
         className={cn(
@@ -194,7 +351,7 @@ export const CarouselItem = ({ className, ...props }: CarouselItemProps) => {
 
 export const CarouselPrevious = ({
   className,
-  variant = "outline",
+  variant = "ghost",
   size = "md",
   ...props
 }: CarouselPreviousProps) => {
@@ -211,7 +368,7 @@ export const CarouselPrevious = ({
       aria-label="Previous slide"
       data-slot="carousel-previous"
       className={cn(
-        "absolute size-9",
+        "absolute size-9 border-0 focus-visible:border-0",
         orientation === "horizontal"
           ? "top-1/2 -left-12 -translate-y-1/2 active:!-translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90 active:!-translate-x-1/2 active:!translate-y-0",
@@ -227,7 +384,7 @@ export const CarouselPrevious = ({
 
 export const CarouselNext = ({
   className,
-  variant = "outline",
+  variant = "ghost",
   size = "md",
   ...props
 }: CarouselNextProps) => {
@@ -244,7 +401,7 @@ export const CarouselNext = ({
       aria-label="Next slide"
       data-slot="carousel-next"
       className={cn(
-        "absolute size-9",
+        "absolute size-9 border-0 focus-visible:border-0",
         orientation === "horizontal"
           ? "top-1/2 -right-12 -translate-y-1/2 active:!-translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90 active:!-translate-x-1/2 active:!translate-y-0",

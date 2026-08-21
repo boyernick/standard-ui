@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { PAGE_INNER } from "@/lib/chrome"
 
-/** A banded section, matching the foundations pages: a full-width rule between
+/** A banded section, matching the foundations pages: full-width rules between
  *  sections, with content capped and padded on the shared page measure.
  *
  *  Specimens sit unframed. Most components bring their own bordered surface,

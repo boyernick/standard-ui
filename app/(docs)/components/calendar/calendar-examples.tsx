@@ -2,13 +2,26 @@
 
 import { useState } from "react"
 import { Calendar } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import type { DateRange } from "react-day-picker"
+import { DocBand } from "@/components/doc-band"
+
+const exampleMonth = new Date(2026, 5, 1)
+const exampleDate = new Date(2026, 5, 17)
 
 export const CalendarExamples = () => {
-  const [selected, setSelected] = useState<Date | undefined>(undefined)
+  const [singleSelected, setSingleSelected] =
+    useState<Date | undefined>(exampleDate)
+  const [controlledSelected, setControlledSelected] =
+    useState<Date | undefined>(undefined)
+  const [selectedRange, setSelectedRange] = useState<DateRange | undefined>(
+    () => ({
+      from: new Date(2026, 5, 10),
+      to: new Date(2026, 5, 17),
+    }),
+  )
 
-  const selectedLabel = selected
-    ? selected.toLocaleDateString(undefined, {
+  const selectedLabel = controlledSelected
+    ? controlledSelected.toLocaleDateString("en-US", {
         weekday: "short",
         month: "short",
         day: "numeric",
@@ -16,28 +29,70 @@ export const CalendarExamples = () => {
       })
     : "None"
 
-  return (
-    <div className="mt-6 flex flex-col gap-8">
-      <ComponentCanvas
-        label="Single select"
-        contentClassName="flex-col"
-        minHeightClass="min-h-72"
-      >
-        <Calendar />
-      </ComponentCanvas>
+  const rangeLabel = selectedRange?.from
+    ? `${selectedRange.from.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      })} – ${
+        selectedRange.to
+          ? selectedRange.to.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })
+          : "Select end date"
+      }`
+    : "None"
 
-      <ComponentCanvas
-        label="Controlled"
-        contentClassName="flex-col gap-4"
-        minHeightClass="min-h-80"
+  return (
+    <div>
+      <DocBand
+        first
+        id="single-select"
+        title="Single select"
+        description="A compact month grid for choosing one date."
       >
-        <p className="text-sm text-fg-secondary">Selected: {selectedLabel}</p>
         <Calendar
-          mode="single"
-          selected={selected}
-          onSelect={setSelected}
+          defaultMonth={exampleMonth}
+          selected={singleSelected}
+          onSelect={setSingleSelected}
         />
-      </ComponentCanvas>
+      </DocBand>
+
+      <DocBand
+        id="controlled"
+        title="Controlled"
+        description="Keep the selected date in application state when other interface elements depend on it."
+      >
+        <div className="flex flex-col items-start gap-4">
+          <p className="text-sm text-fg-secondary">
+            Selected: <span className="text-fg-primary">{selectedLabel}</span>
+          </p>
+          <Calendar
+            defaultMonth={exampleMonth}
+            selected={controlledSelected}
+            onSelect={setControlledSelected}
+          />
+        </div>
+      </DocBand>
+
+      <DocBand
+        id="date-range"
+        title="Date range"
+        description="Select a start and end date as one continuous interval."
+      >
+        <div className="flex flex-col items-start gap-4">
+          <p className="text-sm text-fg-secondary">
+            Selected: <span className="text-fg-primary">{rangeLabel}</span>
+          </p>
+          <Calendar
+            mode="range"
+            defaultMonth={exampleMonth}
+            selected={selectedRange}
+            onSelect={setSelectedRange}
+          />
+        </div>
+      </DocBand>
     </div>
   )
 }

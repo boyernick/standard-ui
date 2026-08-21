@@ -19,10 +19,10 @@ export const DocPage = ({
   bleed = false,
   children,
 }: DocPageProps) => (
-  <div className="w-full">
+  <div className="flex w-full flex-1 flex-col pb-28">
     <header className="border-b border-border-primary">
       <div className={`${PAGE_INNER} py-9`}>
-        <h1 className="heading-2xl-serif text-fg-primary">{title}</h1>
+        <h1 className="heading-2xl-sans text-fg-primary">{title}</h1>
         <p className="text-md mt-2 max-w-2xl text-fg-secondary">{description}</p>
       </div>
     </header>

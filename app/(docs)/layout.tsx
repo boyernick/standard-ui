@@ -20,7 +20,11 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           <div className="sticky top-0 z-40">
             <TopBar />
           </div>
-          <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
+          <main
+            id="main-content"
+            tabIndex={-1}
+            className="flex flex-1 outline-none"
+          >
             {children}
           </main>
         </div>

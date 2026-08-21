@@ -11,6 +11,8 @@ export default function ChartPage() {
     <DocPage
       title="Chart"
       description="Responsive chart shells for area, bar, and line series."
+      heading={null}
+      bleed
     >
       <ChartExamples />
     </DocPage>

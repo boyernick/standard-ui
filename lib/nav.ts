@@ -27,6 +27,7 @@ export const components = [
   { href: "/components/combobox", label: "Combobox" },
   { href: "/components/command", label: "Command" },
   { href: "/components/context-menu", label: "Context menu" },
+  { href: "/components/date-picker", label: "Date picker" },
   { href: "/components/dialog", label: "Dialog" },
   { href: "/components/drawer", label: "Drawer" },
   { href: "/components/empty", label: "Empty" },

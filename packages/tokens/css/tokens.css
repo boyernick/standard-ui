@@ -25,8 +25,9 @@
   --text-primary-inverted: var(--gray-0);
   --text-secondary-inverted: var(--gray-200);
 
-  --border-subtle: var(--alpha-06);
-  --border-primary: var(--alpha-10);
+  --border-faint: var(--alpha-02);
+  --border-subtle: var(--alpha-04);
+  --border-primary: var(--alpha-05);
   --border-primary-solid: var(--gray-100);
   --border-secondary: var(--alpha-15);
   --border-secondary-solid: var(--gray-150);
@@ -45,6 +46,32 @@
   --decorative-blue: var(--blue-600);
   --decorative-olive: var(--yellow-800);
   --decorative-crimson: var(--red-700);
+
+  /* Status tones pair readable foregrounds with quiet, contextual fills. */
+  --status-info: var(--blue-600);
+  --status-info-background: color-mix(
+    in oklab,
+    var(--status-info) 10%,
+    transparent
+  );
+  --status-success: var(--green-700);
+  --status-success-background: color-mix(
+    in oklab,
+    var(--status-success) 10%,
+    transparent
+  );
+  --status-warning: var(--orange-700);
+  --status-warning-background: color-mix(
+    in oklab,
+    var(--status-warning) 10%,
+    transparent
+  );
+  --status-critical: var(--red-600);
+  --status-critical-background: color-mix(
+    in oklab,
+    var(--status-critical) 10%,
+    transparent
+  );
 
   --chart-1: 4 184 76;
   --chart-2: 2 133 255;
@@ -152,6 +179,11 @@
   --decorative-olive: var(--yellow-400);
   --decorative-crimson: var(--red-400);
 
+  --status-info: var(--blue-200);
+  --status-success: var(--green-200);
+  --status-warning: var(--orange-200);
+  --status-critical: var(--red-200);
+
   --chart-neutral: 143 143 143;
 
   --destructive: var(--red-400);
@@ -215,6 +247,7 @@
   --color-fg-inverted: var(--text-primary-inverted);
   --color-fg-inverted-secondary: var(--text-secondary-inverted);
 
+  --color-border-faint: var(--border-faint);
   --color-border-subtle: var(--border-subtle);
   --color-border-primary: var(--border-primary);
   --color-border-primary-solid: var(--border-primary-solid);
@@ -235,6 +268,15 @@
   --color-decorative-blue: var(--decorative-blue);
   --color-decorative-olive: var(--decorative-olive);
   --color-decorative-crimson: var(--decorative-crimson);
+
+  --color-status-info: var(--status-info);
+  --color-status-info-background: var(--status-info-background);
+  --color-status-success: var(--status-success);
+  --color-status-success-background: var(--status-success-background);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-background: var(--status-warning-background);
+  --color-status-critical: var(--status-critical);
+  --color-status-critical-background: var(--status-critical-background);
 
   --color-destructive: var(--destructive);
   --color-destructive-active: var(--destructive-active);

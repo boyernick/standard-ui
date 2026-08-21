@@ -11,6 +11,8 @@ export default function CalendarPage() {
     <DocPage
       title="Calendar"
       description="Month grid for picking a single date."
+      heading={null}
+      bleed
     >
       <CalendarExamples />
     </DocPage>

@@ -5,7 +5,7 @@ import {
   IconMagnifyingGlass,
   IconPlus,
 } from "@boyernick/standard-ui-react"
-import { ComponentCanvas } from "@/components/component-canvas"
+import { DocBand } from "@/components/doc-band"
 import { DocPage } from "@/components/doc-page"
 
 export const metadata: Metadata = {
@@ -17,93 +17,141 @@ export default function ButtonPage() {
     <DocPage
       title="Button"
       description="Trigger an action, with variants for descending levels of emphasis."
+      heading={null}
+      bleed
     >
-      <ComponentCanvas label="Variants">
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="destructive">Destructive</Button>
-      </ComponentCanvas>
-
-      <ComponentCanvas label="Sizes">
-        <Button size="sm">Small</Button>
-        <Button size="md">Medium</Button>
-        <Button size="lg">Large</Button>
-      </ComponentCanvas>
-
-      <ComponentCanvas label="With icons">
-        <Button
-          variant="primary"
-          prefix={<IconPlus size={16} aria-hidden />}
+      <div>
+        <DocBand
+          first
+          id="variants"
+          title="Variants"
+          description="Choose a level of emphasis that matches the importance of the action."
         >
-          Add item
-        </Button>
-        <Button
-          variant="outline"
-          suffix={<IconChevronBottom size={16} aria-hidden />}
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="destructive">Destructive</Button>
+          </div>
+        </DocBand>
+
+        <DocBand
+          id="sizes"
+          title="Sizes"
+          description="Three heights cover compact controls, standard interfaces, and prominent actions."
         >
-          Continue
-        </Button>
-      </ComponentCanvas>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button size="sm">Small</Button>
+            <Button size="md">Medium</Button>
+            <Button size="lg">Large</Button>
+          </div>
+        </DocBand>
 
-      <ComponentCanvas label="Loading">
-        <Button variant="primary" loading>
-          Primary
-        </Button>
-        <Button variant="outline" loading>
-          Outline
-        </Button>
-        <Button variant="ghost" loading>
-          Ghost
-        </Button>
-        <Button variant="destructive" loading>
-          Destructive
-        </Button>
-      </ComponentCanvas>
+        <DocBand
+          id="icons"
+          title="With icons"
+          description="Place a supporting icon before or after the label."
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              variant="primary"
+              prefix={<IconPlus size={16} aria-hidden />}
+            >
+              Add item
+            </Button>
+            <Button
+              variant="outline"
+              suffix={<IconChevronBottom size={16} aria-hidden />}
+            >
+              Continue
+            </Button>
+          </div>
+        </DocBand>
 
-      <ComponentCanvas label="Icon only">
-        <Button iconOnly aria-label="Search" size="sm">
-          <IconMagnifyingGlass size={16} aria-hidden />
-        </Button>
-        <Button iconOnly aria-label="Search">
-          <IconMagnifyingGlass size={16} aria-hidden />
-        </Button>
-        <Button iconOnly aria-label="Search" size="lg">
-          <IconMagnifyingGlass size={16} aria-hidden />
-        </Button>
-        <Button variant="ghost" iconOnly aria-label="Search">
-          <IconMagnifyingGlass size={16} aria-hidden />
-        </Button>
-      </ComponentCanvas>
+        <DocBand
+          id="loading"
+          title="Loading"
+          description="A loading button communicates progress and prevents repeat submissions."
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="primary" loading>
+              Primary
+            </Button>
+            <Button variant="outline" loading>
+              Outline
+            </Button>
+            <Button variant="ghost" loading>
+              Ghost
+            </Button>
+            <Button variant="destructive" loading>
+              Destructive
+            </Button>
+          </div>
+        </DocBand>
 
-      <ComponentCanvas label="Rounded">
-        <Button rounded>Subscribe</Button>
-        <Button rounded variant="outline">
-          Follow
-        </Button>
-        <Button rounded iconOnly aria-label="Add">
-          <IconPlus size={16} aria-hidden />
-        </Button>
-        <Button rounded variant="ghost" iconOnly aria-label="Add">
-          <IconPlus size={16} aria-hidden />
-        </Button>
-      </ComponentCanvas>
+        <DocBand
+          id="icon-only"
+          title="Icon only"
+          description="Use a square button for familiar actions that remain clear without a visible label."
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button iconOnly aria-label="Search" size="sm">
+              <IconMagnifyingGlass size={16} aria-hidden />
+            </Button>
+            <Button iconOnly aria-label="Search">
+              <IconMagnifyingGlass size={16} aria-hidden />
+            </Button>
+            <Button iconOnly aria-label="Search" size="lg">
+              <IconMagnifyingGlass size={16} aria-hidden />
+            </Button>
+            <Button variant="ghost" iconOnly aria-label="Search">
+              <IconMagnifyingGlass size={16} aria-hidden />
+            </Button>
+          </div>
+        </DocBand>
 
-      <ComponentCanvas label="Disabled">
-        <Button variant="primary" disabled>
-          Primary
-        </Button>
-        <Button variant="outline" disabled>
-          Outline
-        </Button>
-        <Button variant="ghost" disabled>
-          Ghost
-        </Button>
-        <Button variant="destructive" disabled>
-          Destructive
-        </Button>
-      </ComponentCanvas>
+        <DocBand
+          id="rounded"
+          title="Rounded"
+          description="Use the default soft radius or a fully rounded pill for compact actions."
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button>Default radius</Button>
+            <Button rounded>Subscribe</Button>
+            <Button rounded variant="outline">
+              Follow
+            </Button>
+            <Button rounded iconOnly aria-label="Add">
+              <IconPlus size={16} aria-hidden />
+            </Button>
+            <Button rounded variant="ghost" iconOnly aria-label="Add">
+              <IconPlus size={16} aria-hidden />
+            </Button>
+          </div>
+        </DocBand>
+
+        <DocBand
+          id="disabled"
+          title="Disabled"
+          description="Disabled buttons remain visible while clearly unavailable."
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="primary" disabled>
+              Primary
+            </Button>
+            <Button variant="outline" disabled>
+              Outline
+            </Button>
+            <Button variant="ghost" disabled>
+              Ghost
+            </Button>
+            <Button variant="destructive" disabled>
+              Destructive
+            </Button>
+          </div>
+        </DocBand>
+      </div>
     </DocPage>
   )
 }

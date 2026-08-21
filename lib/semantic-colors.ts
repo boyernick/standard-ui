@@ -81,6 +81,7 @@ export const semanticColorGroups: ColorGroup[] = [
       "Hairlines and edges.",
     prefix: "border",
     tokens: [
+      { name: "border-faint", cssVar: "--border-faint", usage: "Quiet edge on raised surfaces" },
       { name: "border-primary", cssVar: "--border-primary", usage: "Default hairline" },
       { name: "border-primary-solid", cssVar: "--border-primary-solid", usage: "Solid stand-in for primary" },
       { name: "border-secondary", cssVar: "--border-secondary", usage: "Inputs and focus chrome" },
@@ -127,14 +128,51 @@ export const semanticColorGroups: ColorGroup[] = [
     ],
   },
   {
+    id: "status",
+    title: "Status",
+    description:
+      "Semantic feedback pairs. Use the foreground and background from the same status.",
+    prefix: "text",
+    tokens: [
+      { name: "status-info", cssVar: "--status-info", usage: "Informational text and icons" },
+      {
+        name: "status-info-background",
+        prefix: "bg",
+        cssVar: "--status-info-background",
+        usage: "Soft informational fill",
+      },
+      { name: "status-success", cssVar: "--status-success", usage: "Successful and healthy states" },
+      {
+        name: "status-success-background",
+        prefix: "bg",
+        cssVar: "--status-success-background",
+        usage: "Soft success fill",
+      },
+      { name: "status-warning", cssVar: "--status-warning", usage: "Caution and approaching limits" },
+      {
+        name: "status-warning-background",
+        prefix: "bg",
+        cssVar: "--status-warning-background",
+        usage: "Soft warning fill",
+      },
+      { name: "status-critical", cssVar: "--status-critical", usage: "Failed and critical states" },
+      {
+        name: "status-critical-background",
+        prefix: "bg",
+        cssVar: "--status-critical-background",
+        usage: "Soft critical fill",
+      },
+    ],
+  },
+  {
     id: "notifications",
     title: "Notifications",
-    description: "System feedback and focus.",
+    description: "Strong action colors and focus.",
     prefix: "bg",
     tokens: [
-      { name: "destructive", cssVar: "--destructive", usage: "Errors and destructive actions" },
+      { name: "destructive", cssVar: "--destructive", usage: "Destructive actions" },
       { name: "destructive-active", cssVar: "--destructive-active", usage: "Pressed destructive" },
-      { name: "warning", cssVar: "--warning", usage: "Caution" },
+      { name: "warning", cssVar: "--warning", usage: "Strong warning fill" },
       { name: "ring", prefix: "ring", cssVar: "--ring", usage: "Focus ring" },
     ],
   },

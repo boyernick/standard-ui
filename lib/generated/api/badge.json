@@ -6,7 +6,7 @@
       "props": [
         {
           "name": "variant",
-          "type": "'outline' | 'destructive' | 'default'",
+          "type": "'outline' | 'info' | 'success' | 'warning' | 'critical' | 'destructive' | 'default'",
           "required": false,
           "default": "\"default\"",
           "description": "",

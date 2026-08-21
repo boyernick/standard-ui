@@ -66,9 +66,15 @@ bundler-resolvable and avoid anything that needs a compile pass to work.
 ## Documenting a component
 
 Every component gets `app/(docs)/components/<name>/page.tsx`, following the
-established order: `PageHeader`, Examples, Overview, Usage, API. Live demos go in
-`<ComponentCanvas>`; put anything stateful in a sibling `<name>-examples.tsx`
+established order: `PageHeader`, Examples, Overview, Usage, API. Foundations-style
+pages use unframed `<DocBand>` sections; legacy framed pages use
+`<ComponentCanvas>`. Put anything stateful in a sibling `<name>-examples.tsx`
 marked `"use client"`.
+
+Pages using the foundations-style ruled layout must render their examples as
+sibling `<DocBand>` sections and keep the specimens unframed. Rules separate
+adjacent bands, but the final band must not add a closing bottom rule; the fixed
+pagination footer provides the next visual boundary.
 
 The `code={...}` string on `ComponentCanvas` and `CodeBlock` is **compiled
 against the real component types** by `scripts/check-doc-snippets.mjs`. Write

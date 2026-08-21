@@ -8,9 +8,9 @@ import { motion } from "./lib/motion"
 export type CalendarProps = DayPickerProps
 
 const navButtonClassName = cn(
-  "inline-flex size-8 items-center justify-center rounded-md text-fg-tertiary",
+  "inline-flex size-6 items-center justify-center rounded-md border border-transparent text-fg-tertiary",
   motion.colors,
-  "hover:bg-background-tertiary hover:text-fg-primary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50",
+  "hover:bg-background-tertiary hover:text-fg-primary outline-none focus-visible:border-ring focus-visible:bg-background-tertiary focus-visible:text-fg-primary focus-visible:ring-2 focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50",
 )
 
 const CalendarChevron = ({
@@ -40,34 +40,45 @@ export const Calendar = ({
   className,
   classNames,
   showOutsideDays = true,
+  weekStartsOn = 1,
   components,
   ...props
 }: CalendarProps) => (
   <DayPicker
     showOutsideDays={showOutsideDays}
-    className={cn("w-fit p-3", className)}
+    weekStartsOn={weekStartsOn}
+    className={cn(
+      "w-64 rounded-xl border border-border-primary bg-surface p-3",
+      className,
+    )}
     classNames={{
       months: "relative flex flex-col gap-4 sm:flex-row",
-      month: "flex w-full flex-col gap-3",
-      month_caption: "relative flex h-8 items-center justify-center px-8",
+      month: "flex w-full flex-col",
+      month_caption: "flex h-8 items-start justify-start",
       caption_label: "text-sm-strong text-fg-primary",
-      nav: "absolute inset-x-0 top-0 flex items-center justify-between",
+      nav: "absolute top-0 right-0 flex items-center",
       button_previous: navButtonClassName,
       button_next: navButtonClassName,
       month_grid: "w-full border-collapse",
       weekdays: "flex",
       weekday:
-        "flex size-8 items-center justify-center text-xs font-normal text-fg-tertiary",
-      weeks: "flex flex-col",
-      week: "mt-0.5 flex w-full",
+        "flex w-8 items-center justify-center pb-1 text-xs font-normal text-fg-tertiary select-none",
+      weeks: "flex flex-col gap-1",
+      week: "flex w-full",
       day: "relative p-0 text-center",
       day_button: cn(
-        "inline-flex size-8 items-center justify-center rounded-md text-sm text-fg-primary",
+        "inline-flex size-8 items-center justify-center rounded-lg text-sm text-fg-primary tabular-nums",
         motion.colors,
-        "hover:bg-background-tertiary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 aria-selected:opacity-100",
+        "hover:bg-background-tertiary outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 aria-selected:opacity-100",
       ),
       selected:
         "[&>button]:bg-brand-primary [&>button]:text-brand-foreground [&>button]:ring-0 [&>button]:hover:bg-brand-primary-hover [&>button]:hover:text-brand-foreground",
+      range_start:
+        "rounded-l-lg bg-brand-primary/10 last:rounded-r-lg [&>button]:relative [&>button]:z-[1]",
+      range_middle:
+        "bg-brand-primary/10 first:rounded-l-lg last:rounded-r-lg [&>button]:!rounded-none [&>button]:!bg-transparent [&>button]:!text-fg-primary [&>button]:hover:!bg-brand-primary/15",
+      range_end:
+        "rounded-r-lg bg-brand-primary/10 first:rounded-l-lg [&>button]:relative [&>button]:z-[1]",
       today:
         "[&>button]:font-medium [&>button]:ring-1 [&>button]:ring-inset [&>button]:ring-border-secondary",
       outside: "[&>button]:text-fg-quaternary",

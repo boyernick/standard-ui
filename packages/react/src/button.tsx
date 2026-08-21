@@ -25,7 +25,7 @@ const buttonVariants = cva(
       },
       rounded: {
         true: "rounded-full",
-        false: "rounded-md",
+        false: "rounded-lg",
       },
       iconOnly: {
         true: "px-0",

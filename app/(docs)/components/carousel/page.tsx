@@ -11,6 +11,8 @@ export default function CarouselPage() {
     <DocPage
       title="Carousel"
       description="Swipeable slide regions with previous and next controls."
+      heading={null}
+      bleed
     >
       <CarouselExamples />
     </DocPage>

@@ -34,7 +34,7 @@ export type MenuSubmenuTriggerProps = ComponentProps<
 export type MenuViewportProps = ComponentProps<typeof BaseMenu.Viewport>
 
 const menuItemClassName = cn(
-  "flex min-h-8 cursor-default items-center gap-2 rounded-xs px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
+  "flex h-8 cursor-default items-center gap-2 rounded-sm px-2.5 py-1.5 text-sm text-fg-primary outline-none select-none",
   motion.colors,
   "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-highlighted:bg-background-tertiary",
 )
@@ -59,7 +59,7 @@ export const MenuBackdrop = ({ className, ...props }: MenuBackdropProps) => (
 )
 
 export const MenuPositioner = ({
-  sideOffset = 4,
+  sideOffset = 8,
   className,
   ...props
 }: MenuPositionerProps) => (
@@ -73,7 +73,7 @@ export const MenuPositioner = ({
 export const MenuPopup = ({ className, ...props }: MenuPopupProps) => (
   <BaseMenu.Popup
     className={cn(
-      "z-50 min-w-40 overflow-hidden rounded-md border border-border-primary bg-surface p-1 shadow-md outline-none",
+      "z-50 min-w-40 overflow-hidden rounded-xl border border-[var(--border-faint)] bg-surface p-1.5 shadow-lg outline-none",
       motion.popupAnchor,
       className,
     )}

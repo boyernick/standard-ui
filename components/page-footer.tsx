@@ -14,35 +14,37 @@ export const PageFooter = () => {
   return (
     <nav
       aria-label="Pagination"
-      className="mt-4 border-t border-border-primary"
+      className="fixed inset-x-0 bottom-0 z-30 h-28 border-t border-border-primary bg-background-primary md:left-60"
     >
-      <div className={`${PAGE_INNER} flex items-stretch justify-between gap-3 py-8`}>
-      {previous ? (
-        <Link
-          href={previous.href}
-          className="group flex cursor-pointer flex-col items-start gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
-        >
-          <span className="text-xs text-fg-tertiary">Previous</span>
-          <span className="text-sm text-fg-secondary group-hover:text-fg-primary">
-            {previous.label}
-          </span>
-        </Link>
-      ) : (
-        <span />
-      )}
-      {next ? (
-        <Link
-          href={next.href}
-          className="group flex cursor-pointer flex-col items-end gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
-        >
-          <span className="text-xs text-fg-tertiary">Next</span>
-          <span className="text-sm text-fg-secondary group-hover:text-fg-primary">
-            {next.label}
-          </span>
-        </Link>
-      ) : (
-        <span />
-      )}
+      <div
+        className={`${PAGE_INNER} flex h-full items-stretch justify-between gap-3 py-8`}
+      >
+        {previous ? (
+          <Link
+            href={previous.href}
+            className="group flex cursor-pointer flex-col items-start gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+          >
+            <span className="text-xs text-fg-tertiary">Previous</span>
+            <span className="text-sm text-fg-secondary group-hover:text-fg-primary">
+              {previous.label}
+            </span>
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link
+            href={next.href}
+            className="group flex cursor-pointer flex-col items-end gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+          >
+            <span className="text-xs text-fg-tertiary">Next</span>
+            <span className="text-sm text-fg-secondary group-hover:text-fg-primary">
+              {next.label}
+            </span>
+          </Link>
+        ) : (
+          <span />
+        )}
       </div>
     </nav>
   )
