@@ -10,7 +10,9 @@ export default function ImageModalPage() {
   return (
     <DocPage
       title="Image modal"
-      description="Lightbox for expanding thumbnails into a focused image view with caption and close control."
+      description="Lightbox for expanding a thumbnail into the full image."
+      heading={null}
+      bleed
     >
       <ImageModalExamples />
     </DocPage>

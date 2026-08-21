@@ -126,7 +126,7 @@ export const SiteSearch = () => {
     >
       <CommandTrigger
         render={<button type="button" />}
-        className="text-sm flex h-9 w-full max-w-md cursor-pointer items-center gap-2 rounded-lg bg-background-secondary px-3 text-fg-tertiary outline-none transition-colors hover:text-fg-secondary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+        className="text-sm flex h-9 w-full max-w-md cursor-pointer items-center gap-2 rounded-lg pr-3 text-fg-tertiary outline-none transition-colors hover:text-fg-secondary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
       >
         <span className="flex-1 text-left">Search…</span>
         <KbdGroup className="pointer-events-none">
