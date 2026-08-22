@@ -16,15 +16,20 @@ import { IconDotGrid1x3Horizontal as IconDotGrid1x3HorizontalBase } from "@centr
 import { IconExclamationCircle as IconExclamationCircleBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconExclamationCircle"
 import { IconExclamationTriangle as IconExclamationTriangleBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconExclamationTriangle"
 import { IconHome as IconHomeBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconHome"
+import { IconFullScreen as IconFullScreenBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFullScreen"
 import { IconMagnifyingGlass as IconMagnifyingGlassBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMagnifyingGlass"
 import { IconMinusMedium as IconMinusBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMinusMedium"
+import { IconPause as IconPauseBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconPause"
 import { IconMoon as IconMoonBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMoon"
 import { IconPeople as IconPeopleBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconPeople"
+import { IconPlay as IconPlayBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconPlay"
 import { IconPlusMedium as IconPlusBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconPlusMedium"
 import { IconSettingsGear1 as IconSettingsGear1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconSettingsGear1"
 import { IconSquareBehindSquare6 as IconSquareBehindSquare6Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconSquareBehindSquare6"
 import { IconStar as IconStarBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconStar"
 import { IconSun as IconSunBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconSun"
+import { IconVolumeFull as IconVolumeFullBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconVolumeFull"
+import { IconVolumeOff as IconVolumeOffBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconVolumeOff"
 import { IconX as IconXBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconX"
 import type { ComponentType } from "react"
 
@@ -73,13 +78,16 @@ export const IconExclamationCircle = withCentralIconDefaults(
 export const IconExclamationTriangle = withCentralIconDefaults(
   IconExclamationTriangleBase,
 )
+export const IconFullScreen = withCentralIconDefaults(IconFullScreenBase)
 export const IconHome = withCentralIconDefaults(IconHomeBase)
 export const IconMagnifyingGlass = withCentralIconDefaults(
   IconMagnifyingGlassBase,
 )
 export const IconMinus = withCentralIconDefaults(IconMinusBase)
+export const IconPause = withCentralIconDefaults(IconPauseBase)
 export const IconMoon = withCentralIconDefaults(IconMoonBase)
 export const IconPeople = withCentralIconDefaults(IconPeopleBase)
+export const IconPlay = withCentralIconDefaults(IconPlayBase)
 export const IconPlus = withCentralIconDefaults(IconPlusBase)
 export const IconSettingsGear1 = withCentralIconDefaults(IconSettingsGear1Base)
 export const IconSquareBehindSquare6 = withCentralIconDefaults(
@@ -87,6 +95,8 @@ export const IconSquareBehindSquare6 = withCentralIconDefaults(
 )
 export const IconStar = withCentralIconDefaults(IconStarBase)
 export const IconSun = withCentralIconDefaults(IconSunBase)
+export const IconVolumeFull = withCentralIconDefaults(IconVolumeFullBase)
+export const IconVolumeOff = withCentralIconDefaults(IconVolumeOffBase)
 export const IconX = withCentralIconDefaults(IconXBase)
 
 export const iconGallery = [

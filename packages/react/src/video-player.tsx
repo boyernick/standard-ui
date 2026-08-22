@@ -8,7 +8,13 @@ import {
   useState,
   type ComponentProps,
 } from "react"
-import { Button } from "./button"
+import {
+  IconFullScreen,
+  IconPause,
+  IconPlay,
+  IconVolumeFull,
+  IconVolumeOff,
+} from "./icons"
 import { cn } from "./lib/cn"
 
 const formatTime = (seconds: number) => {
@@ -17,6 +23,13 @@ const formatTime = (seconds: number) => {
   const secs = Math.floor(seconds % 60)
   return `${mins}:${secs.toString().padStart(2, "0")}`
 }
+
+// The media surface is black in both themes, so everything sitting on it is
+// light regardless of the theme — semantic foreground tokens would invert and
+// disappear against the video. This is the same reasoning as the dialog
+// backdrops, and the opposite of a keycap, which sits on a themed surface.
+const overlayControl =
+  "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-white outline-none transition-colors duration-[var(--duration-sm)] ease-enter hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none"
 
 export type VideoPlayerProps = ComponentProps<"div"> & {
   src: string
@@ -40,6 +53,7 @@ export const VideoPlayer = ({
   const [muted, setMuted] = useState(false)
   const [current, setCurrent] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [buffered, setBuffered] = useState(0)
 
   const handleTogglePlay = useCallback(() => {
     const video = videoRef.current
@@ -79,163 +93,184 @@ export const VideoPlayer = ({
     const video = videoRef.current
     if (!video) return
 
+    const readBuffered = () => {
+      if (video.buffered.length === 0) return
+      setBuffered(video.buffered.end(video.buffered.length - 1))
+    }
     const handlePlay = () => setPlaying(true)
     const handlePause = () => setPlaying(false)
     const handleTime = () => setCurrent(video.currentTime)
     const handleMeta = () => setDuration(video.duration || 0)
+    const handleVolume = () => setMuted(video.muted)
+
+    // A cached video can be ready before this effect runs, in which case
+    // `loadedmetadata` has already fired and the readout would sit at 0:00
+    // forever. Seed from the element, then keep up with the events.
+    handleMeta()
+    handleTime()
+    handleVolume()
+    readBuffered()
+    setPlaying(!video.paused)
 
     video.addEventListener("play", handlePlay)
     video.addEventListener("pause", handlePause)
     video.addEventListener("timeupdate", handleTime)
     video.addEventListener("loadedmetadata", handleMeta)
+    video.addEventListener("durationchange", handleMeta)
+    video.addEventListener("volumechange", handleVolume)
+    video.addEventListener("progress", readBuffered)
 
     return () => {
       video.removeEventListener("play", handlePlay)
       video.removeEventListener("pause", handlePause)
       video.removeEventListener("timeupdate", handleTime)
       video.removeEventListener("loadedmetadata", handleMeta)
+      video.removeEventListener("durationchange", handleMeta)
+      video.removeEventListener("volumechange", handleVolume)
+      video.removeEventListener("progress", readBuffered)
     }
   }, [])
 
-  const progress = duration > 0 ? (current / duration) * 100 : 0
+  const played = duration > 0 ? (current / duration) * 100 : 0
+  const loaded = duration > 0 ? (buffered / duration) * 100 : 0
 
   return (
     <div
       data-slot="video-player"
+      data-playing={playing || undefined}
+      // `group` drives the chrome: it hides while playing and comes back on
+      // hover or when anything inside takes focus.
       className={cn(
-        "overflow-hidden rounded-xl border border-border-primary bg-surface",
+        "group relative isolate overflow-hidden rounded-xl bg-black shadow-sm",
         className,
       )}
       {...props}
     >
-      <div className="relative bg-gray-1000">
-        <video
-          ref={videoRef}
-          src={src}
-          poster={poster}
-          playsInline
-          className="aspect-video w-full cursor-pointer object-cover"
-          aria-label={ariaLabel ?? title ?? "Video"}
-          onClick={handleTogglePlay}
-        />
-        {!playing ? (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/20">
-            <span className="flex size-12 items-center justify-center rounded-full bg-surface/90 text-fg-primary shadow-md">
-              <PlayIcon />
-            </span>
-          </div>
-        ) : null}
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        playsInline
+        className="aspect-video w-full cursor-pointer object-cover"
+        aria-label={ariaLabel ?? title ?? "Video"}
+        onClick={handleTogglePlay}
+      />
+
+      {/* Centred affordance while paused. It is the video's own click target
+          underneath, so the badge itself stays inert. */}
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
+          playing ? "opacity-0" : "opacity-100",
+        )}
+      >
+        <span className="flex size-14 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm">
+          <IconPlay size={24} className="ml-0.5 size-6" aria-hidden />
+        </span>
       </div>
 
-      <div className="flex flex-col gap-3 border-t border-border-primary bg-surface p-3">
-        {title ? (
-          <p className="text-sm-strong truncate text-fg-primary">{title}</p>
-        ) : null}
+      {title ? (
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/60 to-transparent px-4 pt-3 pb-8 transition-opacity duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
+            "group-hover:opacity-100 group-focus-within:opacity-100",
+          // Nothing hovers on a touch screen, so the chrome would never come
+          // back once playback started. Keep it up there instead.
+          "[@media(hover:none)]:opacity-100",
+            playing ? "opacity-0" : "opacity-100",
+          )}
+        >
+          <p className="text-sm-strong truncate text-white">{title}</p>
+        </div>
+      ) : null}
 
-        <div className="flex items-center gap-3">
-          <label className="sr-only" htmlFor={seekId}>
-            Seek
-          </label>
+      <div
+        className={cn(
+          "absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-black/75 via-black/45 to-transparent px-3 pt-10 pb-2 transition-opacity duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
+          "group-hover:opacity-100 group-focus-within:opacity-100",
+          // Nothing hovers on a touch screen, so the chrome would never come
+          // back once playback started. Keep it up there instead.
+          "[@media(hover:none)]:opacity-100",
+          playing ? "opacity-0" : "opacity-100",
+        )}
+      >
+        <label className="sr-only" htmlFor={seekId}>
+          Seek
+        </label>
+        <div className="relative flex h-4 items-center">
+          {/* Track, buffered fill and played fill sit under the input, which
+              stays transparent so its thumb is the only thing it paints. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 h-1 rounded-full bg-white/25"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-0 h-1 rounded-full bg-white/35"
+            style={{ width: `${loaded}%` }}
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-0 h-1 rounded-full bg-white"
+            style={{ width: `${played}%` }}
+          />
           <input
             id={seekId}
             type="range"
             min={0}
             max={duration || 0}
-            step={0.1}
+            step={0.01}
             value={current}
             onChange={(event) => handleSeek(Number(event.target.value))}
-            className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-background-quaternary accent-[var(--brand-primary)] [&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-primary"
-            style={{
-              background: `linear-gradient(to right, var(--brand-primary) ${progress}%, var(--background-quaternary) ${progress}%)`,
-            }}
             aria-valuetext={`${formatTime(current)} of ${formatTime(duration)}`}
+            className={cn(
+              "relative m-0 h-4 w-full cursor-pointer appearance-none bg-transparent outline-none",
+              // Both vendor thumbs, or Firefox falls back to a default one.
+              "[&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-sm",
+              "[&::-moz-range-thumb]:size-3 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white",
+              "focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-white/70",
+            )}
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button
+        <div className="flex items-center gap-1">
+          <button
             type="button"
-            variant="ghost"
-            size="sm"
-            iconOnly
-            rounded
+            className={overlayControl}
             aria-label={playing ? "Pause" : "Play"}
             onClick={handleTogglePlay}
           >
-            {playing ? <PauseIcon /> : <PlayIcon />}
-          </Button>
-          <Button
+            {playing ? (
+              <IconPause size={18} className="size-4.5" aria-hidden />
+            ) : (
+              <IconPlay size={18} className="size-4.5" aria-hidden />
+            )}
+          </button>
+          <button
             type="button"
-            variant="ghost"
-            size="sm"
-            iconOnly
-            rounded
+            className={overlayControl}
             aria-label={muted ? "Unmute" : "Mute"}
             onClick={handleToggleMute}
           >
-            {muted ? <MuteIcon /> : <VolumeIcon />}
-          </Button>
-          <span className="text-xs font-mono text-fg-tertiary">
+            {muted ? (
+              <IconVolumeOff size={18} className="size-4.5" aria-hidden />
+            ) : (
+              <IconVolumeFull size={18} className="size-4.5" aria-hidden />
+            )}
+          </button>
+          <span className="text-xs ml-1 font-mono text-white/80 tabular-nums">
             {formatTime(current)} / {formatTime(duration)}
           </span>
-          <div className="ml-auto">
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              iconOnly
-              rounded
-              aria-label="Fullscreen"
-              onClick={handleFullscreen}
-            >
-              <FullscreenIcon />
-            </Button>
-          </div>
+          <button
+            type="button"
+            className={cn(overlayControl, "ml-auto")}
+            aria-label="Fullscreen"
+            onClick={handleFullscreen}
+          >
+            <IconFullScreen size={18} className="size-4.5" aria-hidden />
+          </button>
         </div>
       </div>
     </div>
   )
 }
-
-const PlayIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden>
-    <path d="M9 7.5v9l8-4.5-8-4.5Z" fill="currentColor" />
-  </svg>
-)
-
-const PauseIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden>
-    <path d="M8 7h3v10H8V7Zm5 0h3v10h-3V7Z" fill="currentColor" />
-  </svg>
-)
-
-const VolumeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden>
-    <path
-      d="M4 10v4h3l4 3V7L7 10H4Zm11.5 2a2.5 2.5 0 0 0-1.5-2.3v4.6A2.5 2.5 0 0 0 15.5 12Zm0-5.5v1.6a4 4 0 0 1 0 7.8v1.6a5.5 5.5 0 0 0 0-11Z"
-      fill="currentColor"
-    />
-  </svg>
-)
-
-const MuteIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden>
-    <path
-      d="M4 10v4h3l4 3V7L7 10H4Zm11.2-.8 1.4-1.4 1.4 1.4 1.4-1.4 1.4 1.4-1.4 1.4 1.4 1.4-1.4 1.4-1.4-1.4-1.4 1.4-1.4-1.4 1.4-1.4-1.4-1.4Z"
-      fill="currentColor"
-    />
-  </svg>
-)
-
-const FullscreenIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden>
-    <path
-      d="M7 9V7h3v2H7Zm7 0V7h3v2h-3ZM7 17v-2h3v2H7Zm7 0v-2h3v2h-3Z"
-      fill="currentColor"
-    />
-    <path
-      d="M5 5h5v2H7v3H5V5Zm9 0h5v5h-2V7h-3V5ZM5 14h2v3h3v2H5v-5Zm12 3h-3v2h5v-5h-2v3Z"
-      fill="currentColor"
-    />
-  </svg>
-)
