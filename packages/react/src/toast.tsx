@@ -28,25 +28,45 @@ export const ToastPortal = (props: ToastPortalProps) => (
 
 export const ToastViewport = ({ className, ...props }: ToastViewportProps) => (
   <BaseToast.Viewport
+    // No flex column: the toasts inside are absolutely positioned so they pile
+    // up as a stack. In flow they would march down past the bottom edge.
     className={cn(
-      "fixed right-4 bottom-4 z-[100] flex w-[min(100vw-2rem,24rem)] flex-col outline-none",
+      "fixed right-4 bottom-4 z-[100] w-[min(100vw-2rem,24rem)] outline-none",
       className,
     )}
     {...props}
   />
 )
 
+/** Each toast is pinned to the bottom of the viewport and lifted by its own
+ *  index, so the stack reads as a pile of cards rather than a list: the one
+ *  behind peeks out by `--peek` and sits a step smaller. Hovering the viewport
+ *  sets `data-expanded`, which fans them out to their real heights. */
 export const ToastRoot = ({ className, ...props }: ToastRootProps) => (
   <BaseToast.Root
     className={cn(
-      "relative z-[calc(1000-var(--toast-index))] mb-2 box-border w-full rounded-xl border border-border-primary bg-surface p-4 shadow-lg outline-none",
-      "h-[var(--toast-frontmost-height,var(--toast-height))]",
-      "transition-[transform,opacity] duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
-      "data-starting-style:opacity-0 data-starting-style:translate-y-2",
-      "data-ending-style:opacity-0 data-ending-style:translate-y-2",
-      "data-expanded:h-[var(--toast-height)] data-expanded:translate-y-[var(--toast-offset-y)]",
-      "data-[type=error]:border-destructive/40",
-      "data-[type=success]:border-border-primary",
+      "absolute right-0 bottom-0 left-auto z-[calc(1000-var(--toast-index))] box-border w-full origin-bottom",
+      "[--gap:0.625rem] [--peek:0.75rem]",
+      "[--scale:calc(max(0,1-(var(--toast-index)*0.05)))] [--shrink:calc(1-var(--scale))]",
+      "[--height:var(--toast-frontmost-height,var(--toast-height))]",
+      "[--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y,0px))]",
+      // No border: `shadow-lg` composes `--elevation-hairline`, the same edge the
+      // dropdowns carry — theme-aware and 0.5px on hi-dpi. A border on top of it
+      // stacked a second, darker line. The error type tints that edge with a
+      // ring, which also sits outside the box model so the height never shifts.
+      "rounded-xl bg-surface px-3.5 py-3 shadow-lg outline-none select-none",
+      // Collapsed, every toast behind the front one is scaled down and shifted
+      // up; `--shrink` cancels the gap that scaling opens at the bottom edge.
+      "h-[var(--height)] data-expanded:h-[var(--toast-height)]",
+      "[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(calc(var(--toast-swipe-movement-y,0px)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))]",
+      "data-expanded:[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(var(--offset-y))]",
+      // Bridges the gap between cards so crossing it does not collapse the fan.
+      "after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
+      "transition-[transform,opacity,height] duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
+      "data-starting-style:[transform:translateY(150%)]",
+      "data-ending-style:opacity-0 data-limited:opacity-0",
+      "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]",
+      "data-[type=error]:ring-1 data-[type=error]:ring-destructive/40",
       className,
     )}
     {...props}
@@ -56,7 +76,7 @@ export const ToastRoot = ({ className, ...props }: ToastRootProps) => (
 export const ToastContent = ({ className, ...props }: ToastContentProps) => (
   <BaseToast.Content
     className={cn(
-      "flex flex-col gap-1 overflow-hidden transition-opacity duration-[var(--duration-sm)]",
+      "flex flex-col gap-0.5 overflow-hidden transition-opacity duration-[var(--duration-sm)]",
       "data-behind:pointer-events-none data-behind:opacity-0 data-expanded:data-behind:opacity-100",
       className,
     )}
@@ -66,7 +86,7 @@ export const ToastContent = ({ className, ...props }: ToastContentProps) => (
 
 export const ToastTitle = ({ className, ...props }: ToastTitleProps) => (
   <BaseToast.Title
-    className={cn("text-sm-strong pr-8 text-fg-primary", className)}
+    className={cn("text-xs-strong pr-10 text-fg-primary", className)}
     {...props}
   />
 )
@@ -76,7 +96,7 @@ export const ToastDescription = ({
   ...props
 }: ToastDescriptionProps) => (
   <BaseToast.Description
-    className={cn("text-sm leading-relaxed text-fg-secondary", className)}
+    className={cn("text-xs text-fg-secondary", className)}
     {...props}
   />
 )
@@ -100,7 +120,7 @@ export const ToastClose = ({
 }: ToastCloseProps) => (
   <BaseToast.Close
     className={cn(
-      "absolute top-3 right-3 inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-fg-tertiary outline-none",
+      "absolute top-2.5 right-2.5 inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-fg-tertiary outline-none",
       motion.colors,
       "hover:bg-background-tertiary hover:text-fg-primary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
       className,
@@ -108,7 +128,7 @@ export const ToastClose = ({
     {...props}
   >
     {children ?? (
-      <IconCrossSmall size={14} className="size-3.5" aria-hidden />
+      <IconCrossSmall size={18} className="size-4.5" aria-hidden />
     )}
   </BaseToast.Close>
 )
