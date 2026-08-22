@@ -2,6 +2,7 @@
 
 import { Dialog as BaseDialog } from "@base-ui/react/dialog"
 import type { ComponentProps, HTMLAttributes } from "react"
+import { useRef } from "react"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
 
@@ -41,16 +42,38 @@ export const DialogBackdrop = ({
   />
 )
 
-export const DialogPopup = ({ className, ...props }: DialogPopupProps) => (
-  <BaseDialog.Popup
-    className={cn(
-      "fixed top-1/2 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-6 rounded-xl border border-border-primary bg-surface-raised p-5 shadow-md outline-none max-h-[calc(100dvh-2rem)] overflow-y-auto max-sm:max-w-[calc(100vw-2rem)]",
-      motion.popupCenter,
-      className,
-    )}
-    {...props}
-  />
-)
+export const DialogPopup = ({
+  className,
+  initialFocus,
+  ref,
+  ...props
+}: DialogPopupProps) => {
+  const popupRef = useRef<HTMLDivElement | null>(null)
+
+  const setRef = (node: HTMLDivElement | null) => {
+    popupRef.current = node
+    if (typeof ref === "function") ref(node)
+    else if (ref) ref.current = node
+  }
+
+  return (
+    <BaseDialog.Popup
+      ref={setRef}
+      // Base UI focuses the first tabbable element by default. In a dialog long
+      // enough to scroll that is usually the action at the bottom, and focusing
+      // it scrolls the body to the end before the reader has seen the start —
+      // so the popup takes focus itself, which is what its `tabindex="-1"` is
+      // for. Callers can still name their own target.
+      initialFocus={initialFocus ?? popupRef}
+      className={cn(
+        "fixed top-1/2 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-6 rounded-xl border border-border-primary bg-surface-raised p-5 shadow-md outline-none max-h-[calc(100dvh-2rem)] overflow-y-auto max-sm:max-w-[calc(100vw-2rem)]",
+        motion.popupCenter,
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 
 export const DialogTitle = ({ className, ...props }: DialogTitleProps) => (
   <BaseDialog.Title
