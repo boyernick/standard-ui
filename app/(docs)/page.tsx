@@ -5,8 +5,9 @@ export default function IntroductionPage() {
   return (
     <DocPage
       title="Introduction"
-      description="StandardUI is the shared visual language for product surfaces — tokens, components, and motion on Base UI."
+      description="The visual foundations and language of StandardUI."
       heading={null}
+      bleed
     >
       <IntroCards />
     </DocPage>

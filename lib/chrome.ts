@@ -17,3 +17,17 @@ export const CHROME_BAR_HEIGHT = "h-14"
  */
 export const PAGE_INNER =
   "px-4 md:px-10 lg:px-14 xl:px-24 2xl:px-40 3xl:px-56"
+
+/** One side of `PAGE_INNER`, for blocks that run edge to edge but still have
+ *  to line their content up with everything else on the page.
+ *
+ * A full-bleed grid cannot use `PAGE_INNER` on a wrapper — that would pull the
+ * rules in off the viewport edge. The padding moves onto the cells instead:
+ * the outer edge of each end cell tracks the page measure, while the inner
+ * edge gets a fixed gutter either side of the divider.
+ */
+export const PAGE_INNER_LEFT =
+  "pl-4 md:pl-10 lg:pl-14 xl:pl-24 2xl:pl-40 3xl:pl-56"
+
+export const PAGE_INNER_RIGHT =
+  "pr-4 md:pr-10 lg:pr-14 xl:pr-24 2xl:pr-40 3xl:pr-56"

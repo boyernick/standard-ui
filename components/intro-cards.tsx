@@ -1,200 +1,243 @@
+import {
+  Badge,
+  BrandWordmark,
+  Button,
+  IconBell,
+  IconCalendar1,
+  IconCheckmark1,
+  IconChevronRightSmall,
+  IconCircleCheck,
+  IconCircleInfo,
+  IconClipboard,
+  IconHome,
+  IconMagnifyingGlass,
+  IconMinus,
+  IconPeople,
+  IconPlus,
+  IconSettingsGear1,
+  IconSquareBehindSquare6,
+  IconStar,
+  IconX,
+  Input,
+  Kbd,
+  Switch,
+} from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import type { ReactNode } from "react"
-import { BrandWordmark } from "@boyernick/standard-ui-react"
-import { IconFormCircle } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFormCircle"
+import { PAGE_INNER, PAGE_INNER_LEFT, PAGE_INNER_RIGHT } from "@/lib/chrome"
 
-function Card({
+/** Cell padding. The outer edge tracks the page measure so the text lines up
+ *  with the header above it; the inner edge is a fixed gutter beside the
+ *  divider. These are plain strings with no `cn` to resolve conflicts, so the
+ *  inner edge deliberately stops at `md:` — adding the `lg:` step from
+ *  `PAGE_INNER_*` would win the cascade and swallow the gutter. */
+const CELL_LEFT = `${PAGE_INNER_LEFT} pr-4 md:pr-10`
+const CELL_RIGHT = `pl-4 md:pl-10 ${PAGE_INNER_RIGHT}`
+
+const cellClassName =
+  "group flex flex-col py-8 outline-none transition-colors hover:bg-background-secondary focus-visible:bg-background-secondary"
+
+/** One destination in the grid. The specimen is inert — the whole cell is a
+ *  single link, so a control inside it must not take the press. */
+const Cell = ({
   href,
   title,
   description,
+  className,
   children,
 }: {
-  href?: string
+  href: string
   title: string
   description: string
+  className: string
   children: ReactNode
-}) {
-  const inner = (
-    <>
-      <div className="flex min-h-40 items-center justify-center rounded-xl bg-background-tertiary p-6">
-        {children}
-      </div>
-      <div className="px-1 pt-4">
-        <h2 className="heading-sm text-fg-primary">{title}</h2>
-        <p className="text-sm mt-1 text-fg-secondary">{description}</p>
-      </div>
-    </>
-  )
-
-  const className = "rounded-2xl bg-surface p-3 shadow-hairline"
-
-  if (href) {
-    return (
-      <Link href={href} className={`${className} block`}>
-        {inner}
-      </Link>
-    )
-  }
-
-  return <div className={className}>{inner}</div>
-}
-
-function BrandPreview() {
-  return <BrandWordmark markSize={28} className="text-fg-primary" />
-}
-
-function ComponentsPreview() {
-  return (
-    <div className="flex w-full max-w-xs flex-wrap items-center justify-center gap-2">
-      <span className="h-8 w-24 rounded-md border border-border-primary bg-surface" />
-      <span className="text-xs inline-flex h-8 items-center gap-1 rounded-md border border-border-primary bg-surface px-2 text-fg-primary">
-        + Button
-        <svg viewBox="0 0 12 12" className="size-3 text-fg-tertiary" aria-hidden>
-          <path
-            d="M3 4.5 6 8l3-3.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.3"
-          />
-        </svg>
-      </span>
-      <span className="text-xs inline-flex h-8 items-center rounded-md bg-surface px-1">
-        <span className="rounded-sm bg-background-tertiary px-2 py-1 text-fg-primary">
-          Tab
-        </span>
-        <span className="px-2 py-1 text-fg-tertiary">Tab</span>
-      </span>
-      <span className="text-xs inline-flex h-8 items-center gap-1.5 rounded-md border border-border-primary bg-surface px-2 text-fg-primary">
-        Alerts
-        <span className="text-xs-strong inline-flex size-4 items-center justify-center rounded-full bg-surface-inverted text-fg-inverted">
-          2
-        </span>
-      </span>
-      <span className="relative inline-flex h-6 w-10 items-center rounded-full bg-brand-primary">
-        <span className="absolute right-0.5 size-5 rounded-full bg-brand-foreground" />
-      </span>
-      <span className="text-xs inline-flex items-center gap-1.5 text-fg-primary">
-        <span className="size-3.5 rounded-full border-[4px] border-fg-primary" />
-        Label
-      </span>
+}) => (
+  <Link href={href} className={`${cellClassName} ${className}`}>
+    <div className="pointer-events-none flex h-44 items-center justify-center select-none">
+      {children}
     </div>
-  )
-}
+    <h2 className="heading-sm mt-6 text-fg-primary">{title}</h2>
+    <p className="text-sm mt-1 max-w-2xl text-fg-secondary">{description}</p>
+  </Link>
+)
 
-function ColorsPreview() {
-  return (
-    <div className="flex flex-wrap justify-center gap-3">
-      <div className="flex">
-        {["--gray-0", "--gray-100", "--gray-300", "--gray-500", "--gray-1000"].map(
-          (token) => (
-            <span
-              key={token}
-              className="size-6 rounded-full ring-2 ring-background-tertiary first:ml-0 -ml-1.5"
-              style={{ background: `var(${token})` }}
-            />
-          ),
-        )}
-      </div>
-      <div className="flex">
-        {[
-          "--red-400",
-          "--orange-400",
-          "--yellow-400",
-          "--green-400",
-          "--blue-400",
-          "--purple-400",
-          "--pink-400",
-        ].map((token) => (
+/** A row of the grid. The rule above is full-bleed like every band on the
+ *  site; the divider between columns is interior to the row. */
+const Row = ({ first, children }: { first?: boolean; children: ReactNode }) => (
+  <div
+    className={`grid md:grid-cols-2 md:divide-x md:divide-border-primary ${
+      first ? "" : "border-t border-border-primary"
+    }`}
+  >
+    {children}
+  </div>
+)
+
+const ComponentsPreview = () => (
+  <div className="flex flex-wrap items-center gap-3">
+    <Input className="w-40" placeholder="Text here" readOnly />
+    <Button size="sm">Button</Button>
+    <Badge size="sm" variant="success">
+      Shipped
+    </Badge>
+    <Switch defaultChecked />
+    <Kbd>⌘</Kbd>
+  </div>
+)
+
+const TypographyPreview = () => (
+  <div className="flex flex-col items-center gap-1 text-fg-primary">
+    <p className="heading-xl-serif">Signifier</p>
+    <p className="heading-md">Söhne</p>
+    <p className="text-sm text-fg-secondary">Body copy at text-sm</p>
+  </div>
+)
+
+const grays = ["--gray-0", "--gray-100", "--gray-300", "--gray-500", "--gray-1000"]
+const hues = [
+  "--red-400",
+  "--orange-400",
+  "--yellow-400",
+  "--green-400",
+  "--blue-400",
+  "--purple-400",
+  "--pink-400",
+]
+
+const ColorsPreview = () => (
+  <div className="flex flex-col gap-3">
+    {[grays, hues].map((row, index) => (
+      <div key={index} className="flex justify-center">
+        {row.map((token) => (
           <span
             key={token}
-            className="size-6 rounded-full ring-2 ring-background-tertiary first:ml-0 -ml-1.5"
+            className="-ml-1.5 size-7 rounded-full ring-2 ring-background-primary first:ml-0"
             style={{ background: `var(${token})` }}
           />
         ))}
       </div>
-    </div>
-  )
-}
+    ))}
+  </div>
+)
 
-function MaterialsPreview() {
-  return (
-    <div className="flex items-end gap-3">
-      <span className="size-10 rounded-sm bg-surface shadow-sm" />
-      <span className="size-12 rounded-md bg-surface shadow-md" />
-      <span className="size-14 rounded-lg bg-surface shadow-lg" />
-    </div>
-  )
-}
+/** Listed here rather than taken from the package's `iconGallery`: that array
+ *  lives in a `"use client"` module, so a server component importing it gets a
+ *  client reference instead of the array itself. Icon *components* cross the
+ *  boundary fine, which is what this maps over. */
+const galleryIcons = [
+  IconHome,
+  IconMagnifyingGlass,
+  IconSettingsGear1,
+  IconBell,
+  IconPeople,
+  IconCalendar1,
+  IconClipboard,
+  IconStar,
+  IconCheckmark1,
+  IconPlus,
+  IconMinus,
+  IconX,
+  IconCircleCheck,
+  IconCircleInfo,
+  IconChevronRightSmall,
+  IconSquareBehindSquare6,
+]
 
+const IconsPreview = () => (
+  <div className="grid grid-cols-8 gap-x-4 gap-y-4 text-fg-secondary">
+    {galleryIcons.map((Icon, index) => (
+      <Icon key={index} size={20} aria-hidden />
+    ))}
+  </div>
+)
 
-function TypographyPreview() {
-  return (
-    <div className="flex w-full max-w-sm flex-col gap-1 text-fg-primary">
-      <p className="heading-xl-serif">Signifier</p>
-      <p className="heading-md">Söhne heading</p>
-      <p className="text-sm text-fg-secondary">Body text-sm · text-md</p>
-    </div>
-  )
-}
+const MaterialsPreview = () => (
+  <div className="flex items-end gap-4">
+    <span className="size-12 rounded-md bg-surface shadow-sm" />
+    <span className="size-14 rounded-lg bg-surface shadow-md" />
+    <span className="size-16 rounded-xl bg-surface shadow-lg" />
+  </div>
+)
 
-export function IntroCards() {
-  return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <Card
+/** Motion has nothing to show at rest, so the specimen reads as one shape
+ *  caught mid-travel. The copies are spaced rather than overlapped — stacked
+ *  translucent greys just muddy into a single blur. */
+const MotionPreview = () => (
+  <div className="flex items-center gap-3">
+    <span className="size-12 rounded-lg bg-background-tertiary opacity-40" />
+    <span className="size-12 rounded-lg bg-background-tertiary opacity-70" />
+    <span className="size-12 rounded-lg bg-background-tertiary" />
+  </div>
+)
+
+export const IntroCards = () => (
+  <div>
+    <Row first>
+      <Cell
         href="/brand"
         title="Brand"
-        description="Wordmark and foundational brand elements."
+        description="Wordmark and the foundational brand elements."
+        className={CELL_LEFT}
       >
-        <BrandPreview />
-      </Card>
-      <Card
+        <BrandWordmark markSize={40} className="text-fg-primary" />
+      </Cell>
+      <Cell
         href="/typography"
         title="Typography"
-        description="Type scale from 2xl to 2xs, with serif and sans headings."
+        description="Set in Signifier and Söhne, on a scale from 2xs to 2xl."
+        className={CELL_RIGHT}
       >
         <TypographyPreview />
-      </Card>
-      <Card
+      </Cell>
+    </Row>
+
+    <Row>
+      <Cell
         href="/colors"
         title="Colors"
-        description="Gray, alpha, and hue scales. Primary actions use grayscale."
+        description="Gray, alpha and hue scales. Primary actions stay in grayscale."
+        className={CELL_LEFT}
       >
         <ColorsPreview />
-      </Card>
-      <Card
-        href="/components/button"
-        title="Components"
-        description="Form controls, overlays, data display, and layout primitives."
-      >
-        <ComponentsPreview />
-      </Card>
-      <Card
-        href="/materials"
-        title="Materials"
-        description="Radius and elevation shadows for surfaces and overlays."
-      >
-        <MaterialsPreview />
-      </Card>
-      <Card
+      </Cell>
+      <Cell
         href="/icons"
         title="Icons"
-        description="Central Icons, round outlined, default 20px."
+        description="Central Icons, round outlined, at a default of 20px."
+        className={CELL_RIGHT}
       >
-        <span className="text-fg-primary">
-          <IconFormCircle size={32} mode="raw" aria-hidden />
-        </span>
-      </Card>
-      <Card
+        <IconsPreview />
+      </Cell>
+    </Row>
+
+    <Row>
+      <Cell
+        href="/materials"
+        title="Materials"
+        description="Radius and elevation for surfaces and the popups above them."
+        className={CELL_LEFT}
+      >
+        <MaterialsPreview />
+      </Cell>
+      <Cell
         href="/motion"
         title="Motion"
-        description="Shared transitions for overlays, indicators, and color."
+        description="Shared durations and easings for overlays, indicators and colour."
+        className={CELL_RIGHT}
       >
-        <div className="flex items-center gap-2">
-          <span className="size-8 rounded-md bg-background-quaternary opacity-40" />
-          <span className="size-10 rounded-md bg-background-tertiary opacity-70" />
-          <span className="size-12 rounded-md border border-border-primary bg-surface shadow-md" />
-        </div>
-      </Card>
-    </div>
-  )
-}
+        <MotionPreview />
+      </Cell>
+    </Row>
+
+    <Row>
+      <Cell
+        href="/components/button"
+        title="Components"
+        description="Form controls, overlays, data display and layout primitives."
+        className={`${PAGE_INNER} md:col-span-2`}
+      >
+        <ComponentsPreview />
+      </Cell>
+    </Row>
+  </div>
+)
