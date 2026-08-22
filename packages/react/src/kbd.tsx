@@ -3,10 +3,13 @@ import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
 
 const kbdVariants = cva(
+  // `text-xs` carries the size, line-height and tracking; the weight is set
+  // separately because 600 sits above the 400/500 the type scale defines, so
+  // there is no `-strong` utility to reach for.
   // The border is bottom-only on purpose: it reads as the lip of a physical
   // key without boxing the glyph in on all four sides, which at 12px turns a
   // keycap into a cramped badge.
-  "inline-flex shrink-0 items-center justify-center border-b px-1 font-sans text-xs whitespace-nowrap select-none",
+  "inline-flex shrink-0 items-center justify-center border-b px-1 font-sans text-xs font-semibold whitespace-nowrap select-none",
   {
     variants: {
       variant: {

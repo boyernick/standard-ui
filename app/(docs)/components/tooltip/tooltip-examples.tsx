@@ -37,8 +37,8 @@ const Hint = ({
 )
 
 /** A shortcut reading as caps rather than prose. The keycap variant has to
- *  match the popup it sits on — a default cap is a light grey that disappears
- *  on the inverted surface. */
+ *  match the popup it lands on: a default cap is a light grey that vanishes on
+ *  the inverted surface, and an inverted cap vanishes on the default one. */
 const Shortcut = ({
   keys,
   inverted,
@@ -104,7 +104,7 @@ export const TooltipExamples = () => (
             label={
               <>
                 Save
-                <Shortcut keys={["\u2318", "S"]} inverted />
+                <Shortcut keys={["\u2318", "S"]} />
               </>
             }
           >
@@ -114,7 +114,7 @@ export const TooltipExamples = () => (
             label={
               <>
                 Search
-                <Shortcut keys={["\u2318", "K"]} inverted />
+                <Shortcut keys={["\u2318", "K"]} />
               </>
             }
           >
@@ -124,33 +124,25 @@ export const TooltipExamples = () => (
       </DocBand>
 
       <DocBand
-        id="variants"
-        title="Light and inverted"
-        description="Inverted is the default; light suits a dark or busy surface."
+        id="inverted"
+        title="Inverted"
+        description="Flipped against the page, for a hint that should read as separate."
         contentClassName={BAND}
       >
         <div className="flex flex-wrap items-center gap-2">
+          <Hint variant="inverted" label="Save changes">
+            Save
+          </Hint>
           <Hint
             variant="inverted"
             label={
               <>
-                Inverted
-                <Shortcut keys={["\u2318", "1"]} inverted />
+                Search
+                <Shortcut keys={["\u2318", "K"]} inverted />
               </>
             }
           >
-            Inverted
-          </Hint>
-          <Hint
-            variant="light"
-            label={
-              <>
-                Light
-                <Shortcut keys={["\u2318", "2"]} />
-              </>
-            }
-          >
-            Light
+            Search
           </Hint>
         </div>
       </DocBand>
