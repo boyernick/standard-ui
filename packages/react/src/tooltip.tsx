@@ -52,9 +52,16 @@ const tooltipPopupVariants = cva(
   cn(
     "z-50 max-w-xs rounded-md px-2.5 py-1 text-xs shadow-md outline-none",
     // A trailing keycap already carries its own inset, so the full 10px beside
-    // it reads as a gap rather than padding. Matching the vertical inset puts
-    // the cap the same distance from every edge it is near.
-    "has-[kbd]:pr-1",
+    // it reads as a gap rather than padding — but sitting flush on the vertical
+    // inset crowds the corner, so it gets a touch more than that.
+    //
+    // Laying the row out as flex is what centres it. On a text line the keycap
+    // is an inline-flex aligned `middle`, which sets its centre against the
+    // baseline plus half an x-height rather than the line's centre — at 16px it
+    // hung 1.18px low, leaving 6.36px above and 4px below. Scoped to `has-[kbd]`
+    // because making every popup a flex container would turn a multi-child
+    // tooltip from stacked blocks into a row.
+    "has-[kbd]:flex has-[kbd]:items-center has-[kbd]:pr-1.5",
   ),
   {
     variants: {
