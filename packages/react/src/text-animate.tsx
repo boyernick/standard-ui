@@ -8,6 +8,11 @@ import {
 } from "react"
 import { cn } from "./lib/cn"
 
+/** How many glyphs are scrambling at once. The window travels the line; behind
+ *  it the text is settled, ahead of it nothing is drawn yet. 8 is the reference
+ *  default from baffle.js, which this effect follows. */
+const DECODE_WINDOW = 8
+
 const DECODE_GLYPHS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@$%&*"
 
@@ -46,6 +51,7 @@ export const TextAnimate = ({
   useEffect(() => {
     let cancelled = false
     let timeoutId: ReturnType<typeof setTimeout> | undefined
+    let frameId: number | undefined
 
     const start = () => {
       if (
@@ -82,30 +88,59 @@ export const TextAnimate = ({
         return
       }
 
-      // decode
-      setOutput(
-        chars.map(() => DECODE_GLYPHS[Math.floor(Math.random() * DECODE_GLYPHS.length)]).join(""),
-      )
-      let revealed = 0
-      const tick = () => {
+      // Decode follows baffle.js's `reveal`, which is the reference for this
+      // effect: a fixed-width window of scrambled glyphs travels left to
+      // right, the real text sits behind it, and nothing at all is drawn ahead
+      // of it — so the line grows in with a churning leading edge rather than
+      // resolving out of a full-width block of noise.
+      //
+      // It runs on rAF with a time accumulator rather than `setTimeout(speed)`.
+      // A 28ms timer does not divide into a ~16.7ms frame, so steps land on
+      // uneven frames and the text visibly stutters; accumulating elapsed time
+      // keeps the reference's cadence while landing each step on a real frame.
+      const slots = chars.reduce<number[]>((acc, char, index) => {
+        if (char !== " ") acc.push(index)
+        return acc
+      }, [])
+
+      // The window starts off the front of the line so the first glyph is
+      // already scrambling as it arrives.
+      let position = -DECODE_WINDOW
+      let previousStep = -Infinity
+      const startedAt = performance.now()
+
+      const frame = (now: number) => {
         if (cancelled) return
-        revealed += 1
-        const next = chars
-          .map((char, index) => {
-            if (char === " ") return " "
-            if (index < revealed) return char
-            return DECODE_GLYPHS[Math.floor(Math.random() * DECODE_GLYPHS.length)]
-          })
-          .join("")
-        setOutput(next)
-        if (revealed < chars.length) {
-          timeoutId = setTimeout(tick, speed)
-        } else {
-          setOutput(text)
-          setDone(true)
+
+        const step = Math.floor((now - startedAt) / speed) - DECODE_WINDOW
+        if (step !== previousStep) {
+          previousStep = step
+          position = step
+
+          if (position > slots.length) {
+            setOutput(text)
+            setDone(true)
+            return
+          }
+
+          const next = [...chars]
+          for (let p = Math.max(position, 0); p < slots.length; p += 1) {
+            next[slots[p]] =
+              p < position + DECODE_WINDOW
+                ? DECODE_GLYPHS[
+                    Math.floor(Math.random() * DECODE_GLYPHS.length)
+                  ]
+                : ""
+          }
+          setOutput(next.join(""))
         }
+
+        frameId = requestAnimationFrame(frame)
       }
-      timeoutId = setTimeout(tick, speed)
+
+      setOutput("")
+      frameId = requestAnimationFrame(frame)
+      return
     }
 
     timeoutId = setTimeout(start, delay)
@@ -113,6 +148,7 @@ export const TextAnimate = ({
     return () => {
       cancelled = true
       if (timeoutId) clearTimeout(timeoutId)
+      if (frameId) cancelAnimationFrame(frameId)
     }
   }, [chars, delay, effect, replay, speed, text])
 
