@@ -5,6 +5,14 @@
       "name": "Spinner",
       "props": [
         {
+          "name": "variant",
+          "type": "'ring' | 'arc' | 'dots' | 'spokes'",
+          "required": false,
+          "default": "\"ring\"",
+          "description": "",
+          "source": "own"
+        },
+        {
           "name": "size",
           "type": "'sm' | 'md' | 'lg'",
           "required": false,

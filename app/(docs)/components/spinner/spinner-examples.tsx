@@ -16,6 +16,28 @@ export const SpinnerExamples = () => (
   <div>
     <DocBand
       first
+      id="variants"
+      title="Variants"
+      description="Choose a loading rhythm that fits the surrounding interface."
+      contentClassName={BAND}
+    >
+      <div className="flex items-end gap-6">
+        <Size name="ring">
+          <Spinner variant="ring" size="lg" />
+        </Size>
+        <Size name="arc">
+          <Spinner variant="arc" size="lg" />
+        </Size>
+        <Size name="dots">
+          <Spinner variant="dots" size="lg" />
+        </Size>
+        <Size name="spokes">
+          <Spinner variant="spokes" size="lg" />
+        </Size>
+      </div>
+    </DocBand>
+
+    <DocBand
       id="sizes"
       title="Sizes"
       description="Three sizes, each matching the text or control beside it."

@@ -3,8 +3,56 @@
   "parts": [
     {
       "name": "Table",
-      "props": [],
+      "props": [
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Classes applied to the bordered horizontal-scroll container.",
+          "source": "standard-ui"
+        },
+        {
+          "name": "density",
+          "type": "'default' | 'compact'",
+          "required": false,
+          "default": "'default'",
+          "description": "Controls the vertical and horizontal cell spacing.",
+          "source": "standard-ui"
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether alternating body rows use a secondary surface.",
+          "source": "standard-ui"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'grid'",
+          "required": false,
+          "default": "'default'",
+          "description": "Visual treatment for row rules or a full spreadsheet-style cell grid.",
+          "source": "standard-ui"
+        }
+      ],
       "reactPassthrough": 289,
+      "universal": 0
+    },
+    {
+      "name": "TableHeader",
+      "props": [
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Keeps column headers visible while the table container scrolls vertically.",
+          "source": "standard-ui"
+        }
+      ],
+      "reactPassthrough": 280,
       "universal": 0
     },
     {
@@ -35,12 +83,6 @@
       "name": "TableHead",
       "props": [],
       "reactPassthrough": 286,
-      "universal": 0
-    },
-    {
-      "name": "TableHeader",
-      "props": [],
-      "reactPassthrough": 280,
       "universal": 0
     },
     {

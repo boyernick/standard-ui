@@ -5,6 +5,22 @@
       "name": "Tabs",
       "props": [
         {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Height and typography shared by every tab.",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'underline' | 'segmented' | 'pill'",
+          "required": false,
+          "default": "\"underline\"",
+          "description": "Visual treatment shared by the list, tabs, and indicator.",
+          "source": "own"
+        },
+        {
           "name": "defaultValue",
           "type": "any",
           "required": false,
@@ -44,6 +60,14 @@
       "name": "TabsIndicator",
       "props": [
         {
+          "name": "variant",
+          "type": "'underline' | 'segmented' | 'pill'",
+          "required": false,
+          "default": null,
+          "description": "Overrides the visual treatment inherited from Tabs.",
+          "source": "own"
+        },
+        {
           "name": "renderBeforeHydration",
           "type": "boolean",
           "required": false,
@@ -58,6 +82,14 @@
     {
       "name": "TabsList",
       "props": [
+        {
+          "name": "variant",
+          "type": "'underline' | 'segmented' | 'pill'",
+          "required": false,
+          "default": null,
+          "description": "Overrides the visual treatment inherited from Tabs.",
+          "source": "own"
+        },
         {
           "name": "activateOnFocus",
           "type": "boolean",
@@ -104,6 +136,22 @@
     {
       "name": "TabsTab",
       "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": null,
+          "description": "Overrides the size inherited from Tabs.",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'underline' | 'segmented' | 'pill'",
+          "required": false,
+          "default": null,
+          "description": "Overrides the visual treatment inherited from Tabs.",
+          "source": "own"
+        },
         {
           "name": "value",
           "type": "any",

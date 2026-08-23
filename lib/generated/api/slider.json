@@ -5,6 +5,14 @@
       "name": "Slider",
       "props": [
         {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Scales the track and thumb together.",
+          "source": "own"
+        },
+        {
           "name": "defaultValue",
           "type": "number | readonly number[]",
           "required": false,
@@ -241,6 +249,21 @@
         }
       ],
       "reactPassthrough": 270,
+      "universal": 3
+    },
+    {
+      "name": "SliderTicks",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Number of evenly spaced marks, including both ends.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 275,
       "universal": 3
     },
     {

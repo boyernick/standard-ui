@@ -5,6 +5,7 @@ import {
   SliderControl,
   SliderIndicator,
   SliderThumb,
+  SliderTicks,
   SliderTrack,
 } from "@boyernick/standard-ui-react"
 import type { ComponentProps, ReactNode } from "react"
@@ -17,12 +18,14 @@ const BAND = "max-w-sm"
  *  are passed in because a range needs one per value. */
 const Rail = ({
   children,
+  ticks,
   ...root
-}: { children: ReactNode } & ComponentProps<typeof Slider>) => (
+}: { children: ReactNode; ticks?: number } & ComponentProps<typeof Slider>) => (
   <Slider {...root}>
     <SliderControl>
       <SliderTrack>
         <SliderIndicator />
+        {ticks ? <SliderTicks count={ticks} /> : null}
         {children}
       </SliderTrack>
     </SliderControl>
@@ -66,6 +69,34 @@ export const SliderExamples = () => (
     </DocBand>
 
     <DocBand
+      id="sizes"
+      title="Sizes"
+      description="Track and thumb scale together for compact, default, and prominent controls."
+      contentClassName={BAND}
+    >
+      <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-[2.5rem_1fr] items-center gap-3">
+          <span className="text-xs text-fg-tertiary">sm</span>
+          <Rail size="sm" defaultValue={30}>
+            <SliderThumb aria-label="Small slider" />
+          </Rail>
+        </div>
+        <div className="grid grid-cols-[2.5rem_1fr] items-center gap-3">
+          <span className="text-xs text-fg-tertiary">md</span>
+          <Rail size="md" defaultValue={50}>
+            <SliderThumb aria-label="Medium slider" />
+          </Rail>
+        </div>
+        <div className="grid grid-cols-[2.5rem_1fr] items-center gap-3">
+          <span className="text-xs text-fg-tertiary">lg</span>
+          <Rail size="lg" defaultValue={70}>
+            <SliderThumb aria-label="Large slider" />
+          </Rail>
+        </div>
+      </div>
+    </DocBand>
+
+    <DocBand
       id="value"
       title="With value"
       description="A label and live readout above the rail."
@@ -88,14 +119,43 @@ export const SliderExamples = () => (
     </DocBand>
 
     <DocBand
-      id="steps"
-      title="Steps"
-      description="A step size snaps the thumb to fixed intervals."
+      id="vertical"
+      title="Vertical"
+      description="Orientation moves the track, indicator, and keyboard direction onto a vertical axis."
       contentClassName={BAND}
     >
-      <Rail defaultValue={60} min={0} max={100} step={20}>
-        <SliderThumb aria-label="Quality" />
-      </Rail>
+      <div className="flex items-end gap-8">
+        <Rail orientation="vertical" defaultValue={25}>
+          <SliderThumb aria-label="Low vertical value" />
+        </Rail>
+        <Rail orientation="vertical" defaultValue={60}>
+          <SliderThumb aria-label="Medium vertical value" />
+        </Rail>
+        <Rail orientation="vertical" defaultValue={85}>
+          <SliderThumb aria-label="High vertical value" />
+        </Rail>
+      </div>
+    </DocBand>
+
+    <DocBand
+      id="steps"
+      title="Steps and ticks"
+      description="Tick marks make fixed intervals visible as the thumb snaps between them."
+      contentClassName={BAND}
+    >
+      <div className="flex flex-col gap-1">
+        <Rail ticks={6} defaultValue={60} min={0} max={100} step={20}>
+          <SliderThumb aria-label="Quality" />
+        </Rail>
+        <div className="text-xs flex justify-between px-0.5 text-fg-tertiary tabular-nums">
+          <span>0</span>
+          <span>20</span>
+          <span>40</span>
+          <span>60</span>
+          <span>80</span>
+          <span>100</span>
+        </div>
+      </div>
     </DocBand>
 
     <DocBand

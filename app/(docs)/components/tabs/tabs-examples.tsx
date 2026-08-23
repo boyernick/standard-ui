@@ -4,18 +4,33 @@ import {
   TabsList,
   TabsPanel,
   TabsTab,
+  type TabsSize,
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 
-const BAND = "max-w-md"
+const BAND = "max-w-xl"
+
+const SizeExample = ({ size }: { size: TabsSize }) => (
+  <Tabs defaultValue="all" variant="segmented" size={size}>
+    <TabsList>
+      <TabsTab value="all">All</TabsTab>
+      <TabsTab value="active">Active</TabsTab>
+      <TabsTab value="archived">Archived</TabsTab>
+      <TabsIndicator />
+    </TabsList>
+    <TabsPanel value="all">Showing every project.</TabsPanel>
+    <TabsPanel value="active">Showing active projects.</TabsPanel>
+    <TabsPanel value="archived">Showing archived projects.</TabsPanel>
+  </Tabs>
+)
 
 export const TabsExamples = () => (
   <div>
     <DocBand
       first
-      id="default"
-      title="Default"
-      description="One panel at a time, with the indicator tracking the active tab."
+      id="underline"
+      title="Underline"
+      description="The default treatment suits page-level navigation and wide content regions."
       contentClassName={BAND}
     >
       <Tabs defaultValue="overview">
@@ -33,6 +48,72 @@ export const TabsExamples = () => (
           Profile, email, and security settings.
         </TabsPanel>
       </Tabs>
+    </DocBand>
+
+    <DocBand
+      id="segmented"
+      title="Segmented"
+      description="A compact inset surface groups a small set of peer filters or views."
+      contentClassName={BAND}
+    >
+      <Tabs defaultValue="all" variant="segmented">
+        <TabsList>
+          <TabsTab value="all">All</TabsTab>
+          <TabsTab value="active">Active</TabsTab>
+          <TabsTab value="archived">Archived</TabsTab>
+          <TabsIndicator />
+        </TabsList>
+        <TabsPanel value="all">Showing every project.</TabsPanel>
+        <TabsPanel value="active">Showing active projects.</TabsPanel>
+        <TabsPanel value="archived">Showing archived projects.</TabsPanel>
+      </Tabs>
+    </DocBand>
+
+    <DocBand
+      id="pill"
+      title="Pill"
+      description="Detached rounded options work well for statuses, queues, and saved views."
+      contentClassName={BAND}
+    >
+      <Tabs defaultValue="open" variant="pill">
+        <TabsList>
+          <TabsTab value="open">
+            Open
+            <span className="rounded-full bg-background-quaternary px-1.5 text-xs tabular-nums">
+              8
+            </span>
+          </TabsTab>
+          <TabsTab value="closed">
+            Closed
+            <span className="rounded-full bg-background-quaternary px-1.5 text-xs tabular-nums">
+              142
+            </span>
+          </TabsTab>
+          <TabsTab value="drafts">
+            Drafts
+            <span className="rounded-full bg-background-quaternary px-1.5 text-xs tabular-nums">
+              3
+            </span>
+          </TabsTab>
+          <TabsIndicator />
+        </TabsList>
+        <TabsPanel value="open">8 requests need attention.</TabsPanel>
+        <TabsPanel value="closed">142 requests have been resolved.</TabsPanel>
+        <TabsPanel value="drafts">3 requests are still drafts.</TabsPanel>
+      </Tabs>
+    </DocBand>
+
+    <DocBand
+      id="sizes"
+      title="Sizes"
+      description="Small, medium, and large share the same spacing rhythm across every variant."
+      contentClassName={BAND}
+    >
+      <div className="flex flex-col items-start gap-6">
+        <SizeExample size="sm" />
+        <SizeExample size="md" />
+        <SizeExample size="lg" />
+      </div>
     </DocBand>
 
     <DocBand
@@ -59,34 +140,24 @@ export const TabsExamples = () => (
     <DocBand
       id="vertical"
       title="Vertical"
-      description="Set upright the list runs down the side and the rule moves with it."
+      description="Orientation moves the list, panels, and indicator onto a shared horizontal axis."
       contentClassName={BAND}
     >
-      {/* The indicator is positioned for a horizontal list, so a vertical
-          orientation restyles it to ride the right-hand edge. */}
-      <Tabs defaultValue="general" orientation="vertical" className="flex-row gap-6">
-        <TabsList className="flex-col border-r border-b-0">
-          <TabsTab value="general" className="text-left">
-            General
-          </TabsTab>
-          <TabsTab value="members" className="text-left">
-            Members
-          </TabsTab>
-          <TabsTab value="access" className="text-left">
-            Access
-          </TabsTab>
-          <TabsIndicator className="top-0 right-0 left-auto h-(--active-tab-height) w-0.5 translate-x-0 translate-y-(--active-tab-top)" />
+      <Tabs defaultValue="general" orientation="vertical">
+        <TabsList>
+          <TabsTab value="general">General</TabsTab>
+          <TabsTab value="members">Members</TabsTab>
+          <TabsTab value="access">Access</TabsTab>
+          <TabsIndicator />
         </TabsList>
         <div className="flex-1">
-          <TabsPanel value="general" className="pt-0">
+          <TabsPanel value="general">
             Workspace name and default settings.
           </TabsPanel>
-          <TabsPanel value="members" className="pt-0">
+          <TabsPanel value="members">
             Who belongs to this workspace.
           </TabsPanel>
-          <TabsPanel value="access" className="pt-0">
-            Roles and permissions.
-          </TabsPanel>
+          <TabsPanel value="access">Roles and permissions.</TabsPanel>
         </div>
       </Tabs>
     </DocBand>

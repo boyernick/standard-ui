@@ -81,14 +81,14 @@ export const TooltipExamples = () => (
           <Hint label="Above" side="top">
             Top
           </Hint>
-          <Hint label="To the right" side="right">
-            Right
-          </Hint>
           <Hint label="Below" side="bottom">
             Bottom
           </Hint>
           <Hint label="To the left" side="left">
             Left
+          </Hint>
+          <Hint label="To the right" side="right">
+            Right
           </Hint>
         </div>
       </DocBand>

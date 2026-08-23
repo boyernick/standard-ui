@@ -19,6 +19,7 @@ const DECODE_GLYPHS =
 export type TextAnimateEffect =
   | "typewriter"
   | "decode"
+  | "shimmer"
   | "fade"
   | "blur"
 
@@ -37,15 +38,19 @@ export type TextAnimateProps = HTMLAttributes<HTMLSpanElement> & {
 export const TextAnimate = ({
   text,
   effect = "typewriter",
-  speed = 40,
+  speed = 60,
   delay = 0,
   replay = true,
   as: Tag = "span",
   className,
   ...props
 }: TextAnimateProps) => {
-  const [output, setOutput] = useState(effect === "typewriter" || effect === "decode" ? "" : text)
-  const [done, setDone] = useState(effect === "fade" || effect === "blur")
+  const [output, setOutput] = useState(
+    effect === "typewriter" || effect === "decode" ? "" : text,
+  )
+  const [done, setDone] = useState(
+    effect === "fade" || effect === "blur" || effect === "shimmer",
+  )
   const chars = useMemo(() => [...text], [text])
 
   useEffect(() => {
@@ -63,7 +68,7 @@ export const TextAnimate = ({
         return
       }
 
-      if (effect === "fade" || effect === "blur") {
+      if (effect === "fade" || effect === "blur" || effect === "shimmer") {
         setOutput(text)
         setDone(true)
         return
@@ -152,15 +157,17 @@ export const TextAnimate = ({
     }
   }, [chars, delay, effect, replay, speed, text])
 
-  if (effect === "fade" || effect === "blur") {
+  if (effect === "fade" || effect === "blur" || effect === "shimmer") {
     return (
       <Tag
         className={cn(
           "inline-block text-fg-primary",
           effect === "fade" &&
-            "animate-[text-fade-in_0.6s_var(--ease-enter)_both] motion-reduce:animate-none",
+            "animate-[text-fade-in_0.9s_var(--ease-enter)_both] motion-reduce:animate-none",
           effect === "blur" &&
-            "animate-[text-blur-in_0.7s_var(--ease-enter)_both] motion-reduce:animate-none",
+            "animate-[text-blur-in_1s_var(--ease-enter)_both] motion-reduce:animate-none",
+          effect === "shimmer" &&
+            "bg-[linear-gradient(110deg,var(--color-fg-tertiary)_35%,var(--color-fg-primary)_50%,var(--color-fg-tertiary)_65%)] bg-[length:250%_100%] bg-clip-text text-transparent animate-[text-shimmer_3s_linear_infinite] motion-reduce:animate-none motion-reduce:bg-none motion-reduce:text-fg-primary",
           className,
         )}
         style={{ animationDelay: `${delay}ms` }}

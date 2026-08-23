@@ -49,6 +49,7 @@ export const components = [
   { href: "/components/popover", label: "Popover" },
   { href: "/components/preview-card", label: "Preview card" },
   { href: "/components/progress", label: "Progress" },
+  { href: "/components/questionnaire", label: "Questionnaire" },
   { href: "/components/radio-group", label: "Radio group" },
   { href: "/components/scroll-area", label: "Scroll area" },
   { href: "/components/select", label: "Select" },

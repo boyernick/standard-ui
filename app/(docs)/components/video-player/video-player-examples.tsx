@@ -13,7 +13,7 @@ export const VideoPlayerExamples = () => (
       description="Play, seek, mute and fullscreen over the video surface."
       contentClassName="max-w-2xl"
     >
-      <VideoPlayer src={SAMPLE} title="Flower (sample)" />
+      <VideoPlayer src={SAMPLE} poster={POSTER} title="Flower (sample)" />
     </DocBand>
 
     <DocBand

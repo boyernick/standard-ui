@@ -21,7 +21,7 @@ export function ThemeToggle() {
       rounded
       onClick={handleClick}
       aria-label={`Switch to ${next} theme`}
-      className="text-fg-tertiary hover:text-fg-primary"
+      className="group"
     >
       {/* The glyph is a half-filled circle, so half a turn swaps which side
           is filled — the icon ends up depicting the theme it just moved to
@@ -35,7 +35,7 @@ export function ThemeToggle() {
           // Half a turn over the same time starts abruptly and arrives before
           // the eye tracks it. The long duration and the ease-in-out of
           // `ease-passive` give the rotation room to read as one movement.
-          "transition-transform duration-[var(--duration-lg)] ease-passive",
+          "text-fg-tertiary transition-[color,transform,rotate] duration-[var(--duration-lg)] ease-passive group-hover:text-fg-primary group-focus-visible:text-fg-primary",
           "motion-reduce:transition-none",
           theme === "dark" && "rotate-180",
         )}

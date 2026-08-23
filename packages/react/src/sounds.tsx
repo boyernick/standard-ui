@@ -1,5 +1,6 @@
 "use client"
 
+import { IconPlay } from "@central-icons-react/round-filled-radius-2-stroke-2/IconPlay"
 import {
   createContext,
   useCallback,
@@ -28,7 +29,7 @@ const SOUND_PRESETS: SoundPreset[] = [
   {
     id: "click",
     label: "Click",
-    description: "Light confirmation for toggles and secondary actions.",
+    description: "Confirmation for toggles and secondary actions.",
     play: (ctx, when, destination) => {
       const osc = ctx.createOscillator()
       const gain = ctx.createGain()
@@ -219,14 +220,15 @@ export const Sound = ({
     >
       <Button
         type="button"
-        variant="outline"
-        size="sm"
+        variant="secondary"
+        size="md"
         iconOnly
         rounded
+        className="shrink-0 hover:scale-[1.04] active:scale-95"
         aria-label={`Play ${resolvedLabel}`}
         onClick={handlePlay}
       >
-        <PlayIcon />
+        <IconPlay size={12} className="size-3" aria-hidden />
       </Button>
       <div className="min-w-0 flex-1">
         <p className="text-sm-strong text-fg-primary">{resolvedLabel}</p>
@@ -262,9 +264,3 @@ export const SoundToggle = ({
     </Button>
   )
 }
-
-const PlayIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="size-4" aria-hidden>
-    <path d="M9 7.5v9l8-4.5-8-4.5Z" fill="currentColor" />
-  </svg>
-)

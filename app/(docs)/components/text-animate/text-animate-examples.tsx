@@ -13,7 +13,7 @@ const PANGRAM = "The quick brown fox jumps over the lazy dog"
 
 /** A specimen and the control that restarts it. Remounting is what replays a
  *  reveal, so the counter is the key — and it lives here rather than on the
- *  page so each band replays on its own instead of setting all four off. */
+ *  page so each band replays on its own instead of setting every effect off. */
 const Specimen = (props: ComponentProps<typeof TextAnimate>) => {
   const [run, setRun] = useState(0)
 
@@ -54,15 +54,20 @@ export const TextAnimateExamples = () => (
       description="Each slot cycles through glyphs before settling on its letter."
       contentClassName={BAND}
     >
-      {/* 33ms is the reference's 30fps, and exactly two frames at 60Hz — a
-          step that does not divide into a frame lands on alternating 1- and
-          2-frame gaps, which is the judder this effect is prone to. */}
       <Specimen
         text={PANGRAM}
         effect="decode"
-        speed={33}
         className="heading-md"
       />
+    </DocBand>
+
+    <DocBand
+      id="shimmer"
+      title="Shimmer"
+      description="A band of contrast travels continuously across the text."
+      contentClassName={BAND}
+    >
+      <Specimen text={PANGRAM} effect="shimmer" className="heading-md" />
     </DocBand>
 
     <DocBand
