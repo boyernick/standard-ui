@@ -73,6 +73,18 @@
     transparent
   );
 
+  /* Status colours for an inverted surface — a toast, or anything else that
+     flips against the page. The plain `--status-*` tokens are tuned for the
+     page's own background, so on a surface that is dark in light mode they
+     come out too dark to read. These carry the opposite pairing and flip with
+     the theme in the opposite direction, the same way `--text-primary-inverted`
+     does. The hue ramps themselves do not move between themes — only the greys
+     do — so both sides are spelled out. */
+  --status-info-inverted: var(--blue-200);
+  --status-success-inverted: var(--green-200);
+  --status-warning-inverted: var(--orange-200);
+  --status-critical-inverted: var(--red-200);
+
   --chart-1: 4 184 76;
   --chart-2: 2 133 255;
   --chart-3: 251 106 34;
@@ -190,6 +202,11 @@
   --status-warning: var(--orange-200);
   --status-critical: var(--red-200);
 
+  --status-info-inverted: var(--blue-600);
+  --status-success-inverted: var(--green-700);
+  --status-warning-inverted: var(--orange-700);
+  --status-critical-inverted: var(--red-600);
+
   --chart-neutral: 143 143 143;
 
   --destructive: var(--red-400);
@@ -284,6 +301,10 @@
   --color-status-warning-background: var(--status-warning-background);
   --color-status-critical: var(--status-critical);
   --color-status-critical-background: var(--status-critical-background);
+  --color-status-info-inverted: var(--status-info-inverted);
+  --color-status-success-inverted: var(--status-success-inverted);
+  --color-status-warning-inverted: var(--status-warning-inverted);
+  --color-status-critical-inverted: var(--status-critical-inverted);
 
   --color-destructive: var(--destructive);
   --color-destructive-active: var(--destructive-active);
