@@ -15,6 +15,7 @@ import {
   type ReactNode,
 } from "react"
 import { IconCrossSmall, IconMagnifyingGlass } from "./icons"
+import { filterGroupVariants, filterItemVariants } from "./filter-group"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
 
@@ -51,7 +52,9 @@ export type CommandClearProps = ButtonHTMLAttributes<HTMLButtonElement>
 export type CommandCloseProps = ComponentProps<typeof BaseDialog.Close>
 export type CommandDividerProps = HTMLAttributes<HTMLDivElement>
 export type CommandContentProps = HTMLAttributes<HTMLDivElement>
+/** @deprecated Use FilterGroup for new filter controls. */
 export type CommandFiltersProps = HTMLAttributes<HTMLUListElement>
+/** @deprecated Use FilterItem for new filter controls. */
 export type CommandFilterProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   selected?: boolean
 }
@@ -238,7 +241,8 @@ export const CommandFilters = ({
   <ul
     role="list"
     className={cn(
-      "flex shrink-0 flex-wrap justify-start gap-1.5 py-1.5",
+      filterGroupVariants({ variant: "pill" }),
+      "w-full shrink-0 justify-start py-1.5",
       className,
     )}
     {...props}
@@ -256,11 +260,10 @@ export const CommandFilter = ({
       type="button"
       aria-pressed={selected}
       data-selected={selected || undefined}
+      data-pressed={selected || undefined}
       className={cn(
-        "inline-flex h-9 cursor-pointer items-center rounded-full border border-transparent px-4 text-sm text-fg-quaternary outline-none",
+        filterItemVariants({ variant: "pill", size: "md" }),
         motion.colors,
-        "hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
-        "data-selected:bg-background-tertiary data-selected:text-fg-primary",
         className,
       )}
       {...props}

@@ -6,22 +6,27 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
+  NumberFieldPrefix,
   NumberFieldScrubArea,
+  NumberFieldStepper,
+  NumberFieldSuffix,
+  type NumberFieldProps,
 } from "@boyernick/standard-ui-react"
-import type { ComponentProps } from "react"
+import type { ReactNode } from "react"
 import { DocBand } from "@/components/doc-band"
 
-// A stepper is two 36px buttons and a short number, so it does not want the
-// measure a text input does — at max-w-xs the value floats in dead space.
-const BAND = "max-w-52"
+const FIELD_WIDTH = "max-w-56"
 
-/** Label over steppers — the shape every specimen shares. */
-const Stepper = ({
+const FieldLabel = ({ children }: { children: ReactNode }) => (
+  <span className="text-sm text-fg-primary">{children}</span>
+)
+
+const SplitStepper = ({
   label,
-  ...root
-}: { label: string } & ComponentProps<typeof NumberField>) => (
-  <NumberField {...root} className="w-full">
-    <label className="text-sm mb-1.5 block text-fg-primary">{label}</label>
+  ...props
+}: { label: string } & NumberFieldProps) => (
+  <NumberField {...props} className="w-full">
+    <FieldLabel>{label}</FieldLabel>
     <NumberFieldGroup>
       <NumberFieldDecrement />
       <NumberFieldInput aria-label={label} />
@@ -36,19 +41,84 @@ export const NumberFieldExamples = () => (
       first
       id="default"
       title="Default"
-      description="Type a number, or step it with the buttons."
-      contentClassName={BAND}
+      description="Type a value, use the arrow keys, or step with the buttons."
+      contentClassName={FIELD_WIDTH}
     >
-      <Stepper label="Quantity" defaultValue={1} min={0} max={99} />
+      <SplitStepper label="Quantity" defaultValue={1} min={0} max={99} />
+    </DocBand>
+
+    <DocBand
+      id="affixes"
+      title="Affixes"
+      description="Prefixes and suffixes keep units visible without becoming part of the value."
+      contentClassName={FIELD_WIDTH}
+    >
+      <NumberField defaultValue={125} min={0} className="w-full">
+        <FieldLabel>Hourly rate</FieldLabel>
+        <NumberFieldGroup>
+          <NumberFieldPrefix>$</NumberFieldPrefix>
+          <NumberFieldInput aria-label="Hourly rate" align="end" />
+          <NumberFieldSuffix>USD</NumberFieldSuffix>
+        </NumberFieldGroup>
+      </NumberField>
+    </DocBand>
+
+    <DocBand
+      id="stacked"
+      title="Stacked controls"
+      description="A vertical stepper leaves more horizontal room for the value and its unit."
+      contentClassName={FIELD_WIDTH}
+    >
+      <NumberField defaultValue={24} min={8} max={96} step={2} className="w-full">
+        <FieldLabel>Spacing</FieldLabel>
+        <NumberFieldGroup>
+          <NumberFieldInput aria-label="Spacing" align="end" />
+          <NumberFieldSuffix>px</NumberFieldSuffix>
+          <NumberFieldStepper>
+            <NumberFieldIncrement />
+            <NumberFieldDecrement />
+          </NumberFieldStepper>
+        </NumberFieldGroup>
+      </NumberField>
+    </DocBand>
+
+    <DocBand
+      id="sizes"
+      title="Sizes"
+      description="Control and type scale together for dense, default, and prominent layouts."
+      contentClassName={FIELD_WIDTH}
+    >
+      <div className="flex flex-col gap-3">
+        <SplitStepper
+          label="Small"
+          size="sm"
+          defaultValue={8}
+          min={0}
+          max={20}
+        />
+        <SplitStepper
+          label="Medium"
+          defaultValue={12}
+          min={0}
+          max={20}
+        />
+        <SplitStepper
+          label="Large"
+          size="lg"
+          defaultValue={16}
+          min={0}
+          max={20}
+        />
+      </div>
     </DocBand>
 
     <DocBand
       id="format"
       title="Formatted value"
-      description="The field reads and writes through Intl.NumberFormat."
-      contentClassName={BAND}
+      description="Formatting is applied while the underlying value stays numeric."
+      contentClassName={FIELD_WIDTH}
     >
-      <Stepper
+      <SplitStepper
         label="Budget"
         defaultValue={2500}
         min={0}
@@ -62,12 +132,10 @@ export const NumberFieldExamples = () => (
       id="scrub"
       title="Scrub area"
       description="Drag across the label to change the value without typing."
-      contentClassName={BAND}
+      contentClassName={FIELD_WIDTH}
     >
       <NumberField defaultValue={16} min={8} max={72} className="w-full">
-        {/* The scrub area replaces the label — dragging it is the point, so it
-            has to be the thing the pointer lands on. */}
-        <NumberFieldScrubArea className="text-sm mb-1.5 block w-fit text-fg-primary">
+        <NumberFieldScrubArea className="w-fit text-sm text-fg-primary">
           Font size
         </NumberFieldScrubArea>
         <NumberFieldGroup>
@@ -79,12 +147,23 @@ export const NumberFieldExamples = () => (
     </DocBand>
 
     <DocBand
-      id="disabled"
-      title="Disabled"
-      description="Neither the input nor its steppers accept a change."
-      contentClassName={BAND}
+      id="states"
+      title="States"
+      description="Read-only, invalid, and disabled fields remain visually distinct and legible."
+      contentClassName="max-w-3xl"
     >
-      <Stepper label="Seats" defaultValue={5} disabled />
+      <div className="grid gap-4 sm:grid-cols-3">
+        <SplitStepper label="Read only" defaultValue={12} readOnly />
+        <NumberField defaultValue={-4} className="w-full">
+          <FieldLabel>Invalid</FieldLabel>
+          <NumberFieldGroup aria-invalid>
+            <NumberFieldDecrement />
+            <NumberFieldInput aria-label="Invalid value" aria-invalid />
+            <NumberFieldIncrement />
+          </NumberFieldGroup>
+        </NumberField>
+        <SplitStepper label="Disabled" defaultValue={5} disabled />
+      </div>
     </DocBand>
   </div>
 )

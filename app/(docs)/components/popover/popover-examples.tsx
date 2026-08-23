@@ -83,7 +83,7 @@ export const PopoverExamples = () => (
       description="side picks the edge it opens from, and flips if it would not fit."
     >
       <div className="flex flex-wrap gap-3">
-        {(["top", "right", "bottom", "left"] as const).map((side) => (
+        {(["top", "bottom", "left", "right"] as const).map((side) => (
           <Anchored
             key={side}
             side={side}

@@ -3,7 +3,24 @@
   "parts": [
     {
       "name": "Sidebar",
-      "props": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"inset\" | \"floating\"",
+          "required": false,
+          "default": "default",
+          "description": "Surface treatment for the sidebar.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "md",
+          "description": "Width of the sidebar.",
+          "source": "own"
+        }
+      ],
       "reactPassthrough": 280,
       "universal": 0
     },
@@ -44,6 +61,12 @@
       "universal": 0
     },
     {
+      "name": "SidebarNavBadge",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
       "name": "SidebarNavItem",
       "props": [
         {
@@ -53,9 +76,31 @@
           "default": null,
           "description": "",
           "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"pill\" | \"indicator\"",
+          "required": false,
+          "default": "default",
+          "description": "Active-state treatment for the item.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "md",
+          "description": "Height and type scale of the item.",
+          "source": "own"
         }
       ],
       "reactPassthrough": 290,
+      "universal": 0
+    },
+    {
+      "name": "SidebarNavItemLabel",
+      "props": [],
+      "reactPassthrough": 280,
       "universal": 0
     }
   ]

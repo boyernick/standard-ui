@@ -10,7 +10,7 @@ export default function NavigationMenuPage() {
   return (
     <DocPage
       title="Navigation menu"
-      description="Site navigation with optional flyout panels."
+      description="Responsive site navigation with links and rich flyout panels."
       heading={null}
       bleed
     >

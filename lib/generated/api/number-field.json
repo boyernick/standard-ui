@@ -5,6 +5,14 @@
       "name": "NumberField",
       "props": [
         {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Scales the group, input, controls, and affixes together.",
+          "source": "own"
+        },
+        {
           "name": "allowOutOfRange",
           "type": "boolean",
           "required": false,
@@ -180,6 +188,22 @@
       "name": "NumberFieldDecrement",
       "props": [
         {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the control size inherited from NumberField.",
+          "source": "own"
+        },
+        {
+          "name": "layout",
+          "type": "'split' | 'stacked'",
+          "required": false,
+          "default": "inherited",
+          "description": "Uses a square split control or a compact stacked control.",
+          "source": "own"
+        },
+        {
           "name": "nativeButton",
           "type": "boolean",
           "required": false,
@@ -193,13 +217,38 @@
     },
     {
       "name": "NumberFieldGroup",
-      "props": [],
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the group height inherited from NumberField.",
+          "source": "own"
+        }
+      ],
       "reactPassthrough": 275,
       "universal": 3
     },
     {
       "name": "NumberFieldIncrement",
       "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the control size inherited from NumberField.",
+          "source": "own"
+        },
+        {
+          "name": "layout",
+          "type": "'split' | 'stacked'",
+          "required": false,
+          "default": "inherited",
+          "description": "Uses a square split control or a compact stacked control.",
+          "source": "own"
+        },
         {
           "name": "nativeButton",
           "type": "boolean",
@@ -216,6 +265,22 @@
       "name": "NumberFieldInput",
       "props": [
         {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the input size inherited from NumberField.",
+          "source": "own"
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end'",
+          "required": false,
+          "default": "\"center\"",
+          "description": "Aligns the displayed numeric value within the input.",
+          "source": "own"
+        },
+        {
           "name": "aria-roledescription",
           "type": "string",
           "required": false,
@@ -226,6 +291,51 @@
       ],
       "reactPassthrough": 304,
       "universal": 3
+    },
+    {
+      "name": "NumberFieldStepper",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the stacked control width inherited from NumberField.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "NumberFieldPrefix",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the affix type scale inherited from NumberField.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "NumberFieldSuffix",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the affix type scale inherited from NumberField.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
     },
     {
       "name": "NumberFieldScrubArea",

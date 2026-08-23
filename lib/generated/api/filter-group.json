@@ -1,0 +1,113 @@
+{
+  "module": "filter-group",
+  "parts": [
+    {
+      "name": "FilterGroup",
+      "props": [
+        {
+          "name": "allowEmpty",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether pressing the active item can clear a single-select group.",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "\"pill\" | \"segmented\"",
+          "required": false,
+          "default": "pill",
+          "description": "Visual treatment shared by the group and its items.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "md",
+          "description": "Height and type scale shared by every item.",
+          "source": "own"
+        },
+        {
+          "name": "value",
+          "type": "readonly string[]",
+          "required": false,
+          "default": null,
+          "description": "The controlled values of the active filters.",
+          "source": "base-ui"
+        },
+        {
+          "name": "defaultValue",
+          "type": "readonly string[]",
+          "required": false,
+          "default": null,
+          "description": "The initial values of the active filters.",
+          "source": "base-ui"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether multiple filters may be active at once.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the group ignores user interaction.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "FilterItem",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "A unique value identifying the filter within its group.",
+          "source": "base-ui"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the filter ignores user interaction.",
+          "source": "base-ui"
+        },
+        {
+          "name": "variant",
+          "type": "\"pill\" | \"segmented\"",
+          "required": false,
+          "default": null,
+          "description": "Overrides the visual treatment inherited from FilterGroup.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": null,
+          "description": "Overrides the size inherited from FilterGroup.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "FilterCount",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

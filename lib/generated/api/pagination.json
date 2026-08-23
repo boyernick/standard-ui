@@ -14,12 +14,6 @@
       "universal": 0
     },
     {
-      "name": "PaginationEllipsis",
-      "props": [],
-      "reactPassthrough": 280,
-      "universal": 0
-    },
-    {
       "name": "PaginationItem",
       "props": [],
       "reactPassthrough": 281,
@@ -32,42 +26,172 @@
           "name": "active",
           "type": "boolean",
           "required": false,
-          "default": null,
-          "description": "",
+          "default": "false",
+          "description": "Whether this link represents the current page.",
           "source": "own"
-        }
-      ],
-      "reactPassthrough": 290,
-      "universal": 0
-    },
-    {
-      "name": "PaginationNext",
-      "props": [
+        },
         {
-          "name": "active",
-          "type": "boolean",
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "md",
+          "description": "Height and type scale of the control.",
+          "source": "own"
+        },
+        {
+          "name": "href",
+          "type": "string",
           "required": false,
           "default": null,
-          "description": "",
+          "description": "When provided, renders an anchor instead of a button.",
+          "source": "own"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the control is unavailable.",
           "source": "own"
         }
       ],
-      "reactPassthrough": 290,
+      "reactPassthrough": 0,
       "universal": 0
     },
     {
       "name": "PaginationPrevious",
       "props": [
         {
-          "name": "active",
+          "name": "iconOnly",
           "type": "boolean",
           "required": false,
-          "default": null,
-          "description": "",
+          "default": "false",
+          "description": "Whether to visually hide the text label.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "md",
+          "description": "Height and type scale of the control.",
           "source": "own"
         }
       ],
-      "reactPassthrough": 290,
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "PaginationNext",
+      "props": [
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to visually hide the text label.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "md",
+          "description": "Height and type scale of the control.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "PaginationFirst",
+      "props": [
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to visually hide the text label.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "PaginationLast",
+      "props": [
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to visually hide the text label.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 0,
+      "universal": 0
+    },
+    {
+      "name": "PaginationEllipsis",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "PaginationStatus",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "The current page number.",
+          "source": "own"
+        },
+        {
+          "name": "totalPages",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "The total number of pages.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "PaginationRange",
+      "props": [
+        {
+          "name": "start",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "The first visible item index.",
+          "source": "own"
+        },
+        {
+          "name": "end",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "The last visible item index.",
+          "source": "own"
+        },
+        {
+          "name": "total",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "The total number of items.",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
       "universal": 0
     }
   ]

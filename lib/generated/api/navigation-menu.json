@@ -5,6 +5,22 @@
       "name": "NavigationMenu",
       "props": [
         {
+          "name": "variant",
+          "type": "'plain' | 'pill' | 'underline'",
+          "required": false,
+          "default": "\"plain\"",
+          "description": "Visual treatment shared by the top-level list, triggers, and bar links.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Height and type scale shared by triggers and bar links.",
+          "source": "own"
+        },
+        {
           "name": "actionsRef",
           "type": "RefObject<NavigationMenuRootActions | null>",
           "required": false,
@@ -79,6 +95,45 @@
       "universal": 3
     },
     {
+      "name": "NavigationMenuBarLink",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'plain' | 'pill' | 'underline'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the visual treatment inherited from NavigationMenu.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the control size inherited from NavigationMenu.",
+          "source": "own"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the link is the currently active page.",
+          "source": "base-ui"
+        },
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to close the navigation menu when the link is clicked.",
+          "source": "base-ui"
+        }
+      ],
+      "reactPassthrough": 283,
+      "universal": 3
+    },
+    {
       "name": "NavigationMenuBackdrop",
       "props": [],
       "reactPassthrough": 275,
@@ -124,6 +179,22 @@
       "name": "NavigationMenuLink",
       "props": [
         {
+          "name": "variant",
+          "type": "'default' | 'featured'",
+          "required": false,
+          "default": "\"default\"",
+          "description": "Displays a standard destination or a larger featured destination.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Controls the link padding and type scale.",
+          "source": "own"
+        },
+        {
           "name": "active",
           "type": "boolean",
           "required": false,
@@ -142,6 +213,24 @@
       ],
       "reactPassthrough": 283,
       "universal": 3
+    },
+    {
+      "name": "NavigationMenuLinkDescription",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "NavigationMenuLinkIcon",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
+    },
+    {
+      "name": "NavigationMenuLinkTitle",
+      "props": [],
+      "reactPassthrough": 280,
+      "universal": 0
     },
     {
       "name": "NavigationMenuList",
@@ -234,9 +323,9 @@
           "name": "collisionPadding",
           "type": "Padding",
           "required": false,
-          "default": "5",
+          "default": "16",
           "description": "Additional space to maintain from the edge of the collision boundary.",
-          "source": "base-ui"
+          "source": "own"
         },
         {
           "name": "disableAnchorTracking",
@@ -266,9 +355,9 @@
           "name": "sideOffset",
           "type": "number | OffsetFunction",
           "required": false,
-          "default": "0",
+          "default": "8",
           "description": "Distance between the anchor and the popup in pixels. Also accepts a function that returns the distance to read the dimensions of the anchor and positioner elements, along with its side and alignment. The function takes a `data` object parameter with the following properties: - `data.anchor`: the dimensions of the anchor element with properties `width` and `height`. - `data.positioner`: the dimensions of the positioner element with properties `width` and `height`. - `data.side`: which side of the anchor element the positioner is aligned against. - `data.align`: how the positioner is aligned relative to the specified side.",
-          "source": "base-ui"
+          "source": "own"
         },
         {
           "name": "sticky",
@@ -285,6 +374,30 @@
     {
       "name": "NavigationMenuTrigger",
       "props": [
+        {
+          "name": "showIcon",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to show the directional caret beside the trigger label.",
+          "source": "own"
+        },
+        {
+          "name": "variant",
+          "type": "'plain' | 'pill' | 'underline'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the visual treatment inherited from NavigationMenu.",
+          "source": "own"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "inherited",
+          "description": "Overrides the control size inherited from NavigationMenu.",
+          "source": "own"
+        },
         {
           "name": "nativeButton",
           "type": "boolean",

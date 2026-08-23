@@ -8,7 +8,7 @@ export default function PaginationPage() {
   return (
     <DocPage
       title="Pagination"
-      description="Page controls for moving through a list of results."
+      description="Numbered, compact, and data-dense controls for moving through results."
       heading={null}
       bleed
     >

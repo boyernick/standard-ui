@@ -19,8 +19,6 @@ import {
   CommandDialogTitle,
   CommandDivider,
   CommandEmpty,
-  CommandFilter,
-  CommandFilters,
   CommandInput,
   CommandItem,
   CommandList,
@@ -29,6 +27,8 @@ import {
   CommandTitle,
   CommandToolbar,
   CommandTrigger,
+  FilterGroup,
+  FilterItem,
   IconMagnifyingGlass,
   Kbd,
   KbdGroup,
@@ -177,20 +177,25 @@ const SearchCommand = ({ trigger }: { trigger: ReactNode }) => {
                 </CommandActions>
               </CommandToolbar>
               <CommandContent>
-                <CommandFilters aria-label="Filter by section">
+                <FilterGroup
+                  aria-label="Filter by section"
+                  value={[filter]}
+                  onValueChange={(value) => {
+                    const nextFilter = value[0]
+                    if (!nextFilter) return
+                    setFilter(nextFilter)
+                    setActiveIndex(-1)
+                  }}
+                >
                   {filters.map((option) => (
-                    <CommandFilter
+                    <FilterItem
                       key={option}
-                      selected={filter === option}
-                      onClick={() => {
-                        setFilter(option)
-                        setActiveIndex(-1)
-                      }}
+                      value={option}
                     >
                       {option}
-                    </CommandFilter>
+                    </FilterItem>
                   ))}
-                </CommandFilters>
+                </FilterGroup>
                 {results.length === 0 ? (
                   <CommandEmpty>No results</CommandEmpty>
                 ) : (

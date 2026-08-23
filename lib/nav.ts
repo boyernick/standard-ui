@@ -34,6 +34,7 @@ export const components = [
   { href: "/components/field", label: "Field" },
   { href: "/components/fieldset", label: "Fieldset" },
   { href: "/components/file-attachment", label: "File attachment" },
+  { href: "/components/filter-group", label: "Filter group" },
   { href: "/components/form", label: "Form" },
   { href: "/components/image-modal", label: "Image modal" },
   { href: "/components/input", label: "Input" },

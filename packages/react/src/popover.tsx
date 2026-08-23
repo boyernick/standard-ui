@@ -48,7 +48,7 @@ export const PopoverPositioner = ({
 export const PopoverPopup = ({ className, ...props }: PopoverPopupProps) => (
   <BasePopover.Popup
     className={cn(
-      "z-50 flex w-72 flex-col gap-1 p-4",
+      "z-50 flex w-72 flex-col gap-0.5 px-4 py-3",
       popupSurface,
       motion.popupAnchor,
       className,

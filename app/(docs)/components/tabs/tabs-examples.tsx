@@ -53,7 +53,7 @@ export const TabsExamples = () => (
     <DocBand
       id="segmented"
       title="Segmented"
-      description="A compact inset surface groups a small set of peer filters or views."
+      description="A compact inset surface groups a small set of peer views."
       contentClassName={BAND}
     >
       <Tabs defaultValue="all" variant="segmented">
@@ -72,7 +72,7 @@ export const TabsExamples = () => (
     <DocBand
       id="pill"
       title="Pill"
-      description="Detached rounded options work well for statuses, queues, and saved views."
+      description="Detached rounded options work well for switching between statuses, queues, and saved views."
       contentClassName={BAND}
     >
       <Tabs defaultValue="open" variant="pill">

@@ -10,8 +10,6 @@ import {
   CommandDialogTitle,
   CommandDivider,
   CommandEmpty,
-  CommandFilter,
-  CommandFilters,
   CommandInput,
   CommandItem,
   CommandList,
@@ -20,6 +18,8 @@ import {
   CommandTitle,
   CommandToolbar,
   CommandTrigger,
+  FilterGroup,
+  FilterItem,
   Kbd,
   KbdGroup,
 } from "@boyernick/standard-ui-react"
@@ -165,20 +165,25 @@ export const SiteSearch = () => {
             </CommandActions>
           </CommandToolbar>
           <CommandContent>
-            <CommandFilters aria-label="Filter pages">
+            <FilterGroup
+              aria-label="Filter pages"
+              value={[filter]}
+              onValueChange={(value) => {
+                const nextFilter = value[0]
+                if (!nextFilter) return
+                setFilter(nextFilter)
+                setActiveIndex(-1)
+              }}
+            >
               {filters.map((option) => (
-                <CommandFilter
+                <FilterItem
                   key={option}
-                  selected={filter === option}
-                  onClick={() => {
-                    setFilter(option)
-                    setActiveIndex(-1)
-                  }}
+                  value={option}
                 >
                   {option}
-                </CommandFilter>
+                </FilterItem>
               ))}
-            </CommandFilters>
+            </FilterGroup>
             {results.length === 0 ? (
               <CommandEmpty>No results</CommandEmpty>
             ) : (

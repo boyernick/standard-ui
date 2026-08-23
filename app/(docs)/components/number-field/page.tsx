@@ -10,7 +10,7 @@ export default function NumberFieldPage() {
   return (
     <DocPage
       title="Number field"
-      description="Numeric input with increment and decrement steppers."
+      description="Enter, format, and step through numeric values."
       heading={null}
       bleed
     >
