@@ -85,13 +85,14 @@ const MultipleSelect = () => {
                 {value.map((key) => (
                   <Badge
                     key={key}
-                    size="xs"
+                    size={null}
+                    className="text-2xs-strong gap-1 px-1.5 py-1"
                     suffix={
                       <span
                         role="button"
                         tabIndex={-1}
                         aria-label={`Remove ${fruit[key as keyof typeof fruit]}`}
-                        className="cursor-pointer text-fg-tertiary hover:text-fg-primary"
+                        className="-mx-[3.5px] inline-flex cursor-pointer text-fg-tertiary hover:text-fg-primary"
                         // Pointer down, not click: the trigger opens on press,
                         // so the popup would flash open as the chip is removed.
                         onPointerDown={(event) => {
