@@ -1,13 +1,79 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect } from "react"
 import { PAGE_INNER } from "@/lib/chrome"
 import { adjacentPages } from "@/lib/nav"
 
+const INTERACTIVE_SELECTOR = [
+  "a",
+  "button",
+  "input",
+  "select",
+  "textarea",
+  "[contenteditable]:not([contenteditable='false'])",
+  "[role='button']",
+  "[role='combobox']",
+  "[role='dialog']",
+  "[role='link']",
+  "[role='listbox']",
+  "[role='menu']",
+  "[role='menuitem']",
+  "[role='option']",
+  "[role='slider']",
+  "[role='tab']",
+  "[role='textbox']",
+].join(",")
+
+const blocksArrowPagination = (event: KeyboardEvent) => {
+  if (
+    event.defaultPrevented ||
+    event.repeat ||
+    event.altKey ||
+    event.ctrlKey ||
+    event.metaKey ||
+    event.shiftKey
+  ) {
+    return true
+  }
+
+  const selection = window.getSelection()
+  if (selection && !selection.isCollapsed) return true
+
+  return (
+    event.target instanceof Element &&
+    event.target.closest(INTERACTIVE_SELECTOR) !== null
+  )
+}
+
 export const PageFooter = () => {
   const pathname = usePathname()
+  const router = useRouter()
   const { previous, next } = adjacentPages(pathname)
+  const previousHref = previous?.href
+  const nextHref = next?.href
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        (event.key !== "ArrowLeft" && event.key !== "ArrowRight") ||
+        blocksArrowPagination(event)
+      ) {
+        return
+      }
+
+      const destination =
+        event.key === "ArrowLeft" ? previousHref : nextHref
+      if (!destination) return
+
+      event.preventDefault()
+      router.push(destination)
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [nextHref, previousHref, router])
 
   if (!previous && !next) return null
 
@@ -22,6 +88,8 @@ export const PageFooter = () => {
         {previous ? (
           <Link
             href={previous.href}
+            aria-keyshortcuts="ArrowLeft"
+            title="Previous page (Left arrow)"
             className="group flex cursor-pointer flex-col items-start gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
           >
             <span className="text-xs text-fg-tertiary">Previous</span>
@@ -35,6 +103,8 @@ export const PageFooter = () => {
         {next ? (
           <Link
             href={next.href}
+            aria-keyshortcuts="ArrowRight"
+            title="Next page (Right arrow)"
             className="group flex cursor-pointer flex-col items-end gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
           >
             <span className="text-xs text-fg-tertiary">Next</span>

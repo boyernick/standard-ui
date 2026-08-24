@@ -1,20 +1,27 @@
 import {
-  BrandWordmark,
   IconBell,
   IconCalendar1,
+  IconChainLink1,
   IconCheckmark1,
   IconChevronRightSmall,
   IconCircleCheck,
   IconCircleInfo,
   IconClipboard,
+  IconCrossSmall,
+  IconDotGrid1x3Horizontal,
+  IconExclamationCircle,
+  IconFullScreen,
   IconHome,
   IconMagnifyingGlass,
   IconMinus,
+  IconMoon,
   IconPeople,
+  IconPlay,
   IconPlus,
   IconSettingsGear1,
   IconSquareBehindSquare6,
   IconStar,
+  IconSun,
   IconX,
 } from "@boyernick/standard-ui-react"
 import Link from "next/link"
@@ -48,7 +55,7 @@ const Cell = ({
   children: ReactNode
 }) => (
   <Link href={href} className={`${cellClassName} ${className}`}>
-    <div className="pointer-events-none flex h-44 items-center justify-center select-none">
+    <div className="pointer-events-none flex h-44 items-center justify-start select-none">
       {children}
     </div>
     <h2 className="heading-sm mt-6 text-fg-primary">{title}</h2>
@@ -70,35 +77,31 @@ const Row = ({ first, children }: { first?: boolean; children: ReactNode }) => (
 
 const TypographyPreview = () => (
   <div
-    className="flex items-baseline gap-1 text-fg-tertiary"
+    className="flex items-baseline text-fg-tertiary"
     aria-label="Signifier and Söhne typography specimen"
   >
-    <span className="font-serif text-6xl leading-none font-normal">Aa</span>
-    <span className="font-sans text-6xl leading-none font-normal">Aa</span>
+    <span className="font-serif text-7xl leading-none font-normal">Aa</span>
+    <span className="font-sans text-7xl leading-none font-normal">Aa</span>
   </div>
 )
 
-const grays = ["--gray-0", "--gray-100", "--gray-300", "--gray-500", "--gray-1000"]
-const hues = [
-  "--red-400",
-  "--orange-400",
-  "--yellow-400",
-  "--green-400",
-  "--blue-400",
-  "--purple-400",
-  "--pink-400",
-]
+const colorGroups = [
+  ["bg-background-secondary/60", "bg-background-tertiary"],
+  ["bg-background-tertiary", "bg-fg-tertiary", "bg-fg-primary"],
+  ["bg-status-critical", "bg-status-success", "bg-status-info"],
+] as const
 
 const ColorsPreview = () => (
-  <div className="flex flex-col gap-3">
-    {[grays, hues].map((row, index) => (
-      <div key={index} className="flex justify-center">
-        {row.map((token) => (
-          <span
-            key={token}
-            className="-ml-1.5 size-7 rounded-full ring-2 ring-background-primary first:ml-0"
-            style={{ background: `var(${token})` }}
-          />
+  <div className="flex items-stretch gap-3" aria-label="Semantic color groups">
+    {colorGroups.map((group, index) => (
+      <div
+        key={index}
+        className={`flex h-24 w-24 gap-1 rounded-xl border border-border-primary bg-surface p-2 shadow-hairline ${
+          index === 0 ? "border-dashed" : ""
+        }`}
+      >
+        {group.map((swatch) => (
+          <span key={swatch} className={`flex-1 rounded-md ${swatch}`} />
         ))}
       </div>
     ))}
@@ -126,10 +129,18 @@ const galleryIcons = [
   IconCircleInfo,
   IconChevronRightSmall,
   IconSquareBehindSquare6,
+  IconChainLink1,
+  IconCrossSmall,
+  IconDotGrid1x3Horizontal,
+  IconExclamationCircle,
+  IconFullScreen,
+  IconMoon,
+  IconPlay,
+  IconSun,
 ]
 
 const IconsPreview = () => (
-  <div className="grid grid-cols-8 gap-x-4 gap-y-4 text-fg-secondary">
+  <div className="grid grid-cols-8 gap-x-4 gap-y-3 text-fg-tertiary">
     {galleryIcons.map((Icon, index) => (
       <Icon key={index} size={20} aria-hidden />
     ))}
@@ -137,21 +148,10 @@ const IconsPreview = () => (
 )
 
 const MaterialsPreview = () => (
-  <div className="flex items-end gap-4">
-    <span className="size-14 rounded-md bg-surface shadow-sm" />
-    <span className="size-14 rounded-lg bg-surface shadow-md" />
-    <span className="size-14 rounded-xl bg-surface shadow-lg" />
-  </div>
-)
-
-/** Motion has nothing to show at rest, so the specimen reads as one shape
- *  caught mid-travel. The copies are spaced rather than overlapped — stacked
- *  translucent greys just muddy into a single blur. */
-const MotionPreview = () => (
-  <div className="flex items-center gap-3">
-    <span className="size-14 rounded-lg bg-background-tertiary opacity-40" />
-    <span className="size-14 rounded-lg bg-background-tertiary opacity-70" />
-    <span className="size-14 rounded-lg bg-background-tertiary" />
+  <div className="flex items-end gap-5">
+    <span className="size-16 rounded-xl bg-background-tertiary shadow-hairline" />
+    <span className="size-16 rounded-xl bg-background-tertiary shadow-md" />
+    <span className="size-16 rounded-xl bg-background-tertiary shadow-xl transition-transform duration-[var(--duration-lg)] ease-move motion-reduce:transform-none motion-reduce:transition-none group-hover:-translate-y-2 group-hover:translate-x-2" />
   </div>
 )
 
@@ -159,60 +159,40 @@ export const IntroCards = () => (
   <div>
     <Row first>
       <Cell
-        href="/brand"
-        title="Brand"
-        description="Foundational brand elements."
-        className={CELL_LEFT}
-      >
-        <BrandWordmark markSize={40} className="text-fg-primary" />
-      </Cell>
-      <Cell
         href="/typography"
         title="Typography"
         description="Set in Signifier and Söhne."
-        className={CELL_RIGHT}
+        className={CELL_LEFT}
       >
         <TypographyPreview />
       </Cell>
-    </Row>
-
-    <Row>
       <Cell
         href="/colors"
         title="Colors"
         description="Subtle, yet elevated color palette."
-        className={CELL_LEFT}
-      >
-        <ColorsPreview />
-      </Cell>
-      <Cell
-        href="/icons"
-        title="Icons"
-        description="Library of all svg icons."
         className={CELL_RIGHT}
       >
-        <IconsPreview />
+        <ColorsPreview />
       </Cell>
     </Row>
 
     <Row>
       <Cell
+        href="/icons"
+        title="Icons"
+        description="Library of all svg icons."
+        className={CELL_LEFT}
+      >
+        <IconsPreview />
+      </Cell>
+      <Cell
         href="/materials"
         title="Materials"
-        description="Elevating distinct parts of the interface."
-        className={CELL_LEFT}
+        description="Shape, depth, and movement for interface surfaces."
+        className={CELL_RIGHT}
       >
         <MaterialsPreview />
       </Cell>
-      <Cell
-        href="/motion"
-        title="Motion"
-        description="Animating distinct parts of the interface."
-        className={CELL_RIGHT}
-      >
-        <MotionPreview />
-      </Cell>
     </Row>
-
   </div>
 )

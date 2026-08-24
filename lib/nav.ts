@@ -1,10 +1,9 @@
+export const rootPages = [{ href: "/", label: "Introduction" }] as const;
+
 export const foundations = [
-  { href: "/", label: "Introduction" },
-  { href: "/brand", label: "Brand" },
   { href: "/colors", label: "Colors" },
   { href: "/typography", label: "Typography" },
   { href: "/materials", label: "Materials" },
-  { href: "/motion", label: "Motion" },
   { href: "/icons", label: "Icons" },
 ] as const;
 
@@ -86,15 +85,19 @@ export const navGroups: readonly NavGroup[] = [
 ]
 
 /** Sidebar order, flattened — drives ⌘K search and prev/next paging. */
-export const allPages: readonly NavItem[] = navGroups.flatMap(
-  (group) => group.items,
-)
+export const allPages: readonly NavItem[] = [
+  ...rootPages,
+  ...navGroups.flatMap((group) => group.items),
+]
 
 export const sectionLabels = navGroups.map((group) => group.label)
 
 export const pageSection = (href: string) =>
-  navGroups.find((group) => group.items.some((item) => item.href === href))
-    ?.label ?? "Components"
+  rootPages.some((item) => item.href === href)
+    ? "Introduction"
+    : (navGroups.find((group) =>
+        group.items.some((item) => item.href === href),
+      )?.label ?? "Components")
 
 export const adjacentPages = (pathname: string) => {
   const index = allPages.findIndex((item) => item.href === pathname)

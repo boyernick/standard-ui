@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { EdgeFade } from "@/components/edge-fade"
 import { CHROME_BAR_HEIGHT } from "@/lib/chrome"
-import { navGroups } from "@/lib/nav"
+import { navGroups, rootPages } from "@/lib/nav"
 
 const isActive = (pathname: string, href: string) => {
   if (href === "/") return pathname === "/"
@@ -45,13 +45,21 @@ export const Sidebar = () => {
         </div>
 
         <nav className="px-3 pb-14">
-          {navGroups.map((group, index) => (
+          <ul className="flex flex-col gap-0.5 pt-4">
+            {rootPages.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={navLinkClass(isActive(pathname, item.href))}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {navGroups.map((group) => (
             <div key={group.label}>
-              <p
-                className={`text-xs px-2 pt-2 pb-2 text-fg-secondary ${
-                  index === 0 ? "mt-2" : "mt-6"
-                }`}
-              >
+              <p className="text-xs mt-6 px-2 pt-2 pb-2 text-fg-secondary">
                 {group.label}
               </p>
               <ul className="flex flex-col gap-0.5">

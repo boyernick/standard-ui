@@ -45,13 +45,13 @@ export const BrandWordmark = ({
   compact = false,
   size = "md",
 }: BrandWordmarkProps) => {
-  const resolvedMarkSize = markSize ?? (size === "sm" ? 16 : 28)
+  const resolvedMarkSize = markSize ?? (size === "sm" ? 16 : 32)
 
   return (
     <span
       className={cn(
         "inline-flex items-center",
-        size === "sm" ? "gap-1" : "gap-1.5",
+        size === "sm" ? "gap-1" : "gap-2",
         className,
       )}
       aria-label="StandardUI"
