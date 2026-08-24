@@ -1,7 +1,5 @@
 import {
-  Badge,
   BrandWordmark,
-  Button,
   IconBell,
   IconCalendar1,
   IconCheckmark1,
@@ -18,13 +16,10 @@ import {
   IconSquareBehindSquare6,
   IconStar,
   IconX,
-  Input,
-  Kbd,
-  Switch,
 } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import type { ReactNode } from "react"
-import { PAGE_INNER, PAGE_INNER_LEFT, PAGE_INNER_RIGHT } from "@/lib/chrome"
+import { PAGE_INNER_LEFT, PAGE_INNER_RIGHT } from "@/lib/chrome"
 
 /** Cell padding. The outer edge tracks the page measure so the text lines up
  *  with the header above it; the inner edge is a fixed gutter beside the
@@ -73,23 +68,13 @@ const Row = ({ first, children }: { first?: boolean; children: ReactNode }) => (
   </div>
 )
 
-const ComponentsPreview = () => (
-  <div className="flex flex-wrap items-center gap-3">
-    <Input className="w-40" placeholder="Text here" readOnly />
-    <Button size="sm">Button</Button>
-    <Badge size="sm" variant="success">
-      Shipped
-    </Badge>
-    <Switch defaultChecked />
-    <Kbd>⌘</Kbd>
-  </div>
-)
-
 const TypographyPreview = () => (
-  <div className="flex flex-col items-center gap-1 text-fg-primary">
-    <p className="heading-xl-serif">Signifier</p>
-    <p className="heading-md">Söhne</p>
-    <p className="text-sm text-fg-secondary">Body copy at text-sm</p>
+  <div
+    className="flex items-baseline gap-1 text-fg-tertiary"
+    aria-label="Signifier and Söhne typography specimen"
+  >
+    <span className="font-serif text-6xl leading-none font-normal">Aa</span>
+    <span className="font-sans text-6xl leading-none font-normal">Aa</span>
   </div>
 )
 
@@ -153,9 +138,9 @@ const IconsPreview = () => (
 
 const MaterialsPreview = () => (
   <div className="flex items-end gap-4">
-    <span className="size-12 rounded-md bg-surface shadow-sm" />
+    <span className="size-14 rounded-md bg-surface shadow-sm" />
     <span className="size-14 rounded-lg bg-surface shadow-md" />
-    <span className="size-16 rounded-xl bg-surface shadow-lg" />
+    <span className="size-14 rounded-xl bg-surface shadow-lg" />
   </div>
 )
 
@@ -164,9 +149,9 @@ const MaterialsPreview = () => (
  *  translucent greys just muddy into a single blur. */
 const MotionPreview = () => (
   <div className="flex items-center gap-3">
-    <span className="size-12 rounded-lg bg-background-tertiary opacity-40" />
-    <span className="size-12 rounded-lg bg-background-tertiary opacity-70" />
-    <span className="size-12 rounded-lg bg-background-tertiary" />
+    <span className="size-14 rounded-lg bg-background-tertiary opacity-40" />
+    <span className="size-14 rounded-lg bg-background-tertiary opacity-70" />
+    <span className="size-14 rounded-lg bg-background-tertiary" />
   </div>
 )
 
@@ -176,7 +161,7 @@ export const IntroCards = () => (
       <Cell
         href="/brand"
         title="Brand"
-        description="Wordmark and the foundational brand elements."
+        description="Foundational brand elements."
         className={CELL_LEFT}
       >
         <BrandWordmark markSize={40} className="text-fg-primary" />
@@ -184,7 +169,7 @@ export const IntroCards = () => (
       <Cell
         href="/typography"
         title="Typography"
-        description="Set in Signifier and Söhne, on a scale from 2xs to 2xl."
+        description="Set in Signifier and Söhne."
         className={CELL_RIGHT}
       >
         <TypographyPreview />
@@ -195,7 +180,7 @@ export const IntroCards = () => (
       <Cell
         href="/colors"
         title="Colors"
-        description="Gray, alpha and hue scales. Primary actions stay in grayscale."
+        description="Subtle, yet elevated color palette."
         className={CELL_LEFT}
       >
         <ColorsPreview />
@@ -203,7 +188,7 @@ export const IntroCards = () => (
       <Cell
         href="/icons"
         title="Icons"
-        description="Central Icons, round outlined, at a default of 20px."
+        description="Library of all svg icons."
         className={CELL_RIGHT}
       >
         <IconsPreview />
@@ -214,7 +199,7 @@ export const IntroCards = () => (
       <Cell
         href="/materials"
         title="Materials"
-        description="Radius and elevation for surfaces and the popups above them."
+        description="Elevating distinct parts of the interface."
         className={CELL_LEFT}
       >
         <MaterialsPreview />
@@ -222,22 +207,12 @@ export const IntroCards = () => (
       <Cell
         href="/motion"
         title="Motion"
-        description="Shared durations and easings for overlays, indicators and colour."
+        description="Animating distinct parts of the interface."
         className={CELL_RIGHT}
       >
         <MotionPreview />
       </Cell>
     </Row>
 
-    <Row>
-      <Cell
-        href="/components/button"
-        title="Components"
-        description="Form controls, overlays, data display and layout primitives."
-        className={`${PAGE_INNER} md:col-span-2`}
-      >
-        <ComponentsPreview />
-      </Cell>
-    </Row>
   </div>
 )
