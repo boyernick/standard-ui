@@ -86,7 +86,11 @@ const TypographyPreview = () => (
 )
 
 const colorGroups = [
-  ["bg-background-secondary/60", "bg-background-tertiary"],
+  [
+    "bg-background-secondary/60",
+    "bg-background-secondary",
+    "bg-background-tertiary",
+  ],
   ["bg-background-tertiary", "bg-fg-tertiary", "bg-fg-primary"],
   ["bg-status-critical", "bg-status-success", "bg-status-info"],
 ] as const
@@ -160,39 +164,39 @@ export const IntroCards = () => (
   <div>
     <Row first>
       <Cell
-        href="/typography"
-        title="Typography"
-        description="Set in Signifier and Söhne."
-        className={CELL_LEFT}
-      >
-        <TypographyPreview />
-      </Cell>
-      <Cell
         href="/colors"
         title="Colors"
         description="Subtle, yet elevated color palette."
-        className={CELL_RIGHT}
+        className={CELL_LEFT}
       >
         <ColorsPreview />
+      </Cell>
+      <Cell
+        href="/typography"
+        title="Typography"
+        description="Set in Signifier and Söhne."
+        className={CELL_RIGHT}
+      >
+        <TypographyPreview />
       </Cell>
     </Row>
 
     <Row>
       <Cell
-        href="/icons"
-        title="Icons"
-        description="Library of all svg icons."
-        className={CELL_LEFT}
-      >
-        <IconsPreview />
-      </Cell>
-      <Cell
         href="/materials"
         title="Materials"
         description="Shape, depth, and movement for interface surfaces."
-        className={CELL_RIGHT}
+        className={CELL_LEFT}
       >
         <MaterialsPreview />
+      </Cell>
+      <Cell
+        href="/icons"
+        title="Icons"
+        description="Library of all svg icons."
+        className={CELL_RIGHT}
+      >
+        <IconsPreview />
       </Cell>
     </Row>
   </div>
