@@ -433,6 +433,12 @@ export {
 } from "./menu";
 export { Menubar, type MenubarProps } from "./menubar";
 export {
+  Minimap,
+  minimapVariants,
+  type MinimapProps,
+  type MinimapSection,
+} from "./minimap";
+export {
   NumberField,
   NumberFieldGroup,
   NumberFieldInput,

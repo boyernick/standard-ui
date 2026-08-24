@@ -42,6 +42,7 @@ export const components = [
   { href: "/components/menu", label: "Menu" },
   { href: "/components/menubar", label: "Menubar" },
   { href: "/components/meter", label: "Meter" },
+  { href: "/components/minimap", label: "Minimap" },
   { href: "/components/navigation-menu", label: "Navigation menu" },
   { href: "/components/number-field", label: "Number field" },
   { href: "/components/otp-field", label: "OTP field" },
