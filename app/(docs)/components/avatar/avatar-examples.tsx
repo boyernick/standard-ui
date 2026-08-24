@@ -5,16 +5,15 @@ import {
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 
-const AVATAR_SRC =
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=faces"
+const AVATAR_SRC = "/avatar/nick-boyer.png"
 
 type Size = "sm" | "md" | "lg"
 
 /** A photo that falls back to initials — the shape every specimen shares. */
 const Photo = ({ size, src = AVATAR_SRC }: { size?: Size; src?: string }) => (
   <Avatar size={size}>
-    <AvatarImage src={src} alt="Jordan Lee" />
-    <AvatarFallback>JL</AvatarFallback>
+    <AvatarImage src={src} alt="Nick Boyer" />
+    <AvatarFallback>NB</AvatarFallback>
   </Avatar>
 )
 

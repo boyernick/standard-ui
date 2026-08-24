@@ -111,7 +111,7 @@ export const MobileNav = () => {
                         href={item.href}
                         className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
                           isActive(pathname, item.href)
-                            ? "text-sm bg-background-tertiary text-fg-primary"
+                            ? "text-sm-strong bg-background-tertiary text-fg-primary"
                             : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                         }`}
                       >
@@ -134,7 +134,7 @@ export const MobileNav = () => {
                             href={item.href}
                             className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
                               isActive(pathname, item.href)
-                                ? "text-sm bg-background-tertiary text-fg-primary"
+                                ? "text-sm-strong bg-background-tertiary text-fg-primary"
                                 : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
                             }`}
                           >

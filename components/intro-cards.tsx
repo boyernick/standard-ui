@@ -15,6 +15,7 @@ import {
   IconMagnifyingGlass,
   IconMinus,
   IconMoon,
+  IconPause,
   IconPeople,
   IconPlay,
   IconPlus,
@@ -22,7 +23,6 @@ import {
   IconSquareBehindSquare6,
   IconStar,
   IconSun,
-  IconX,
 } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import type { ReactNode } from "react"
@@ -96,10 +96,13 @@ const ColorsPreview = () => (
     {colorGroups.map((group) => (
       <div
         key={group[0]}
-        className="flex size-20 gap-1 rounded-xl border border-dashed border-border-primary/80 bg-surface p-2"
+        className="flex size-20 gap-1 rounded-xl border border-dashed border-border-primary bg-surface p-2"
       >
         {group.map((swatch) => (
-          <span key={swatch} className={`flex-1 rounded-md ${swatch}`} />
+          <span
+            key={swatch}
+            className={`flex-1 rounded-md shadow-hairline ${swatch}`}
+          />
         ))}
       </div>
     ))}
@@ -122,7 +125,7 @@ const galleryIcons = [
   IconCheckmark1,
   IconPlus,
   IconMinus,
-  IconX,
+  IconPause,
   IconCircleCheck,
   IconCircleInfo,
   IconChevronRightSmall,
@@ -147,9 +150,9 @@ const IconsPreview = () => (
 
 const MaterialsPreview = () => (
   <div className="flex items-end gap-3">
-    <span className="size-20 rounded-xl bg-background-secondary shadow-hairline" />
-    <span className="size-20 rounded-xl bg-background-secondary shadow-md" />
-    <span className="size-20 rounded-xl bg-background-secondary shadow-xl" />
+    <span className="size-20 rounded-xl bg-background-primary shadow-hairline" />
+    <span className="size-20 rounded-xl bg-background-primary shadow-md" />
+    <span className="size-20 rounded-xl bg-background-primary shadow-xl" />
   </div>
 )
 

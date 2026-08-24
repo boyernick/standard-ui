@@ -281,7 +281,7 @@ export const CommandList = ({ className, ...props }: CommandListProps) => {
       id={listboxId}
       role="listbox"
       className={cn(
-        "grid min-h-0 flex-1 content-start gap-0 overflow-y-auto overscroll-contain py-0.5",
+        "grid min-h-0 flex-1 content-start gap-0 overflow-y-auto overscroll-contain p-1",
         className,
       )}
       {...props}
