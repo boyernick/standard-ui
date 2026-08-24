@@ -151,7 +151,7 @@ const MaterialsPreview = () => (
   <div className="flex items-end gap-5">
     <span className="size-16 rounded-xl bg-background-tertiary shadow-hairline" />
     <span className="size-16 rounded-xl bg-background-tertiary shadow-md" />
-    <span className="size-16 rounded-xl bg-background-tertiary shadow-xl transition-transform duration-[var(--duration-lg)] ease-move motion-reduce:transform-none motion-reduce:transition-none group-hover:-translate-y-2 group-hover:translate-x-2" />
+    <span className="size-16 rounded-xl bg-background-tertiary shadow-xl" />
   </div>
 )
 
