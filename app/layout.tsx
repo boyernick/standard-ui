@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   description:
     "The visual foundations and shared language.",
   icons: {
-    icon: [{ url: "/favicon.svg?v=4", type: "image/svg+xml" }],
-    apple: [{ url: "/favicon.svg?v=4", type: "image/svg+xml" }],
+    icon: [{ url: "/favicon.svg?v=5", type: "image/svg+xml" }],
+    apple: [{ url: "/favicon.svg?v=5", type: "image/svg+xml" }],
   },
   openGraph: {
     title: "StandardUI",

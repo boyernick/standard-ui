@@ -93,12 +93,10 @@ const colorGroups = [
 
 const ColorsPreview = () => (
   <div className="flex items-stretch gap-3" aria-label="Semantic color groups">
-    {colorGroups.map((group, index) => (
+    {colorGroups.map((group) => (
       <div
-        key={index}
-        className={`flex h-24 w-24 gap-1 rounded-xl border border-border-primary bg-surface p-2 shadow-hairline ${
-          index === 0 ? "border-dashed" : ""
-        }`}
+        key={group[0]}
+        className="flex size-20 gap-1 rounded-xl border border-dashed border-border-primary/80 bg-surface p-2"
       >
         {group.map((swatch) => (
           <span key={swatch} className={`flex-1 rounded-md ${swatch}`} />
@@ -148,10 +146,10 @@ const IconsPreview = () => (
 )
 
 const MaterialsPreview = () => (
-  <div className="flex items-end gap-5">
-    <span className="size-16 rounded-xl bg-background-tertiary shadow-hairline" />
-    <span className="size-16 rounded-xl bg-background-tertiary shadow-md" />
-    <span className="size-16 rounded-xl bg-background-tertiary shadow-xl" />
+  <div className="flex items-end gap-3">
+    <span className="size-20 rounded-xl bg-background-secondary shadow-hairline" />
+    <span className="size-20 rounded-xl bg-background-secondary shadow-md" />
+    <span className="size-20 rounded-xl bg-background-secondary shadow-xl" />
   </div>
 )
 
