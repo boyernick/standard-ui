@@ -88,7 +88,7 @@ const Shot = ({
 }) => (
   <ImageModal>
     <ImageModalTrigger
-      className={`block cursor-pointer overflow-hidden rounded-xl border border-border-primary ${className}`}
+      className={`block cursor-pointer overflow-hidden rounded-xl border border-border-primary shadow-lg ${className}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -144,7 +144,7 @@ export const ImageModalExamples = () => (
             <ImageModalGalleryTrigger
               key={shot.src}
               index={index}
-              className="block w-full overflow-hidden rounded-xl border border-border-primary"
+              className="block w-full overflow-hidden rounded-lg border border-border-primary"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

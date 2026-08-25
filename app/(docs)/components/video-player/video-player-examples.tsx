@@ -1,8 +1,9 @@
 import { VideoPlayer } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 
-const SAMPLE = "https://mdn.github.io/shared-assets/videos/flower.webm"
-const POSTER = "https://mdn.github.io/shared-assets/images/examples/flowers.jpg"
+/** Mixkit “Heavy rain deep in a forest” + forest rain loop (muxed for the demo). */
+const SAMPLE = "/video/forest-rain.mp4"
+const POSTER = "/video/forest-rain-poster.jpg"
 
 export const VideoPlayerExamples = () => (
   <div>
@@ -10,19 +11,14 @@ export const VideoPlayerExamples = () => (
       first
       id="default"
       title="Default"
-      description="Play, seek, mute and fullscreen over the video surface."
+      description="Play, mute, seek, picture in picture and fullscreen."
       contentClassName="max-w-2xl"
     >
-      <VideoPlayer src={SAMPLE} poster={POSTER} title="Flower (sample)" />
-    </DocBand>
-
-    <DocBand
-      id="poster"
-      title="Poster"
-      description="A still holds the frame until the first play."
-      contentClassName="max-w-2xl"
-    >
-      <VideoPlayer src={SAMPLE} poster={POSTER} title="Flower (with a poster)" />
+      <VideoPlayer
+        src={SAMPLE}
+        poster={POSTER}
+        title="Pacific Northwest rain"
+      />
     </DocBand>
   </div>
 )

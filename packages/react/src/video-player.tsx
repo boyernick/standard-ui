@@ -11,6 +11,7 @@ import {
 import { IconExclamationTriangle } from "@central-icons-react/round-filled-radius-2-stroke-2/IconExclamationTriangle"
 import { IconFullScreen } from "@central-icons-react/round-filled-radius-2-stroke-2/IconFullScreen"
 import { IconPause } from "@central-icons-react/round-filled-radius-2-stroke-2/IconPause"
+import { IconPictureInPicture } from "@central-icons-react/round-filled-radius-2-stroke-2/IconPictureInPicture"
 import { IconPlay } from "@central-icons-react/round-filled-radius-2-stroke-2/IconPlay"
 import { IconVolumeFull } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeFull"
 import { IconVolumeOff } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeOff"
@@ -25,10 +26,10 @@ const formatTime = (seconds: number) => {
 
 // The media surface is black in both themes, so everything sitting on it is
 // light regardless of the theme — semantic foreground tokens would invert and
-// disappear against the video. This is the same reasoning as the dialog
-// backdrops, and the opposite of a keycap, which sits on a themed surface.
+// disappear against the video. Buttons follow Linear’s glass chrome: circular,
+// muted until hover, no filled chip behind the icon at rest.
 const overlayControl =
-  "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white outline-none transition-[background-color,transform] duration-[var(--duration-sm)] ease-enter hover:bg-white/15 active:scale-95 focus-visible:bg-white/15 focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none motion-reduce:active:scale-100"
+  "inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/65 outline-none transition-[background-color,color,transform] duration-[var(--duration-sm)] ease-enter hover:bg-white/12 hover:text-white active:scale-95 focus-visible:bg-white/12 focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white/50 motion-reduce:transition-none motion-reduce:active:scale-100"
 
 export type VideoPlayerProps = ComponentProps<"div"> & {
   src: string
@@ -57,6 +58,8 @@ export const VideoPlayer = ({
   const [ended, setEnded] = useState(false)
   const [failed, setFailed] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
+  const [pipSupported, setPipSupported] = useState(false)
+  const [pipActive, setPipActive] = useState(false)
   const [current, setCurrent] = useState(0)
   const [duration, setDuration] = useState(0)
   const [buffered, setBuffered] = useState(0)
@@ -112,6 +115,16 @@ export const VideoPlayer = ({
       return
     }
     void player.requestFullscreen?.()
+  }, [])
+
+  const handlePictureInPicture = useCallback(() => {
+    const video = videoRef.current
+    if (!video || !document.pictureInPictureEnabled) return
+    if (document.pictureInPictureElement) {
+      void document.exitPictureInPicture()
+      return
+    }
+    void video.requestPictureInPicture()
   }, [])
 
   useEffect(() => {
@@ -220,8 +233,26 @@ export const VideoPlayer = ({
     }
   }, [])
 
+  useEffect(() => {
+    const video = videoRef.current
+    setPipSupported(
+      typeof document !== "undefined" && document.pictureInPictureEnabled,
+    )
+    if (!video) return
+
+    const handleEnterPip = () => setPipActive(true)
+    const handleLeavePip = () => setPipActive(false)
+    video.addEventListener("enterpictureinpicture", handleEnterPip)
+    video.addEventListener("leavepictureinpicture", handleLeavePip)
+    return () => {
+      video.removeEventListener("enterpictureinpicture", handleEnterPip)
+      video.removeEventListener("leavepictureinpicture", handleLeavePip)
+    }
+  }, [])
+
   const played = duration > 0 ? (current / duration) * 100 : 0
   const loaded = duration > 0 ? (buffered / duration) * 100 : 0
+  const remaining = Math.max(duration - current, 0)
 
   return (
     <div
@@ -236,7 +267,7 @@ export const VideoPlayer = ({
       // `group` drives the chrome: it hides while playing and comes back on
       // hover or when anything inside takes focus.
       className={cn(
-        "group relative isolate overflow-hidden rounded-xl bg-black shadow-md ring-1 ring-border-primary data-[fullscreen]:h-screen data-[fullscreen]:w-screen data-[fullscreen]:rounded-none data-[fullscreen]:ring-0 fullscreen:h-screen fullscreen:w-screen fullscreen:rounded-none fullscreen:ring-0",
+        "group relative isolate overflow-hidden rounded-xl bg-black shadow-lg ring-1 ring-border-primary data-[fullscreen]:h-screen data-[fullscreen]:w-screen data-[fullscreen]:rounded-none data-[fullscreen]:ring-0 fullscreen:h-screen fullscreen:w-screen fullscreen:rounded-none fullscreen:ring-0",
         className,
       )}
       aria-busy={loading || buffering || undefined}
@@ -280,15 +311,15 @@ export const VideoPlayer = ({
           <div
             className={cn(
               "flex items-center justify-center rounded-full border border-white/20 bg-black/45 text-white shadow-lg backdrop-blur-md",
-              ended ? "h-12 gap-2 px-4" : "size-14",
+              ended ? "h-8 gap-1 px-2.5" : "size-11",
             )}
           >
             <IconPlay
-              size={ended ? 18 : 24}
-              className={cn(ended ? "size-4.5" : "ml-0.5 size-6")}
+              size={ended ? 12 : 18}
+              className={cn(ended ? "size-3" : "ml-0.5 size-4.5")}
               aria-hidden
             />
-            {ended ? <span className="text-sm-strong">Replay</span> : null}
+            {ended ? <span className="text-xs-strong">Replay</span> : null}
           </div>
         ) : null}
       </div>
@@ -296,7 +327,7 @@ export const VideoPlayer = ({
       {!failed && !loading ? (
         <div
           className={cn(
-            "absolute inset-x-0 bottom-0 flex translate-y-0 flex-col bg-gradient-to-t from-black/85 via-black/55 to-transparent px-4 pt-14 pb-3 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:px-6 group-data-[fullscreen]:pb-6 motion-reduce:transition-none",
+            "absolute inset-x-0 bottom-0 flex translate-y-0 flex-col bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2.5 pt-14 pb-2.5 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:px-5 group-data-[fullscreen]:pb-5 motion-reduce:transition-none",
             "group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100",
             // Nothing hovers on a touch screen, so the chrome would never come
             // back once playback started. Keep it visible there instead.
@@ -305,110 +336,139 @@ export const VideoPlayer = ({
           )}
         >
           {title ? (
-            <p className="text-sm-strong mb-2 truncate text-white">{title}</p>
+            <p className="text-sm-strong mb-2 truncate px-1 text-white">{title}</p>
           ) : null}
 
-          <label className="sr-only" htmlFor={seekId}>
-            Seek
-          </label>
-          <div className="group/seek relative flex h-5 items-center">
-            <span
-              ref={seekPreviewRef}
-              className="text-xs pointer-events-none absolute -top-8 z-10 -translate-x-1/2 rounded-md bg-black/80 px-1.5 py-1 text-white opacity-0 shadow-sm transition-opacity duration-[var(--duration-sm)] data-[visible]:opacity-100 motion-reduce:transition-none"
-            />
-            {/* Track, buffered fill and played fill sit under the input, which
-                stays transparent so its thumb is the only thing it paints. */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 h-0.75 rounded-full bg-white/25 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white/35 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
-              style={{ width: `${loaded}%` }}
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
-              style={{ width: `${played}%` }}
-            />
-            <input
-              id={seekId}
-              type="range"
-              min={0}
-              max={duration || 0}
-              step={0.01}
-              value={current}
-              onChange={(event) => {
-                const value = Number(event.target.value)
-                handleSeek(value)
-                showSeekPreview(value)
-              }}
-              onPointerMove={(event) => {
-                if (duration <= 0) return
-                const rect = event.currentTarget.getBoundingClientRect()
-                const ratio = Math.min(
-                  Math.max((event.clientX - rect.left) / rect.width, 0),
-                  1,
-                )
-                showSeekPreview(ratio * duration)
-              }}
-              onPointerLeave={(event) => {
-                if (document.activeElement !== event.currentTarget) {
-                  hideSeekPreview()
-                }
-              }}
-              onFocus={() => showSeekPreview(current)}
-              onBlur={hideSeekPreview}
-              aria-valuetext={`${formatTime(current)} of ${formatTime(duration)}`}
-              className={cn(
-                "relative m-0 h-5 w-full cursor-pointer appearance-none bg-transparent outline-none",
-                // Both vendor thumbs, or Firefox falls back to a default one.
-                "[&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:scale-75 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:opacity-0 [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-[opacity,transform] [&:hover::-webkit-slider-thumb]:scale-100 [&:hover::-webkit-slider-thumb]:opacity-100",
-                "[&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:scale-75 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:opacity-0 [&::-moz-range-thumb]:transition-[opacity,transform] [&:hover::-moz-range-thumb]:scale-100 [&:hover::-moz-range-thumb]:opacity-100",
-                "focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-white/70",
-                "focus-visible:[&::-webkit-slider-thumb]:scale-100 focus-visible:[&::-webkit-slider-thumb]:opacity-100 focus-visible:[&::-moz-range-thumb]:scale-100 focus-visible:[&::-moz-range-thumb]:opacity-100",
-              )}
-            />
-          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="flex shrink-0 items-center">
+              <button
+                type="button"
+                className={overlayControl}
+                aria-label={ended ? "Replay" : playing ? "Pause" : "Play"}
+                onClick={handleTogglePlay}
+              >
+                {playing ? (
+                  <IconPause size={14} className="size-3.5" aria-hidden />
+                ) : (
+                  <IconPlay size={14} className="size-3.5" aria-hidden />
+                )}
+              </button>
+              <button
+                type="button"
+                className={overlayControl}
+                aria-label={muted ? "Unmute" : "Mute"}
+                onClick={handleToggleMute}
+              >
+                {muted ? (
+                  <IconVolumeOff size={14} className="size-3.5" aria-hidden />
+                ) : (
+                  <IconVolumeFull size={14} className="size-3.5" aria-hidden />
+                )}
+              </button>
+            </div>
 
-          <div className="mt-0.5 flex items-center gap-2">
-            <button
-              type="button"
-              className={overlayControl}
-              aria-label={ended ? "Replay" : playing ? "Pause" : "Play"}
-              onClick={handleTogglePlay}
-            >
-              {playing ? (
-                <IconPause size={18} className="size-4.5" aria-hidden />
-              ) : (
-                <IconPlay size={18} className="size-4.5" aria-hidden />
-              )}
-            </button>
-            <button
-              type="button"
-              className={overlayControl}
-              aria-label={muted ? "Unmute" : "Mute"}
-              onClick={handleToggleMute}
-            >
-              {muted ? (
-                <IconVolumeOff size={18} className="size-4.5" aria-hidden />
-              ) : (
-                <IconVolumeFull size={18} className="size-4.5" aria-hidden />
-              )}
-            </button>
-            <span className="text-xs text-white/85 tabular-nums">
-              {formatTime(current)} <span className="text-white/45">/</span>{" "}
-              {formatTime(duration)}
+            <span className="text-xs min-w-9 shrink-0 tabular-nums text-white/85">
+              {formatTime(current)}
             </span>
-            <button
-              type="button"
-              className={cn(overlayControl, "ml-auto")}
-              aria-label="Fullscreen"
-              onClick={handleFullscreen}
-            >
-              <IconFullScreen size={18} className="size-4.5" aria-hidden />
-            </button>
+
+            <label className="sr-only" htmlFor={seekId}>
+              Seek
+            </label>
+            <div className="group/seek relative flex h-5 min-w-0 flex-1 items-center">
+              <span
+                ref={seekPreviewRef}
+                className="text-xs pointer-events-none absolute -top-8 z-10 -translate-x-1/2 rounded-md bg-black/80 px-1.5 py-1 text-white opacity-0 shadow-sm transition-opacity duration-[var(--duration-sm)] data-[visible]:opacity-100 motion-reduce:transition-none"
+              />
+              {/* Track, buffered fill and played fill sit under the input, which
+                  stays transparent so its thumb is the only thing it paints. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 h-0.75 rounded-full bg-white/25 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
+              />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white/35 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
+                style={{ width: `${loaded}%` }}
+              />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
+                style={{ width: `${played}%` }}
+              />
+              <input
+                id={seekId}
+                type="range"
+                min={0}
+                max={duration || 0}
+                step={0.01}
+                value={current}
+                onChange={(event) => {
+                  const value = Number(event.target.value)
+                  handleSeek(value)
+                  showSeekPreview(value)
+                }}
+                onPointerMove={(event) => {
+                  if (duration <= 0) return
+                  const rect = event.currentTarget.getBoundingClientRect()
+                  const ratio = Math.min(
+                    Math.max((event.clientX - rect.left) / rect.width, 0),
+                    1,
+                  )
+                  showSeekPreview(ratio * duration)
+                }}
+                onPointerLeave={(event) => {
+                  if (document.activeElement !== event.currentTarget) {
+                    hideSeekPreview()
+                  }
+                }}
+                onFocus={() => showSeekPreview(current)}
+                onBlur={hideSeekPreview}
+                aria-valuetext={`${formatTime(current)} of ${formatTime(duration)}`}
+                className={cn(
+                  "relative m-0 h-5 w-full cursor-pointer appearance-none bg-transparent outline-none",
+                  // Both vendor thumbs, or Firefox falls back to a default one.
+                  "[&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:scale-75 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:opacity-0 [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-[opacity,transform] [&:hover::-webkit-slider-thumb]:scale-100 [&:hover::-webkit-slider-thumb]:opacity-100",
+                  "[&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:scale-75 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:opacity-0 [&::-moz-range-thumb]:transition-[opacity,transform] [&:hover::-moz-range-thumb]:scale-100 [&:hover::-moz-range-thumb]:opacity-100",
+                  "focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-white/70",
+                  "focus-visible:[&::-webkit-slider-thumb]:scale-100 focus-visible:[&::-webkit-slider-thumb]:opacity-100 focus-visible:[&::-moz-range-thumb]:scale-100 focus-visible:[&::-moz-range-thumb]:opacity-100",
+                )}
+              />
+            </div>
+
+            <span className="text-xs min-w-10 shrink-0 text-right tabular-nums text-white/85">
+              -{formatTime(remaining)}
+            </span>
+
+            <div className="flex shrink-0 items-center">
+              {pipSupported ? (
+                <button
+                  type="button"
+                  className={overlayControl}
+                  aria-label={
+                    pipActive
+                      ? "Exit picture in picture"
+                      : "Picture in picture"
+                  }
+                  aria-pressed={pipActive}
+                  onClick={handlePictureInPicture}
+                >
+                  <IconPictureInPicture
+                    size={14}
+                    className="size-3.5"
+                    aria-hidden
+                  />
+                </button>
+              ) : null}
+              <button
+                type="button"
+                className={overlayControl}
+                aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
+                aria-pressed={fullscreen}
+                onClick={handleFullscreen}
+              >
+                <IconFullScreen size={14} className="size-3.5" aria-hidden />
+              </button>
+            </div>
           </div>
         </div>
       ) : null}
