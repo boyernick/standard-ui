@@ -2,7 +2,11 @@
 
 import { Toast as BaseToast } from "@base-ui/react/toast"
 import { cva, type VariantProps } from "class-variance-authority"
-import type { ComponentProps } from "react"
+import {
+  createContext,
+  useContext,
+  type ComponentProps,
+} from "react"
 import {
   IconCircleCheck,
   IconCircleInfo,
@@ -14,9 +18,14 @@ import { Spinner } from "./spinner"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
 
+export type ToastPlacement = "top-center" | "bottom-right"
+
+const ToastPlacementContext = createContext<ToastPlacement>("top-center")
+
 export type ToastProviderProps = ComponentProps<typeof BaseToast.Provider>
 export type ToastPortalProps = ComponentProps<typeof BaseToast.Portal>
-export type ToastViewportProps = ComponentProps<typeof BaseToast.Viewport>
+export type ToastViewportProps = ComponentProps<typeof BaseToast.Viewport> &
+  VariantProps<typeof toastViewportVariants>
 export type ToastRootProps = ComponentProps<typeof BaseToast.Root> &
   VariantProps<typeof toastRootVariants>
 export type ToastContentProps = ComponentProps<typeof BaseToast.Content>
@@ -39,46 +48,53 @@ export const ToastPortal = (props: ToastPortalProps) => (
   <BaseToast.Portal {...props} />
 )
 
-export const ToastViewport = ({ className, ...props }: ToastViewportProps) => (
-  <BaseToast.Viewport
-    // No flex column: the toasts inside are absolutely positioned so they pile
-    // up as a stack. In flow they would march down past the edge.
-    className={cn(
-      "fixed top-8 left-1/2 z-[100] w-[min(100vw-2rem,28rem)] -translate-x-1/2 outline-none",
-      className,
-    )}
-    {...props}
-  />
+export const toastViewportVariants = cva(
+  // No flex column: the toasts inside are absolutely positioned so they pile
+  // up as a stack. In flow they would march down past the edge.
+  "fixed z-[100] w-[min(100vw-2rem,28rem)] outline-none",
+  {
+    variants: {
+      placement: {
+        "top-center": "top-8 left-1/2 -translate-x-1/2",
+        "bottom-right": "right-4 bottom-4 sm:right-8 sm:bottom-8",
+      },
+    },
+    defaultVariants: { placement: "top-center" },
+  },
 )
 
-/** Each toast is pinned to the top of the viewport and pushed down by its own
- *  index, so the stack reads as a pile of cards: the one behind peeks out below
- *  by `--peek` and sits a step smaller. Hovering the viewport sets
- *  `data-expanded`, which fans them out to their real heights.
- *
- *  `origin-top` is what keeps the arithmetic simple — scaling a card toward its
- *  own top edge leaves that edge where it is, so the peek is the only offset
- *  the collapsed stack needs. */
+export const ToastViewport = ({
+  className,
+  placement = "top-center",
+  children,
+  ...props
+}: ToastViewportProps) => (
+  <ToastPlacementContext.Provider value={placement ?? "top-center"}>
+    <BaseToast.Viewport
+      data-placement={placement}
+      className={cn(toastViewportVariants({ placement }), className)}
+      {...props}
+    >
+      {children}
+    </BaseToast.Viewport>
+  </ToastPlacementContext.Provider>
+)
+
+/** Shared chrome. Placement owns where the stack anchors and how cards move. */
 const toastRootVariants = cva(
   cn(
-    "absolute top-0 right-0 left-0 z-[calc(1000-var(--toast-index))] box-border w-full origin-top",
+    "absolute right-0 left-0 z-[calc(1000-var(--toast-index))] box-border w-full",
     "[--gap:0.625rem] [--peek:0.875rem]",
     "[--scale:calc(max(0,1-(var(--toast-index)*0.05)))]",
     "[--height:var(--toast-frontmost-height,var(--toast-height))]",
-    "[--offset-y:calc(var(--toast-offset-y)+calc(var(--toast-index)*var(--gap))+var(--toast-swipe-movement-y,0px))]",
     // A row, not an overlay: the action and the close sit inline at the right,
     // so the close cannot be absolutely positioned over reserved padding.
     "flex items-start gap-2 rounded-xl border py-2.5 pr-2 pl-4 shadow-lg outline-none select-none",
     "h-[var(--height)] data-expanded:h-[var(--toast-height)]",
-    "[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(calc(var(--toast-swipe-movement-y,0px)+(var(--toast-index)*var(--peek))))_scale(var(--scale))]",
-    "data-expanded:[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(var(--offset-y))]",
     // Bridges the gap between cards so crossing it does not collapse the fan.
     "after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
     "transition-[transform,opacity,height] duration-[var(--duration-md)] ease-enter motion-reduce:transition-none",
-    // Anchored to the top, so they arrive and leave upwards.
-    "data-starting-style:[transform:translateY(-150%)]",
     "data-ending-style:opacity-0 data-limited:opacity-0",
-    "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)]",
   ),
   {
     variants: {
@@ -91,35 +107,61 @@ const toastRootVariants = cva(
         // foreground, which flips with the theme alongside the surface.
         inverted: "border-fg-inverted/10 bg-surface-inverted text-fg-inverted",
       },
+      placement: {
+        /** Pinned to the top of the viewport; behind cards peek below. */
+        "top-center": cn(
+          "top-0 origin-top",
+          "[--offset-y:calc(var(--toast-offset-y)+calc(var(--toast-index)*var(--gap))+var(--toast-swipe-movement-y,0px))]",
+          "[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(calc(var(--toast-swipe-movement-y,0px)+(var(--toast-index)*var(--peek))))_scale(var(--scale))]",
+          "data-expanded:[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(var(--offset-y))]",
+          "data-starting-style:[transform:translateY(-150%)]",
+          "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(-150%)]",
+        ),
+        /** Pinned to the bottom-right; behind cards peek above. */
+        "bottom-right": cn(
+          "bottom-0 origin-bottom",
+          "[--shrink:calc(1-var(--scale))]",
+          "[--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y,0px))]",
+          "[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(calc(var(--toast-swipe-movement-y,0px)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))]",
+          "data-expanded:[transform:translateX(var(--toast-swipe-movement-x,0px))_translateY(var(--offset-y))]",
+          "data-starting-style:[transform:translateY(150%)]",
+          "[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]",
+        ),
+      },
     },
-    defaultVariants: { variant: "default" },
+    defaultVariants: { variant: "default", placement: "top-center" },
   },
 )
 
-/** Each toast is pinned to the top of the viewport and pushed down by its own
- *  index, so the stack reads as a pile of cards: the one behind peeks out below
- *  by `--peek` and sits a step smaller. Hovering the viewport sets
- *  `data-expanded`, which fans them out to their real heights.
- *
- *  `origin-top` is what keeps the arithmetic simple — scaling a card toward its
- *  own top edge leaves that edge where it is, so the peek is the only offset
- *  the collapsed stack needs.
- *
- *  The variant is published as `data-variant` rather than passed down: the
+/** The variant is published as `data-variant` rather than passed down: the
  *  title, description, action, close and icon all have to follow the surface,
  *  and a data attribute lets each one carry its own pair of rules instead of
- *  every caller threading a prop through five components. */
+ *  every caller threading a prop through five components.
+ *
+ *  Placement defaults from the nearest `ToastViewport` so the stack and the
+ *  corner stay in sync without repeating the prop on every root. */
 export const ToastRoot = ({
   className,
   variant = "default",
+  placement: placementProp,
   ...props
-}: ToastRootProps) => (
-  <BaseToast.Root
-    data-variant={variant}
-    className={cn("group/toast", toastRootVariants({ variant }), className)}
-    {...props}
-  />
-)
+}: ToastRootProps) => {
+  const placementFromViewport = useContext(ToastPlacementContext)
+  const placement = placementProp ?? placementFromViewport
+
+  return (
+    <BaseToast.Root
+      data-variant={variant}
+      data-placement={placement}
+      className={cn(
+        "group/toast",
+        toastRootVariants({ variant, placement }),
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 
 export { toastRootVariants }
 
@@ -172,10 +214,7 @@ export const ToastIcon = ({ type, className, ...props }: ToastIconProps) => {
   if (!glyph) return null
 
   return (
-    <span
-      className={cn(ICON_ALIGN, glyph.tone, className)}
-      {...props}
-    >
+    <span className={cn(ICON_ALIGN, glyph.tone, className)} {...props}>
       <glyph.Icon size={16} className="size-4" aria-hidden />
     </span>
   )
@@ -194,7 +233,10 @@ export const ToastContent = ({ className, ...props }: ToastContentProps) => (
 
 export const ToastTitle = ({ className, ...props }: ToastTitleProps) => (
   <BaseToast.Title
-    className={cn("text-sm-strong text-fg-primary group-data-[variant=inverted]/toast:text-fg-inverted", className)}
+    className={cn(
+      "text-sm-strong text-fg-primary group-data-[variant=inverted]/toast:text-fg-inverted",
+      className,
+    )}
     {...props}
   />
 )

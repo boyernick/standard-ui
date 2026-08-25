@@ -13,20 +13,25 @@ import {
   ToastTitle,
   ToastViewport,
   useToastManager,
+  type ToastPlacement,
 } from "@boyernick/standard-ui-react"
 import { useState } from "react"
 import { DocBand } from "@/components/doc-band"
 
 const BAND = "max-w-md"
 
-/** One viewport serves the whole page — toasts stack in the corner however
- *  many buttons on the page raise them. */
-const ToastList = () => {
+/** One viewport serves its provider — toasts stack in that corner however
+ *  many buttons under the same provider raise them. */
+const ToastList = ({
+  placement = "top-center",
+}: {
+  placement?: ToastPlacement
+}) => {
   const { toasts } = useToastManager()
 
   return (
     <ToastPortal>
-      <ToastViewport>
+      <ToastViewport placement={placement}>
         {toasts.map((toast) => (
           <ToastRoot
             key={toast.id}
@@ -158,55 +163,88 @@ const Types = () => {
   )
 }
 
+const BottomRight = () => {
+  const toast = useToastManager()
+  const [count, setCount] = useState(0)
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      onClick={() => {
+        const next = count + 1
+        setCount(next)
+        toast.add({ title: `Saved draft ${next}` })
+      }}
+    >
+      Show toast
+    </Button>
+  )
+}
+
 export const ToastExamples = () => (
-  <ToastProvider>
-    <div>
-      <DocBand
-        first
-        id="default"
-        title="Default"
-        description="A single line of text, raised from an action."
-        contentClassName={BAND}
-      >
-        <Basic />
-      </DocBand>
+  <>
+    <ToastProvider>
+      <div>
+        <DocBand
+          first
+          id="default"
+          title="Default"
+          description="A single line of text, raised from an action."
+          contentClassName={BAND}
+        >
+          <Basic />
+        </DocBand>
 
-      <DocBand
-        id="description"
-        title="With a description"
-        description="A second line, where the title alone will not carry it."
-        contentClassName={BAND}
-      >
-        <Described />
-      </DocBand>
+        <DocBand
+          id="description"
+          title="With a description"
+          description="A second line, where the title alone will not carry it."
+          contentClassName={BAND}
+        >
+          <Described />
+        </DocBand>
 
-      <DocBand
-        id="action"
-        title="With an action"
-        description="One control, sitting inline beside the dismiss."
-        contentClassName={BAND}
-      >
-        <WithAction />
-      </DocBand>
+        <DocBand
+          id="action"
+          title="With an action"
+          description="One control, sitting inline beside the dismiss."
+          contentClassName={BAND}
+        >
+          <WithAction />
+        </DocBand>
 
-      <DocBand
-        id="inverted"
-        title="Inverted"
-        description="Flipped against the page, for a notice that should stand apart."
-        contentClassName={BAND}
-      >
-        <Inverted />
-      </DocBand>
+        <DocBand
+          id="inverted"
+          title="Inverted"
+          description="Flipped against the page, for a notice that should stand apart."
+          contentClassName={BAND}
+        >
+          <Inverted />
+        </DocBand>
 
+        <DocBand
+          id="types"
+          title="Types"
+          description="Each type brings its own glyph, coloured for the inverted surface."
+          contentClassName={BAND}
+        >
+          <Types />
+        </DocBand>
+      </div>
+      <ToastList />
+    </ToastProvider>
+
+    <ToastProvider>
       <DocBand
-        id="types"
-        title="Types"
-        description="Each type brings its own glyph, coloured for the inverted surface."
+        id="bottom-right"
+        title="Bottom right"
+        description="The same stack, anchored to the lower corner."
         contentClassName={BAND}
       >
-        <Types />
+        <BottomRight />
       </DocBand>
-    </div>
-    <ToastList />
-  </ToastProvider>
+      <ToastList placement="bottom-right" />
+    </ToastProvider>
+  </>
 )
