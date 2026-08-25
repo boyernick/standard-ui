@@ -17,6 +17,7 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
+import { CHROME_BAR_HEIGHT } from "@/lib/chrome"
 import { navGroups, rootPages } from "@/lib/nav"
 
 const isActive = (pathname: string, href: string) => {
@@ -77,19 +78,21 @@ export const MobileNav = () => {
         <DrawerBackdrop />
         <DrawerViewport>
           <DrawerPopup>
-            <DrawerContent className="gap-4 p-0">
-              <DrawerHeader className="flex flex-row items-center justify-between border-b border-border-primary px-4 py-3">
+            <DrawerContent className="gap-0 overflow-hidden p-0">
+              <DrawerHeader
+                className={`flex ${CHROME_BAR_HEIGHT} shrink-0 flex-row items-center gap-2 border-b border-border-primary px-4 sm:gap-3`}
+              >
                 <DrawerTitle className="sr-only">Navigation</DrawerTitle>
-                <BrandWordmark size="sm" className="text-fg-primary" />
                 <DrawerClose
                   render={
                     <Button
                       type="button"
                       variant="ghost"
-                      size="sm"
+                      size="md"
                       iconOnly
                       rounded
                       aria-label="Close navigation"
+                      className="shrink-0"
                     />
                   }
                 >
@@ -102,8 +105,9 @@ export const MobileNav = () => {
                     />
                   </svg>
                 </DrawerClose>
+                <BrandWordmark size="sm" className="text-fg-primary" />
               </DrawerHeader>
-              <nav className="overflow-y-auto px-3 pb-8">
+              <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-8">
                 <ul className="flex flex-col gap-0.5 pt-4">
                   {rootPages.map((item) => (
                     <li key={item.href}>

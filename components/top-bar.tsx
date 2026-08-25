@@ -23,7 +23,7 @@ export function TopBar() {
         >
           <BrandWordmark size="sm" />
         </Link>
-        <div className="min-w-0 flex-1">
+        <div className="flex min-w-0 flex-1 justify-end md:justify-start">
           <SiteSearch />
         </div>
         <ThemeToggle />

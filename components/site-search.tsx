@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  Button,
   Command,
   CommandActions,
   CommandBackdrop,
@@ -21,6 +22,7 @@ import {
   CommandTrigger,
   FilterGroup,
   FilterItem,
+  IconMagnifyingGlass,
   Kbd,
   KbdGroup,
 } from "@boyernick/standard-ui-react"
@@ -126,8 +128,27 @@ export const SiteSearch = () => {
       activeOptionId={activeOptionId}
     >
       <CommandTrigger
+        render={
+          <Button
+            type="button"
+            variant="ghost"
+            size="md"
+            iconOnly
+            rounded
+            aria-label="Search"
+            className="group md:hidden"
+          />
+        }
+      >
+        <IconMagnifyingGlass
+          size={16}
+          aria-hidden
+          className="text-fg-tertiary transition-colors duration-[var(--duration-sm)] ease-enter group-hover:text-fg-primary group-focus-visible:text-fg-primary motion-reduce:transition-none"
+        />
+      </CommandTrigger>
+      <CommandTrigger
         render={<button type="button" />}
-        className="text-sm flex h-9 w-full max-w-md cursor-pointer items-center gap-2 rounded-lg pr-3 text-fg-tertiary outline-none transition-colors hover:text-fg-secondary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+        className="text-sm hidden h-9 w-full max-w-md cursor-pointer items-center gap-2 rounded-lg pr-3 text-fg-tertiary outline-none transition-colors hover:text-fg-secondary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 md:flex"
       >
         <span className="flex-1 text-left">Search…</span>
         <KbdGroup className="pointer-events-none">
