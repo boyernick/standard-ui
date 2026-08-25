@@ -50,7 +50,7 @@ export const AvatarExamples = () => (
         {/* An image that resolves to nothing, so the fallback takes over. */}
         <Photo src="/missing.jpg" />
         <Avatar size="lg">
-          <AvatarFallback>SK</AvatarFallback>
+          <AvatarFallback>NB</AvatarFallback>
         </Avatar>
       </Row>
     </DocBand>

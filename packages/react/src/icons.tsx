@@ -1,6 +1,7 @@
 "use client"
 
 import type { CentralIconBaseProps } from "@central-icons-react/round-outlined-radius-2-stroke-2/CentralIconBase"
+import { IconArrowDown as IconArrowDownBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconArrowDown"
 import { IconBell as IconBellBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconBell"
 import { IconCalendar1 as IconCalendar1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCalendar1"
 import { IconChainLink1 as IconChainLink1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChainLink1"
@@ -54,6 +55,7 @@ export const withCentralIconDefaults = (
   return CentralIcon
 }
 
+export const IconArrowDown = withCentralIconDefaults(IconArrowDownBase)
 export const IconBell = withCentralIconDefaults(IconBellBase)
 export const IconCalendar1 = withCentralIconDefaults(IconCalendar1Base)
 export const IconChainLink1 = withCentralIconDefaults(IconChainLink1Base)

@@ -172,6 +172,7 @@ export {
   CommandItem,
   CommandEmpty,
   CommandTitle,
+  CommandMeta,
   CommandDialogTitle,
   type CommandProps,
   type CommandTriggerProps,
@@ -191,6 +192,7 @@ export {
   type CommandItemProps,
   type CommandEmptyProps,
   type CommandTitleProps,
+  type CommandMetaProps,
   type CommandDialogTitleProps,
 } from "./command";
 export {
@@ -873,9 +875,15 @@ export {
   ImageModal,
   ImageModalTrigger,
   ImageModalContent,
+  ImageModalGallery,
+  ImageModalGalleryTrigger,
+  imageModalContentVariants,
   type ImageModalProps,
   type ImageModalTriggerProps,
   type ImageModalContentProps,
+  type ImageModalGalleryProps,
+  type ImageModalGalleryTriggerProps,
+  type ImageModalItem,
 } from "./image-modal";
 export {
   Ticker,
@@ -922,6 +930,7 @@ export {
   CENTRAL_ICON_SIZE,
   withCentralIconDefaults,
   iconGallery,
+  IconArrowDown,
   IconBell,
   IconCalendar1,
   IconChainLink1,

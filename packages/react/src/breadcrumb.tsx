@@ -14,7 +14,7 @@ const breadcrumbSeparatorVariants = cva("text-fg-tertiary", {
   variants: {
     variant: {
       chevron: "[&_svg]:size-3.5",
-      slash: "px-0.5",
+      slash: "",
     },
   },
   defaultVariants: {
@@ -39,7 +39,7 @@ export const BreadcrumbList = ({
   ...props
 }: BreadcrumbListProps) => (
   <ol
-    className={cn("flex flex-wrap items-center gap-0.5", className)}
+    className={cn("flex flex-wrap items-center gap-x-2 gap-y-1.5", className)}
     {...props}
   />
 )
@@ -49,7 +49,7 @@ export const BreadcrumbItem = ({
   ...props
 }: BreadcrumbItemProps) => (
   <li
-    className={cn("inline-flex items-center gap-1.5 px-1", className)}
+    className={cn("inline-flex items-center gap-1.5", className)}
     {...props}
   />
 )

@@ -22,6 +22,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandMeta,
   CommandPortal,
   CommandPopup,
   CommandTitle,
@@ -209,6 +210,7 @@ const SearchCommand = ({ trigger }: { trigger: ReactNode }) => {
                         onClick={() => handleOpenChange(false)}
                       >
                         <CommandTitle>{entry.title}</CommandTitle>
+                        <CommandMeta>{entry.category}</CommandMeta>
                       </CommandItem>
                     ))}
                   </CommandList>

@@ -84,7 +84,7 @@ export const BreadcrumbExamples = () => (
             <Menu>
               <MenuTrigger
                 openOnHover
-                className="rounded-sm px-2 py-0.5 text-fg-secondary outline-none hover:text-fg-primary focus-visible:ring-[3px] focus-visible:ring-ring/20 data-popup-open:bg-background-tertiary data-popup-open:text-fg-primary data-popup-open:ring-1 data-popup-open:ring-border-secondary"
+                className="-mx-1 rounded-sm px-1 py-0.5 text-fg-secondary outline-none hover:text-fg-primary focus-visible:ring-[3px] focus-visible:ring-ring/20 data-popup-open:bg-background-tertiary data-popup-open:text-fg-primary data-popup-open:ring-1 data-popup-open:ring-border-secondary"
               >
                 Components
               </MenuTrigger>

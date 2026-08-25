@@ -384,6 +384,15 @@ export const CommandTitle = ({ className, children }: CommandTitleProps) => (
   <span className={cn("min-w-0 truncate", className)}>{children}</span>
 )
 
+export type CommandMetaProps = HTMLAttributes<HTMLSpanElement>
+
+export const CommandMeta = ({ className, ...props }: CommandMetaProps) => (
+  <span
+    className={cn("shrink-0 text-xs font-normal text-fg-tertiary", className)}
+    {...props}
+  />
+)
+
 export const CommandDialogTitle = ({
   className,
   ...props

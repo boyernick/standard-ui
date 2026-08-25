@@ -11,6 +11,8 @@ import {
 export type Theme = "light" | "dark";
 
 const STORAGE_KEY = "standard-ui-theme";
+const FAVICON_LIGHT = "/favicon.svg?v=6";
+const FAVICON_DARK = "/favicon-dark.svg?v=6";
 
 type ThemeContextValue = {
   theme: Theme;
@@ -31,6 +33,15 @@ function readStored(): Theme {
 
 function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
+  document.documentElement.style.colorScheme = theme;
+
+  const favicon = document.querySelector<HTMLLinkElement>(
+    'link[rel="icon"][href*="favicon"]',
+  );
+  favicon?.setAttribute(
+    "href",
+    theme === "dark" ? FAVICON_DARK : FAVICON_LIGHT,
+  );
 }
 
 const listeners = new Set<() => void>();
@@ -45,9 +56,19 @@ if (typeof window !== "undefined") {
 }
 
 function subscribe(listener: () => void) {
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const handleSystemChange = (event: MediaQueryListEvent) => {
+    current = event.matches ? "dark" : "light";
+    window.localStorage.removeItem(STORAGE_KEY);
+    applyTheme(current);
+    emit();
+  };
+
   listeners.add(listener);
+  mediaQuery.addEventListener("change", handleSystemChange);
   return () => {
     listeners.delete(listener);
+    mediaQuery.removeEventListener("change", handleSystemChange);
   };
 }
 

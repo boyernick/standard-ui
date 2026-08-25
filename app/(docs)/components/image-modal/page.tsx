@@ -10,7 +10,7 @@ export default function ImageModalPage() {
   return (
     <DocPage
       title="Image modal"
-      description="Lightbox for expanding a thumbnail into the full image."
+      description="Immersive lightbox for single images and swipeable galleries."
       heading={null}
       bleed
     >

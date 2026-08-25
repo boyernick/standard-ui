@@ -13,6 +13,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandMeta,
   CommandPopup,
   CommandPortal,
   CommandTitle,
@@ -197,6 +198,7 @@ export const SiteSearch = () => {
                     onClick={() => goTo(page.href)}
                   >
                     <CommandTitle>{page.label}</CommandTitle>
+                    <CommandMeta>{pageSection(page.href)}</CommandMeta>
                   </CommandItem>
                 ))}
               </CommandList>
