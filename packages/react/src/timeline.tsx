@@ -313,6 +313,7 @@ export const TimelineMedia = ({
 )
 
 export {
+  timelineVariants,
   timelineItemVariants,
   timelineMarkerVariants,
   timelineTimeVariants,
