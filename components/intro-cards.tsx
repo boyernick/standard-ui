@@ -148,7 +148,7 @@ const galleryIcons = [
 ]
 
 const IconsPreview = () => (
-  <div className="grid w-max max-w-full grid-cols-8 gap-x-2.5 gap-y-2.5 text-fg-tertiary">
+  <div className="grid w-max max-w-full grid-cols-8 gap-x-4 gap-y-3 text-fg-tertiary">
     {galleryIcons.map((Icon, index) => (
       <Icon key={index} size={20} aria-hidden />
     ))}
