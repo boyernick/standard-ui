@@ -25,6 +25,8 @@
   align-items: flex-start;
   min-height: 1.85em;
   line-height: 1.85;
+  padding-left: 0.75rem;
+  padding-right: 1rem;
   white-space: pre;
 }
 
@@ -37,6 +39,36 @@
   text-align: right;
   color: var(--text-quaternary);
   user-select: none;
+}
+
+.sh-code .sh__line--highlighted {
+  background: color-mix(in oklab, var(--sh-keyword) 6%, transparent);
+  box-shadow: inset 3px 0 0 var(--sh-keyword);
+}
+
+.sh-code .sh__line--highlighted::before {
+  color: var(--sh-keyword);
+  font-weight: 500;
+}
+
+.sh-code .sh__line--added {
+  background: color-mix(in oklab, var(--status-success) 6%, var(--surface));
+  box-shadow: inset 3px 0 0 var(--status-success);
+}
+
+.sh-code .sh__line--added::before {
+  color: var(--status-success);
+  font-weight: 500;
+}
+
+.sh-code .sh__line--removed {
+  background: color-mix(in oklab, var(--status-critical) 6%, var(--surface));
+  box-shadow: inset 3px 0 0 var(--status-critical);
+}
+
+.sh-code .sh__line--removed::before {
+  color: var(--status-critical);
+  font-weight: 500;
 }
 
 .sh-code .sh__token--comment {

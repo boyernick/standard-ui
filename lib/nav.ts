@@ -48,6 +48,7 @@ export const components = [
   { href: "/components/number-field", label: "Number field" },
   { href: "/components/otp-field", label: "OTP field" },
   { href: "/components/pagination", label: "Pagination" },
+  { href: "/components/password-protection", label: "Password protection" },
   { href: "/components/popover", label: "Popover" },
   { href: "/components/preview-card", label: "Preview card" },
   { href: "/components/progress", label: "Progress" },

@@ -51,7 +51,7 @@ export const BrandWordmark = ({
     <span
       className={cn(
         "inline-flex items-center",
-        size === "sm" ? "gap-1" : "gap-2",
+        size === "sm" ? "gap-1.5" : "gap-2",
         className,
       )}
       aria-label="StandardUI"

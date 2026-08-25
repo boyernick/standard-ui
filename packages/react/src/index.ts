@@ -521,6 +521,13 @@ export {
   type OTPFieldSeparatorProps,
 } from "./otp-field";
 export {
+  PasswordProtection,
+  PasswordProtectionDialog,
+  type PasswordProtectionProps,
+  type PasswordProtectionDialogProps,
+  type PasswordProtectionVerify,
+} from "./password-protection";
+export {
   Popover,
   PopoverTrigger,
   PopoverPortal,
@@ -989,7 +996,7 @@ export {
   type CentralIconProps,
   type CentralIconComponent,
 } from "./icons";
-export { CodeBlock, type CodeBlockProps } from "./code-block";
+export { CodeBlock, type CodeBlockProps, type CodeBlockHighlightLine } from "./code-block";
 export {
   MarkdownEditor,
   MarkdownEditorToolbar,

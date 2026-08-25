@@ -1,3 +1,5 @@
+"use client"
+
 import { CodeBlock } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 
@@ -14,6 +16,25 @@ const tokens = `:root {
   --ease-snap: cubic-bezier(0.1, 0.9, 0.2, 1);
 }`
 
+const focus = `import { generateText } from "ai"
+
+export async function summarize(input: string) {
+  const { text } = await generateText({
+    model: "openai/gpt-5",
+    prompt: \`Summarize this clearly: \${input}\`,
+  })
+
+  return {
+    text,
+    generatedAt: new Date().toISOString(),
+  }
+}`
+
+const review = `function greet(name: string) {
+  console.log("hi")
+  return \`Hello, \${name}\`
+}`
+
 /** Code runs wider than the default band measure. */
 const WIDE = "max-w-2xl"
 
@@ -27,6 +48,35 @@ export const CodeBlockExamples = () => (
       contentClassName={WIDE}
     >
       <CodeBlock code={component} className="w-full" />
+    </DocBand>
+
+    <DocBand
+      id="highlighted"
+      title="Highlighted"
+      description="Call out the lines that matter."
+      contentClassName={WIDE}
+    >
+      <CodeBlock
+        code={focus}
+        lang="typescript"
+        highlightLines={[4, 5]}
+        className="w-full"
+      />
+    </DocBand>
+
+    <DocBand
+      id="review"
+      title="Review"
+      description="Green for additions, red for removals."
+      contentClassName={WIDE}
+    >
+      <CodeBlock
+        code={review}
+        lang="typescript"
+        addedLines={[3]}
+        removedLines={[2]}
+        className="w-full"
+      />
     </DocBand>
 
     <DocBand
@@ -58,8 +108,6 @@ export const CodeBlockExamples = () => (
       description="No frame, for code nested inside another surface."
       contentClassName={WIDE}
     >
-      {/* `bare` only reaches the markup on the headerless branch — with a
-          header the frame comes from the wrapper and the prop is ignored. */}
       <CodeBlock
         code={install}
         lang="shell"
