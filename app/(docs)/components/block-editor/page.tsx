@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Kbd } from "@boyernick/standard-ui-react"
 import { DocPage } from "@/components/doc-page"
 import { BlockEditorExamples } from "./block-editor-examples"
 
@@ -10,7 +11,11 @@ export default function BlockEditorPage() {
   return (
     <DocPage
       title="Block editor"
-      description="A Notion-style block document — edit in place and insert elements with '/'."
+      description={
+        <>
+          A block editor with <Kbd size="sm">/</Kbd> commands.
+        </>
+      }
       heading={null}
       bleed
     >

@@ -15,10 +15,12 @@ import { IconCircleInfo as IconCircleInfoBase } from "@central-icons-react/round
 import { IconClipboard as IconClipboardBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconClipboard"
 import { IconCrossSmall as IconCrossSmallBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCrossSmall"
 import { IconDotGrid1x3Horizontal as IconDotGrid1x3HorizontalBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconDotGrid1x3Horizontal"
+import { IconDotGrid2x3 as IconDotGrid2x3Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconDotGrid2x3"
 import { IconExclamationCircle as IconExclamationCircleBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconExclamationCircle"
 import { IconExclamationTriangle as IconExclamationTriangleBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconExclamationTriangle"
 import { IconHome as IconHomeBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconHome"
 import { IconFullScreen as IconFullScreenBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconFullScreen"
+import { IconHighlight as IconHighlightBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconHighlight"
 import { IconMagnifyingGlass as IconMagnifyingGlassBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMagnifyingGlass"
 import { IconMinusMedium as IconMinusBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconMinusMedium"
 import { IconPause as IconPauseBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconPause"
@@ -29,6 +31,7 @@ import { IconPlusMedium as IconPlusBase } from "@central-icons-react/round-outli
 import { IconSettingsGear1 as IconSettingsGear1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconSettingsGear1"
 import { IconSquareBehindSquare6 as IconSquareBehindSquare6Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconSquareBehindSquare6"
 import { IconStar as IconStarBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconStar"
+import { IconStrikeThrough as IconStrikeThroughBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconStrikeThrough"
 import { IconSun as IconSunBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconSun"
 import { IconVolumeFull as IconVolumeFullBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconVolumeFull"
 import { IconVolumeOff as IconVolumeOffBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconVolumeOff"
@@ -79,6 +82,7 @@ export const IconCrossSmall = withCentralIconDefaults(IconCrossSmallBase)
 export const IconDotGrid1x3Horizontal = withCentralIconDefaults(
   IconDotGrid1x3HorizontalBase,
 )
+export const IconDotGrid2x3 = withCentralIconDefaults(IconDotGrid2x3Base)
 export const IconExclamationCircle = withCentralIconDefaults(
   IconExclamationCircleBase,
 )
@@ -101,6 +105,8 @@ export const IconSquareBehindSquare6 = withCentralIconDefaults(
   IconSquareBehindSquare6Base,
 )
 export const IconStar = withCentralIconDefaults(IconStarBase)
+export const IconStrikeThrough = withCentralIconDefaults(IconStrikeThroughBase)
+export const IconHighlight = withCentralIconDefaults(IconHighlightBase)
 export const IconSun = withCentralIconDefaults(IconSunBase)
 export const IconVolumeFull = withCentralIconDefaults(IconVolumeFullBase)
 export const IconVolumeOff = withCentralIconDefaults(IconVolumeOffBase)
@@ -127,10 +133,13 @@ export const iconGallery = [
   { name: "IconCircleInfo", Icon: IconCircleInfo },
   { name: "IconClipboard", Icon: IconClipboard },
   { name: "IconDotGrid1x3Horizontal", Icon: IconDotGrid1x3Horizontal },
+  { name: "IconDotGrid2x3", Icon: IconDotGrid2x3 },
   { name: "IconSquareBehindSquare6", Icon: IconSquareBehindSquare6 },
   { name: "IconChainLink1", Icon: IconChainLink1 },
   { name: "IconChainLink3", Icon: IconChainLink3 },
   { name: "IconExclamationCircle", Icon: IconExclamationCircle },
   { name: "IconExclamationTriangle", Icon: IconExclamationTriangle },
   { name: "IconStar", Icon: IconStar },
+  { name: "IconStrikeThrough", Icon: IconStrikeThrough },
+  { name: "IconHighlight", Icon: IconHighlight },
 ] as const

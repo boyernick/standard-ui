@@ -3,16 +3,44 @@
 import {
   useCallback,
   useEffect,
-  useId,
   useLayoutEffect,
   useRef,
   useState,
   type HTMLAttributes,
+  type DragEvent as ReactDragEvent,
   type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type ReactElement,
+  type ReactNode,
 } from "react"
 import { Checkbox } from "./checkbox"
+import { IconChainLink3, IconDotGrid2x3, IconHighlight, IconStrikeThrough } from "./icons"
+import { Kbd, KbdGroup } from "./kbd"
 import { cn } from "./lib/cn"
 import { motion } from "./lib/motion"
+import { popupInset, popupItem, popupSurface } from "./lib/popup"
+import {
+  Menu,
+  MenuItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
+  MenuTrigger,
+} from "./menu"
+import {
+  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
+  ToolbarSeparator,
+} from "./toolbar"
+import {
+  Tooltip,
+  TooltipPopup,
+  TooltipPortal,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip"
 
 export type BlockEditorBlockType =
   | "text"
@@ -40,12 +68,6 @@ type SlashCommand = {
 
 const SLASH_COMMANDS: SlashCommand[] = [
   {
-    type: "text",
-    label: "Text",
-    description: "Plain paragraph",
-    keywords: ["text", "paragraph", "body"],
-  },
-  {
     type: "heading1",
     label: "Heading 1",
     description: "Large section title",
@@ -64,18 +86,6 @@ const SLASH_COMMANDS: SlashCommand[] = [
     keywords: ["heading", "h3"],
   },
   {
-    type: "divider",
-    label: "Divider",
-    description: "Horizontal rule",
-    keywords: ["divider", "separator", "line", "hr"],
-  },
-  {
-    type: "checklist",
-    label: "Checklist",
-    description: "To-do with a checkbox",
-    keywords: ["checklist", "todo", "task", "checkbox"],
-  },
-  {
     type: "numbered",
     label: "Numbered list",
     description: "Ordered list item",
@@ -86,6 +96,18 @@ const SLASH_COMMANDS: SlashCommand[] = [
     label: "Bulleted list",
     description: "Unordered list item",
     keywords: ["bulleted", "bullet", "ul", "list"],
+  },
+  {
+    type: "checklist",
+    label: "Checklist",
+    description: "To-do with a checkbox",
+    keywords: ["checklist", "todo", "task", "checkbox"],
+  },
+  {
+    type: "divider",
+    label: "Divider",
+    description: "Horizontal rule",
+    keywords: ["divider", "separator", "line", "hr", "rule"],
   },
 ]
 
@@ -108,17 +130,17 @@ export const defaultBlockEditorBlocks: BlockEditorBlock[] = [
   {
     id: "demo-h1",
     type: "heading1",
-    content: "Lorem ipsum dolor sit amet",
+    content: "Heading 1",
   },
   {
     id: "demo-h2",
     type: "heading2",
-    content: "Consectetur adipiscing elit",
+    content: "Heading 2",
   },
   {
     id: "demo-h3",
     type: "heading3",
-    content: "Sed do eiusmod tempor",
+    content: "Heading 3",
   },
   { id: "demo-divider", type: "divider", content: "" },
   {
@@ -182,8 +204,8 @@ const blockTextClassName: Record<
   string
 > = {
   text: "text-base leading-7 text-fg-primary",
-  heading1: "heading-2xl-serif text-fg-primary",
-  heading2: "heading-xl text-fg-primary",
+  heading1: "heading-2xl-sans text-fg-primary",
+  heading2: "heading-xl-sans text-fg-primary",
   heading3: "heading-md text-fg-primary",
   checklist: "text-base leading-7 text-fg-primary",
   numbered: "text-base leading-7 text-fg-primary",
@@ -206,8 +228,108 @@ const placeholderFor = (type: BlockEditorBlockType) => {
     case "divider":
       return ""
     default:
-      return "Type '/' for commands"
+      return "Write or type / for commands..."
   }
+}
+
+const isBlankHtml = (html: string) => {
+  const text = html
+    .replace(/<br\s*\/?>/gi, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\u00A0/g, " ")
+    .trim()
+  return text.length === 0
+}
+
+const isSlashOnlyHtml = (html: string) => {
+  const text = html
+    .replace(/<br\s*\/?>/gi, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\u00A0/g, " ")
+    .trim()
+  return /^\/[^\n]*$/.test(text)
+}
+
+const fieldPlainText = (field: HTMLElement) =>
+  (field.textContent ?? "").replace(/\u00A0/g, " ")
+
+const placeCaretAtEnd = (field: HTMLElement) => {
+  const selection = window.getSelection()
+  if (!selection) return
+  const range = document.createRange()
+  range.selectNodeContents(field)
+  range.collapse(false)
+  selection.removeAllRanges()
+  selection.addRange(range)
+}
+
+const textBeforeCaret = (field: HTMLElement) => {
+  const selection = window.getSelection()
+  if (!selection || selection.rangeCount === 0) return fieldPlainText(field)
+  if (!field.contains(selection.anchorNode)) return fieldPlainText(field)
+  const range = selection.getRangeAt(0).cloneRange()
+  range.selectNodeContents(field)
+  range.setEnd(selection.getRangeAt(0).endContainer, selection.getRangeAt(0).endOffset)
+  return range.toString().replace(/\u00A0/g, " ")
+}
+
+const isCaretAtStart = (field: HTMLElement) => {
+  const selection = window.getSelection()
+  if (!selection || !selection.isCollapsed || selection.rangeCount === 0) {
+    return false
+  }
+  if (!field.contains(selection.anchorNode)) return false
+  const range = selection.getRangeAt(0).cloneRange()
+  range.selectNodeContents(field)
+  range.setEnd(selection.anchorNode as Node, selection.anchorOffset)
+  return range.toString().length === 0
+}
+
+const isCaretAtEnd = (field: HTMLElement) => {
+  const selection = window.getSelection()
+  if (!selection || !selection.isCollapsed || selection.rangeCount === 0) {
+    return false
+  }
+  if (!field.contains(selection.anchorNode)) return false
+  const range = selection.getRangeAt(0).cloneRange()
+  range.selectNodeContents(field)
+  range.setStart(selection.anchorNode as Node, selection.anchorOffset)
+  return range.toString().length === 0
+}
+
+const selectionIsExpandedIn = (field: HTMLElement) => {
+  const selection = window.getSelection()
+  if (!selection || selection.isCollapsed || selection.rangeCount === 0) {
+    return false
+  }
+  return field.contains(selection.anchorNode) && field.contains(selection.focusNode)
+}
+
+const highlightSelection = () => {
+  const selection = window.getSelection()
+  if (!selection || selection.isCollapsed || selection.rangeCount === 0) return
+
+  const range = selection.getRangeAt(0)
+  const existing = range.commonAncestorContainer.parentElement?.closest("mark")
+  if (existing && existing.isContentEditable !== false) {
+    const parent = existing.parentNode
+    if (!parent) return
+    while (existing.firstChild) parent.insertBefore(existing.firstChild, existing)
+    parent.removeChild(existing)
+    parent.normalize()
+    return
+  }
+
+  const mark = document.createElement("mark")
+  mark.className = "rounded-2xs bg-status-warning-background text-inherit"
+  mark.appendChild(range.extractContents())
+  range.insertNode(mark)
+  selection.removeAllRanges()
+  const next = document.createRange()
+  next.selectNodeContents(mark)
+  selection.addRange(next)
 }
 
 const filterCommands = (query: string) => {
@@ -230,48 +352,243 @@ const numberedIndex = (blocks: BlockEditorBlock[], index: number) => {
   return count
 }
 
+const blockTypeLabel = (type: BlockEditorBlockType) => {
+  switch (type) {
+    case "heading1":
+      return "Heading 1"
+    case "heading2":
+      return "Heading 2"
+    case "heading3":
+      return "Heading 3"
+    case "numbered":
+      return "Numbered list"
+    case "bulleted":
+      return "Ordered list"
+    case "checklist":
+      return "Checklist"
+    case "divider":
+      return "Divider"
+    default:
+      return "Text"
+  }
+}
+
+const blockTypeTriggerClassName = (type: BlockEditorBlockType) => {
+  switch (type) {
+    case "heading1":
+      return "text-[15px] leading-5 font-semibold"
+    case "heading2":
+      return "font-semibold"
+    case "heading3":
+      return "text-[13px] leading-4 font-semibold"
+    default:
+      return undefined
+  }
+}
+
+const Shortcut = ({
+  keys,
+  inverted,
+  className = "ml-auto",
+}: {
+  keys: string[]
+  inverted?: boolean
+  className?: string
+}) => (
+  <KbdGroup className={className}>
+    {keys.map((key) => (
+      <Kbd key={key} size="sm" variant={inverted ? "inverted" : "default"}>
+        {key}
+      </Kbd>
+    ))}
+  </KbdGroup>
+)
+
+const StyleItem = ({
+  label,
+  keys,
+  labelClassName,
+  onClick,
+}: {
+  label: ReactNode
+  keys: string[]
+  labelClassName?: string
+  onClick?: () => void
+}) => (
+  <MenuItem className="gap-3" onClick={onClick}>
+    <span className={labelClassName}>{label}</span>
+    <Shortcut keys={keys} />
+  </MenuItem>
+)
+
+const SLASH_MENU_ITEMS: {
+  type: BlockEditorBlockType
+  label: string
+  keys: string[]
+  labelClassName?: string
+}[] = [
+  {
+    type: "heading1",
+    label: "Heading 1",
+    keys: ["⌥", "⌘", "1"],
+    labelClassName: "text-[15px] leading-5 font-semibold",
+  },
+  {
+    type: "heading2",
+    label: "Heading 2",
+    keys: ["⌥", "⌘", "2"],
+    labelClassName: "text-sm font-semibold",
+  },
+  {
+    type: "heading3",
+    label: "Heading 3",
+    keys: ["⌥", "⌘", "3"],
+    labelClassName: "text-[13px] leading-4 font-semibold",
+  },
+  { type: "numbered", label: "Numbered list", keys: ["⌥", "⌘", "4"] },
+  { type: "bulleted", label: "Ordered list", keys: ["⌥", "⌘", "5"] },
+  { type: "checklist", label: "Checklist", keys: ["⌥", "⌘", "6"] },
+  { type: "divider", label: "Divider", keys: ["⌥", "⌘", "7"] },
+]
+
+const BLOCK_TYPE_SHORTCUTS: Record<string, BlockEditorBlockType> = {
+  Digit0: "text",
+  Digit1: "heading1",
+  Digit2: "heading2",
+  Digit3: "heading3",
+  Digit4: "numbered",
+  Digit5: "bulleted",
+  Digit6: "checklist",
+  Digit7: "divider",
+}
+
+const FormatTip = ({
+  label,
+  keys,
+  children,
+}: {
+  label: string
+  keys: string[]
+  children: ReactElement
+}) => (
+  <Tooltip>
+    <TooltipTrigger render={children} />
+    <TooltipPortal>
+      <TooltipPositioner>
+        <TooltipPopup variant="inverted">
+          {label}
+          <Shortcut keys={keys} inverted className="ml-1.5" />
+        </TooltipPopup>
+      </TooltipPositioner>
+    </TooltipPortal>
+  </Tooltip>
+)
+
 const AutoGrowField = ({
   value,
   onValueChange,
   onKeyDown,
   onFocus,
+  onBlur,
+  onSelect,
   className,
   placeholder,
+  slashPlaceholder = false,
   id,
 }: {
   id: string
   value: string
   onValueChange: (value: string) => void
-  onKeyDown: (event: ReactKeyboardEvent<HTMLTextAreaElement>) => void
+  onKeyDown: (event: ReactKeyboardEvent<HTMLDivElement>) => void
   onFocus: () => void
+  onBlur?: () => void
+  onSelect?: (field: HTMLDivElement) => void
   className?: string
   placeholder?: string
+  slashPlaceholder?: boolean
 }) => {
-  const ref = useRef<HTMLTextAreaElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
+  const lastHtml = useRef<string | null>(null)
+  const empty = isBlankHtml(value)
+  const showSlashHint = slashPlaceholder && empty
+  const showPlaceholder = !slashPlaceholder && empty
 
   useLayoutEffect(() => {
     const node = ref.current
     if (!node) return
+    if (lastHtml.current === null || value !== lastHtml.current) {
+      const wasExternal =
+        lastHtml.current !== null && value !== lastHtml.current
+      node.innerHTML = value
+      lastHtml.current = value
+      if (wasExternal && document.activeElement === node) {
+        placeCaretAtEnd(node)
+      }
+    }
     node.style.height = "0px"
-    node.style.height = `${Math.max(node.scrollHeight, 28)}px`
-  }, [value])
+    const lineHeight = Number.parseFloat(getComputedStyle(node).lineHeight)
+    node.style.height = `${Math.max(
+      node.scrollHeight,
+      Number.isFinite(lineHeight) ? lineHeight : 28,
+    )}px`
+  }, [value, className])
+
+  const emitValue = () => {
+    const node = ref.current
+    if (!node) return
+    const html = isBlankHtml(node.innerHTML) ? "" : node.innerHTML
+    lastHtml.current = html
+    onValueChange(html)
+  }
 
   return (
-    <textarea
-      ref={ref}
-      id={id}
-      rows={1}
-      value={value}
-      placeholder={placeholder}
-      aria-label={placeholder}
-      className={cn(
-        "field-sizing-content w-full grow resize-none bg-transparent outline-none placeholder:text-fg-quaternary",
-        className,
-      )}
-      onChange={(event) => onValueChange(event.target.value)}
-      onKeyDown={onKeyDown}
-      onFocus={onFocus}
-    />
+    <div className="relative min-w-0 grow">
+      {showSlashHint ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 flex items-center gap-1 text-base leading-7 text-fg-quaternary"
+        >
+          <span>Write or type</span>
+          <Kbd size="sm">/</Kbd>
+          <span>for commands...</span>
+        </div>
+      ) : null}
+      {showPlaceholder ? (
+        <div
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute inset-0 flex items-center",
+            className,
+          )}
+          style={{
+            color:
+              "color-mix(in oklab, var(--text-quaternary) 55%, transparent)",
+          }}
+        >
+          {placeholder}
+        </div>
+      ) : null}
+      <div
+        ref={ref}
+        id={id}
+        role="textbox"
+        aria-multiline="true"
+        aria-label={placeholder}
+        contentEditable
+        suppressContentEditableWarning
+        className={cn(
+          "min-h-7 w-full grow cursor-text bg-transparent outline-none break-words whitespace-pre-wrap",
+          "[&_a]:underline [&_a]:underline-offset-2",
+          className,
+        )}
+        onInput={emitValue}
+        onKeyDown={onKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyUp={(event) => onSelect?.(event.currentTarget)}
+        onMouseUp={(event) => onSelect?.(event.currentTarget)}
+      />
+    </div>
   )
 }
 
@@ -293,36 +610,128 @@ export const BlockEditor = ({
 }: BlockEditorProps) => {
   const [uncontrolledBlocks, setUncontrolledBlocks] = useState(defaultBlocks)
   const blocks = controlledBlocks ?? uncontrolledBlocks
-  const [activeId, setActiveId] = useState<string | null>(
+  const [, setActiveId] = useState<string | null>(
     defaultBlocks[0]?.id ?? null,
   )
   const [slash, setSlash] = useState<{
     blockId: string
     query: string
     index: number
+    top: number
+    left: number
+  } | null>(null)
+  const [formatting, setFormatting] = useState<{
+    blockId: string
+    top: number
+    left: number
+  } | null>(null)
+  const [dragId, setDragId] = useState<string | null>(null)
+  const [dropInsertIndex, setDropInsertIndex] = useState<number | null>(null)
+  const dragIdRef = useRef<string | null>(null)
+  const dropInsertIndexRef = useRef<number | null>(null)
+  const dragGhostRef = useRef<HTMLDivElement | null>(null)
+  const pendingMoveRef = useRef<{
+    fromId: string
+    insertIndex: number
   } | null>(null)
   const editorRef = useRef<HTMLDivElement>(null)
-  const listboxId = useId()
+  const listRef = useRef<HTMLDivElement>(null)
 
   const setBlocks = useCallback(
-    (next: BlockEditorBlock[] | ((current: BlockEditorBlock[]) => BlockEditorBlock[])) => {
-      const resolved = typeof next === "function" ? next(blocks) : next
-      if (controlledBlocks === undefined) setUncontrolledBlocks(resolved)
-      onBlocksChange?.(resolved)
+    (
+      next:
+        | BlockEditorBlock[]
+        | ((current: BlockEditorBlock[]) => BlockEditorBlock[]),
+    ) => {
+      if (controlledBlocks !== undefined) {
+        const resolved =
+          typeof next === "function" ? next(controlledBlocks) : next
+        onBlocksChange?.(resolved)
+        return
+      }
+      setUncontrolledBlocks((current) => {
+        const resolved = typeof next === "function" ? next(current) : next
+        onBlocksChange?.(resolved)
+        return resolved
+      })
     },
-    [blocks, controlledBlocks, onBlocksChange],
+    [controlledBlocks, onBlocksChange],
+  )
+
+  const measureFieldPosition = useCallback(
+    (blockId: string, edge: "top" | "bottom") => {
+      const editor = editorRef.current
+      const field = editor?.querySelector<HTMLElement>(
+        `#block-${CSS.escape(blockId)}`,
+      )
+      if (!editor || !field) return { top: 40, left: 0 }
+      const editorRect = editor.getBoundingClientRect()
+      const fieldRect = field.getBoundingClientRect()
+      return {
+        top:
+          (edge === "top" ? fieldRect.top : fieldRect.bottom) -
+          editorRect.top +
+          editor.scrollTop,
+        left: Math.max(0, fieldRect.left - editorRect.left),
+      }
+    },
+    [],
+  )
+
+  const openSlashMenu = useCallback(
+    (blockId: string, query: string) => {
+      const position = measureFieldPosition(blockId, "bottom")
+      setFormatting(null)
+      setSlash((current) => ({
+        blockId,
+        query,
+        index:
+          current?.blockId === blockId
+            ? Math.min(
+                current.index,
+                Math.max(0, filterCommands(query).length - 1),
+              )
+            : 0,
+        ...position,
+      }))
+      requestAnimationFrame(() => {
+        const node = editorRef.current?.querySelector<HTMLElement>(
+          `#block-${CSS.escape(blockId)}`,
+        )
+        if (!node) return
+        node.focus()
+        placeCaretAtEnd(node)
+      })
+    },
+    [measureFieldPosition],
+  )
+
+  const syncFormattingToolbar = useCallback(
+    (blockId: string, field: HTMLElement) => {
+      if (slash?.blockId === blockId) {
+        setFormatting(null)
+        return
+      }
+      if (!selectionIsExpandedIn(field)) {
+        setFormatting(null)
+        return
+      }
+      setFormatting({
+        blockId,
+        ...measureFieldPosition(blockId, "top"),
+      })
+    },
+    [measureFieldPosition, slash?.blockId],
   )
 
   const focusBlock = useCallback((id: string) => {
     requestAnimationFrame(() => {
-      const node = editorRef.current?.querySelector<HTMLTextAreaElement>(
+      const node = editorRef.current?.querySelector<HTMLElement>(
         `#block-${CSS.escape(id)}`,
       )
-      node?.focus()
-      if (node) {
-        const length = node.value.length
-        node.setSelectionRange(length, length)
-      }
+      if (!node) return
+      node.focus()
+      placeCaretAtEnd(node)
     })
   }, [])
 
@@ -377,13 +786,141 @@ export const BlockEditor = ({
     [focusBlock, setBlocks],
   )
 
+  const moveBlockToIndex = useCallback(
+    (fromId: string, insertIndex: number) => {
+      setBlocks((current) => {
+        const fromIndex = current.findIndex((block) => block.id === fromId)
+        if (fromIndex === -1) return current
+
+        let target = insertIndex
+        if (fromIndex < target) target -= 1
+        if (fromIndex === target) return current
+
+        const next = [...current]
+        const [moved] = next.splice(fromIndex, 1)
+        if (!moved) return current
+        next.splice(target, 0, moved)
+        return next
+      })
+      setActiveId(fromId)
+    },
+    [setBlocks],
+  )
+
+  const resolveInsertIndexFromY = useCallback((clientY: number) => {
+    const list = listRef.current
+    const fromId = dragIdRef.current
+    if (!list || !fromId) return null
+
+    const els = [
+      ...list.querySelectorAll<HTMLElement>("[data-slot=block-editor-block]"),
+    ]
+    const fromIndex = els.findIndex((el) => el.dataset.blockId === fromId)
+    if (fromIndex === -1) return null
+
+    let insertIndex = els.length
+    for (let i = 0; i < els.length; i += 1) {
+      const rect = els[i]!.getBoundingClientRect()
+      if (clientY < rect.top + rect.height / 2) {
+        insertIndex = i
+        break
+      }
+    }
+
+    // Already in this slot (before or after self).
+    if (insertIndex === fromIndex || insertIndex === fromIndex + 1) {
+      return fromIndex
+    }
+    return insertIndex
+  }, [])
+
+  const setDropIndex = useCallback((insertIndex: number) => {
+    dropInsertIndexRef.current = insertIndex
+    setDropInsertIndex((current) =>
+      current === insertIndex ? current : insertIndex,
+    )
+  }, [])
+
+  const handleListDragOver = useCallback(
+    (event: ReactDragEvent<HTMLDivElement>) => {
+      if (!dragIdRef.current) return
+      event.preventDefault()
+      event.dataTransfer.dropEffect = "move"
+      const insertIndex = resolveInsertIndexFromY(event.clientY)
+      if (insertIndex == null) return
+      setDropIndex(insertIndex)
+    },
+    [resolveInsertIndexFromY, setDropIndex],
+  )
+
+  const handleListDrop = useCallback(
+    (event: ReactDragEvent<HTMLDivElement>) => {
+      if (!dragIdRef.current) return
+      event.preventDefault()
+      const fromId =
+        event.dataTransfer.getData("text/plain") || dragIdRef.current
+      const insertIndex =
+        resolveInsertIndexFromY(event.clientY) ?? dropInsertIndexRef.current
+      if (fromId && insertIndex != null) {
+        // Apply on dragend — mutating the drag source mid-drag breaks
+        // subsequent HTML5 drag operations in Chromium.
+        pendingMoveRef.current = { fromId, insertIndex }
+      }
+    },
+    [resolveInsertIndexFromY],
+  )
+
+  const clearDragState = useCallback(() => {
+    const pending = pendingMoveRef.current
+    pendingMoveRef.current = null
+    if (pending) {
+      moveBlockToIndex(pending.fromId, pending.insertIndex)
+    }
+    dragGhostRef.current?.remove()
+    dragGhostRef.current = null
+    dragIdRef.current = null
+    dropInsertIndexRef.current = null
+    setDragId(null)
+    setDropInsertIndex(null)
+  }, [moveBlockToIndex])
+
+  const beginBlockDrag = useCallback(
+    (
+      event: ReactDragEvent<HTMLButtonElement>,
+      blockId: string,
+      index: number,
+    ) => {
+      pendingMoveRef.current = null
+      dragIdRef.current = blockId
+      dropInsertIndexRef.current = index
+      setDragId(blockId)
+      setDropInsertIndex(index)
+      event.dataTransfer.effectAllowed = "move"
+      event.dataTransfer.setData("text/plain", blockId)
+
+      // Keep this node until dragend — removing it earlier breaks later drags.
+      dragGhostRef.current?.remove()
+      const ghost = document.createElement("div")
+      ghost.style.cssText =
+        "position:fixed;top:-1000px;left:0;width:1px;height:1px;opacity:0;pointer-events:none"
+      document.body.appendChild(ghost)
+      dragGhostRef.current = ghost
+      event.dataTransfer.setDragImage(ghost, 0, 0)
+    },
+    [],
+  )
+
   const applySlashCommand = useCallback(
     (blockId: string, type: BlockEditorBlockType, query: string) => {
       const block = blocks.find((item) => item.id === blockId)
       if (!block) return
 
+      const field = editorRef.current?.querySelector<HTMLElement>(
+        `#block-${CSS.escape(blockId)}`,
+      )
+      const plain = field ? fieldPlainText(field) : block.content
       const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-      const contentWithoutSlash = block.content
+      const contentWithoutSlash = plain
         .replace(new RegExp(`/${escaped}$`), "")
         .trimEnd()
 
@@ -405,6 +942,9 @@ export const BlockEditor = ({
           return copy
         })
       } else {
+        if (field) {
+          field.innerHTML = contentWithoutSlash
+        }
         updateBlock(blockId, {
           type,
           content: contentWithoutSlash,
@@ -414,8 +954,69 @@ export const BlockEditor = ({
       }
 
       setSlash(null)
+      setFormatting(null)
     },
     [blocks, focusBlock, setBlocks, updateBlock],
+  )
+
+  const applyBlockType = useCallback(
+    (blockId: string, type: BlockEditorBlockType) => {
+      if (type === "divider") {
+        applySlashCommand(blockId, type, "")
+        return
+      }
+      updateBlock(blockId, {
+        type,
+        checked: type === "checklist" ? false : undefined,
+      })
+      setFormatting(null)
+      focusBlock(blockId)
+    },
+    [applySlashCommand, focusBlock, updateBlock],
+  )
+
+  const applyInlineFormat = useCallback(
+    (
+      blockId: string,
+      format:
+        | "bold"
+        | "italic"
+        | "underline"
+        | "strikethrough"
+        | "highlight"
+        | "link",
+    ) => {
+      const field = editorRef.current?.querySelector<HTMLElement>(
+        `#block-${CSS.escape(blockId)}`,
+      )
+      if (!field || !selectionIsExpandedIn(field)) return
+
+      field.focus()
+
+      if (format === "highlight") {
+        highlightSelection()
+      } else if (format === "link") {
+        const url = window.prompt("Enter URL", "https://")
+        if (url == null || url.trim() === "") return
+        document.execCommand("createLink", false, url.trim())
+      } else {
+        document.execCommand("styleWithCSS", false, "true")
+        const command = {
+          bold: "bold",
+          italic: "italic",
+          underline: "underline",
+          strikethrough: "strikeThrough",
+        }[format]
+        document.execCommand(command)
+      }
+
+      const html = isBlankHtml(field.innerHTML) ? "" : field.innerHTML
+      updateBlock(blockId, { content: html })
+      requestAnimationFrame(() => {
+        syncFormattingToolbar(blockId, field)
+      })
+    },
+    [syncFormattingToolbar, updateBlock],
   )
 
   const openCommands = slash ? filterCommands(slash.query) : []
@@ -425,22 +1026,28 @@ export const BlockEditor = ({
     const handlePointer = (event: MouseEvent) => {
       if (!(event.target instanceof Node)) return
       if (editorRef.current?.contains(event.target)) return
+      if (
+        event.target instanceof Element &&
+        event.target.closest("[data-slot=menu-popup], [role=menu]")
+      ) {
+        return
+      }
       setSlash(null)
     }
     document.addEventListener("mousedown", handlePointer)
     return () => document.removeEventListener("mousedown", handlePointer)
   }, [slash])
 
-  const handleBlockInput = (block: BlockEditorBlock, text: string) => {
-    updateBlock(block.id, { content: text })
+  const handleBlockInput = (block: BlockEditorBlock, html: string) => {
+    updateBlock(block.id, { content: html })
 
-    const slashMatch = text.match(/(?:^|\s)\/([^\n]*)$/)
+    const field = editorRef.current?.querySelector<HTMLElement>(
+      `#block-${CSS.escape(block.id)}`,
+    )
+    const plain = field ? fieldPlainText(field) : html.replace(/<[^>]+>/g, "")
+    const slashMatch = plain.match(/(?:^|[\s\u00A0])\/([^\n]*)$/)
     if (slashMatch) {
-      setSlash({
-        blockId: block.id,
-        query: slashMatch[1] ?? "",
-        index: 0,
-      })
+      openSlashMenu(block.id, slashMatch[1] ?? "")
       return
     }
 
@@ -448,10 +1055,24 @@ export const BlockEditor = ({
   }
 
   const handleBlockKeyDown = (
-    event: ReactKeyboardEvent<HTMLTextAreaElement>,
+    event: ReactKeyboardEvent<HTMLDivElement>,
     block: BlockEditorBlock,
     index: number,
   ) => {
+    const field = event.currentTarget
+
+    if (event.key === "/" && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      const before = textBeforeCaret(field)
+      const atSlashStart = before === "" || /[\s\u00A0]$/.test(before)
+      if (atSlashStart) {
+        requestAnimationFrame(() => {
+          const plain = fieldPlainText(field)
+          const match = plain.match(/(?:^|[\s\u00A0])\/([^\n]*)$/)
+          if (match) openSlashMenu(block.id, match[1] ?? "")
+        })
+      }
+    }
+
     if (slash?.blockId === block.id && openCommands.length > 0) {
       if (event.key === "ArrowDown") {
         event.preventDefault()
@@ -492,35 +1113,101 @@ export const BlockEditor = ({
       }
     }
 
+    const mod = event.metaKey || event.ctrlKey
+    if (mod && event.altKey && !event.shiftKey) {
+      const type = BLOCK_TYPE_SHORTCUTS[event.code]
+      if (type) {
+        event.preventDefault()
+        setSlash(null)
+        applyBlockType(block.id, type)
+        return
+      }
+    }
+
+    if (mod && !event.altKey) {
+      const key = event.key.toLowerCase()
+      if (key === "b") {
+        event.preventDefault()
+        applyInlineFormat(block.id, "bold")
+        return
+      }
+      if (key === "i") {
+        event.preventDefault()
+        applyInlineFormat(block.id, "italic")
+        return
+      }
+      if (key === "u") {
+        event.preventDefault()
+        applyInlineFormat(block.id, "underline")
+        return
+      }
+      if (key === "k") {
+        event.preventDefault()
+        applyInlineFormat(block.id, "link")
+        return
+      }
+      if (event.shiftKey && key === "x") {
+        event.preventDefault()
+        applyInlineFormat(block.id, "strikethrough")
+        return
+      }
+      if (event.shiftKey && key === "h") {
+        event.preventDefault()
+        applyInlineFormat(block.id, "highlight")
+        return
+      }
+    }
+
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
       if (slash) setSlash(null)
-      const nextType =
+      const isList =
         block.type === "checklist" ||
         block.type === "numbered" ||
         block.type === "bulleted"
-          ? block.type
-          : "text"
-      insertBlockAfter(block.id, nextType)
+      if (isList && isBlankHtml(field.innerHTML)) {
+        updateBlock(block.id, { type: "text", checked: undefined })
+        return
+      }
+      insertBlockAfter(block.id, isList ? block.type : "text")
       return
     }
 
-    if (
-      event.key === "Backspace" &&
-      event.currentTarget.value.length === 0 &&
-      blocks.length > 1
-    ) {
+    if (event.key === "Tab" && !event.metaKey && !event.ctrlKey) {
+      if (slash?.blockId === block.id) return
       event.preventDefault()
-      removeBlock(block.id)
+      const isList =
+        block.type === "checklist" ||
+        block.type === "numbered" ||
+        block.type === "bulleted"
+      if (!isList) return
+      if (isBlankHtml(field.innerHTML)) {
+        updateBlock(block.id, { type: "text", checked: undefined })
+        return
+      }
+      insertBlockAfter(block.id, block.type)
       return
     }
 
     if (
-      event.key === "ArrowUp" &&
-      index > 0 &&
-      !slash &&
-      event.currentTarget.selectionStart === 0
+      (event.key === "Backspace" || event.key === "Delete") &&
+      isBlankHtml(field.innerHTML)
     ) {
+      if (block.type !== "text") {
+        event.preventDefault()
+        setSlash(null)
+        setFormatting(null)
+        updateBlock(block.id, { type: "text", checked: undefined })
+        return
+      }
+      if (blocks.length > 1) {
+        event.preventDefault()
+        removeBlock(block.id)
+        return
+      }
+    }
+
+    if (event.key === "ArrowUp" && index > 0 && !slash && isCaretAtStart(field)) {
       const previous = blocks[index - 1]
       if (previous && previous.type !== "divider") {
         event.preventDefault()
@@ -533,7 +1220,7 @@ export const BlockEditor = ({
       event.key === "ArrowDown" &&
       index < blocks.length - 1 &&
       !slash &&
-      event.currentTarget.selectionStart === event.currentTarget.value.length
+      isCaretAtEnd(field)
     ) {
       const next = blocks[index + 1]
       if (next && next.type !== "divider") {
@@ -544,27 +1231,166 @@ export const BlockEditor = ({
     }
   }
 
+  const handleEditorClick = (event: ReactMouseEvent<HTMLDivElement>) => {
+    const target = event.target
+    if (!(target instanceof Element)) return
+    if (
+      target.closest("[data-slot=block-editor-block]") ||
+      target.closest("[data-slot=block-editor-handle]") ||
+      target.closest("[data-slot=menu-popup]") ||
+      target.closest('[role="toolbar"]') ||
+      target.closest("[role=listbox]") ||
+      target.closest("[role=menu]") ||
+      target.closest("[contenteditable=true]")
+    ) {
+      return
+    }
+
+    const trailingEmpty: BlockEditorBlock[] = []
+    for (let index = blocks.length - 1; index >= 0; index -= 1) {
+      const block = blocks[index]
+      if (!block || block.type === "divider") break
+      if (!isBlankHtml(block.content)) break
+      trailingEmpty.push(block)
+    }
+
+    if (trailingEmpty.length > 0) {
+      const keep = trailingEmpty[trailingEmpty.length - 1]!
+      const removeIds = new Set(
+        trailingEmpty.filter((block) => block.id !== keep.id).map((block) => block.id),
+      )
+      if (removeIds.size > 0 || keep.type !== "text") {
+        setBlocks((current) =>
+          current
+            .filter((block) => !removeIds.has(block.id))
+            .map((block) =>
+              block.id === keep.id
+                ? { ...block, type: "text" as const, checked: undefined }
+                : block,
+            ),
+        )
+      }
+      setActiveId(keep.id)
+      focusBlock(keep.id)
+      return
+    }
+
+    const last = blocks[blocks.length - 1]
+    if (last) {
+      insertBlockAfter(last.id, "text")
+      return
+    }
+
+    const next = createBlockEditorBlock("text")
+    setBlocks([next])
+    setActiveId(next.id)
+    focusBlock(next.id)
+  }
+
   return (
     <div
       ref={editorRef}
       data-slot="block-editor"
       className={cn(
-        "relative overflow-hidden rounded-xl border border-border-primary bg-surface",
+        "relative overflow-visible cursor-text bg-surface",
         className,
       )}
+      onClick={handleEditorClick}
       {...props}
     >
-      <div className="mx-auto flex w-full max-w-2xl flex-col gap-1 px-6 py-10 sm:px-10">
-        {blocks.map((block, index) => {
+      <div
+        ref={listRef}
+        className="relative flex w-full max-w-[720px] flex-col gap-0.5 overflow-visible"
+        onDragOver={handleListDragOver}
+        onDrop={handleListDrop}
+      >
+        {(() => {
+          const dragFromIndex = dragId
+            ? blocks.findIndex((item) => item.id === dragId)
+            : -1
+          const dropLineAt = (() => {
+            if (dropInsertIndex == null || blocks.length === 0) return null
+            if (dropInsertIndex >= blocks.length) {
+              return {
+                blockId: blocks[blocks.length - 1]!.id,
+                edge: "after" as const,
+              }
+            }
+            if (
+              dragFromIndex >= 0 &&
+              dropInsertIndex === dragFromIndex &&
+              dropInsertIndex > 0
+            ) {
+              return {
+                blockId: blocks[dropInsertIndex - 1]!.id,
+                edge: "after" as const,
+              }
+            }
+            return {
+              blockId: blocks[dropInsertIndex]!.id,
+              edge: "before" as const,
+            }
+          })()
+
+          return blocks.map((block, index) => {
+          const showBlockChrome =
+            !isBlankHtml(block.content) && !isSlashOnlyHtml(block.content)
+          const isListBlock =
+            block.type === "checklist" ||
+            block.type === "numbered" ||
+            block.type === "bulleted"
+          const isDragging = dragId === block.id
+
+          const dropLine =
+            dropLineAt?.blockId === block.id ? (
+              <div
+                aria-hidden
+                className={cn(
+                  "pointer-events-none absolute right-0 left-0 z-20 h-0.5 rounded-full bg-fg-primary",
+                  dropLineAt.edge === "before" ? "-top-px" : "-bottom-px",
+                )}
+              />
+            ) : null
+
+          const dragHandle = (
+            <button
+              type="button"
+              data-slot="block-editor-handle"
+              aria-label="Drag to reorder"
+              draggable
+              className={cn(
+                "absolute right-full z-10 mr-1 flex h-7 cursor-grab items-center justify-center rounded-sm px-1 text-fg-quaternary",
+                block.type === "text"
+                  ? "top-0.5"
+                  : "top-1/2 -translate-y-1/2",
+                "opacity-0 transition-opacity duration-[var(--duration-sm)] ease-enter group-hover:opacity-100",
+                "hover:bg-background-tertiary hover:text-fg-secondary",
+                "active:cursor-grabbing",
+                "focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20",
+                isDragging && "opacity-100",
+              )}
+              onClick={(event) => event.stopPropagation()}
+              onMouseDown={(event) => event.stopPropagation()}
+              onDragStart={(event) => {
+                beginBlockDrag(event, block.id, index)
+              }}
+              onDragEnd={clearDragState}
+            >
+              <IconDotGrid2x3 size={16} className="size-4" aria-hidden />
+            </button>
+          )
+
           if (block.type === "divider") {
             return (
               <div
                 key={block.id}
                 data-slot="block-editor-block"
+                data-block-id={block.id}
                 data-type="divider"
                 className={cn(
-                  "group relative my-3 flex cursor-pointer items-center py-2 outline-none",
-                  activeId === block.id && "rounded-md bg-background-tertiary/60",
+                  "group relative -mx-3 my-3 flex cursor-pointer items-center rounded-md px-3 py-2 outline-none",
+                  "[&:not(:focus-within):hover]:bg-background-quaternary/20",
+                  isDragging && "opacity-5",
                 )}
                 onClick={() => setActiveId(block.id)}
                 onKeyDown={(event) => {
@@ -581,6 +1407,8 @@ export const BlockEditor = ({
                 role="separator"
                 aria-orientation="horizontal"
               >
+                {dropLine}
+                {dragHandle}
                 <div className="h-px w-full bg-border-primary" />
               </div>
             )
@@ -594,96 +1422,279 @@ export const BlockEditor = ({
                   updateBlock(block.id, { checked: Boolean(checked) })
                 }
                 aria-label="Toggle checklist item"
-                className="mt-1.5"
               />
             ) : block.type === "numbered" ? (
-              <span className="mt-1 w-6 shrink-0 tabular-nums text-fg-tertiary">
+              <span className="tabular-nums text-fg-primary">
                 {numberedIndex(blocks, index)}.
               </span>
             ) : block.type === "bulleted" ? (
-              <span className="mt-1 w-6 shrink-0 text-center text-fg-tertiary">
+              <span
+                className="text-[1.25rem] leading-none text-fg-primary"
+                aria-hidden
+              >
                 •
               </span>
             ) : null
+
+          const previous = index > 0 ? blocks[index - 1] : null
+          const sameListAsPrevious =
+            previous != null && isListBlock && previous.type === block.type
 
           return (
             <div
               key={block.id}
               data-slot="block-editor-block"
+              data-block-id={block.id}
               data-type={block.type}
               className={cn(
-                "group relative flex gap-2 rounded-md px-1 py-0.5",
-                activeId === block.id && "bg-background-tertiary/40",
+                "group relative -mx-3 items-center rounded-md px-3",
+                isListBlock ? "py-0" : "py-0.5",
+                showBlockChrome &&
+                  "[&:not(:focus-within):hover]:bg-background-quaternary/20",
+                isDragging && "opacity-5",
+                sameListAsPrevious && "-mt-0.5",
+                previous &&
+                  previous.type !== block.type &&
+                  previous.type !== "divider" &&
+                  "mt-3",
+                prefix
+                  ? "grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-2"
+                  : "flex",
               )}
             >
-              {prefix}
+              {dropLine}
+              {dragHandle}
+              {prefix ? (
+                <div className="flex h-7 items-center justify-start">{prefix}</div>
+              ) : null}
               <AutoGrowField
                 id={`block-${block.id}`}
                 value={block.content}
                 placeholder={placeholderFor(block.type)}
+                slashPlaceholder={block.type === "text"}
                 className={cn(
                   blockTextClassName[block.type],
                   block.checked && "text-fg-tertiary line-through",
                 )}
                 onFocus={() => setActiveId(block.id)}
+                onBlur={() => {
+                  window.setTimeout(() => {
+                    const active = document.activeElement
+                    if (
+                      active instanceof Element &&
+                      (active.closest('[role="toolbar"]') ||
+                        active.closest("[role=menu]"))
+                    ) {
+                      return
+                    }
+                    setFormatting((current) =>
+                      current?.blockId === block.id ? null : current,
+                    )
+                  }, 0)
+                }}
+                onSelect={(field) => syncFormattingToolbar(block.id, field)}
                 onValueChange={(value) => handleBlockInput(block, value)}
                 onKeyDown={(event) => handleBlockKeyDown(event, block, index)}
               />
             </div>
           )
-        })}
+        })
+        })()}
       </div>
 
-      {slash && openCommands.length > 0 ? (
-        <div
-          role="listbox"
-          id={listboxId}
-          aria-label="Insert block"
+      {/* Toolbar format handlers only run on click; react-hooks/refs is overly
+          strict about onClick closures that close over editorRef. */}
+      {/* eslint-disable react-hooks/refs */}
+      {formatting && !slash
+        ? (() => {
+            const formattingType =
+              blocks.find((block) => block.id === formatting.blockId)?.type ??
+              "text"
+            return (
+        <TooltipProvider delay={200}>
+        <Toolbar
+          aria-label="Formatting"
+          style={{ top: formatting.top, left: formatting.left }}
           className={cn(
-            "absolute top-28 left-1/2 z-20 w-[min(100%-2rem,18rem)] -translate-x-1/2 overflow-hidden rounded-xl border border-border-primary bg-surface p-1.5 shadow-lg sm:left-10 sm:translate-x-0",
+            "absolute z-20 -translate-y-[calc(100%+0.5rem)] border border-border-primary bg-surface",
             motion.popupCenter,
           )}
+          onMouseDown={(event) => event.preventDefault()}
         >
-          <p className="px-2 py-1.5 text-xs text-fg-tertiary">Insert block</p>
-          {openCommands.map((command, commandIndex) => {
+          <ToolbarGroup>
+            <FormatTip label="Link" keys={["⌘", "K"]}>
+              <ToolbarButton
+                aria-label="Link"
+                onClick={() => applyInlineFormat(formatting.blockId, "link")}
+              >
+                <IconChainLink3 size={14} className="size-3.5" aria-hidden />
+              </ToolbarButton>
+            </FormatTip>
+            <FormatTip label="Bold" keys={["⌘", "B"]}>
+              <ToolbarButton
+                aria-label="Bold"
+                className="font-semibold"
+                onClick={() => applyInlineFormat(formatting.blockId, "bold")}
+              >
+                B
+              </ToolbarButton>
+            </FormatTip>
+            <FormatTip label="Italic" keys={["⌘", "I"]}>
+              <ToolbarButton
+                aria-label="Italic"
+                className="italic"
+                onClick={() => applyInlineFormat(formatting.blockId, "italic")}
+              >
+                I
+              </ToolbarButton>
+            </FormatTip>
+            <FormatTip label="Underline" keys={["⌘", "U"]}>
+              <ToolbarButton
+                aria-label="Underline"
+                className="underline"
+                onClick={() =>
+                  applyInlineFormat(formatting.blockId, "underline")
+                }
+              >
+                U
+              </ToolbarButton>
+            </FormatTip>
+            <FormatTip label="Strikethrough" keys={["⇧", "⌘", "X"]}>
+              <ToolbarButton
+                aria-label="Strikethrough"
+                onClick={() =>
+                  applyInlineFormat(formatting.blockId, "strikethrough")
+                }
+              >
+                <IconStrikeThrough size={14} className="size-3.5" aria-hidden />
+              </ToolbarButton>
+            </FormatTip>
+            <FormatTip label="Highlight" keys={["⇧", "⌘", "H"]}>
+              <ToolbarButton
+                aria-label="Highlight"
+                onClick={() =>
+                  applyInlineFormat(formatting.blockId, "highlight")
+                }
+              >
+                <IconHighlight size={14} className="size-3.5" aria-hidden />
+              </ToolbarButton>
+            </FormatTip>
+          </ToolbarGroup>
+          <ToolbarSeparator />
+          <Menu>
+            <MenuTrigger
+              render={
+                <ToolbarButton
+                  className={blockTypeTriggerClassName(formattingType)}
+                />
+              }
+            >
+              {blockTypeLabel(formattingType)}
+            </MenuTrigger>
+            <MenuPortal>
+              <MenuPositioner align="start">
+                <MenuPopup>
+                  <StyleItem
+                    label="Text"
+                    keys={["⌥", "⌘", "0"]}
+                    onClick={() => applyBlockType(formatting.blockId, "text")}
+                  />
+                  <StyleItem
+                    label="Heading 1"
+                    labelClassName="text-[15px] leading-5 font-semibold"
+                    keys={["⌥", "⌘", "1"]}
+                    onClick={() =>
+                      applyBlockType(formatting.blockId, "heading1")
+                    }
+                  />
+                  <StyleItem
+                    label="Heading 2"
+                    labelClassName="text-sm font-semibold"
+                    keys={["⌥", "⌘", "2"]}
+                    onClick={() =>
+                      applyBlockType(formatting.blockId, "heading2")
+                    }
+                  />
+                  <StyleItem
+                    label="Heading 3"
+                    labelClassName="text-[13px] leading-4 font-semibold"
+                    keys={["⌥", "⌘", "3"]}
+                    onClick={() =>
+                      applyBlockType(formatting.blockId, "heading3")
+                    }
+                  />
+                  <StyleItem
+                    label="Numbered list"
+                    keys={["⌥", "⌘", "4"]}
+                    onClick={() =>
+                      applyBlockType(formatting.blockId, "numbered")
+                    }
+                  />
+                  <StyleItem
+                    label="Ordered list"
+                    keys={["⌥", "⌘", "5"]}
+                    onClick={() =>
+                      applyBlockType(formatting.blockId, "bulleted")
+                    }
+                  />
+                  <StyleItem
+                    label="Checklist"
+                    keys={["⌥", "⌘", "6"]}
+                    onClick={() =>
+                      applyBlockType(formatting.blockId, "checklist")
+                    }
+                  />
+                </MenuPopup>
+              </MenuPositioner>
+            </MenuPortal>
+          </Menu>
+        </Toolbar>
+        </TooltipProvider>
+            )
+          })()
+        : null}
+      {/* eslint-enable react-hooks/refs */}
+
+      {slash ? (
+        <div
+          role="listbox"
+          aria-label="Insert block"
+          style={{ top: slash.top + 8, left: slash.left }}
+          className={cn(
+            "absolute z-50 min-w-48 overflow-hidden",
+            popupSurface,
+            popupInset,
+            motion.popupAnchor,
+          )}
+        >
+          {SLASH_MENU_ITEMS.filter((item) =>
+            openCommands.some((command) => command.type === item.type),
+          ).map((item, commandIndex) => {
             const selected = commandIndex === slash.index
             return (
               <button
-                key={command.type}
+                key={item.type}
                 type="button"
                 role="option"
                 aria-selected={selected}
                 className={cn(
-                  "flex w-full cursor-pointer flex-col rounded-md px-2 py-1.5 text-left outline-none",
+                  popupItem,
+                  "w-full gap-3",
                   motion.colors,
-                  selected
-                    ? "bg-background-tertiary text-fg-primary"
-                    : "text-fg-primary hover:bg-background-tertiary",
+                  selected && "bg-background-tertiary",
                 )}
+                onMouseDown={(event) => event.preventDefault()}
                 onMouseEnter={() =>
                   setSlash((current) =>
                     current ? { ...current, index: commandIndex } : current,
                   )
                 }
                 onClick={() =>
-                  applySlashCommand(slash.blockId, command.type, slash.query)
+                  applySlashCommand(slash.blockId, item.type, slash.query)
                 }
               >
-                <span
-                  className={cn(
-                    "text-sm",
-                    command.type === "heading1" &&
-                      "text-[15px] leading-5 font-semibold",
-                    command.type === "heading2" && "font-semibold",
-                    command.type === "heading3" &&
-                      "text-[13px] leading-4 font-semibold",
-                  )}
-                >
-                  {command.label}
-                </span>
-                <span className="text-xs text-fg-tertiary">
-                  {command.description}
-                </span>
+                <span className={item.labelClassName}>{item.label}</span>
+                <Shortcut keys={item.keys} />
               </button>
             )
           })}
