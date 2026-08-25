@@ -262,7 +262,7 @@ const ImageModalDismiss = () => (
 )
 
 const ImageModalCaption = ({ children }: { children: ReactNode }) => (
-  <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 text-center text-sm text-fg-inverted-secondary">
+  <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 px-4 text-center text-sm text-fg-inverted-secondary">
     {children}
   </p>
 )
@@ -481,22 +481,24 @@ const ImageModalGalleryContent = ({
                     className="flex h-full min-h-0 flex-col items-center justify-center pl-0"
                     aria-label={`${index + 1} of ${images.length}`}
                   >
-                    <div className="flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
-                      <ImageModalImage
-                        {...image}
-                        fit="contain"
-                        imgProps={{
-                          ...image.imgProps,
-                          className: cn(
-                            "max-w-[min(94vw,72rem)]",
-                            image.imgProps?.className,
-                          ),
-                        }}
-                      />
+                    <div className="flex max-h-full min-h-0 w-full flex-col items-center justify-center">
+                      <div className="flex min-h-0 w-full items-center justify-center overflow-hidden">
+                        <ImageModalImage
+                          {...image}
+                          fit="contain"
+                          imgProps={{
+                            ...image.imgProps,
+                            className: cn(
+                              "max-w-[min(94vw,72rem)]",
+                              image.imgProps?.className,
+                            ),
+                          }}
+                        />
+                      </div>
+                      {variant === "caption" && image.caption ? (
+                        <ImageModalCaption>{image.caption}</ImageModalCaption>
+                      ) : null}
                     </div>
-                    {variant === "caption" && image.caption ? (
-                      <ImageModalCaption>{image.caption}</ImageModalCaption>
-                    ) : null}
                   </CarouselItem>
                 ))}
               </CarouselContent>

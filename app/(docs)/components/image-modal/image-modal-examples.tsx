@@ -23,7 +23,6 @@ const shots = [
   {
     src: "/gallery/sandbar.jpg",
     alt: "Aerial view of a white sandbar in turquoise water",
-    caption: "A sandbar held between reef and deep blue.",
   },
   {
     src: "/gallery/waterfall.jpg",
@@ -33,7 +32,6 @@ const shots = [
   {
     src: "/gallery/moon.jpg",
     alt: "Full moon rising behind a silhouetted treeline",
-    caption: "A warm moon clearing the ridge at dusk.",
   },
   {
     src: "/gallery/cliff.jpg",
@@ -43,7 +41,6 @@ const shots = [
   {
     src: "/gallery/cascade.jpg",
     alt: "Forest waterfall into a green pool",
-    caption: "A fall into clear water under evergreens.",
   },
   {
     src: "/gallery/shore.jpg",
@@ -53,7 +50,6 @@ const shots = [
   {
     src: "/gallery/dunes.jpg",
     alt: "Wind-rippled white sand dunes from above",
-    caption: "Ripples and a soft dune edge in pale sand.",
   },
   {
     src: "/gallery/ice.jpg",
@@ -63,12 +59,10 @@ const shots = [
   {
     src: "/gallery/clouds.jpg",
     alt: "Bright cumulus framed by dark storm clouds",
-    caption: "Sunlit cloud mass against a heavy sky.",
   },
   {
     src: "/gallery/forest.jpg",
     alt: "Misty evergreen forest with a dirt path",
-    caption: "A path leading into fog between tall trunks.",
   },
 ] as const
 
@@ -138,7 +132,7 @@ export const ImageModalExamples = () => (
       description="Open any image, then use the controls, arrow keys, touch, or a horizontal trackpad gesture."
       contentClassName="max-w-2xl"
     >
-      <ImageModalGallery images={[...shots]}>
+      <ImageModalGallery images={[...shots]} variant="caption">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {shots.map((shot, index) => (
             <ImageModalGalleryTrigger
