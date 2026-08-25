@@ -9,13 +9,14 @@ import {
   useContext,
 } from "react"
 import { cn } from "./lib/cn"
+import { motion } from "./lib/motion"
 
 const timelineVariants = cva("group/timeline relative text-fg-primary", {
   variants: {
     orientation: {
       vertical: "w-full",
       horizontal:
-        "w-full snap-x snap-proximity overflow-x-auto overscroll-x-contain rounded-xl border border-border-primary bg-surface px-5 py-6 scroll-smooth focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 focus-visible:outline-none",
+        "w-full min-h-0 overflow-x-auto overscroll-x-contain scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
     },
   },
   defaultVariants: {
@@ -26,9 +27,10 @@ const timelineVariants = cva("group/timeline relative text-fg-primary", {
 const timelineTrackVariants = cva("relative m-0 list-none p-0", {
   variants: {
     orientation: {
-      vertical: "ml-1.5 border-l border-dashed border-border-primary",
+      vertical:
+        "before:pointer-events-none before:absolute before:top-0 before:bottom-0 before:left-[calc(4.5rem+0.75rem+0.5rem)] before:w-px before:-translate-x-1/2 before:border-l before:border-dashed before:border-border-primary before:content-['']",
       horizontal:
-        "grid min-w-max auto-cols-64 grid-flow-col before:absolute before:inset-x-0 before:top-10 before:border-t before:border-dashed before:border-border-primary before:content-['']",
+        "flex w-max items-start before:pointer-events-none before:absolute before:inset-x-0 before:top-[var(--timeline-rail)] before:border-t before:border-dashed before:border-border-primary before:content-['']",
     },
   },
   defaultVariants: {
@@ -36,11 +38,12 @@ const timelineTrackVariants = cva("relative m-0 list-none p-0", {
   },
 })
 
-const timelineItemVariants = cva("relative", {
+const timelineItemVariants = cva("group/timeline-item relative", {
   variants: {
     orientation: {
-      vertical: "pb-8 pl-7 last:pb-0",
-      horizontal: "w-64 snap-start pt-16 pr-8 last:pr-0",
+      vertical: "grid grid-cols-[4.5rem_1rem_minmax(0,1fr)] gap-x-3 pb-8 last:pb-0",
+      horizontal:
+        "w-[min(18rem,70vw)] shrink-0 pr-10 last:pr-0 [--timeline-rail:2.75rem]",
     },
   },
   defaultVariants: {
@@ -48,37 +51,68 @@ const timelineItemVariants = cva("relative", {
   },
 })
 
-const timelineMarkerVariants = cva(
-  "absolute z-[1] size-2.5 rounded-full border-2 border-surface shadow-hairline",
-  {
-    variants: {
-      orientation: {
-        vertical: "top-1 left-0 -translate-x-1/2",
-        horizontal: "top-10 left-0 -translate-y-1/2",
-      },
-      tone: {
-        neutral: "bg-fg-tertiary",
-        accent: "bg-brand-primary",
-        info: "bg-status-info",
-        success: "bg-status-success",
-        warning: "bg-status-warning",
-        critical: "bg-status-critical",
-      },
+const timelineMarkerVariants = cva("z-[1] shrink-0", {
+  variants: {
+    orientation: {
+      vertical: "col-start-2 row-start-1 mt-2 justify-self-center",
+      horizontal:
+        "absolute top-[var(--timeline-rail)] left-0 -translate-y-1/2",
     },
-    defaultVariants: {
-      orientation: "vertical",
-      tone: "neutral",
+    shape: {
+      tick: "bg-fg-quaternary group-hover/timeline-item:bg-fg-tertiary",
+      dot: "size-2.5 rounded-full border-2 border-background-primary shadow-hairline",
+    },
+    tone: {
+      neutral: "",
+      accent: "",
+      info: "",
+      success: "",
+      warning: "",
+      critical: "",
     },
   },
-)
+  compoundVariants: [
+    {
+      shape: "tick",
+      orientation: "vertical",
+      class: "h-px w-2.5",
+    },
+    {
+      shape: "tick",
+      orientation: "horizontal",
+      class: "h-2.5 w-px",
+    },
+    { shape: "tick", tone: "neutral", class: "bg-fg-quaternary" },
+    { shape: "tick", tone: "accent", class: "bg-brand-primary" },
+    { shape: "tick", tone: "info", class: "bg-status-info" },
+    { shape: "tick", tone: "success", class: "bg-status-success" },
+    { shape: "tick", tone: "warning", class: "bg-status-warning" },
+    { shape: "tick", tone: "critical", class: "bg-status-critical" },
+    { shape: "dot", tone: "neutral", class: "bg-fg-tertiary" },
+    { shape: "dot", tone: "accent", class: "bg-brand-primary" },
+    { shape: "dot", tone: "info", class: "bg-status-info" },
+    { shape: "dot", tone: "success", class: "bg-status-success" },
+    { shape: "dot", tone: "warning", class: "bg-status-warning" },
+    { shape: "dot", tone: "critical", class: "bg-status-critical" },
+  ],
+  defaultVariants: {
+    orientation: "vertical",
+    shape: "tick",
+    tone: "neutral",
+  },
+})
 
 const timelineTimeVariants = cva(
-  "text-xs-strong block text-fg-tertiary tabular-nums",
+  cn(
+    "text-sm-strong block tabular-nums text-fg-secondary",
+    motion.colors,
+    "group-hover/timeline-item:text-fg-primary",
+  ),
   {
     variants: {
       orientation: {
-        vertical: "mb-1",
-        horizontal: "absolute top-0 left-0",
+        vertical: "col-start-1 row-start-1 pt-0.5 text-right leading-5",
+        horizontal: "mb-6 h-5 leading-5",
       },
     },
     defaultVariants: {
@@ -208,7 +242,11 @@ export const TimelineTrack = ({
     <ol
       data-slot="timeline-track"
       data-orientation={orientation}
-      className={cn(timelineTrackVariants({ orientation }), className)}
+      className={cn(
+        timelineTrackVariants({ orientation }),
+        orientation === "horizontal" && "[--timeline-rail:2.75rem]",
+        className,
+      )}
       {...props}
     />
   )
@@ -233,6 +271,7 @@ export const TimelineItem = ({
 export const TimelineMarker = ({
   className,
   tone,
+  shape,
   ...props
 }: TimelineMarkerProps) => {
   const orientation = useContext(TimelineContext)
@@ -242,7 +281,8 @@ export const TimelineMarker = ({
       data-slot="timeline-marker"
       aria-hidden
       className={cn(
-        timelineMarkerVariants({ orientation, tone }),
+        timelineMarkerVariants({ orientation, shape, tone }),
+        motion.colors,
         className,
       )}
       {...props}
@@ -268,13 +308,22 @@ export const TimelineTime = ({
 export const TimelineContent = ({
   className,
   ...props
-}: TimelineContentProps) => (
-  <div
-    data-slot="timeline-content"
-    className={cn("min-w-0", className)}
-    {...props}
-  />
-)
+}: TimelineContentProps) => {
+  const orientation = useContext(TimelineContext)
+
+  return (
+    <div
+      data-slot="timeline-content"
+      className={cn(
+        "min-w-0",
+        orientation === "vertical" && "col-start-3 row-start-1",
+        orientation === "horizontal" && "pt-6",
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 
 export const TimelineTitle = ({
   className,
@@ -282,7 +331,11 @@ export const TimelineTitle = ({
 }: TimelineTitleProps) => (
   <h3
     data-slot="timeline-title"
-    className={cn("text-sm-strong text-fg-primary", className)}
+    className={cn(
+      "text-sm-strong text-fg-primary",
+      motion.colors,
+      className,
+    )}
     {...props}
   />
 )
@@ -305,7 +358,7 @@ export const TimelineMedia = ({
   <div
     data-slot="timeline-media"
     className={cn(
-      "mt-4 overflow-hidden rounded-xl border border-border-primary bg-background-secondary [&>img]:block [&>img]:aspect-4/3 [&>img]:w-full [&>img]:object-cover",
+      "mt-4 overflow-hidden rounded-xl ring-1 ring-border-primary [&>img]:block [&>img]:aspect-4/3 [&>img]:w-full [&>img]:object-cover",
       className,
     )}
     {...props}

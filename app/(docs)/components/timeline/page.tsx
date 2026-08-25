@@ -10,7 +10,7 @@ export default function TimelinePage() {
   return (
     <DocPage
       title="Timeline"
-      description="Events arranged along a continuous passage of time."
+      description="A composable rail of events, horizontal or vertical."
       heading={null}
       bleed
     >

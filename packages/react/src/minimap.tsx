@@ -3,6 +3,7 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import {
   type ComponentProps,
+  type FocusEvent,
   type KeyboardEvent,
   type MouseEvent,
   useCallback,
@@ -84,6 +85,17 @@ export const Minimap = ({
   )
   const tabbableIndex = activeIndex >= 0 ? activeIndex : 0
   const currentActiveIdRef = useRef(currentActiveId)
+  const [pointerIndex, setPointerIndex] = useState<number | null>(null)
+  const [focusIndex, setFocusIndex] = useState<number | null>(null)
+  const emphasizedIndex = pointerIndex ?? focusIndex
+
+  const handleListMouseLeave = () => setPointerIndex(null)
+
+  const handleListBlur = (event: FocusEvent<HTMLOListElement>) => {
+    const next = event.relatedTarget
+    if (next instanceof Node && event.currentTarget.contains(next)) return
+    setFocusIndex(null)
+  }
 
   useEffect(() => {
     currentActiveIdRef.current = currentActiveId
@@ -215,14 +227,23 @@ export const Minimap = ({
         className={cn(minimapVariants({ position }), className)}
         {...props}
       >
-        <ol className="flex max-h-[min(70vh,32.5rem)] w-full list-none flex-col items-start justify-center gap-0.5 p-0">
+        <ol
+          className="flex max-h-[min(70vh,32.5rem)] w-full list-none flex-col items-start justify-center gap-0.5 p-0"
+          onMouseLeave={handleListMouseLeave}
+          onBlur={handleListBlur}
+        >
           {sections.map((section, index) => {
             const isActive = section.id === currentActiveId
+            const isEmphasized = index === emphasizedIndex
+            const isNeighbor =
+              emphasizedIndex !== null &&
+              Math.abs(index - emphasizedIndex) === 1
 
             return (
               <li
                 key={section.id}
                 className="relative flex w-full shrink-0 justify-start"
+                onMouseEnter={() => setPointerIndex(index)}
               >
                 <Tooltip>
                   <TooltipTrigger
@@ -233,18 +254,24 @@ export const Minimap = ({
                         aria-current={isActive ? "location" : undefined}
                         data-minimap-mark
                         tabIndex={index === tabbableIndex ? 0 : -1}
-                        className="group/minimap-mark flex h-2 w-full cursor-pointer items-center justify-start border-0 bg-transparent p-0 outline-none"
+                        className="flex h-2 w-full cursor-pointer items-center justify-start border-0 bg-transparent p-0 outline-none"
                         onClick={(event: MouseEvent<HTMLButtonElement>) => {
                           selectSection(section)
                           if (event.detail > 0) event.currentTarget.blur()
                         }}
+                        onFocus={() => setFocusIndex(index)}
                         onKeyDown={(event: KeyboardEvent<HTMLButtonElement>) =>
                           handleKeyDown(event, index)
                         }
                       >
                         <span
                           aria-hidden
-                          className="block h-0.5 w-3 origin-left rounded-full bg-fg-primary/20 transition-[width,background-color] duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none group-hover/minimap-mark:w-5 group-hover/minimap-mark:bg-fg-primary group-focus-visible/minimap-mark:w-5 group-focus-visible/minimap-mark:bg-fg-primary"
+                          className={cn(
+                            "block h-0.5 w-2 origin-left rounded-full bg-fg-primary/20",
+                            "transition-[width,background-color] duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none",
+                            isEmphasized && "w-6 bg-fg-primary",
+                            isNeighbor && "w-4",
+                          )}
                         />
                       </button>
                     }

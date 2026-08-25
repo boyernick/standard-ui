@@ -12,41 +12,36 @@ import {
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 
-const history = [
+const shipments = [
   {
     year: "2022",
     dateTime: "2022",
-    title: "The first sketch",
-    description: "A small set of interface rules becomes a shared visual language.",
-    tone: "neutral",
+    title: "Sketch",
+    description: "Interface rules written down so they can be shared.",
   },
   {
     year: "2023",
     dateTime: "2023",
-    title: "Tokens take shape",
-    description: "Color, type, spacing, and motion move into a common foundation.",
-    tone: "info",
+    title: "Tokens",
+    description: "Color, type, spacing, and motion land in one foundation.",
   },
   {
     year: "2024",
     dateTime: "2024",
-    title: "Components arrive",
-    description: "The foundation becomes a practical React component library.",
-    tone: "success",
+    title: "Primitives",
+    description: "The foundation becomes a practical React library.",
   },
   {
     year: "2025",
     dateTime: "2025",
-    title: "First release",
-    description: "StandardUI starts serving interfaces outside its own documentation.",
-    tone: "accent",
+    title: "Release",
+    description: "StandardUI starts showing up outside its own docs.",
   },
   {
     year: "2026",
     dateTime: "2026",
-    title: "Still in motion",
-    description: "The system grows through use, review, and deliberate refinement.",
-    tone: "warning",
+    title: "Refine",
+    description: "The system grows through use, review, and cut.",
   },
 ] as const
 
@@ -55,24 +50,21 @@ const releases = [
     date: "Aug 24",
     dateTime: "2026-08-24",
     title: "Timeline",
-    description: "Horizontal and vertical histories with semantic markers.",
-    tone: "accent",
+    description: "A composable rail for events, with ticks or dots.",
   },
   {
     date: "Aug 18",
     dateTime: "2026-08-18",
     title: "Image modal",
     description: "A lighter gallery with keyboard and trackpad navigation.",
-    tone: "success",
   },
   {
     date: "Aug 12",
     dateTime: "2026-08-12",
     title: "Minimap",
     description: "Page landmarks stay visible without competing with content.",
-    tone: "info",
   },
-] as const
+]
 
 export const TimelineExamples = () => (
   <div>
@@ -80,14 +72,14 @@ export const TimelineExamples = () => (
       first
       id="horizontal"
       title="Horizontal"
-      description="A scrollable lifeline for years, eras, and long-running stories. Use the arrow keys when the timeline is focused."
+      description="A scrubbable rail of events, with the year sitting above each tick."
       contentClassName="max-w-4xl"
     >
-      <Timeline orientation="horizontal" aria-label="StandardUI history">
+      <Timeline orientation="horizontal" aria-label="StandardUI shipments">
         <TimelineTrack>
-          {history.map((event) => (
+          {shipments.map((event) => (
             <TimelineItem key={event.year}>
-              <TimelineMarker tone={event.tone} />
+              <TimelineMarker />
               <TimelineTime dateTime={event.dateTime}>{event.year}</TimelineTime>
               <TimelineContent>
                 <TimelineTitle>{event.title}</TimelineTitle>
@@ -102,14 +94,14 @@ export const TimelineExamples = () => (
     <DocBand
       id="vertical"
       title="Vertical"
-      description="A compact reading direction for release notes and activity streams."
+      description="The same rail, stacked, for release notes and activity."
       contentClassName="max-w-lg"
     >
       <Timeline aria-label="Recent releases">
         <TimelineTrack>
           {releases.map((release) => (
             <TimelineItem key={release.dateTime}>
-              <TimelineMarker tone={release.tone} />
+              <TimelineMarker />
               <TimelineTime dateTime={release.dateTime}>
                 {release.date}
               </TimelineTime>
@@ -124,15 +116,57 @@ export const TimelineExamples = () => (
     </DocBand>
 
     <DocBand
+      id="markers"
+      title="Markers"
+      description="Ticks are the default; dots carry a tone when an event needs weight."
+      contentClassName="max-w-lg"
+    >
+      <Timeline aria-label="Marker shapes">
+        <TimelineTrack>
+          <TimelineItem>
+            <TimelineMarker />
+            <TimelineTime dateTime="2026-08">Tick</TimelineTime>
+            <TimelineContent>
+              <TimelineTitle>Default</TimelineTitle>
+              <TimelineDescription>
+                A hairline mark on the rail.
+              </TimelineDescription>
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineMarker shape="dot" tone="accent" />
+            <TimelineTime dateTime="2026-08">Dot</TimelineTime>
+            <TimelineContent>
+              <TimelineTitle>Accent</TimelineTitle>
+              <TimelineDescription>
+                A filled marker for a highlighted moment.
+              </TimelineDescription>
+            </TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineMarker shape="dot" tone="success" />
+            <TimelineTime dateTime="2026-08">Dot</TimelineTime>
+            <TimelineContent>
+              <TimelineTitle>Success</TimelineTitle>
+              <TimelineDescription>
+                Status tones map onto the same shape.
+              </TimelineDescription>
+            </TimelineContent>
+          </TimelineItem>
+        </TimelineTrack>
+      </Timeline>
+    </DocBand>
+
+    <DocBand
       id="media"
       title="With media"
-      description="A media surface can sit with an event without changing the timeline structure."
+      description="A media surface can sit with an event without changing the structure."
       contentClassName="max-w-sm"
     >
       <Timeline aria-label="Project milestone">
         <TimelineTrack>
           <TimelineItem>
-            <TimelineMarker tone="success" />
+            <TimelineMarker shape="dot" tone="success" />
             <TimelineTime dateTime="2026-08-24">Today</TimelineTime>
             <TimelineContent>
               <div className="flex items-center gap-2">
@@ -142,10 +176,10 @@ export const TimelineExamples = () => (
                 </Badge>
               </div>
               <TimelineDescription>
-                The component joins the StandardUI library and its documentation.
+                The component joins the library and its documentation.
               </TimelineDescription>
-              <TimelineMedia className="p-4">
-                <div className="grid aspect-4/3 place-items-center rounded-lg border border-border-primary bg-surface-raised">
+              <TimelineMedia className="p-2">
+                <div className="grid aspect-4/3 place-items-center rounded-xs border border-border-primary bg-surface-raised">
                   <div className="flex items-center gap-2 text-sm-strong text-fg-primary">
                     <span className="size-3 rounded-full bg-brand-primary" />
                     StandardUI
