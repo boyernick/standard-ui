@@ -9,42 +9,78 @@ import {
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 
-const unsplash = (id: string, width = 1600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`
-
 const shots = [
   {
-    id: "photo-1618005182384-a83a8bd57fbe",
-    alt: "Abstract gradient study",
-    caption: "A luminous gradient study in violet and blue.",
+    src: "/gallery/mountains.jpg",
+    alt: "Snow-covered mountain peaks above mist",
+    caption: "Ridges cutting through cloud on a winter ridge.",
   },
   {
-    id: "photo-1557682250-33bd709cbe85",
-    alt: "Purple and blue wash",
-    caption: "Layered colour moving from plum into indigo.",
+    src: "/gallery/coast.jpg",
+    alt: "Mossy sea arch over a narrow coastal channel",
+    caption: "A rock bridge holding green between two cliffs.",
   },
   {
-    id: "photo-1554189097-ffe88e998a2b",
-    alt: "Soft orange gradient",
-    caption: "A warm field fading through coral and amber.",
+    src: "/gallery/sandbar.jpg",
+    alt: "Aerial view of a white sandbar in turquoise water",
+    caption: "A sandbar held between reef and deep blue.",
   },
-]
-
-const galleryImages = shots.map((shot) => ({
-  src: unsplash(shot.id),
-  alt: shot.alt,
-  caption: shot.caption,
-}))
+  {
+    src: "/gallery/waterfall.jpg",
+    alt: "Water cascading over a mossy cliff",
+    caption: "Soft falls over dark stone and bright moss.",
+  },
+  {
+    src: "/gallery/moon.jpg",
+    alt: "Full moon rising behind a silhouetted treeline",
+    caption: "A warm moon clearing the ridge at dusk.",
+  },
+  {
+    src: "/gallery/cliff.jpg",
+    alt: "Layered cliff face with a pale hanging branch",
+    caption: "Strata and a bleached branch in deep shadow.",
+  },
+  {
+    src: "/gallery/cascade.jpg",
+    alt: "Forest waterfall into a green pool",
+    caption: "A fall into clear water under evergreens.",
+  },
+  {
+    src: "/gallery/shore.jpg",
+    alt: "Aerial tropical shore with palms and reef",
+    caption: "Palm canopy meeting pale sand and shallow reef.",
+  },
+  {
+    src: "/gallery/dunes.jpg",
+    alt: "Wind-rippled white sand dunes from above",
+    caption: "Ripples and a soft dune edge in pale sand.",
+  },
+  {
+    src: "/gallery/ice.jpg",
+    alt: "Abstract teal glacial ice textures",
+    caption: "Teal ice folded into dark crevasses.",
+  },
+  {
+    src: "/gallery/clouds.jpg",
+    alt: "Bright cumulus framed by dark storm clouds",
+    caption: "Sunlit cloud mass against a heavy sky.",
+  },
+  {
+    src: "/gallery/forest.jpg",
+    alt: "Misty evergreen forest with a dirt path",
+    caption: "A path leading into fog between tall trunks.",
+  },
+] as const
 
 /** A thumbnail that opens its own lightbox. */
 const Shot = ({
-  id,
+  src,
   alt,
   caption,
   variant = "default",
   className = "w-full max-w-sm",
 }: {
-  id: string
+  src: string
   alt: string
   caption?: string
   variant?: "default" | "caption"
@@ -56,13 +92,13 @@ const Shot = ({
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={unsplash(id, 800)}
+        src={src}
         alt={alt}
         className="aspect-[4/3] w-full object-cover transition-opacity hover:opacity-90"
       />
     </ImageModalTrigger>
     <ImageModalContent
-      src={unsplash(id)}
+      src={src}
       alt={alt}
       caption={caption}
       variant={variant}
@@ -79,10 +115,7 @@ export const ImageModalExamples = () => (
       description="A thumbnail that opens into the full image."
       contentClassName="max-w-sm"
     >
-      <Shot
-        id={shots[0].id}
-        alt={shots[0].alt}
-      />
+      <Shot src={shots[0].src} alt={shots[0].alt} />
     </DocBand>
 
     <DocBand
@@ -92,7 +125,7 @@ export const ImageModalExamples = () => (
       contentClassName="max-w-sm"
     >
       <Shot
-        id={shots[1].id}
+        src={shots[1].src}
         alt={shots[1].alt}
         caption={shots[1].caption}
         variant="caption"
@@ -105,17 +138,17 @@ export const ImageModalExamples = () => (
       description="Open any image, then use the controls, arrow keys, touch, or a horizontal trackpad gesture."
       contentClassName="max-w-2xl"
     >
-      <ImageModalGallery images={galleryImages}>
-        <div className="grid grid-cols-3 gap-3">
+      <ImageModalGallery images={[...shots]}>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {shots.map((shot, index) => (
             <ImageModalGalleryTrigger
-              key={shot.id}
+              key={shot.src}
               index={index}
               className="block w-full overflow-hidden rounded-xl border border-border-primary"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={unsplash(shot.id, 800)}
+                src={shot.src}
                 alt={shot.alt}
                 className="aspect-[4/3] w-full object-cover transition-opacity hover:opacity-90"
               />

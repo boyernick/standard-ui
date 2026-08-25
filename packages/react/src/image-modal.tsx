@@ -6,6 +6,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ComponentProps,
   type ImgHTMLAttributes,
@@ -57,8 +58,8 @@ export const imageModalContentVariants = cva(
   {
     variants: {
       variant: {
-        default: "[&_[data-slot=image-modal-stage]]:pb-0",
-        caption: "[&_[data-slot=image-modal-stage]]:pb-20",
+        default: "",
+        caption: "",
       },
     },
     defaultVariants: {
@@ -166,7 +167,10 @@ const ImageModalImage = ({
   src,
   alt,
   imgProps,
-}: Pick<ImageModalItem, "src" | "alt" | "imgProps">) => {
+  fit = "viewport",
+}: Pick<ImageModalItem, "src" | "alt" | "imgProps"> & {
+  fit?: "viewport" | "contain"
+}) => {
   const { className, ...props } = imgProps ?? {}
 
   return (
@@ -176,7 +180,10 @@ const ImageModalImage = ({
       alt={alt}
       draggable={false}
       className={cn(
-        "max-h-[82dvh] max-w-[88vw] rounded-lg object-contain shadow-lg select-none max-sm:max-h-[calc(100dvh-2rem)] max-sm:max-w-[calc(100vw-2rem)]",
+        "rounded-lg object-contain shadow-lg select-none",
+        fit === "contain"
+          ? "max-h-full max-w-full"
+          : "max-h-[82dvh] max-w-[88vw] max-sm:max-h-[calc(100dvh-2rem)] max-sm:max-w-[calc(100vw-2rem)]",
         className,
       )}
       {...props}
@@ -255,9 +262,9 @@ const ImageModalDismiss = () => (
 )
 
 const ImageModalCaption = ({ children }: { children: ReactNode }) => (
-  <div className="absolute inset-x-0 bottom-0 z-10 flex min-h-20 items-center justify-center bg-surface-inverted/65 px-6 py-4 text-center text-sm text-fg-inverted-secondary backdrop-blur-md">
+  <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 text-center text-sm text-fg-inverted-secondary">
     {children}
-  </div>
+  </p>
 )
 
 export const ImageModalContent = ({
@@ -288,18 +295,18 @@ export const ImageModalContent = ({
         <DialogTitle className="sr-only">{alt}</DialogTitle>
         <div
           data-slot="image-modal-stage"
-          className="relative z-10 flex size-full items-center justify-center p-4"
+          className="relative z-10 flex size-full flex-col items-center justify-center p-4"
         >
           <ImageModalImage src={src} alt={alt} imgProps={imgProps} />
+          {variant === "caption" && (caption || children) ? (
+            <ImageModalCaption>{caption ?? children}</ImageModalCaption>
+          ) : null}
         </div>
         <ImageModalDismiss />
         <ImageModalDownload
           src={downloadSrc ?? src}
           name={downloadName}
         />
-        {variant === "caption" && (caption || children) ? (
-          <ImageModalCaption>{caption ?? children}</ImageModalCaption>
-        ) : null}
       </TooltipProvider>
     </DialogPopup>
   </DialogPortal>
@@ -318,6 +325,76 @@ export const ImageModalGalleryTrigger = ({
   }
 
   return <ImageModalTrigger onClick={handleClick} {...props} />
+}
+
+const ImageModalFilmstrip = ({
+  images,
+  activeIndex,
+  onSelect,
+}: {
+  images: readonly ImageModalItem[]
+  activeIndex: number
+  onSelect: (index: number) => void
+}) => {
+  const listRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return
+    const active = list.querySelector<HTMLElement>('[aria-selected="true"]')
+    active?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    })
+  }, [activeIndex])
+
+  if (images.length < 2) return null
+
+  return (
+    <div
+      data-slot="image-modal-filmstrip"
+      className="relative z-10 w-full shrink-0 overflow-visible"
+    >
+      <div
+        ref={listRef}
+        role="tablist"
+        aria-label="Gallery images"
+        className="flex w-full justify-center gap-2 overflow-x-auto p-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {images.map((image, index) => {
+          const isActive = index === activeIndex
+
+          return (
+            <button
+              key={`${image.src}-${index}`}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              aria-label={`Show image ${index + 1}: ${image.alt}`}
+              onClick={() => onSelect(index)}
+              className={cn(
+                "size-14 shrink-0 cursor-pointer overflow-hidden rounded-md outline-none",
+                "transition-[opacity,box-shadow] duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none",
+                "focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20",
+                isActive
+                  ? "opacity-100 ring-2 ring-fg-inverted"
+                  : "opacity-45 hover:opacity-80",
+              )}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={image.src}
+                alt=""
+                draggable={false}
+                className="size-full object-cover"
+              />
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 const ImageModalGalleryContent = ({
@@ -363,6 +440,11 @@ const ImageModalGalleryContent = ({
     }
   }
 
+  const handleSelect = (index: number) => {
+    setActiveIndex(index)
+    api?.scrollTo(index)
+  }
+
   if (!activeImage) return null
 
   return (
@@ -384,25 +466,47 @@ const ImageModalGalleryContent = ({
           <p className="sr-only" aria-live="polite">
             Image {activeIndex + 1} of {images.length}. {TRACKPAD_LABEL}.
           </p>
-          <Carousel
-            setApi={setApi}
-            opts={{ loop, startIndex: activeIndex, duration: 24 }}
-            data-slot="image-modal-stage"
-            className="relative z-10 size-full"
-            aria-label="Image gallery"
-          >
-            <CarouselContent className="h-full -ml-0">
-              {images.map((image, index) => (
-                <CarouselItem
-                  key={`${image.src}-${index}`}
-                  className="flex h-full items-center justify-center pl-0 p-4"
-                  aria-label={`${index + 1} of ${images.length}`}
-                >
-                  <ImageModalImage {...image} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+          <div className="relative z-10 flex size-full flex-col gap-4 p-4">
+            <Carousel
+              setApi={setApi}
+              opts={{ loop, startIndex: activeIndex, duration: 24 }}
+              data-slot="image-modal-stage"
+              className="relative min-h-0 w-full min-w-0 flex-1 [&_[data-slot=carousel-viewport]]:h-full [&_[data-slot=carousel-viewport]]:min-h-0"
+              aria-label="Image gallery"
+            >
+              <CarouselContent className="h-full -ml-0">
+                {images.map((image, index) => (
+                  <CarouselItem
+                    key={`${image.src}-${index}`}
+                    className="flex h-full min-h-0 flex-col items-center justify-center pl-0"
+                    aria-label={`${index + 1} of ${images.length}`}
+                  >
+                    <div className="flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
+                      <ImageModalImage
+                        {...image}
+                        fit="contain"
+                        imgProps={{
+                          ...image.imgProps,
+                          className: cn(
+                            "max-w-[min(94vw,72rem)]",
+                            image.imgProps?.className,
+                          ),
+                        }}
+                      />
+                    </div>
+                    {variant === "caption" && image.caption ? (
+                      <ImageModalCaption>{image.caption}</ImageModalCaption>
+                    ) : null}
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            <ImageModalFilmstrip
+              images={images}
+              activeIndex={activeIndex}
+              onSelect={handleSelect}
+            />
+          </div>
           <ImageModalDismiss />
           <ImageModalDownload
             src={activeImage.downloadSrc ?? activeImage.src}
@@ -447,9 +551,6 @@ const ImageModalGalleryContent = ({
                 </Button>
               </ImageModalControlTooltip>
             </>
-          ) : null}
-          {variant === "caption" && activeImage.caption ? (
-            <ImageModalCaption>{activeImage.caption}</ImageModalCaption>
           ) : null}
         </TooltipProvider>
       </DialogPopup>
