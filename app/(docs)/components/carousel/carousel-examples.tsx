@@ -87,7 +87,7 @@ const SlideImage = ({
       onPointerDown={handlePointerDown}
       onClick={handleClick}
     >
-      <figure className="relative aspect-[16/10] overflow-hidden rounded-xl">
+      <figure className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border-primary shadow-md">
         {/* eslint-disable-next-line @next/next/no-img-element -- static public gallery assets */}
         <img
           src={src}
