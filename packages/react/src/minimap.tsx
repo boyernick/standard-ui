@@ -278,7 +278,9 @@ export const Minimap = ({
                   />
                   <TooltipPortal>
                     <TooltipPositioner side="right" sideOffset={14}>
-                      <TooltipPopup>{section.label}</TooltipPopup>
+                      <TooltipPopup className="font-medium">
+                        {section.label}
+                      </TooltipPopup>
                     </TooltipPositioner>
                   </TooltipPortal>
                 </Tooltip>
