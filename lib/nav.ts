@@ -66,6 +66,7 @@ export const components = [
   { href: "/components/textarea", label: "Textarea" },
   { href: "/components/text-animate", label: "Text animate" },
   { href: "/components/ticker", label: "Ticker" },
+  { href: "/components/timeline", label: "Timeline" },
   { href: "/components/toast", label: "Toast" },
   { href: "/components/toggle", label: "Toggle" },
   { href: "/components/toolbar", label: "Toolbar" },
