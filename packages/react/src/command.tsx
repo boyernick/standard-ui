@@ -113,7 +113,7 @@ export const CommandBackdrop = ({
 export const CommandPopup = ({ className, ...props }: CommandPopupProps) => (
   <BaseDialog.Popup
     className={cn(
-      "fixed top-1/2 left-1/2 z-50 flex h-[min(80vh,32rem)] w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl bg-surface-raised shadow-ambient outline-none max-sm:max-w-[calc(100vw-2rem)]",
+      "fixed top-1/2 left-1/2 z-50 flex h-[min(80vh,32rem)] w-[calc(100vw-2rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl bg-surface-raised shadow-ambient outline-none",
       motion.popupCenter,
       className,
     )}

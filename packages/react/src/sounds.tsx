@@ -228,7 +228,7 @@ export const Sound = ({
         aria-label={`Play ${resolvedLabel}`}
         onClick={handlePlay}
       >
-        <IconPlay size={12} className="size-3" aria-hidden />
+        <IconPlay size={12} mode="raw" className="size-3" aria-hidden />
       </Button>
       <div className="min-w-0 flex-1">
         <p className="text-sm-strong text-fg-primary">{resolvedLabel}</p>

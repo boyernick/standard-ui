@@ -291,7 +291,12 @@ export const VideoPlayer = ({
             role="alert"
             className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl border border-white/15 bg-black/65 px-5 py-4 text-center text-white shadow-lg backdrop-blur-md"
           >
-            <IconExclamationTriangle size={22} className="size-5.5" aria-hidden />
+            <IconExclamationTriangle
+              size={22}
+              mode="raw"
+              className="size-5.5"
+              aria-hidden
+            />
             <span className="text-sm-strong">Video unavailable</span>
             <span className="text-xs text-white/70">
               Check the source and try again.
@@ -316,6 +321,7 @@ export const VideoPlayer = ({
           >
             <IconPlay
               size={ended ? 12 : 18}
+              mode="raw"
               className={cn(ended ? "size-3" : "ml-0.5 size-4.5")}
               aria-hidden
             />
@@ -348,9 +354,9 @@ export const VideoPlayer = ({
                 onClick={handleTogglePlay}
               >
                 {playing ? (
-                  <IconPause size={14} className="size-3.5" aria-hidden />
+                  <IconPause size={14} mode="raw" className="size-3.5" aria-hidden />
                 ) : (
-                  <IconPlay size={14} className="size-3.5" aria-hidden />
+                  <IconPlay size={14} mode="raw" className="size-3.5" aria-hidden />
                 )}
               </button>
               <button
@@ -360,9 +366,19 @@ export const VideoPlayer = ({
                 onClick={handleToggleMute}
               >
                 {muted ? (
-                  <IconVolumeOff size={14} className="size-3.5" aria-hidden />
+                  <IconVolumeOff
+                    size={14}
+                    mode="raw"
+                    className="size-3.5"
+                    aria-hidden
+                  />
                 ) : (
-                  <IconVolumeFull size={14} className="size-3.5" aria-hidden />
+                  <IconVolumeFull
+                    size={14}
+                    mode="raw"
+                    className="size-3.5"
+                    aria-hidden
+                  />
                 )}
               </button>
             </div>
@@ -454,6 +470,7 @@ export const VideoPlayer = ({
                 >
                   <IconPictureInPicture
                     size={14}
+                    mode="raw"
                     className="size-3.5"
                     aria-hidden
                   />
@@ -466,7 +483,12 @@ export const VideoPlayer = ({
                 aria-pressed={fullscreen}
                 onClick={handleFullscreen}
               >
-                <IconFullScreen size={14} className="size-3.5" aria-hidden />
+                <IconFullScreen
+                  size={14}
+                  mode="raw"
+                  className="size-3.5"
+                  aria-hidden
+                />
               </button>
             </div>
           </div>

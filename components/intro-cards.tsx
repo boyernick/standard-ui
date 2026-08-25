@@ -37,7 +37,7 @@ const CELL_LEFT = `${PAGE_INNER_LEFT} pr-4 md:pr-10`
 const CELL_RIGHT = `pl-4 md:pl-10 ${PAGE_INNER_RIGHT}`
 
 const cellClassName =
-  "group flex flex-col py-8 outline-none transition-colors hover:bg-background-secondary focus-visible:bg-background-secondary"
+  "group flex min-w-0 flex-col py-8 outline-none transition-colors hover:bg-background-secondary focus-visible:bg-background-secondary"
 
 /** One destination in the grid. The specimen is inert — the whole cell is a
  *  single link, so a control inside it must not take the press. */
@@ -55,7 +55,7 @@ const Cell = ({
   children: ReactNode
 }) => (
   <Link href={href} className={`${cellClassName} ${className}`}>
-    <div className="pointer-events-none flex h-44 items-center justify-start select-none">
+    <div className="pointer-events-none flex h-44 w-full min-w-0 items-center justify-start select-none">
       {children}
     </div>
     <h2 className="heading-sm mt-6 text-fg-primary">{title}</h2>
@@ -96,16 +96,19 @@ const colorGroups = [
 ] as const
 
 const ColorsPreview = () => (
-  <div className="flex items-stretch gap-3" aria-label="Semantic color groups">
+  <div
+    className="flex w-full min-w-0 items-stretch gap-2 sm:gap-3"
+    aria-label="Semantic color groups"
+  >
     {colorGroups.map((group) => (
       <div
         key={group[0]}
-        className="flex size-20 gap-1 rounded-xl border border-dashed border-border-primary bg-surface p-2"
+        className="flex aspect-square w-full min-w-0 max-w-20 flex-1 gap-1 rounded-xl border border-dashed border-border-primary bg-surface p-1.5 sm:p-2"
       >
         {group.map((swatch) => (
           <span
             key={swatch}
-            className={`flex-1 rounded-md shadow-hairline ${swatch}`}
+            className={`min-w-0 flex-1 rounded-md shadow-hairline ${swatch}`}
           />
         ))}
       </div>
@@ -145,7 +148,7 @@ const galleryIcons = [
 ]
 
 const IconsPreview = () => (
-  <div className="grid grid-cols-8 gap-x-4 gap-y-3 text-fg-tertiary">
+  <div className="grid w-full min-w-0 grid-cols-8 gap-x-2 gap-y-3 text-fg-tertiary sm:gap-x-4">
     {galleryIcons.map((Icon, index) => (
       <Icon key={index} size={20} aria-hidden />
     ))}
@@ -153,10 +156,10 @@ const IconsPreview = () => (
 )
 
 const MaterialsPreview = () => (
-  <div className="flex items-end gap-3">
-    <span className="size-20 rounded-xl bg-background-primary shadow-hairline" />
-    <span className="size-20 rounded-xl bg-background-primary shadow-md" />
-    <span className="size-20 rounded-xl bg-background-primary shadow-xl" />
+  <div className="flex w-full min-w-0 items-end gap-2 p-1 sm:gap-3">
+    <span className="aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl bg-background-primary shadow-hairline" />
+    <span className="aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl bg-background-primary shadow-md" />
+    <span className="aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl bg-background-primary shadow-xl" />
   </div>
 )
 

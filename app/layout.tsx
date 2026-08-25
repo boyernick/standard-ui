@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { ThemeScript } from "@/components/theme-script"
+import Script from "next/script"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -21,13 +21,15 @@ export const metadata: Metadata = {
   },
 }
 
+const themeInitScript = `(function(){try{var t=localStorage.getItem("standard-ui-theme");var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);var h=document.documentElement;h.classList.toggle("dark",d);h.style.colorScheme=d?"dark":"light";}catch(e){}})();`
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning className="h-full antialiased">
-      <head>
-        <ThemeScript />
-      </head>
       <body className="min-h-full bg-background-primary font-sans text-fg-primary">
+        <Script id="standard-ui-theme" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
         {children}
       </body>
     </html>

@@ -48,8 +48,11 @@ export const withCentralIconDefaults = (
 ): CentralIconComponent => {
   const CentralIcon = ({
     size = CENTRAL_ICON_SIZE,
+    // Central's "masked" mode hardcodes one maskId per icon name. A second
+    // instance on the page paints as a solid square. Raw mode avoids that.
+    mode = "raw",
     ...props
-  }: CentralIconProps) => <Icon size={size} {...props} />
+  }: CentralIconProps) => <Icon {...props} size={size} mode={mode} />
 
   CentralIcon.displayName = Icon.displayName ?? Icon.name
   return CentralIcon

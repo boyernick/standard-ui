@@ -28,6 +28,7 @@ export function ThemeToggle() {
           rather than snapping to a different picture. */}
       <IconCircleHalfFill
         size={16}
+        mode="raw"
         aria-hidden
         className={cn(
           // Not `motion.transform`: that token is 150ms on `ease-move`, tuned
