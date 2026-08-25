@@ -16,6 +16,7 @@ import {
 } from "./icons"
 import { Spinner } from "./spinner"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type ToastPlacement = "top-center" | "bottom-right"
@@ -257,10 +258,11 @@ export const ToastDescription = ({
 export const ToastAction = ({ className, ...props }: ToastActionProps) => (
   <BaseToast.Action
     className={cn(
-      "text-xs -my-1 inline-flex h-7 shrink-0 cursor-pointer items-center justify-center rounded-md border border-border-secondary px-2.5 text-fg-primary outline-none",
+      "text-xs -my-1 inline-flex h-7 shrink-0 cursor-pointer items-center justify-center rounded-md border border-border-secondary px-2.5 text-fg-primary",
       motion.colors,
-      "hover:bg-background-tertiary focus-visible:ring-2 focus-visible:ring-ring/40",
-      "group-data-[variant=inverted]/toast:border-fg-inverted/15 group-data-[variant=inverted]/toast:text-fg-inverted group-data-[variant=inverted]/toast:hover:bg-fg-inverted/10 group-data-[variant=inverted]/toast:focus-visible:ring-fg-inverted/50",
+      focusRing,
+      "hover:bg-background-tertiary",
+      "group-data-[variant=inverted]/toast:border-fg-inverted/15 group-data-[variant=inverted]/toast:text-fg-inverted group-data-[variant=inverted]/toast:hover:bg-fg-inverted/10 group-data-[variant=inverted]/toast:focus-visible:border-fg-inverted/50 group-data-[variant=inverted]/toast:focus-visible:ring-fg-inverted/50",
       className,
     )}
     {...props}
@@ -274,10 +276,12 @@ export const ToastClose = ({
 }: ToastCloseProps) => (
   <BaseToast.Close
     className={cn(
-      "-my-0.5 inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md text-fg-tertiary outline-none",
+      "-my-0.5 inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md text-fg-tertiary",
+      focusRingBorder,
       motion.colors,
-      "hover:bg-background-tertiary hover:text-fg-primary focus-visible:ring-2 focus-visible:ring-ring/40",
-      "group-data-[variant=inverted]/toast:text-fg-inverted/50 group-data-[variant=inverted]/toast:hover:bg-fg-inverted/10 group-data-[variant=inverted]/toast:hover:text-fg-inverted group-data-[variant=inverted]/toast:focus-visible:ring-fg-inverted/50",
+      focusRing,
+      "hover:bg-background-tertiary hover:text-fg-primary",
+      "group-data-[variant=inverted]/toast:text-fg-inverted/50 group-data-[variant=inverted]/toast:hover:bg-fg-inverted/10 group-data-[variant=inverted]/toast:hover:text-fg-inverted group-data-[variant=inverted]/toast:focus-visible:border-fg-inverted/50 group-data-[variant=inverted]/toast:focus-visible:ring-fg-inverted/50",
       className,
     )}
     {...props}

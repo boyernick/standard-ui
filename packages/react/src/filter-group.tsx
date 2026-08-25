@@ -5,6 +5,7 @@ import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group"
 import { cva, type VariantProps } from "class-variance-authority"
 import { createContext, type ComponentProps, useContext } from "react"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 const filterGroupVariants = cva("flex w-fit items-center", {
@@ -20,7 +21,10 @@ const filterGroupVariants = cva("flex w-fit items-center", {
 })
 
 const filterItemVariants = cva(
-  "group/filter-item inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap border border-transparent text-fg-tertiary outline-none hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:text-fg-primary",
+  cn(
+    "group/filter-item inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap border border-transparent text-fg-tertiary hover:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:text-fg-primary",
+    focusRing,
+  ),
   {
     variants: {
       variant: {

@@ -4,6 +4,7 @@ import { Tabs as BaseTabs } from "@base-ui/react/tabs"
 import { cva, type VariantProps } from "class-variance-authority"
 import { createContext, type ComponentProps, useContext } from "react"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 const tabsListVariants = cva("relative flex items-center", {
@@ -22,7 +23,11 @@ const tabsListVariants = cva("relative flex items-center", {
 })
 
 const tabsTabVariants = cva(
-  "relative z-10 inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-fg-tertiary outline-none select-none hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-active:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  cn(
+    "relative z-10 inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap text-fg-tertiary select-none hover:text-fg-primary data-active:text-fg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    focusRingBorder,
+    focusRing,
+  ),
   {
     variants: {
       variant: {

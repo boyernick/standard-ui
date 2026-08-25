@@ -3,6 +3,7 @@
 import { DayPicker, type ChevronProps, type DayPickerProps } from "react-day-picker"
 import { IconChevronBottom } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type CalendarProps = DayPickerProps
@@ -10,7 +11,8 @@ export type CalendarProps = DayPickerProps
 const navButtonClassName = cn(
   "inline-flex size-6 items-center justify-center rounded-md border border-transparent text-fg-tertiary",
   motion.colors,
-  "hover:bg-background-tertiary hover:text-fg-primary outline-none focus-visible:border-ring focus-visible:bg-background-tertiary focus-visible:text-fg-primary focus-visible:ring-2 focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50",
+  focusRing,
+  "hover:bg-background-tertiary hover:text-fg-primary focus-visible:bg-background-tertiary focus-visible:text-fg-primary disabled:cursor-not-allowed disabled:opacity-50",
 )
 
 const CalendarChevron = ({
@@ -67,9 +69,10 @@ export const Calendar = ({
       week: "flex w-full",
       day: "relative p-0 text-center",
       day_button: cn(
-        "inline-flex size-8 items-center justify-center rounded-lg text-sm text-fg-primary tabular-nums",
+        "inline-flex size-8 items-center justify-center rounded-lg border border-transparent text-sm text-fg-primary tabular-nums",
         motion.colors,
-        "hover:bg-background-tertiary outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 aria-selected:opacity-100",
+        focusRing,
+        "hover:bg-background-tertiary focus-visible:z-10 disabled:cursor-not-allowed disabled:opacity-50 aria-selected:opacity-100",
       ),
       selected:
         "[&>button]:bg-brand-primary [&>button]:text-brand-foreground [&>button]:ring-0 [&>button]:hover:bg-brand-primary-hover [&>button]:hover:text-brand-foreground",

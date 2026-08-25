@@ -1,18 +1,49 @@
+"use client"
+
 import {
-  IconHome,
-  IconMinus,
-  IconPlus,
-  IconSettingsGear1,
+  IconChainLink3,
+  Kbd,
+  KbdGroup,
+  Menu,
+  MenuItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
+  MenuTrigger,
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
-  ToolbarInput,
-  ToolbarLink,
   ToolbarSeparator,
 } from "@boyernick/standard-ui-react"
+import type { ReactNode } from "react"
 import { DocBand } from "@/components/doc-band"
 
 const BAND = "max-w-lg"
+
+const Shortcut = ({ keys }: { keys: string[] }) => (
+  <KbdGroup className="ml-auto">
+    {keys.map((key) => (
+      <Kbd key={key} size="sm">
+        {key}
+      </Kbd>
+    ))}
+  </KbdGroup>
+)
+
+const StyleItem = ({
+  label,
+  keys,
+  labelClassName,
+}: {
+  label: ReactNode
+  keys: string[]
+  labelClassName?: string
+}) => (
+  <MenuItem className="gap-4">
+    <span className={labelClassName}>{label}</span>
+    <Shortcut keys={keys} />
+  </MenuItem>
+)
 
 export const ToolbarExamples = () => (
   <div>
@@ -25,6 +56,9 @@ export const ToolbarExamples = () => (
     >
       <Toolbar aria-label="Formatting">
         <ToolbarGroup>
+          <ToolbarButton aria-label="Link">
+            <IconChainLink3 size={14} className="size-3.5" aria-hidden />
+          </ToolbarButton>
           <ToolbarButton aria-label="Bold" className="font-semibold">
             B
           </ToolbarButton>
@@ -36,34 +70,33 @@ export const ToolbarExamples = () => (
           </ToolbarButton>
         </ToolbarGroup>
         <ToolbarSeparator />
-        <ToolbarGroup>
-          <ToolbarButton aria-label="Decrease">
-            <IconMinus size={14} className="size-3.5" aria-hidden />
-          </ToolbarButton>
-          <ToolbarButton aria-label="Increase">
-            <IconPlus size={14} className="size-3.5" aria-hidden />
-          </ToolbarButton>
-        </ToolbarGroup>
-        <ToolbarSeparator />
-        <ToolbarLink href="#">Docs</ToolbarLink>
-      </Toolbar>
-    </DocBand>
-
-    <DocBand
-      id="input"
-      title="With an input"
-      description="A field joins the same roving focus as the buttons around it."
-      contentClassName={BAND}
-    >
-      <Toolbar aria-label="Search tools">
-        <ToolbarButton aria-label="Home">
-          <IconHome size={16} className="size-4" aria-hidden />
-        </ToolbarButton>
-        <ToolbarButton aria-label="Settings">
-          <IconSettingsGear1 size={16} className="size-4" aria-hidden />
-        </ToolbarButton>
-        <ToolbarSeparator />
-        <ToolbarInput placeholder="Filter…" aria-label="Filter" />
+        <Menu>
+          <MenuTrigger render={<ToolbarButton />}>Text</MenuTrigger>
+          <MenuPortal>
+            <MenuPositioner align="start">
+              <MenuPopup>
+                <StyleItem label="Text" keys={["⌥", "⌘", "0"]} />
+                <StyleItem
+                  label="Heading 1"
+                  labelClassName="text-[15px] leading-5 font-semibold"
+                  keys={["⌥", "⌘", "1"]}
+                />
+                <StyleItem
+                  label="Heading 2"
+                  labelClassName="text-sm font-semibold"
+                  keys={["⌥", "⌘", "2"]}
+                />
+                <StyleItem
+                  label="Heading 3"
+                  labelClassName="text-[13px] leading-4 font-semibold"
+                  keys={["⌥", "⌘", "3"]}
+                />
+                <StyleItem label="Numbered list" keys={["⌥", "⌘", "4"]} />
+                <StyleItem label="Ordered list" keys={["⌥", "⌘", "5"]} />
+              </MenuPopup>
+            </MenuPositioner>
+          </MenuPortal>
+        </Menu>
       </Toolbar>
     </DocBand>
 

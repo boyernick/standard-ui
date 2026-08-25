@@ -3,6 +3,7 @@
 import { Field as BaseField } from "@base-ui/react/field"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingInvalid } from "./lib/focus"
 
 export type FieldProps = ComponentProps<typeof BaseField.Root>
 export type FieldLabelProps = ComponentProps<typeof BaseField.Label>
@@ -49,10 +50,10 @@ export const FieldError = ({ className, ...props }: FieldErrorProps) => (
 export const FieldControl = ({ className, ...props }: FieldControlProps) => (
   <BaseField.Control
     className={cn(
-      "text-sm flex h-9 w-full cursor-text rounded-md border border-border-secondary bg-surface px-3 text-fg-primary inset-shadow-outline-top outline-none transition-[color,box-shadow] duration-[var(--duration-sm)] ease-enter placeholder:text-fg-quaternary",
-      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "text-sm flex h-9 w-full cursor-text rounded-md border border-border-secondary bg-surface px-3 text-fg-primary inset-shadow-outline-top transition-[color,box-shadow] duration-[var(--duration-sm)] ease-enter placeholder:text-fg-quaternary",
+      focusRing,
+      focusRingInvalid,
       "data-invalid:border-destructive data-invalid:focus-visible:border-destructive data-invalid:focus-visible:ring-destructive/20",
-      "aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20",
       "data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}

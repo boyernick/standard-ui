@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 const sidebarVariants = cva(
@@ -27,7 +28,10 @@ const sidebarVariants = cva(
 )
 
 const sidebarNavItemVariants = cva(
-  "group/nav-item relative flex w-full cursor-pointer items-center gap-2 border border-transparent text-left text-fg-secondary outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  cn(
+    "group/nav-item relative flex w-full cursor-pointer items-center gap-2 border border-transparent text-left text-fg-secondary disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+    focusRing,
+  ),
   {
     variants: {
       variant: {

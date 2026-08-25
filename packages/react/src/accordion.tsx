@@ -4,6 +4,7 @@ import { Accordion as BaseAccordion } from "@base-ui/react/accordion"
 import type { ComponentProps } from "react"
 import { IconChevronBottom } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type AccordionProps = ComponentProps<typeof BaseAccordion.Root>
@@ -46,9 +47,11 @@ export const AccordionTrigger = ({
 }: AccordionTriggerProps) => (
   <BaseAccordion.Trigger
     className={cn(
-      "group flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-left text-sm text-fg-primary outline-none",
+      "group flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3.5 text-left text-sm text-fg-primary",
+      focusRingBorder,
       motion.colors,
-      "hover:bg-background-tertiary focus-visible:relative focus-visible:z-10 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      focusRing,
+      "hover:bg-background-tertiary focus-visible:relative focus-visible:z-10 data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

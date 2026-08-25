@@ -8,6 +8,7 @@ import type {
 } from "react";
 import { IconCrossSmall } from "./icons";
 import { cn } from "./lib/cn";
+import { focusRing, focusRingWithin } from "./lib/focus";
 import { motion } from "./lib/motion";
 
 export type AttachmentProps = Omit<ComponentProps<"label">, "onDrop"> & {
@@ -53,7 +54,8 @@ export const Attachment = ({
     <label
       data-disabled={disabled || undefined}
       className={cn(
-        "flex min-h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border-primary bg-surface p-6 text-center text-sm text-fg-secondary outline-none hover:bg-background-secondary focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+        "flex min-h-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border-primary bg-surface p-6 text-center text-sm text-fg-secondary hover:bg-background-secondary data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+        focusRingWithin,
         motion.colors,
         className,
       )}
@@ -127,7 +129,8 @@ export const AttachmentRemove = ({
     type={type}
     aria-label="Remove attachment"
     className={cn(
-      "flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md border border-transparent text-fg-tertiary outline-none hover:bg-background-tertiary hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50",
+      "flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md border border-transparent text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary disabled:cursor-not-allowed disabled:opacity-50",
+      focusRing,
       motion.colors,
       className,
     )}

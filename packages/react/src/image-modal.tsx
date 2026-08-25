@@ -36,6 +36,7 @@ import {
   IconCrossSmall,
 } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 import {
   Tooltip,
@@ -51,7 +52,7 @@ const TRACKPAD_LABEL =
   "Swipe, use the arrow keys, or use the controls to navigate"
 
 const imageModalControlClassName =
-  "border-border-inverted bg-surface-inverted/60 text-fg-inverted shadow-md backdrop-blur-md hover:bg-surface-inverted/80 hover:text-fg-inverted focus-visible:border-ring focus-visible:ring-border-inverted focus-visible:ring-offset-surface-inverted"
+  "border-border-inverted bg-surface-inverted/60 text-fg-inverted shadow-md backdrop-blur-md hover:bg-surface-inverted/80 hover:text-fg-inverted outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20"
 
 export const imageModalContentVariants = cva(
   "h-dvh max-h-dvh w-screen max-w-none gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none max-sm:max-w-none",
@@ -135,7 +136,9 @@ export const ImageModalTrigger = ({
 }: ImageModalTriggerProps) => (
   <DialogTrigger
     className={cn(
-      "cursor-pointer rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "cursor-pointer rounded-xl",
+      focusRingBorder,
+      focusRing,
       className,
     )}
     {...props}
@@ -376,7 +379,8 @@ const ImageModalFilmstrip = ({
               className={cn(
                 "size-14 shrink-0 cursor-pointer overflow-hidden rounded-md outline-none",
                 "transition-[opacity,box-shadow] duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none",
-                "focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20",
+                "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20",
+                focusRingBorder,
                 isActive
                   ? "opacity-100 ring-2 ring-fg-inverted"
                   : "opacity-45 hover:opacity-80",

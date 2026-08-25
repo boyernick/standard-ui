@@ -4,6 +4,7 @@ import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox"
 import type { ComponentProps } from "react"
 import { IconCheckmark1, IconMinus } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type CheckboxProps = ComponentProps<typeof BaseCheckbox.Root>
@@ -11,11 +12,11 @@ export type CheckboxProps = ComponentProps<typeof BaseCheckbox.Root>
 export const Checkbox = ({ className, ...props }: CheckboxProps) => (
   <BaseCheckbox.Root
     className={cn(
-      "group flex size-4 shrink-0 items-center justify-center rounded-sm border border-border-secondary bg-surface outline-none",
+      "group flex size-4 shrink-0 items-center justify-center rounded-sm border border-border-secondary bg-surface",
       // motion.all, not motion.colors: the filled state brings a box shadow
       // with it, which has to fade in alongside the background.
       motion.all,
-      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      focusRing,
       // Ticked and mixed are both filled controls, so they carry the primary
       // button's treatment: brand fill, the border token that pairs with it,
       // and the top-edge highlight that makes a solid control read as raised.

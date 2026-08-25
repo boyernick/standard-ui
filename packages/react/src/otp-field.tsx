@@ -3,6 +3,7 @@
 import { OTPField as BaseOTPField } from "@base-ui/react/otp-field"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingInvalid } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type OTPFieldProps = ComponentProps<typeof BaseOTPField.Root>
@@ -19,10 +20,10 @@ export const OTPField = ({ className, ...props }: OTPFieldProps) => (
 export const OTPFieldInput = ({ className, ...props }: OTPFieldInputProps) => (
   <BaseOTPField.Input
     className={cn(
-      "size-10 rounded-md border border-border-secondary bg-surface text-center text-sm tabular-nums text-fg-primary inset-shadow-outline-top outline-none",
+      "size-10 rounded-md border border-border-secondary bg-surface text-center text-sm tabular-nums text-fg-primary inset-shadow-outline-top",
       motion.colors,
-      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
-      "aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20",
+      focusRing,
+      focusRingInvalid,
       "data-disabled:cursor-not-allowed data-disabled:opacity-50",
       "data-filled:border-border-secondary",
       className,

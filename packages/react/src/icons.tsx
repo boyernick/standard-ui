@@ -5,6 +5,7 @@ import { IconArrowDown as IconArrowDownBase } from "@central-icons-react/round-o
 import { IconBell as IconBellBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconBell"
 import { IconCalendar1 as IconCalendar1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCalendar1"
 import { IconChainLink1 as IconChainLink1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChainLink1"
+import { IconChainLink3 as IconChainLink3Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChainLink3"
 import { IconCheckmark1 as IconCheckmark1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCheckmark1"
 import { IconChevronBottom as IconChevronBottomBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChevronBottom"
 import { IconChevronDownSmall as IconChevronDownSmallBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconChevronDownSmall"
@@ -62,6 +63,7 @@ export const IconArrowDown = withCentralIconDefaults(IconArrowDownBase)
 export const IconBell = withCentralIconDefaults(IconBellBase)
 export const IconCalendar1 = withCentralIconDefaults(IconCalendar1Base)
 export const IconChainLink1 = withCentralIconDefaults(IconChainLink1Base)
+export const IconChainLink3 = withCentralIconDefaults(IconChainLink3Base)
 export const IconCheckmark1 = withCentralIconDefaults(IconCheckmark1Base)
 export const IconChevronBottom = withCentralIconDefaults(IconChevronBottomBase)
 export const IconChevronDownSmall = withCentralIconDefaults(
@@ -127,6 +129,7 @@ export const iconGallery = [
   { name: "IconDotGrid1x3Horizontal", Icon: IconDotGrid1x3Horizontal },
   { name: "IconSquareBehindSquare6", Icon: IconSquareBehindSquare6 },
   { name: "IconChainLink1", Icon: IconChainLink1 },
+  { name: "IconChainLink3", Icon: IconChainLink3 },
   { name: "IconExclamationCircle", Icon: IconExclamationCircle },
   { name: "IconExclamationTriangle", Icon: IconExclamationTriangle },
   { name: "IconStar", Icon: IconStar },

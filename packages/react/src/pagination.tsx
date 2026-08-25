@@ -4,10 +4,14 @@ import { cva, type VariantProps } from "class-variance-authority"
 import type { ComponentProps } from "react"
 import { IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 const paginationLinkVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent text-fg-secondary outline-none hover:bg-background-tertiary hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:cursor-not-allowed disabled:opacity-50 data-[active]:border-border-primary data-[active]:bg-surface data-[active]:text-fg-primary [&_svg]:size-4 [&_svg]:shrink-0",
+  cn(
+    "inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent text-fg-secondary hover:bg-background-tertiary hover:text-fg-primary aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:cursor-not-allowed disabled:opacity-50 data-[active]:border-border-primary data-[active]:bg-surface data-[active]:text-fg-primary [&_svg]:size-4 [&_svg]:shrink-0",
+    focusRing,
+  ),
   {
     variants: {
       size: {

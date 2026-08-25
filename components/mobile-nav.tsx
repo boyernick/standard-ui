@@ -13,6 +13,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerViewport,
+  cn,
+  focusRing,
+  focusRingBorder,
 } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -113,11 +116,14 @@ export const MobileNav = () => {
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+                        className={cn(
+                          "block cursor-pointer rounded-md px-2 py-1.5 transition-colors",
+                          focusRingBorder,
+                          focusRing,
                           isActive(pathname, item.href)
                             ? "text-sm-strong bg-background-tertiary text-fg-primary"
-                            : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-                        }`}
+                            : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary",
+                        )}
                       >
                         {item.label}
                       </Link>
@@ -136,11 +142,14 @@ export const MobileNav = () => {
                         <li key={item.href}>
                           <Link
                             href={item.href}
-                            className={`block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+                            className={cn(
+                              "block cursor-pointer rounded-md px-2 py-1.5 transition-colors",
+                              focusRingBorder,
+                              focusRing,
                               isActive(pathname, item.href)
                                 ? "text-sm-strong bg-background-tertiary text-fg-primary"
-                                : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-                            }`}
+                                : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary",
+                            )}
                           >
                             {item.label}
                           </Link>

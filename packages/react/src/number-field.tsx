@@ -5,6 +5,10 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { createContext, useContext, type ComponentProps } from "react"
 import { IconMinus, IconPlus } from "./icons"
 import { cn } from "./lib/cn"
+import {
+  focusRingWithin,
+  focusRingInvalidWithin,
+} from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type NumberFieldSize = "sm" | "md" | "lg"
@@ -16,7 +20,12 @@ const NumberFieldControlLayoutContext =
   createContext<NumberFieldControlLayout>("split")
 
 const numberFieldGroupVariants = cva(
-  "flex w-full items-stretch overflow-hidden border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[background-color,border-color,box-shadow] focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20 aria-invalid:border-destructive aria-invalid:focus-within:border-destructive aria-invalid:focus-within:ring-destructive/20 has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20 data-disabled:opacity-50 data-readonly:bg-background-secondary has-[:disabled]:opacity-50",
+  cn(
+    "flex w-full items-stretch overflow-hidden border border-border-secondary bg-surface inset-shadow-outline-top transition-[background-color,border-color,box-shadow]",
+    focusRingWithin,
+    focusRingInvalidWithin,
+    "has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20 data-disabled:opacity-50 data-readonly:bg-background-secondary has-[:disabled]:opacity-50",
+  ),
   {
     variants: {
       size: {

@@ -1,6 +1,6 @@
 "use client"
 
-import { BrandWordmark } from "@boyernick/standard-ui-react"
+import { BrandWordmark, cn, focusRing, focusRingBorder } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { EdgeFade } from "@/components/edge-fade"
@@ -13,11 +13,14 @@ const isActive = (pathname: string, href: string) => {
 }
 
 const navLinkClass = (active: boolean) =>
-  `block cursor-pointer rounded-md px-2 py-1.5 outline-none transition-colors focus-visible:border focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
+  cn(
+    "block cursor-pointer rounded-md px-2 py-1.5 transition-colors",
+    focusRingBorder,
+    focusRing,
     active
       ? "text-sm-strong bg-background-tertiary text-fg-primary"
-      : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary"
-  }`
+      : "text-sm text-fg-tertiary hover:bg-background-tertiary hover:text-fg-primary",
+  )
 
 export const Sidebar = () => {
   const pathname = usePathname()
@@ -35,7 +38,11 @@ export const Sidebar = () => {
             >
               <Link
                 href="/"
-                className="inline-flex cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+                className={cn(
+                  "inline-flex cursor-pointer text-fg-primary focus-visible:rounded-md",
+                  focusRingBorder,
+                  focusRing,
+                )}
                 aria-label="StandardUI"
               >
                 <BrandWordmark size="sm" className="text-inherit" />

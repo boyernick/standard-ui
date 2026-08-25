@@ -4,6 +4,7 @@ import { Autocomplete as BaseAutocomplete } from "@base-ui/react/autocomplete"
 import type { ComponentProps, ReactElement } from "react"
 import { IconChevronDownSmall, IconCrossSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRingWithin, focusRingInvalidWithin } from "./lib/focus"
 import { motion } from "./lib/motion"
 import { popupInset, popupItem, popupLabel, popupMessage, popupSurface } from "./lib/popup"
 
@@ -67,9 +68,9 @@ export const AutocompleteInputGroup = ({
 }: AutocompleteInputGroupProps) => (
   <BaseAutocomplete.InputGroup
     className={cn(
-      "relative flex min-h-9 w-full items-center rounded-xl border border-border-secondary bg-surface inset-shadow-outline-top outline-none transition-[color,box-shadow]",
-      "focus-within:border-ring focus-within:ring-[3px] focus-within:ring-offset-1 focus-within:ring-offset-background-primary focus-within:ring-ring/20",
-      "aria-invalid:border-destructive aria-invalid:focus-within:border-destructive aria-invalid:focus-within:ring-destructive/20",
+      "relative flex min-h-9 w-full items-center rounded-xl border border-border-secondary bg-surface inset-shadow-outline-top transition-[color,box-shadow]",
+      focusRingWithin,
+      focusRingInvalidWithin,
       "has-[[aria-invalid=true]]:border-destructive has-[[aria-invalid=true]]:focus-within:border-destructive has-[[aria-invalid=true]]:focus-within:ring-destructive/20",
       "has-[:disabled]:opacity-50",
       className,

@@ -36,7 +36,7 @@ export const popupInset = "p-1.5 empty:p-0"
 
 /** One selectable row. */
 export const popupItem =
-  "flex min-h-9 cursor-default items-center gap-2 rounded-sm px-3 py-2 text-sm text-fg-primary outline-none select-none"
+  "flex min-h-9 cursor-pointer items-center gap-2 rounded-sm px-3 py-2 text-sm text-fg-primary outline-none select-none"
 
 /** A group heading. Shares the item's left edge. */
 export const popupLabel = "px-3 py-1.5 text-xs text-fg-tertiary"

@@ -5,6 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { createContext, useContext, useMemo, type ComponentProps } from "react"
 import { IconChevronDownSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 import { popupSurface } from "./lib/popup"
 
@@ -79,9 +80,10 @@ const navigationMenuListVariants = cva("group list-none", {
 
 const navigationMenuBarItemVariants = cva(
   cn(
-    "inline-flex cursor-pointer items-center gap-1 border border-transparent text-fg-secondary outline-none",
+    "inline-flex cursor-pointer items-center gap-1 border border-transparent text-fg-secondary",
     motion.colors,
-    "hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-active:font-medium data-active:text-fg-primary data-popup-open:text-fg-primary",
+    focusRing,
+    "hover:text-fg-primary data-active:font-medium data-active:text-fg-primary data-popup-open:text-fg-primary",
   ),
   {
     variants: {
@@ -125,9 +127,11 @@ const navigationMenuBarItemVariants = cva(
 
 const navigationMenuLinkVariants = cva(
   cn(
-    "group/navigation-link flex cursor-pointer rounded-md text-fg-primary outline-none",
+    "group/navigation-link flex cursor-pointer rounded-md text-fg-primary",
+    focusRingBorder,
     motion.colors,
-    "hover:bg-background-tertiary focus-visible:bg-background-tertiary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-active:bg-background-tertiary",
+    focusRing,
+    "hover:bg-background-tertiary focus-visible:bg-background-tertiary data-active:bg-background-tertiary",
   ),
   {
     variants: {

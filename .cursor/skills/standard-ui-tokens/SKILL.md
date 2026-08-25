@@ -20,15 +20,26 @@ Use primitives such as gray values only for intentional fixed-theme demonstratio
 
 ## Focus and interaction
 
-Interactive controls need a visible token-based focus ring:
+Import the shared recipes from `@boyernick/standard-ui-react` (or `./lib/focus` inside the package):
 
-```text
-outline-none focus-visible:border-ring focus-visible:ring-[3px]
-focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary
-focus-visible:ring-ring/20
+```tsx
+import { focusRing, focusRingBorder } from "./lib/focus"
+
+// Bordered control
+className={cn("border border-border-secondary ...", focusRing)}
+
+// Borderless chrome — transparent border so the hard edge can light up
+className={cn(focusRingBorder, "...", focusRing)}
 ```
 
-- Buttons, links, toggles, tabs, and triggers use `cursor-pointer`.
+Canonical keyboard focus is always two layers:
+
+1. Hard edge — `border-ring` (needs a border; use `focusRingBorder` when the control is otherwise borderless)
+2. Soft wash — 3px `ring-ring/20` with a 1px page-colored gap
+
+Do not invent a second focus recipe (`ring-2`, outline-only, halo without border, etc.) unless the surface is intentionally special (e.g. white rings on dark video chrome, `ring-inset` in dense grids).
+
+- Buttons, links, toggles, tabs, triggers, and menu/select items use `cursor-pointer`.
 - Text fields use `cursor-text`.
 - Copy actions use `cursor-copy`.
 - Disabled controls use `disabled:cursor-not-allowed` or `data-disabled:cursor-not-allowed`.

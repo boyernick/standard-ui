@@ -4,6 +4,7 @@ import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
 import type { ComponentProps } from "react"
 import { IconChevronDownSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type CollapsibleProps = ComponentProps<typeof BaseCollapsible.Root>
@@ -23,9 +24,10 @@ export const CollapsibleTrigger = ({
 }: CollapsibleTriggerProps) => (
   <BaseCollapsible.Trigger
     className={cn(
-      "group flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top outline-none",
+      "group flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top",
       motion.colors,
-      "outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      focusRing,
+      "data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

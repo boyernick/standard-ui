@@ -16,6 +16,7 @@ import {
 import { Button } from "./button"
 import { IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -287,7 +288,11 @@ export const Carousel = ({
         className={cn(
           "relative",
           fade &&
-            "rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+            cn(
+              "rounded-xl",
+              focusRingBorder,
+              focusRing,
+            ),
           className,
         )}
         onKeyDownCapture={handleKeyDown}

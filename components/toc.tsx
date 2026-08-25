@@ -1,5 +1,6 @@
 "use client"
 
+import { cn, focusRing } from "@boyernick/standard-ui-react"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -117,13 +118,14 @@ export const TableOfContents = () => {
               <a
                 href={`#${entry.id}`}
                 aria-current={active ? "location" : undefined}
-                className={`-ml-px block cursor-pointer border-l py-1 pr-2 outline-none transition-colors focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 ${
-                  entry.level === 3 ? "pl-5 text-xs" : "pl-3 text-sm"
-                } ${
+                className={cn(
+                  "-ml-px block cursor-pointer border-l py-1 pr-2 transition-colors",
+                  focusRing,
+                  entry.level === 3 ? "pl-5 text-xs" : "pl-3 text-sm",
                   active
                     ? "border-fg-primary text-fg-primary"
-                    : "border-transparent text-fg-tertiary hover:text-fg-secondary"
-                }`}
+                    : "border-transparent text-fg-tertiary hover:text-fg-secondary",
+                )}
               >
                 {entry.text}
               </a>

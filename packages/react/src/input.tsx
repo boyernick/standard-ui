@@ -3,14 +3,18 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import { forwardRef, type InputHTMLAttributes } from "react"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingInvalid } from "./lib/focus"
 
 const inputVariants = cva(
-  "text-sm flex w-full cursor-text rounded-md text-fg-primary transition-[color,box-shadow] duration-[var(--duration-sm)] ease-enter placeholder:text-fg-quaternary outline-none aria-invalid:border-destructive disabled:cursor-not-allowed disabled:opacity-50",
+  cn(
+    "text-sm flex w-full cursor-text rounded-md text-fg-primary transition-[color,box-shadow] duration-[var(--duration-sm)] ease-enter placeholder:text-fg-quaternary aria-invalid:border-destructive disabled:cursor-not-allowed disabled:opacity-50",
+    focusRing,
+    focusRingInvalid,
+  ),
   {
     variants: {
       variant: {
-        default:
-          "border bg-surface inset-shadow-outline-top focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20",
+        default: "border bg-surface inset-shadow-outline-top",
         ghost: "border border-transparent bg-transparent",
       },
       size: {
@@ -37,8 +41,7 @@ const inputVariants = cva(
       {
         variant: "ghost",
         invalid: true,
-        class:
-          "border-destructive focus-visible:border-destructive focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-destructive/20",
+        class: "border-destructive",
       },
     ],
     defaultVariants: {

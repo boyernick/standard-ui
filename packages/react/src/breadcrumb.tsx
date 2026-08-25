@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import type { ComponentProps, ReactNode } from "react"
 import { IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type BreadcrumbProps = ComponentProps<"nav">
@@ -60,7 +61,9 @@ export const BreadcrumbLink = ({
 }: BreadcrumbLinkProps) => (
   <a
     className={cn(
-      "cursor-pointer rounded-sm text-fg-secondary outline-none hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "cursor-pointer rounded-sm text-fg-secondary hover:text-fg-primary",
+      focusRingBorder,
+      focusRing,
       motion.colors,
       className,
     )}

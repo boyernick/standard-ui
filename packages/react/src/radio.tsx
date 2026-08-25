@@ -4,6 +4,7 @@ import { Radio as BaseRadio } from "@base-ui/react/radio"
 import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 export type RadioGroupProps = ComponentProps<typeof BaseRadioGroup>
@@ -20,9 +21,10 @@ export const RadioGroup = ({ className, ...props }: RadioGroupProps) => (
 export const Radio = ({ className, ...props }: RadioProps) => (
   <BaseRadio.Root
     className={cn(
-      "flex size-4 shrink-0 items-center justify-center rounded-full border border-border-secondary bg-surface outline-none",
+      "flex size-4 shrink-0 items-center justify-center rounded-full border border-border-secondary bg-surface",
       motion.colors,
-      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-checked:border-brand-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      focusRing,
+      "data-checked:border-brand-primary data-checked:bg-brand-primary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

@@ -968,6 +968,7 @@ export {
   IconBell,
   IconCalendar1,
   IconChainLink1,
+  IconChainLink3,
   IconCheckmark1,
   IconChevronBottom,
   IconChevronDownSmall,
@@ -1063,3 +1064,12 @@ export {
 } from "./text-animate"
 export { cn } from "./lib/cn"
 export { motion } from "./lib/motion"
+export {
+  focusRing,
+  focusRingWithin,
+  focusRingDestructive,
+  focusRingWithinDestructive,
+  focusRingInvalid,
+  focusRingInvalidWithin,
+  focusRingBorder,
+} from "./lib/focus"

@@ -4,6 +4,7 @@ import { Slider as BaseSlider } from "@base-ui/react/slider"
 import { cva, type VariantProps } from "class-variance-authority"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 
 const sliderVariants = cva(
   "group/slider relative flex w-full data-disabled:opacity-50 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-fit",
@@ -78,7 +79,8 @@ export const SliderIndicator = ({
 export const SliderThumb = ({ className, ...props }: SliderThumbProps) => (
   <BaseSlider.Thumb
     className={cn(
-      "flex size-[var(--slider-thumb-size)] cursor-grab items-center justify-center rounded-full border border-brand-primary-border bg-surface shadow-sm outline-none transition-[scale,box-shadow,background-color,border-color] duration-[var(--duration-sm)] ease-enter after:size-1 after:rounded-full after:bg-brand-primary after:content-[''] hover:scale-110 hover:bg-background-secondary active:scale-105 data-dragging:cursor-grabbing data-dragging:scale-110 data-disabled:cursor-not-allowed data-disabled:hover:scale-100 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "flex size-[var(--slider-thumb-size)] cursor-grab items-center justify-center rounded-full border border-brand-primary-border bg-surface shadow-sm transition-[scale,box-shadow,background-color,border-color] duration-[var(--duration-sm)] ease-enter after:size-1 after:rounded-full after:bg-brand-primary after:content-[''] hover:scale-110 hover:bg-background-secondary active:scale-105 data-dragging:cursor-grabbing data-dragging:scale-110 data-disabled:cursor-not-allowed data-disabled:hover:scale-100",
+      focusRing,
       className,
     )}
     {...props}

@@ -4,6 +4,7 @@ import { Select as BaseSelect } from "@base-ui/react/select"
 import type { ComponentProps } from "react"
 import { IconChevronDownSmall } from "./icons"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingInvalid } from "./lib/focus"
 import { motion } from "./lib/motion"
 import { popupInset, popupItem, popupLabel, popupSurface } from "./lib/popup"
 
@@ -32,9 +33,11 @@ export const SelectTrigger = ({
 }: SelectTriggerProps) => (
   <BaseSelect.Trigger
     className={cn(
-      "flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top outline-none",
+      "flex h-9 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-border-secondary bg-surface px-3 text-sm text-fg-primary inset-shadow-outline-top",
       motion.all,
-      "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/20 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-placeholder:text-fg-quaternary data-popup-open:border-border-secondary",
+      focusRing,
+      focusRingInvalid,
+      "data-disabled:cursor-not-allowed data-disabled:opacity-50 data-placeholder:text-fg-quaternary data-popup-open:border-border-secondary",
       className,
     )}
     {...props}

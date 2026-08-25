@@ -9,14 +9,18 @@ import {
   useContext,
 } from "react"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 const timelineVariants = cva("group/timeline relative text-fg-primary", {
   variants: {
     orientation: {
       vertical: "w-full",
-      horizontal:
-        "w-full min-h-0 overflow-x-auto overscroll-x-contain scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      horizontal: cn(
+        "w-full min-h-0 overflow-x-auto overscroll-x-contain scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:rounded-md",
+        focusRingBorder,
+        focusRing,
+      ),
     },
   },
   defaultVariants: {

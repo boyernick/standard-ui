@@ -1,5 +1,6 @@
 "use client"
 
+import { cn, focusRing, focusRingBorder } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -90,7 +91,11 @@ export const PageFooter = () => {
             href={previous.href}
             aria-keyshortcuts="ArrowLeft"
             title="Previous page (Left arrow)"
-            className="group flex cursor-pointer flex-col items-start gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+            className={cn(
+              "group flex cursor-pointer flex-col items-start gap-0.5 rounded-md px-2 py-1.5",
+              focusRingBorder,
+              focusRing,
+            )}
           >
             <span className="text-xs text-fg-tertiary">Previous</span>
             <span className="text-sm text-fg-secondary group-hover:text-fg-primary">
@@ -105,7 +110,11 @@ export const PageFooter = () => {
             href={next.href}
             aria-keyshortcuts="ArrowRight"
             title="Next page (Right arrow)"
-            className="group flex cursor-pointer flex-col items-end gap-0.5 rounded-md px-2 py-1.5 outline-none focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20"
+            className={cn(
+              "group flex cursor-pointer flex-col items-end gap-0.5 rounded-md px-2 py-1.5",
+              focusRingBorder,
+              focusRing,
+            )}
           >
             <span className="text-xs text-fg-tertiary">Next</span>
             <span className="text-sm text-fg-secondary group-hover:text-fg-primary">

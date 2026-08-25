@@ -6,6 +6,7 @@ import type { ComponentProps } from "react"
 import { buttonVariants } from "./button"
 import { inputVariants } from "./input"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 
 type StyledProps<T> = Omit<T, "className"> & { className?: string }
 
@@ -93,7 +94,9 @@ export const QuestionnaireItem = ({
 }: QuestionnaireItemProps) => (
   <BaseQuestionnaire.Item
     className={cn(
-      "m-0 min-w-0 border-0 p-0 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20",
+      "m-0 min-w-0 border-0 p-0",
+      focusRingBorder,
+      focusRing,
       className,
     )}
     {...props}
@@ -136,7 +139,9 @@ export const QuestionnaireChoiceInput = ({
 }: QuestionnaireChoiceInputProps) => (
   <BaseQuestionnaire.ChoiceInput
     className={cn(
-      "mt-0.5 size-4 shrink-0 cursor-pointer accent-brand-primary outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20 disabled:cursor-not-allowed",
+      "mt-0.5 size-4 shrink-0 cursor-pointer accent-brand-primary disabled:cursor-not-allowed",
+      focusRingBorder,
+      focusRing,
       className,
     )}
     {...props}
@@ -176,7 +181,7 @@ export const QuestionnaireChoice = ({
 }: QuestionnaireChoiceProps) => (
   <BaseQuestionnaire.Choice
     className={cn(
-      "group grid cursor-pointer grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3 rounded-lg border border-border-secondary bg-surface px-3.5 py-3 text-fg-primary outline-none transition-[background-color,border-color,box-shadow] duration-[var(--duration-sm)] ease-enter hover:bg-background-secondary has-[:focus-visible]:border-ring has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/20 data-checked:border-brand-primary data-checked:bg-background-secondary data-disabled:cursor-not-allowed data-disabled:opacity-50",
+      "group grid cursor-pointer grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3 rounded-lg border border-border-secondary bg-surface px-3.5 py-3 text-fg-primary outline-none transition-[background-color,border-color,box-shadow] duration-[var(--duration-sm)] ease-enter hover:bg-background-secondary has-[:focus-visible]:border-ring has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-offset-1 has-[:focus-visible]:ring-offset-background-primary has-[:focus-visible]:ring-ring/20 data-checked:border-brand-primary data-checked:bg-background-secondary data-disabled:cursor-not-allowed data-disabled:opacity-50",
       className,
     )}
     {...props}

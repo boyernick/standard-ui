@@ -3,6 +3,7 @@
 import { ScrollArea as BaseScrollArea } from "@base-ui/react/scroll-area"
 import type { ComponentProps } from "react"
 import { cn } from "./lib/cn"
+import { focusRing, focusRingBorder } from "./lib/focus"
 
 export type ScrollAreaProps = ComponentProps<typeof BaseScrollArea.Root>
 export type ScrollAreaViewportProps = ComponentProps<
@@ -29,7 +30,9 @@ export const ScrollAreaViewport = ({
 }: ScrollAreaViewportProps) => (
   <BaseScrollArea.Viewport
     className={cn(
-      "size-full rounded-[inherit] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      "size-full rounded-[inherit]",
+      focusRingBorder,
+      focusRing,
       className,
     )}
     {...props}

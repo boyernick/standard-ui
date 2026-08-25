@@ -1,4 +1,4 @@
-import { BrandWordmark } from "@boyernick/standard-ui-react"
+import { BrandWordmark, cn, focusRing, focusRingBorder } from "@boyernick/standard-ui-react"
 import Link from "next/link"
 import { CHROME_BAR_HEIGHT, PAGE_INNER } from "@/lib/chrome"
 import { MobileNav } from "./mobile-nav"
@@ -18,7 +18,11 @@ export function TopBar() {
         </div>
         <Link
           href="/"
-          className="inline-flex shrink-0 cursor-pointer text-fg-primary outline-none focus-visible:rounded-md focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 md:hidden"
+          className={cn(
+            "inline-flex shrink-0 cursor-pointer text-fg-primary focus-visible:rounded-md md:hidden",
+            focusRingBorder,
+            focusRing,
+          )}
           aria-label="StandardUI"
         >
           <BrandWordmark size="sm" />

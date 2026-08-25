@@ -17,6 +17,7 @@ import {
 import { IconCrossSmall, IconMagnifyingGlass } from "./icons"
 import { filterGroupVariants, filterItemVariants } from "./filter-group"
 import { cn } from "./lib/cn"
+import { focusRing } from "./lib/focus"
 import { motion } from "./lib/motion"
 
 type CommandContextValue = {
@@ -178,9 +179,10 @@ export const CommandClear = ({
   <button
     type="button"
     className={cn(
-      "inline-flex h-8 cursor-pointer items-center rounded-full border border-transparent px-3 text-sm text-fg-quaternary outline-none",
+      "inline-flex h-8 cursor-pointer items-center rounded-full border border-transparent px-3 text-sm text-fg-quaternary",
       motion.colors,
-      "hover:bg-background-tertiary hover:text-fg-primary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 data-[active=true]:text-fg-primary",
+      focusRing,
+      "hover:bg-background-tertiary hover:text-fg-primary data-[active=true]:text-fg-primary",
       className,
     )}
     {...props}
@@ -207,9 +209,10 @@ export const CommandClose = ({
 }: CommandCloseProps) => (
   <BaseDialog.Close
     className={cn(
-      "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent text-fg-primary outline-none",
+      "inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent text-fg-primary",
       motion.colors,
-      "hover:bg-background-tertiary focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+      focusRing,
+      "hover:bg-background-tertiary",
       className,
     )}
     aria-label={props["aria-label"] ?? "Close"}
@@ -309,11 +312,11 @@ export const CommandItem = ({
   }, [selected])
 
   const itemClassName = cn(
-    "flex h-15 min-h-15 w-full cursor-pointer items-center justify-between gap-4 rounded-lg border border-transparent px-4 text-left text-sm font-medium text-fg-primary outline-none select-none",
+    "flex h-15 min-h-15 w-full cursor-pointer items-center justify-between gap-4 rounded-lg border border-transparent px-4 text-left text-sm font-medium text-fg-primary select-none",
     motion.colors,
     "hover:bg-background-tertiary data-selected:bg-background-tertiary",
     "data-disabled:cursor-not-allowed data-disabled:opacity-50",
-    "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20",
+    focusRing,
     className,
   )
 

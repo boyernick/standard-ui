@@ -25,6 +25,9 @@ import {
   IconMagnifyingGlass,
   Kbd,
   KbdGroup,
+  cn,
+  focusRing,
+  focusRingBorder,
 } from "@boyernick/standard-ui-react"
 import { useRouter } from "next/navigation"
 import {
@@ -148,7 +151,11 @@ export const SiteSearch = () => {
       </CommandTrigger>
       <CommandTrigger
         render={<button type="button" />}
-        className="text-sm hidden h-9 w-full max-w-md cursor-pointer items-center gap-2 rounded-lg pr-3 text-fg-tertiary outline-none transition-colors hover:text-fg-secondary focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-background-primary focus-visible:ring-ring/20 md:flex"
+        className={cn(
+          "text-sm hidden h-9 w-full max-w-md cursor-pointer items-center gap-2 rounded-lg pr-3 text-fg-tertiary transition-colors hover:text-fg-secondary md:flex",
+          focusRingBorder,
+          focusRing,
+        )}
       >
         <span className="flex-1 text-left">Search…</span>
         <KbdGroup className="pointer-events-none">
