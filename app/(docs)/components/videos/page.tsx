@@ -1,20 +1,20 @@
 import type { Metadata } from "next"
 import { DocPage } from "@/components/doc-page"
-import { VideoPlayerExamples } from "./video-player-examples"
+import { VideosExamples } from "./videos-examples"
 
 export const metadata: Metadata = {
-  title: "Video player",
+  title: "Videos",
 }
 
-export default function VideoPlayerPage() {
+export default function VideosPage() {
   return (
     <DocPage
-      title="Video player"
+      title="Videos"
       description="Video surface with play, seek, mute and fullscreen controls."
       heading={null}
       bleed
     >
-      <VideoPlayerExamples />
+      <VideosExamples />
     </DocPage>
   )
 }

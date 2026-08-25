@@ -1,0 +1,36 @@
+{
+  "module": "block-editor",
+  "parts": [
+    {
+      "name": "BlockEditor",
+      "props": [
+        {
+          "name": "blocks",
+          "type": "BlockEditorBlock[]",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "defaultBlocks",
+          "type": "BlockEditorBlock[]",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        },
+        {
+          "name": "onBlocksChange",
+          "type": "(blocks: BlockEditorBlock[]) => void",
+          "required": false,
+          "default": null,
+          "description": "",
+          "source": "own"
+        }
+      ],
+      "reactPassthrough": 280,
+      "universal": 0
+    }
+  ]
+}

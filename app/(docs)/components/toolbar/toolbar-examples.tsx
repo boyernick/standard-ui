@@ -93,6 +93,8 @@ export const ToolbarExamples = () => (
                 />
                 <StyleItem label="Numbered list" keys={["⌥", "⌘", "4"]} />
                 <StyleItem label="Ordered list" keys={["⌥", "⌘", "5"]} />
+                <StyleItem label="Checklist" keys={["⌥", "⌘", "6"]} />
+                <StyleItem label="Divider" keys={["⌥", "⌘", "7"]} />
               </MenuPopup>
             </MenuPositioner>
           </MenuPortal>

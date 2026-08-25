@@ -4,8 +4,8 @@ import { DocBand } from "@/components/doc-band"
 const components = [
   "Carousel",
   "Sounds",
-  "Video player",
-  "Image modal",
+  "Videos",
+  "Images",
   "Ticker",
 ]
 

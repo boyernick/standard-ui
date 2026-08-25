@@ -5,7 +5,7 @@ import { DocBand } from "@/components/doc-band"
 const SAMPLE = "/video/forest-rain.mp4"
 const POSTER = "/video/forest-rain-poster.jpg"
 
-export const VideoPlayerExamples = () => (
+export const VideosExamples = () => (
   <div>
     <DocBand
       first

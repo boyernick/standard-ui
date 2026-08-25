@@ -55,7 +55,7 @@ const releases = [
   {
     date: "Aug 18",
     dateTime: "2026-08-18",
-    title: "Image modal",
+    title: "Images",
     description: "A lighter gallery with keyboard and trackpad navigation.",
   },
   {

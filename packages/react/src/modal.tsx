@@ -51,10 +51,10 @@ import {
 const TRACKPAD_LABEL =
   "Swipe, use the arrow keys, or use the controls to navigate"
 
-const imageModalControlClassName =
+const modalControlClassName =
   "border-border-inverted bg-surface-inverted/60 text-fg-inverted shadow-md backdrop-blur-md hover:bg-surface-inverted/80 hover:text-fg-inverted outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20"
 
-export const imageModalContentVariants = cva(
+export const modalContentVariants = cva(
   "h-dvh max-h-dvh w-screen max-w-none gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none max-sm:max-w-none",
   {
     variants: {
@@ -69,13 +69,13 @@ export const imageModalContentVariants = cva(
   },
 )
 
-export type ImageModalProps = ComponentProps<typeof Dialog>
-export type ImageModalTriggerProps = ComponentProps<typeof DialogTrigger>
-export type ImageModalContentProps = Omit<
+export type ModalProps = ComponentProps<typeof Dialog>
+export type ModalTriggerProps = ComponentProps<typeof DialogTrigger>
+export type ModalContentProps = Omit<
   ComponentProps<typeof DialogPopup>,
   "children"
 > &
-  VariantProps<typeof imageModalContentVariants> & {
+  VariantProps<typeof modalContentVariants> & {
     src: string
     alt: string
     caption?: ReactNode
@@ -85,7 +85,7 @@ export type ImageModalContentProps = Omit<
     children?: ReactNode
   }
 
-export type ImageModalItem = {
+export type GalleryItem = {
   src: string
   alt: string
   caption?: ReactNode
@@ -94,46 +94,46 @@ export type ImageModalItem = {
   imgProps?: Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt">
 }
 
-export type ImageModalGalleryProps = Omit<ImageModalProps, "children"> &
-  VariantProps<typeof imageModalContentVariants> & {
-    images: readonly ImageModalItem[]
+export type GalleryProps = Omit<ModalProps, "children"> &
+  VariantProps<typeof modalContentVariants> & {
+    images: readonly GalleryItem[]
     children: ReactNode
     loop?: boolean
     contentClassName?: string
   }
 
-export type ImageModalGalleryTriggerProps = ImageModalTriggerProps & {
+export type GalleryTriggerProps = ModalTriggerProps & {
   index: number
 }
 
-type ImageModalTriggerClickEvent = Parameters<
-  NonNullable<ImageModalTriggerProps["onClick"]>
+type ModalTriggerClickEvent = Parameters<
+  NonNullable<ModalTriggerProps["onClick"]>
 >[0]
 
-type ImageModalGalleryContextValue = {
-  images: readonly ImageModalItem[]
+type GalleryContextValue = {
+  images: readonly GalleryItem[]
   setActiveIndex: (index: number) => void
 }
 
-const ImageModalGalleryContext =
-  createContext<ImageModalGalleryContextValue | null>(null)
+const GalleryContext =
+  createContext<GalleryContextValue | null>(null)
 
-const useImageModalGallery = () => {
-  const context = useContext(ImageModalGalleryContext)
+const useGallery = () => {
+  const context = useContext(GalleryContext)
   if (!context) {
     throw new Error(
-      "ImageModalGalleryTrigger must be used within <ImageModalGallery>",
+      "GalleryTrigger must be used within <Gallery>",
     )
   }
   return context
 }
 
-export const ImageModal = (props: ImageModalProps) => <Dialog {...props} />
+export const Modal = (props: ModalProps) => <Dialog {...props} />
 
-export const ImageModalTrigger = ({
+export const ModalTrigger = ({
   className,
   ...props
-}: ImageModalTriggerProps) => (
+}: ModalTriggerProps) => (
   <DialogTrigger
     className={cn(
       "cursor-pointer rounded-xl",
@@ -145,11 +145,11 @@ export const ImageModalTrigger = ({
   />
 )
 
-const ImageModalBackdrop = () => (
+const ModalBackdrop = () => (
   <DialogBackdrop className="bg-surface-inverted/95" />
 )
 
-const ImageModalBackground = ({ src }: { src: string }) => (
+const ModalBackground = ({ src }: { src: string }) => (
   <div
     aria-hidden="true"
     className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -166,12 +166,12 @@ const ImageModalBackground = ({ src }: { src: string }) => (
   </div>
 )
 
-const ImageModalImage = ({
+const ModalImage = ({
   src,
   alt,
   imgProps,
   fit = "viewport",
-}: Pick<ImageModalItem, "src" | "alt" | "imgProps"> & {
+}: Pick<GalleryItem, "src" | "alt" | "imgProps"> & {
   fit?: "viewport" | "contain"
 }) => {
   const { className, ...props } = imgProps ?? {}
@@ -194,7 +194,7 @@ const ImageModalImage = ({
   )
 }
 
-const ImageModalControlTooltip = ({
+const ModalControlTooltip = ({
   label,
   side = "bottom",
   children,
@@ -213,14 +213,14 @@ const ImageModalControlTooltip = ({
   </Tooltip>
 )
 
-const ImageModalDownload = ({
+const ModalDownload = ({
   src,
   name,
 }: {
   src: string
   name?: string
 }) => (
-  <ImageModalControlTooltip label="Download image">
+  <ModalControlTooltip label="Download image">
     <a
       href={src}
       download={name ?? ""}
@@ -232,17 +232,17 @@ const ImageModalDownload = ({
           rounded: true,
           iconOnly: true,
         }),
-        imageModalControlClassName,
+        modalControlClassName,
         "absolute top-4 right-4 z-20",
       )}
     >
       <IconArrowDown aria-hidden />
     </a>
-  </ImageModalControlTooltip>
+  </ModalControlTooltip>
 )
 
-const ImageModalDismiss = () => (
-  <ImageModalControlTooltip label="Close image">
+const ModalDismiss = () => (
+  <ModalControlTooltip label="Close image">
     <DialogClose
       render={
         <Button
@@ -253,7 +253,7 @@ const ImageModalDismiss = () => (
           rounded
           aria-label="Close image"
           className={cn(
-            imageModalControlClassName,
+            modalControlClassName,
             "absolute top-4 left-4 z-20",
           )}
         />
@@ -261,16 +261,16 @@ const ImageModalDismiss = () => (
     >
       <IconCrossSmall aria-hidden />
     </DialogClose>
-  </ImageModalControlTooltip>
+  </ModalControlTooltip>
 )
 
-const ImageModalCaption = ({ children }: { children: ReactNode }) => (
+const ModalCaption = ({ children }: { children: ReactNode }) => (
   <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 px-4 text-center text-sm text-fg-inverted-secondary">
     {children}
   </p>
 )
 
-export const ImageModalContent = ({
+export const ModalContent = ({
   src,
   alt,
   caption,
@@ -281,32 +281,32 @@ export const ImageModalContent = ({
   imgProps,
   children,
   ...props
-}: ImageModalContentProps) => (
+}: ModalContentProps) => (
   <DialogPortal>
-    <ImageModalBackdrop />
+    <ModalBackdrop />
     <DialogPopup
-      data-slot="image-modal-content"
+      data-slot="modal-content"
       className={cn(
-        imageModalContentVariants({ variant }),
+        modalContentVariants({ variant }),
         motion.popupCenter,
         className,
       )}
       {...props}
     >
       <TooltipProvider delay={250}>
-        <ImageModalBackground src={src} />
+        <ModalBackground src={src} />
         <DialogTitle className="sr-only">{alt}</DialogTitle>
         <div
-          data-slot="image-modal-stage"
+          data-slot="modal-stage"
           className="relative z-10 flex size-full flex-col items-center justify-center p-4"
         >
-          <ImageModalImage src={src} alt={alt} imgProps={imgProps} />
+          <ModalImage src={src} alt={alt} imgProps={imgProps} />
           {variant === "caption" && (caption || children) ? (
-            <ImageModalCaption>{caption ?? children}</ImageModalCaption>
+            <ModalCaption>{caption ?? children}</ModalCaption>
           ) : null}
         </div>
-        <ImageModalDismiss />
-        <ImageModalDownload
+        <ModalDismiss />
+        <ModalDownload
           src={downloadSrc ?? src}
           name={downloadName}
         />
@@ -315,27 +315,27 @@ export const ImageModalContent = ({
   </DialogPortal>
 )
 
-export const ImageModalGalleryTrigger = ({
+export const GalleryTrigger = ({
   index,
   onClick,
   ...props
-}: ImageModalGalleryTriggerProps) => {
-  const { images, setActiveIndex } = useImageModalGallery()
+}: GalleryTriggerProps) => {
+  const { images, setActiveIndex } = useGallery()
 
-  const handleClick = (event: ImageModalTriggerClickEvent) => {
+  const handleClick = (event: ModalTriggerClickEvent) => {
     onClick?.(event)
     if (!event.defaultPrevented && images[index]) setActiveIndex(index)
   }
 
-  return <ImageModalTrigger onClick={handleClick} {...props} />
+  return <ModalTrigger {...props} onClick={handleClick} />
 }
 
-const ImageModalFilmstrip = ({
+const GalleryFilmstrip = ({
   images,
   activeIndex,
   onSelect,
 }: {
-  images: readonly ImageModalItem[]
+  images: readonly GalleryItem[]
   activeIndex: number
   onSelect: (index: number) => void
 }) => {
@@ -356,7 +356,7 @@ const ImageModalFilmstrip = ({
 
   return (
     <div
-      data-slot="image-modal-filmstrip"
+      data-slot="modal-filmstrip"
       className="relative z-10 w-full shrink-0 overflow-visible"
     >
       <div
@@ -401,7 +401,7 @@ const ImageModalFilmstrip = ({
   )
 }
 
-const ImageModalGalleryContent = ({
+const GalleryContent = ({
   images,
   activeIndex,
   setActiveIndex,
@@ -409,7 +409,7 @@ const ImageModalGalleryContent = ({
   variant,
   className,
 }: {
-  images: readonly ImageModalItem[]
+  images: readonly GalleryItem[]
   activeIndex: number
   setActiveIndex: (index: number) => void
   loop: boolean
@@ -453,19 +453,19 @@ const ImageModalGalleryContent = ({
 
   return (
     <DialogPortal>
-      <ImageModalBackdrop />
+      <ModalBackdrop />
       <DialogPopup
-        data-slot="image-modal-gallery-content"
+        data-slot="modal-gallery-content"
         aria-describedby={undefined}
         onKeyDownCapture={handleKeyDown}
         className={cn(
-          imageModalContentVariants({ variant }),
+          modalContentVariants({ variant }),
           motion.popupCenter,
           className,
         )}
       >
         <TooltipProvider delay={250}>
-          <ImageModalBackground src={activeImage.src} />
+          <ModalBackground src={activeImage.src} />
           <DialogTitle className="sr-only">{activeImage.alt}</DialogTitle>
           <p className="sr-only" aria-live="polite">
             Image {activeIndex + 1} of {images.length}. {TRACKPAD_LABEL}.
@@ -473,21 +473,21 @@ const ImageModalGalleryContent = ({
           <div className="relative z-10 flex size-full flex-col gap-4 p-4">
             <Carousel
               setApi={setApi}
-              opts={{ loop, startIndex: activeIndex, duration: 24 }}
-              data-slot="image-modal-stage"
+              opts={{ loop, startIndex: activeIndex, duration: 24, dragFree: false }}
+              data-slot="modal-stage"
               className="relative min-h-0 w-full min-w-0 flex-1 [&_[data-slot=carousel-viewport]]:h-full [&_[data-slot=carousel-viewport]]:min-h-0"
-              aria-label="Image gallery"
+              aria-label="Gallery"
             >
-              <CarouselContent className="h-full -ml-0">
+              <CarouselContent className="h-full !ml-0 !pr-0">
                 {images.map((image, index) => (
                   <CarouselItem
                     key={`${image.src}-${index}`}
-                    className="flex h-full min-h-0 flex-col items-center justify-center pl-0"
+                    className="!basis-full flex h-full min-h-0 flex-col items-center justify-center !pl-0"
                     aria-label={`${index + 1} of ${images.length}`}
                   >
                     <div className="flex max-h-full min-h-0 w-full flex-col items-center justify-center">
                       <div className="flex min-h-0 w-full items-center justify-center overflow-hidden">
-                        <ImageModalImage
+                        <ModalImage
                           {...image}
                           fit="contain"
                           imgProps={{
@@ -500,27 +500,27 @@ const ImageModalGalleryContent = ({
                         />
                       </div>
                       {variant === "caption" && image.caption ? (
-                        <ImageModalCaption>{image.caption}</ImageModalCaption>
+                        <ModalCaption>{image.caption}</ModalCaption>
                       ) : null}
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
             </Carousel>
-            <ImageModalFilmstrip
+            <GalleryFilmstrip
               images={images}
               activeIndex={activeIndex}
               onSelect={handleSelect}
             />
           </div>
-          <ImageModalDismiss />
-          <ImageModalDownload
+          <ModalDismiss />
+          <ModalDownload
             src={activeImage.downloadSrc ?? activeImage.src}
             name={activeImage.downloadName}
           />
           {images.length > 1 ? (
             <>
-              <ImageModalControlTooltip label="Previous image" side="right">
+              <ModalControlTooltip label="Previous image" side="right">
                 <Button
                   type="button"
                   variant="ghost"
@@ -531,14 +531,14 @@ const ImageModalGalleryContent = ({
                   disabled={!loop && !api?.canScrollPrev()}
                   onClick={() => api?.scrollPrev()}
                   className={cn(
-                    imageModalControlClassName,
+                    modalControlClassName,
                     "absolute top-1/2 left-4 z-20 -translate-y-1/2 active:!-translate-y-1/2",
                   )}
                 >
                   <IconChevronRightSmall className="rotate-180" aria-hidden />
                 </Button>
-              </ImageModalControlTooltip>
-              <ImageModalControlTooltip label="Next image" side="left">
+              </ModalControlTooltip>
+              <ModalControlTooltip label="Next image" side="left">
                 <Button
                   type="button"
                   variant="ghost"
@@ -549,13 +549,13 @@ const ImageModalGalleryContent = ({
                   disabled={!loop && !api?.canScrollNext()}
                   onClick={() => api?.scrollNext()}
                   className={cn(
-                    imageModalControlClassName,
+                    modalControlClassName,
                     "absolute top-1/2 right-4 z-20 -translate-y-1/2 active:!-translate-y-1/2",
                   )}
                 >
                   <IconChevronRightSmall aria-hidden />
                 </Button>
-              </ImageModalControlTooltip>
+              </ModalControlTooltip>
             </>
           ) : null}
         </TooltipProvider>
@@ -564,14 +564,14 @@ const ImageModalGalleryContent = ({
   )
 }
 
-export const ImageModalGallery = ({
+export const Gallery = ({
   images,
   children,
   loop = true,
   variant = "default",
   contentClassName,
   ...props
-}: ImageModalGalleryProps) => {
+}: GalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const safeIndex = images.length
     ? Math.min(activeIndex, images.length - 1)
@@ -585,7 +585,7 @@ export const ImageModalGallery = ({
 
   return (
     <Dialog {...props}>
-      <ImageModalGalleryContext.Provider
+      <GalleryContext.Provider
         value={{
           images,
           setActiveIndex: setSafeActiveIndex,
@@ -593,7 +593,7 @@ export const ImageModalGallery = ({
       >
         {children}
         {images.length ? (
-          <ImageModalGalleryContent
+          <GalleryContent
             images={images}
             activeIndex={safeIndex}
             setActiveIndex={setSafeActiveIndex}
@@ -602,7 +602,7 @@ export const ImageModalGallery = ({
             className={contentClassName}
           />
         ) : null}
-      </ImageModalGalleryContext.Provider>
+      </GalleryContext.Provider>
     </Dialog>
   )
 }

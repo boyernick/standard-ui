@@ -1,125 +1,134 @@
 "use client"
 
 import {
+  useRef,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react"
+import {
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  Gallery,
+  GalleryTrigger,
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
+import { PAGE_INNER } from "@/lib/chrome"
 
-const slides = [
+const gallery = [
   {
-    eyebrow: "01",
-    title: "Foundations",
-    detail: "Color, typography, materials, and motion.",
+    src: "/gallery/mountains.jpg",
+    alt: "Snow-covered mountain peaks above mist",
+    caption: "Ridges",
   },
   {
-    eyebrow: "02",
-    title: "Components",
-    detail: "Accessible building blocks for product interfaces.",
+    src: "/gallery/coast.jpg",
+    alt: "Mossy sea arch over a narrow coastal channel",
+    caption: "Arch",
   },
   {
-    eyebrow: "03",
-    title: "Patterns",
-    detail: "Repeatable compositions for common workflows.",
+    src: "/gallery/waterfall.jpg",
+    alt: "Water cascading over a mossy cliff",
+    caption: "Falls",
   },
-]
+  {
+    src: "/gallery/shore.jpg",
+    alt: "Aerial tropical shore with palms and reef",
+    caption: "Shore",
+  },
+  {
+    src: "/gallery/dunes.jpg",
+    alt: "Wind-rippled white sand dunes from above",
+    caption: "Dunes",
+  },
+  {
+    src: "/gallery/forest.jpg",
+    alt: "Misty evergreen forest with a dirt path",
+    caption: "Forest",
+  },
+] as const
 
-const peekSlides = [
-  { title: "Navigation", detail: "Move through connected destinations." },
-  { title: "Feedback", detail: "Communicate status and system response." },
-  { title: "Input", detail: "Collect structured information from people." },
-  { title: "Content", detail: "Group and present related information." },
-  { title: "Overlays", detail: "Layer focused tasks over the current view." },
-]
+const DRAG_CLICK_THRESHOLD = 8
+
+const SlideImage = ({
+  src,
+  alt,
+  caption,
+  index,
+}: {
+  src: string
+  alt: string
+  caption?: string
+  index: number
+}) => {
+  const pointerStart = useRef<{ x: number; y: number } | null>(null)
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    pointerStart.current = { x: event.clientX, y: event.clientY }
+  }
+
+  const handleClick = (event: ReactMouseEvent<HTMLButtonElement>) => {
+    const start = pointerStart.current
+    pointerStart.current = null
+    if (!start) return
+    const dx = Math.abs(event.clientX - start.x)
+    const dy = Math.abs(event.clientY - start.y)
+    if (dx > DRAG_CLICK_THRESHOLD || dy > DRAG_CLICK_THRESHOLD) {
+      event.preventDefault()
+    }
+  }
+
+  return (
+    <GalleryTrigger
+      index={index}
+      aria-label={caption ? `Open ${caption}` : `Open image: ${alt}`}
+      className="block w-full cursor-pointer rounded-xl bg-background-secondary transition-opacity hover:opacity-95"
+      onPointerDown={handlePointerDown}
+      onClick={handleClick}
+    >
+      <figure className="relative aspect-[16/10] overflow-hidden rounded-xl">
+        {/* eslint-disable-next-line @next/next/no-img-element -- static public gallery assets */}
+        <img
+          src={src}
+          alt={alt}
+          className="size-full object-cover"
+          draggable={false}
+        />
+        {caption ? (
+          <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/55 to-transparent px-4 pt-10 pb-3 text-left text-sm text-white">
+            {caption}
+          </figcaption>
+        ) : null}
+      </figure>
+    </GalleryTrigger>
+  )
+}
 
 export const CarouselExamples = () => (
   <div>
     <DocBand
       first
-      id="basic"
-      title="Basic"
-      description="Show one focused slide at a time with previous and next controls."
-      contentClassName="max-w-2xl"
+      id="gallery"
+      title="Gallery"
+      description="Free-scroll the strip — click a card to open the gallery."
+      bleedContent="full"
+      contentClassName="w-full max-w-none"
     >
-      <div className="px-12">
-        <Carousel className="w-full">
-          <CarouselContent>
-            {slides.map((slide) => (
-              <CarouselItem key={slide.title}>
-                <div className="flex min-h-44 flex-col justify-between rounded-xl border border-border-primary bg-surface p-6">
-                  <p className="text-xs font-medium tabular-nums text-fg-tertiary">
-                    {slide.eyebrow}
-                  </p>
-                  <div>
-                    <p className="heading-sm text-fg-primary">{slide.title}</p>
-                    <p className="text-sm mt-1 max-w-sm text-fg-secondary">
-                      {slide.detail}
-                    </p>
-                  </div>
-                </div>
+      <Gallery images={[...gallery]} variant="caption">
+        <Carousel className="w-full" aria-label="Landscape photos">
+          <CarouselContent viewportClassName={`${PAGE_INNER} py-1`}>
+            {gallery.map((shot, index) => (
+              <CarouselItem key={shot.src}>
+                <SlideImage {...shot} index={index} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <div className={PAGE_INNER}>
+            <CarouselDots />
+          </div>
         </Carousel>
-      </div>
-    </DocBand>
-
-    <DocBand
-      id="peek"
-      title="Peek"
-      description="Reveal part of the following slide to make horizontal navigation discoverable."
-      contentClassName="max-w-3xl"
-    >
-      <div className="px-12">
-        <Carousel opts={{ align: "start" }} className="w-full">
-          <CarouselContent>
-            {peekSlides.map((slide) => (
-              <CarouselItem
-                key={slide.title}
-                className="basis-[82%] sm:basis-1/2 lg:basis-1/3"
-              >
-                <div className="flex min-h-36 flex-col justify-end rounded-xl border border-border-primary bg-surface p-5">
-                  <p className="text-sm-strong text-fg-primary">{slide.title}</p>
-                  <p className="text-sm mt-1 text-fg-secondary">
-                    {slide.detail}
-                  </p>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    </DocBand>
-
-    <DocBand
-      id="edge-fade"
-      title="Edge fade"
-      description="Fade the available edge to indicate that more content can be reached by dragging or with the arrow keys."
-      contentClassName="max-w-2xl"
-    >
-      <div className="px-12">
-        <Carousel fade aria-label="Interface areas" className="w-full">
-          <CarouselContent>
-            {peekSlides.slice(0, 4).map((slide) => (
-              <CarouselItem key={slide.title}>
-                <div className="flex min-h-44 flex-col justify-end rounded-xl border border-border-primary bg-background-secondary p-6">
-                  <p className="heading-sm text-fg-primary">{slide.title}</p>
-                  <p className="text-sm mt-1 max-w-sm text-fg-secondary">
-                    {slide.detail}
-                  </p>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </div>
+      </Gallery>
     </DocBand>
   </div>
 )

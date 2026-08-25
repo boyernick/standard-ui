@@ -9,6 +9,7 @@ import {
   useContext,
   useEffect,
   useRef,
+  useState,
   useSyncExternalStore,
   type ComponentProps,
   type KeyboardEvent,
@@ -17,22 +18,35 @@ import { Button } from "./button"
 import { IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { focusRing, focusRingBorder } from "./lib/focus"
+import { motion } from "./lib/motion"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
 type CarouselOptions = UseCarouselParameters[0]
 type CarouselPlugin = UseCarouselParameters[1]
 
-const TRACKPAD_SWIPE_THRESHOLD = 24
-const TRACKPAD_GESTURE_END_DELAY = 140
+const TRACKPAD_AXIS_MIN = 2
+/**
+ * Allow ~30° off a pure horizontal swipe. Mac trackpads often emit a
+ * mixed deltaX/deltaY even when the gesture reads as sideways.
+ */
+const TRACKPAD_HORIZONTAL_RATIO = 0.55
+const TRACKPAD_SWIPE_THRESHOLD = 20
+const TRACKPAD_GESTURE_END_DELAY = 100
+/** Match Embla’s in-drag body so free wheel tracks the gesture. */
+const FREE_WHEEL_FRICTION = 0.68
+const FREE_WHEEL_DURATION = 22
 
 type CarouselContextValue = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0]
   api: CarouselApi
   scrollPrev: () => void
   scrollNext: () => void
+  scrollTo: (index: number) => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  selectedIndex: number
+  scrollSnaps: number[]
   orientation: "horizontal" | "vertical"
 }
 
@@ -55,10 +69,21 @@ export type CarouselProps = ComponentProps<"div"> & {
   fade?: boolean
 }
 
-export type CarouselContentProps = ComponentProps<"div">
+export type CarouselContentProps = ComponentProps<"div"> & {
+  /** Classes for the overflow viewport (Embla root), not the slide track. */
+  viewportClassName?: string
+}
 export type CarouselItemProps = ComponentProps<"div">
 export type CarouselPreviousProps = ComponentProps<typeof Button>
 export type CarouselNextProps = ComponentProps<typeof Button>
+export type CarouselDotsProps = ComponentProps<"div">
+
+const carouselControlClassName = cn(
+  "absolute z-20 !size-6 border border-border-primary/40 bg-surface/55 text-fg-primary shadow-md backdrop-blur-md [&_svg:not([class*='size-'])]:!size-3.5",
+  "hover:bg-surface/80 hover:text-fg-primary",
+  "disabled:pointer-events-none disabled:opacity-0",
+  motion.colors,
+)
 
 const CarouselEdgeFades = () => {
   const { orientation, canScrollPrev, canScrollNext } = useCarousel()
@@ -107,14 +132,22 @@ export const Carousel = ({
   ref: forwardedRef,
   ...props
 }: CarouselProps) => {
-  const carouselRootRef = useRef<HTMLDivElement | null>(null)
+  const [carouselRoot, setCarouselRoot] = useState<HTMLDivElement | null>(null)
   const [carouselRef, api] = useEmblaCarousel(
     {
+      align: "start",
+      containScroll: "trimSnaps",
+      dragFree: true,
+      duration: 20,
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
     },
     plugins,
   )
+  const apiRef = useRef(api)
+  useEffect(() => {
+    apiRef.current = api
+  }, [api])
   // Embla is an external store, so read from it directly rather than mirroring
   // it into state. Seeding mirrored state meant calling setState synchronously
   // inside an effect, costing an extra render on mount and on every slide
@@ -125,9 +158,11 @@ export const Carousel = ({
       if (!api) return () => {}
       api.on("reInit", onStoreChange)
       api.on("select", onStoreChange)
+      api.on("scroll", onStoreChange)
       return () => {
         api.off("reInit", onStoreChange)
         api.off("select", onStoreChange)
+        api.off("scroll", onStoreChange)
       }
     },
     [api],
@@ -143,6 +178,29 @@ export const Carousel = ({
     () => api?.canScrollNext() ?? false,
     () => false,
   )
+  const selectedIndex = useSyncExternalStore(
+    subscribe,
+    () => api?.selectedScrollSnap() ?? 0,
+    () => 0,
+  )
+
+  const scrollSnapsCache = useRef<number[]>([])
+  const scrollSnaps = useSyncExternalStore(
+    subscribe,
+    () => {
+      const next = api?.scrollSnapList() ?? []
+      const prev = scrollSnapsCache.current
+      if (
+        prev.length === next.length &&
+        prev.every((value, index) => value === next[index])
+      ) {
+        return prev
+      }
+      scrollSnapsCache.current = next
+      return next
+    },
+    () => scrollSnapsCache.current,
+  )
 
   const scrollPrev = useCallback(() => {
     api?.scrollPrev()
@@ -152,23 +210,29 @@ export const Carousel = ({
     api?.scrollNext()
   }, [api])
 
-  const canScrollPrevRef = useRef(canScrollPrev)
-  const canScrollNextRef = useRef(canScrollNext)
-  const scrollPrevRef = useRef(scrollPrev)
-  const scrollNextRef = useRef(scrollNext)
-
-  useEffect(() => {
-    canScrollPrevRef.current = canScrollPrev
-    canScrollNextRef.current = canScrollNext
-    scrollPrevRef.current = scrollPrev
-    scrollNextRef.current = scrollNext
-  }, [canScrollNext, canScrollPrev, scrollNext, scrollPrev])
+  const scrollTo = useCallback(
+    (index: number) => {
+      api?.scrollTo(index)
+    },
+    [api],
+  )
 
   const trackpadDelta = useRef(0)
   const trackpadGestureHandled = useRef(false)
+  const trackpadGestureDirection = useRef(0)
   const trackpadGestureTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   )
+
+  const clearTrackpadGesture = useCallback(() => {
+    trackpadDelta.current = 0
+    trackpadGestureHandled.current = false
+    trackpadGestureDirection.current = 0
+    if (trackpadGestureTimeout.current) {
+      clearTimeout(trackpadGestureTimeout.current)
+      trackpadGestureTimeout.current = null
+    }
+  }, [])
 
   const scheduleTrackpadGestureEnd = useCallback(() => {
     if (trackpadGestureTimeout.current) {
@@ -177,6 +241,7 @@ export const Carousel = ({
     trackpadGestureTimeout.current = setTimeout(() => {
       trackpadDelta.current = 0
       trackpadGestureHandled.current = false
+      trackpadGestureDirection.current = 0
       trackpadGestureTimeout.current = null
     }, TRACKPAD_GESTURE_END_DELAY)
   }, [])
@@ -202,60 +267,106 @@ export const Carousel = ({
 
       const deltaMultiplier =
         event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? 100 : 1
-      const horizontalDelta = event.deltaX * deltaMultiplier
-      const verticalDelta = event.deltaY * deltaMultiplier
+      const rawX = event.deltaX * deltaMultiplier
+      const rawY = event.deltaY * deltaMultiplier
+      const absX = Math.abs(rawX)
+      const absY = Math.abs(rawY)
 
-      if (
-        Math.abs(horizontalDelta) <= Math.abs(verticalDelta) ||
-        Math.abs(horizontalDelta) < 1
+      // Only claim sideways gestures. Vertical trackpad scroll must pass
+      // through to the page. Shift+wheel is the mouse chord for horizontal.
+      let scrollDelta = 0
+      if (event.shiftKey && absY >= TRACKPAD_AXIS_MIN) {
+        scrollDelta = rawY
+      } else if (
+        absX >= TRACKPAD_AXIS_MIN &&
+        absX > absY * TRACKPAD_HORIZONTAL_RATIO
       ) {
+        scrollDelta = rawX
+      } else {
         return
       }
 
-      if (trackpadGestureHandled.current) {
+      const carouselApi = apiRef.current
+      if (!carouselApi) return
+
+      const engine = carouselApi.internalEngine()
+
+      // Free-scroll strip (Apple gallery style): scrub continuously and clamp
+      // to Embla limits so the first/last slides never rest past the edge.
+      if (engine.options.dragFree) {
+        const nextTarget = engine.limit.constrain(
+          engine.target.get() - scrollDelta,
+        )
+        if (nextTarget === engine.target.get()) {
+          if (engine.limit.reachedAny(engine.target.get())) {
+            event.preventDefault()
+          }
+          return
+        }
+
         event.preventDefault()
-        scheduleTrackpadGestureEnd()
+        engine.scrollBody
+          .useFriction(FREE_WHEEL_FRICTION)
+          .useDuration(FREE_WHEEL_DURATION)
+        engine.scrollTo.distance(nextTarget - engine.target.get(), false)
         return
       }
 
       const canScrollInDirection =
-        horizontalDelta > 0
-          ? canScrollNextRef.current
-          : canScrollPrevRef.current
+        scrollDelta > 0
+          ? carouselApi.canScrollNext()
+          : carouselApi.canScrollPrev()
       if (!canScrollInDirection) return
 
       event.preventDefault()
-      trackpadDelta.current += horizontalDelta
+
+      // Snapping carousels (e.g. lightbox): one slide per gesture.
+      // Same-direction inertia is ignored; reverse unlocks immediately.
+      const direction = scrollDelta > 0 ? 1 : -1
+      if (trackpadGestureHandled.current) {
+        if (direction === trackpadGestureDirection.current) {
+          scheduleTrackpadGestureEnd()
+          return
+        }
+        clearTrackpadGesture()
+      }
+
+      trackpadDelta.current += scrollDelta
       scheduleTrackpadGestureEnd()
 
       if (Math.abs(trackpadDelta.current) < TRACKPAD_SWIPE_THRESHOLD) return
 
       trackpadGestureHandled.current = true
+      trackpadGestureDirection.current = direction
       trackpadDelta.current = 0
-      if (horizontalDelta > 0) scrollNextRef.current()
-      else scrollPrevRef.current()
+      if (direction > 0) carouselApi.scrollNext()
+      else carouselApi.scrollPrev()
     },
-    [orientation, scheduleTrackpadGestureEnd],
+    [
+      clearTrackpadGesture,
+      orientation,
+      scheduleTrackpadGestureEnd,
+    ],
   )
 
   useEffect(() => {
-    const root = carouselRootRef.current
-    if (!root) return
+    if (!carouselRoot) return
 
-    root.addEventListener("wheel", handleWheel, { passive: false })
+    carouselRoot.addEventListener("wheel", handleWheel, {
+      passive: false,
+      capture: true,
+    })
     return () => {
-      root.removeEventListener("wheel", handleWheel)
-      if (trackpadGestureTimeout.current) {
-        clearTimeout(trackpadGestureTimeout.current)
-      }
-      trackpadDelta.current = 0
-      trackpadGestureHandled.current = false
+      carouselRoot.removeEventListener("wheel", handleWheel, {
+        capture: true,
+      })
+      clearTrackpadGesture()
     }
-  }, [handleWheel])
+  }, [carouselRoot, clearTrackpadGesture, handleWheel])
 
   const setCarouselRootRef = useCallback(
     (node: HTMLDivElement | null) => {
-      carouselRootRef.current = node
+      setCarouselRoot(node)
       if (typeof forwardedRef === "function") forwardedRef(node)
       else if (forwardedRef) forwardedRef.current = node
     },
@@ -274,8 +385,11 @@ export const Carousel = ({
         api,
         scrollPrev,
         scrollNext,
+        scrollTo,
         canScrollPrev,
         canScrollNext,
+        selectedIndex,
+        scrollSnaps,
         orientation,
       }}
     >
@@ -308,6 +422,7 @@ export const Carousel = ({
 
 export const CarouselContent = ({
   className,
+  viewportClassName,
   ...props
 }: CarouselContentProps) => {
   const { carouselRef, orientation } = useCarousel()
@@ -316,10 +431,11 @@ export const CarouselContent = ({
     <div
       ref={carouselRef}
       className={cn(
-        "overflow-hidden",
+        "cursor-grab overflow-hidden active:cursor-grabbing",
         orientation === "horizontal"
           ? "touch-pan-y overscroll-x-contain"
           : "touch-pan-x overscroll-y-contain",
+        viewportClassName,
       )}
       data-slot="carousel-viewport"
     >
@@ -327,6 +443,8 @@ export const CarouselContent = ({
         data-slot="carousel-content"
         className={cn(
           "flex",
+          // Start spacing so the first slide lines up with the page measure.
+          // No end padding — the strip bleeds to the track edge (Apple gallery).
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className,
         )}
@@ -345,8 +463,12 @@ export const CarouselItem = ({ className, ...props }: CarouselItemProps) => {
       aria-roledescription="slide"
       data-slot="carousel-item"
       className={cn(
-        "min-w-0 shrink-0 grow-0 basis-full",
-        orientation === "horizontal" ? "pl-4" : "pt-4",
+        "min-w-0 shrink-0 grow-0",
+        // Peek the next card by default — override with basis-full when a
+        // single focused slide is required (e.g. lightbox).
+        orientation === "horizontal"
+          ? "basis-[92%] pl-4 sm:basis-[72%] lg:basis-[62%]"
+          : "basis-full pt-4",
         className,
       )}
       {...props}
@@ -357,7 +479,7 @@ export const CarouselItem = ({ className, ...props }: CarouselItemProps) => {
 export const CarouselPrevious = ({
   className,
   variant = "ghost",
-  size = "md",
+  size = "sm",
   ...props
 }: CarouselPreviousProps) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
@@ -373,10 +495,10 @@ export const CarouselPrevious = ({
       aria-label="Previous slide"
       data-slot="carousel-previous"
       className={cn(
-        "absolute size-9 border-0 focus-visible:border-0",
+        carouselControlClassName,
         orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2 active:!-translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90 active:!-translate-x-1/2 active:!translate-y-0",
+          ? "top-1/2 left-3 -translate-y-1/2 active:!-translate-y-1/2"
+          : "top-3 left-1/2 -translate-x-1/2 rotate-90 active:!-translate-x-1/2 active:!translate-y-0",
         className,
       )}
       onClick={scrollPrev}
@@ -390,7 +512,7 @@ export const CarouselPrevious = ({
 export const CarouselNext = ({
   className,
   variant = "ghost",
-  size = "md",
+  size = "sm",
   ...props
 }: CarouselNextProps) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
@@ -406,10 +528,10 @@ export const CarouselNext = ({
       aria-label="Next slide"
       data-slot="carousel-next"
       className={cn(
-        "absolute size-9 border-0 focus-visible:border-0",
+        carouselControlClassName,
         orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2 active:!-translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90 active:!-translate-x-1/2 active:!translate-y-0",
+          ? "top-1/2 right-3 -translate-y-1/2 active:!-translate-y-1/2"
+          : "bottom-3 left-1/2 -translate-x-1/2 rotate-90 active:!-translate-x-1/2 active:!translate-y-0",
         className,
       )}
       onClick={scrollNext}
@@ -417,6 +539,46 @@ export const CarouselNext = ({
     >
       <IconChevronRightSmall aria-hidden />
     </Button>
+  )
+}
+
+export const CarouselDots = ({ className, ...props }: CarouselDotsProps) => {
+  const { scrollSnaps, selectedIndex, scrollTo } = useCarousel()
+
+  if (scrollSnaps.length <= 1) return null
+
+  return (
+    <div
+      data-slot="carousel-dots"
+      role="tablist"
+      aria-label="Slide indicators"
+      className={cn("mt-4 flex items-center justify-start gap-1 pl-4", className)}
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => {
+        const isSelected = index === selectedIndex
+
+        return (
+          <button
+            key={index}
+            type="button"
+            role="tab"
+            aria-label={`Go to slide ${index + 1}`}
+            aria-selected={isSelected}
+            data-selected={isSelected ? "" : undefined}
+            className={cn(
+              "h-1.5 cursor-pointer rounded-full outline-none",
+              motion.all,
+              "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary",
+              isSelected
+                ? "w-5 bg-fg-tertiary"
+                : "w-1.5 bg-fg-quaternary/50 hover:bg-fg-quaternary",
+            )}
+            onClick={() => scrollTo(index)}
+          />
+        )
+      })}
+    </div>
   )
 }
 

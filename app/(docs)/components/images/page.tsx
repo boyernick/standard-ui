@@ -1,20 +1,20 @@
 import type { Metadata } from "next"
 import { DocPage } from "@/components/doc-page"
-import { ImageModalExamples } from "./image-modal-examples"
+import { ImagesExamples } from "./images-examples"
 
 export const metadata: Metadata = {
-  title: "Image modal",
+  title: "Images",
 }
 
-export default function ImageModalPage() {
+export default function ImagesPage() {
   return (
     <DocPage
-      title="Image modal"
+      title="Images"
       description="Immersive lightbox for single images and swipeable galleries."
       heading={null}
       bleed
     >
-      <ImageModalExamples />
+      <ImagesExamples />
     </DocPage>
   )
 }

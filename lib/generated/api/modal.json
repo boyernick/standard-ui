@@ -1,8 +1,8 @@
 {
-  "module": "image-modal",
+  "module": "modal",
   "parts": [
     {
-      "name": "ImageModal",
+      "name": "Modal",
       "props": [
         {
           "name": "actionsRef",
@@ -97,7 +97,7 @@
       "universal": 0
     },
     {
-      "name": "ImageModalContent",
+      "name": "ModalContent",
       "props": [
         {
           "name": "alt",
@@ -154,7 +154,7 @@
       "universal": 3
     },
     {
-      "name": "ImageModalTrigger",
+      "name": "ModalTrigger",
       "props": [
         {
           "name": "handle",

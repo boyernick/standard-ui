@@ -858,6 +858,7 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDots,
   useCarousel,
   type CarouselApi,
   type CarouselProps,
@@ -865,6 +866,7 @@ export {
   type CarouselItemProps,
   type CarouselPreviousProps,
   type CarouselNextProps,
+  type CarouselDotsProps,
 } from "./carousel";
 export {
   SoundsProvider,
@@ -881,19 +883,19 @@ export {
   type VideoPlayerProps,
 } from "./video-player";
 export {
-  ImageModal,
-  ImageModalTrigger,
-  ImageModalContent,
-  ImageModalGallery,
-  ImageModalGalleryTrigger,
-  imageModalContentVariants,
-  type ImageModalProps,
-  type ImageModalTriggerProps,
-  type ImageModalContentProps,
-  type ImageModalGalleryProps,
-  type ImageModalGalleryTriggerProps,
-  type ImageModalItem,
-} from "./image-modal";
+  Modal,
+  ModalTrigger,
+  ModalContent,
+  Gallery,
+  GalleryTrigger,
+  modalContentVariants,
+  type ModalProps,
+  type ModalTriggerProps,
+  type ModalContentProps,
+  type GalleryProps,
+  type GalleryTriggerProps,
+  type GalleryItem,
+} from "./modal";
 export {
   Ticker,
   TickerItem,
@@ -1001,15 +1003,13 @@ export {
 } from "./icons";
 export { CodeBlock, type CodeBlockProps, type CodeBlockHighlightLine } from "./code-block";
 export {
-  MarkdownEditor,
-  MarkdownEditorToolbar,
-  MarkdownEditorInput,
-  MarkdownEditorPreview,
-  type MarkdownEditorProps,
-  type MarkdownEditorToolbarProps,
-  type MarkdownEditorInputProps,
-  type MarkdownEditorPreviewProps,
-} from "./markdown-editor";
+  BlockEditor,
+  createBlockEditorBlock,
+  defaultBlockEditorBlocks,
+  type BlockEditorProps,
+  type BlockEditorBlock,
+  type BlockEditorBlockType,
+} from "./block-editor";
 export {
   IllustrationEmpty,
   IllustrationError,

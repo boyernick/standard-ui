@@ -13,6 +13,7 @@ export const components = [
   { href: "/components/autocomplete", label: "Autocomplete" },
   { href: "/components/avatar", label: "Avatar" },
   { href: "/components/badge", label: "Badge" },
+  { href: "/components/block-editor", label: "Block editor" },
   { href: "/components/breadcrumb", label: "Breadcrumb" },
   { href: "/components/button", label: "Button" },
   { href: "/components/calendar", label: "Calendar" },
@@ -35,11 +36,10 @@ export const components = [
   { href: "/components/file-attachment", label: "File attachment" },
   { href: "/components/filter-group", label: "Filter group" },
   { href: "/components/form", label: "Form" },
-  { href: "/components/image-modal", label: "Image modal" },
+  { href: "/components/images", label: "Images" },
   { href: "/components/input", label: "Input" },
   { href: "/components/kbd", label: "Kbd" },
   { href: "/components/lifeline", label: "Lifeline" },
-  { href: "/components/markdown-editor", label: "Markdown editor" },
   { href: "/components/menu", label: "Menu" },
   { href: "/components/menubar", label: "Menubar" },
   { href: "/components/meter", label: "Meter" },
@@ -73,7 +73,7 @@ export const components = [
   { href: "/components/toggle", label: "Toggle" },
   { href: "/components/toolbar", label: "Toolbar" },
   { href: "/components/tooltip", label: "Tooltip" },
-  { href: "/components/video-player", label: "Video player" },
+  { href: "/components/videos", label: "Videos" },
 ] as const;
 
 export const upcomingComponents = [] as const;
