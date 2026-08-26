@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
   type HTMLAttributes,
-  type DragEvent as ReactDragEvent,
+  type PointerEvent as ReactPointerEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
   type ReactElement,
@@ -110,6 +110,9 @@ const SLASH_COMMANDS: SlashCommand[] = [
     keywords: ["divider", "separator", "line", "hr", "rule"],
   },
 ]
+
+/** Pixels of vertical travel before a handle press becomes a drag. */
+const DRAG_THRESHOLD = 4
 
 const createId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -629,10 +632,13 @@ export const BlockEditor = ({
   const [dropInsertIndex, setDropInsertIndex] = useState<number | null>(null)
   const dragIdRef = useRef<string | null>(null)
   const dropInsertIndexRef = useRef<number | null>(null)
-  const dragGhostRef = useRef<HTMLDivElement | null>(null)
-  const pendingMoveRef = useRef<{
-    fromId: string
-    insertIndex: number
+  /** Pointer press that has not yet cleared the movement threshold. */
+  const pendingDragRef = useRef<{
+    blockId: string
+    index: number
+    pointerId: number
+    startY: number
+    handle: HTMLElement
   } | null>(null)
   const editorRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
@@ -841,73 +847,97 @@ export const BlockEditor = ({
     )
   }, [])
 
-  const handleListDragOver = useCallback(
-    (event: ReactDragEvent<HTMLDivElement>) => {
-      if (!dragIdRef.current) return
+  /**
+   * Reordering runs on pointer events, not HTML5 drag-and-drop.
+   *
+   * Blocks sit next to `contenteditable` fields, and Chromium will happily
+   * start its own text drag from those instead of firing `dragstart` on the
+   * handle. Pointer capture sidesteps that entirely: the handle owns the
+   * pointer for the whole gesture, so moves keep arriving even when the
+   * cursor leaves the list, and touch works for free.
+   */
+  const endBlockDrag = useCallback(
+    (commit: boolean) => {
+      const fromId = dragIdRef.current
+      const insertIndex = dropInsertIndexRef.current
+
+      pendingDragRef.current = null
+      dragIdRef.current = null
+      dropInsertIndexRef.current = null
+      setDragId(null)
+      setDropInsertIndex(null)
+      document.body.style.removeProperty("cursor")
+
+      if (commit && fromId && insertIndex != null) {
+        moveBlockToIndex(fromId, insertIndex)
+      }
+    },
+    [moveBlockToIndex],
+  )
+
+  const handleHandlePointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLElement>, blockId: string, index: number) => {
+      if (event.button !== 0) return
+      // Stop the press from moving the caret or selecting text mid-drag.
       event.preventDefault()
-      event.dataTransfer.dropEffect = "move"
+      const handle = event.currentTarget
+      pendingDragRef.current = {
+        blockId,
+        index,
+        pointerId: event.pointerId,
+        startY: event.clientY,
+        handle,
+      }
+      // Capture can throw if the pointer is already gone; the drag still works
+      // off the handle's own move events, so treat it as best-effort.
+      try {
+        handle.setPointerCapture(event.pointerId)
+      } catch {
+        /* no-op */
+      }
+    },
+    [],
+  )
+
+  const handleHandlePointerMove = useCallback(
+    (event: ReactPointerEvent<HTMLElement>) => {
+      const pending = pendingDragRef.current
+
+      // Arm the drag only once the pointer has actually travelled, so a plain
+      // click on the handle stays a click.
+      if (
+        pending &&
+        pending.pointerId === event.pointerId &&
+        !dragIdRef.current
+      ) {
+        if (Math.abs(event.clientY - pending.startY) < DRAG_THRESHOLD) return
+        dragIdRef.current = pending.blockId
+        dropInsertIndexRef.current = pending.index
+        setDragId(pending.blockId)
+        setDropInsertIndex(pending.index)
+        document.body.style.cursor = "grabbing"
+      }
+
+      if (!dragIdRef.current) return
       const insertIndex = resolveInsertIndexFromY(event.clientY)
-      if (insertIndex == null) return
-      setDropIndex(insertIndex)
+      if (insertIndex != null) setDropIndex(insertIndex)
     },
     [resolveInsertIndexFromY, setDropIndex],
   )
 
-  const handleListDrop = useCallback(
-    (event: ReactDragEvent<HTMLDivElement>) => {
-      if (!dragIdRef.current) return
-      event.preventDefault()
-      const fromId =
-        event.dataTransfer.getData("text/plain") || dragIdRef.current
-      const insertIndex =
-        resolveInsertIndexFromY(event.clientY) ?? dropInsertIndexRef.current
-      if (fromId && insertIndex != null) {
-        // Apply on dragend — mutating the drag source mid-drag breaks
-        // subsequent HTML5 drag operations in Chromium.
-        pendingMoveRef.current = { fromId, insertIndex }
-      }
+  const handleHandlePointerUp = useCallback(() => {
+    endBlockDrag(dragIdRef.current != null)
+  }, [endBlockDrag])
+
+  const moveBlockByStep = useCallback(
+    (index: number, direction: -1 | 1) => {
+      const block = blocks[index]
+      if (!block) return
+      const target = direction === -1 ? index - 1 : index + 2
+      if (target < 0 || target > blocks.length) return
+      moveBlockToIndex(block.id, target)
     },
-    [resolveInsertIndexFromY],
-  )
-
-  const clearDragState = useCallback(() => {
-    const pending = pendingMoveRef.current
-    pendingMoveRef.current = null
-    if (pending) {
-      moveBlockToIndex(pending.fromId, pending.insertIndex)
-    }
-    dragGhostRef.current?.remove()
-    dragGhostRef.current = null
-    dragIdRef.current = null
-    dropInsertIndexRef.current = null
-    setDragId(null)
-    setDropInsertIndex(null)
-  }, [moveBlockToIndex])
-
-  const beginBlockDrag = useCallback(
-    (
-      event: ReactDragEvent<HTMLButtonElement>,
-      blockId: string,
-      index: number,
-    ) => {
-      pendingMoveRef.current = null
-      dragIdRef.current = blockId
-      dropInsertIndexRef.current = index
-      setDragId(blockId)
-      setDropInsertIndex(index)
-      event.dataTransfer.effectAllowed = "move"
-      event.dataTransfer.setData("text/plain", blockId)
-
-      // Keep this node until dragend — removing it earlier breaks later drags.
-      dragGhostRef.current?.remove()
-      const ghost = document.createElement("div")
-      ghost.style.cssText =
-        "position:fixed;top:-1000px;left:0;width:1px;height:1px;opacity:0;pointer-events:none"
-      document.body.appendChild(ghost)
-      dragGhostRef.current = ghost
-      event.dataTransfer.setDragImage(ghost, 0, 0)
-    },
-    [],
+    [blocks, moveBlockToIndex],
   )
 
   const applySlashCommand = useCallback(
@@ -1300,9 +1330,12 @@ export const BlockEditor = ({
     >
       <div
         ref={listRef}
-        className="relative flex w-full max-w-[720px] flex-col gap-0.5 overflow-visible"
-        onDragOver={handleListDragOver}
-        onDrop={handleListDrop}
+        className={cn(
+          "relative flex w-full max-w-[720px] flex-col gap-0.5 overflow-visible",
+          // Pointer capture keeps the gesture on the handle; this just stops
+          // the surrounding copy from highlighting as the cursor sweeps it.
+          dragId && "select-none",
+        )}
       >
         {(() => {
           const dragFromIndex = dragId
@@ -1356,25 +1389,34 @@ export const BlockEditor = ({
             <button
               type="button"
               data-slot="block-editor-handle"
-              aria-label="Drag to reorder"
-              draggable
+              aria-label={`Reorder ${blockTypeLabel(block.type)}`}
+              title="Drag to reorder"
               className={cn(
                 "absolute right-full z-10 mr-1 flex h-7 cursor-grab items-center justify-center rounded-sm px-1 text-fg-quaternary",
+                // Widen the grab target without moving the dots.
+                "before:absolute before:-inset-y-1 before:-inset-x-1 before:content-['']",
                 block.type === "text"
                   ? "top-0.5"
                   : "top-1/2 -translate-y-1/2",
                 "opacity-0 transition-opacity duration-[var(--duration-sm)] ease-enter group-hover:opacity-100",
                 "hover:bg-background-tertiary hover:text-fg-secondary",
-                "active:cursor-grabbing",
+                "touch-none active:cursor-grabbing",
                 "focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20",
-                isDragging && "opacity-100",
+                isDragging && "cursor-grabbing opacity-100",
               )}
               onClick={(event) => event.stopPropagation()}
-              onMouseDown={(event) => event.stopPropagation()}
-              onDragStart={(event) => {
-                beginBlockDrag(event, block.id, index)
+              onPointerDown={(event) => {
+                event.stopPropagation()
+                handleHandlePointerDown(event, block.id, index)
               }}
-              onDragEnd={clearDragState}
+              onPointerMove={handleHandlePointerMove}
+              onPointerUp={handleHandlePointerUp}
+              onPointerCancel={handleHandlePointerUp}
+              onKeyDown={(event) => {
+                if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return
+                event.preventDefault()
+                moveBlockByStep(index, event.key === "ArrowUp" ? -1 : 1)
+              }}
             >
               <IconDotGrid2x3 size={16} className="size-4" aria-hidden />
             </button>
@@ -1390,7 +1432,7 @@ export const BlockEditor = ({
                 className={cn(
                   "group relative -mx-3 my-3 flex cursor-pointer items-center rounded-md px-3 py-2 outline-none",
                   "[&:not(:focus-within):hover]:bg-background-quaternary/20",
-                  isDragging && "opacity-5",
+                  isDragging && "opacity-40",
                 )}
                 onClick={() => setActiveId(block.id)}
                 onKeyDown={(event) => {
@@ -1451,7 +1493,7 @@ export const BlockEditor = ({
                 isListBlock ? "py-0" : "py-0.5",
                 showBlockChrome &&
                   "[&:not(:focus-within):hover]:bg-background-quaternary/20",
-                isDragging && "opacity-5",
+                isDragging && "opacity-40",
                 sameListAsPrevious && "-mt-0.5",
                 previous &&
                   previous.type !== block.type &&
