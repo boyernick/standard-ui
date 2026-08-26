@@ -65,27 +65,24 @@ bundler-resolvable and avoid anything that needs a compile pass to work.
 
 ## Documenting a component
 
-Every component gets `app/(docs)/components/<name>/page.tsx`, following the
-established order: `PageHeader`, Examples, Overview, Usage, API. Foundations-style
-pages use unframed `<DocBand>` sections; legacy framed pages use
-`<ComponentCanvas>`. Put anything stateful in a sibling `<name>-examples.tsx`
-marked `"use client"`.
+Every component gets `app/(docs)/components/<name>/page.tsx`. The page itself is
+a thin `<DocPage>` carrying the title and a one-line description; the specimens
+live in a sibling `<name>-examples.tsx` marked `"use client"` — 63 of the 66
+pages have one.
 
-Pages using the foundations-style ruled layout must render their examples as
-sibling `<DocBand>` sections and keep the specimens unframed. Rules separate
-adjacent bands, but the final band must not add a closing bottom rule; the fixed
-pagination footer provides the next visual boundary.
+The site is visual specimens, not prose: each page is a stack of unframed
+`<DocBand>` sections, and there are no Overview, Usage or API sections to fill
+in. Rules separate adjacent bands, but the final band must not add a closing
+bottom rule; the fixed pagination footer provides the next visual boundary.
 
-The `code={...}` string on `ComponentCanvas` and `CodeBlock` is **compiled
-against the real component types** by `scripts/check-doc-snippets.mjs`. Write
-snippets as genuine code, because a renamed prop or a dropped variant will fail
-CI here. Two things the checker deliberately tolerates: demo identifiers it
-cannot resolve (treated as `any`) and snippets that do not parse, which it counts
-as illustrative and skips — so an anatomy sketch is fine, but do not lean on that
-to ship a snippet that is quietly wrong.
-
-Keep the snippet and the rendered demo saying the same thing. They are separate
-props, and only the snippet is verified.
+**Doc snippets are not verified.** `scripts/check-doc-snippets.mjs` used to
+compile every `code={...}` string against the real component types, but the
+script and the snippet-heavy page layout were removed together in `aa316ec`,
+when the site was stripped to visual specimens. `components/component-canvas.tsx`
+still exists but no page imports it. `npm run typecheck` does type-check the real
+JSX in these pages, so a renamed prop breaks a *demo* loudly — it just will not
+catch a stale prop inside a `code={...}` string. Keep any snippet you add in sync
+by hand.
 
 ## Releasing
 
