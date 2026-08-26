@@ -111,13 +111,6 @@ export const BreadcrumbExamples = () => (
                   collisionAvoidance={categoryMenuCollision}
                 >
                   <MenuPopup aria-label="Component pages" className="min-w-56">
-                    <MenuLinkItem
-                      href="/components"
-                      aria-current="page"
-                      className="font-medium"
-                    >
-                      Components
-                    </MenuLinkItem>
                     <MenuLinkItem href="/components/accordion">
                       Accordion
                     </MenuLinkItem>
