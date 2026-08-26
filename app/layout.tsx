@@ -3,6 +3,9 @@ import Script from "next/script"
 import "./globals.css"
 
 export const metadata: Metadata = {
+  // Absolute base for og:image. Without it the file-convention image resolves
+  // against VERCEL_PROJECT_PRODUCTION_URL, which is the vercel.app host.
+  metadataBase: new URL("https://ui.nickboyer.com"),
   title: {
     default: "StandardUI",
     template: "%s · StandardUI",
@@ -13,11 +16,17 @@ export const metadata: Metadata = {
     icon: [{ url: "/favicon.svg?v=8", type: "image/svg+xml" }],
     apple: [{ url: "/favicon.svg?v=8", type: "image/svg+xml" }],
   },
+  // No title or description here on purpose. Pages do not declare their own
+  // `openGraph`, so a title set here would be inherited verbatim and every
+  // page would unfurl as "StandardUI". Left absent, Next fills og:title and
+  // og:description from the resolved page metadata, which already carries the
+  // "%s · StandardUI" template above.
   openGraph: {
-    title: "StandardUI",
-    description: "The visual foundations and shared language.",
     siteName: "StandardUI",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 }
 
