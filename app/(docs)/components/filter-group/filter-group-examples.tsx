@@ -11,6 +11,23 @@ export const FilterGroupExamples = () => (
   <div>
     <DocBand
       first
+      id="segmented"
+      title="Segmented"
+      description="An inset enclosure binds a small, exclusive set of filters into one control."
+      contentClassName={BAND}
+    >
+      <FilterGroup
+        aria-label="Issue scope"
+        defaultValue={["all"]}
+        variant="segmented"
+      >
+        <FilterItem value="all">All</FilterItem>
+        <FilterItem value="mine">Mine</FilterItem>
+        <FilterItem value="unassigned">Unassigned</FilterItem>
+      </FilterGroup>
+    </DocBand>
+
+    <DocBand
       id="pill"
       title="Pill"
       description="Detached choices filter one result set without changing the surrounding view."
@@ -24,20 +41,25 @@ export const FilterGroupExamples = () => (
     </DocBand>
 
     <DocBand
-      id="segmented"
-      title="Segmented"
-      description="An inset enclosure gives a small, exclusive set more visual structure."
+      id="sizes"
+      title="Sizes"
+      description="Small, medium, and large options cover dense toolbars and touch-friendly surfaces."
       contentClassName={BAND}
     >
-      <FilterGroup
-        aria-label="Date range"
-        defaultValue={["week"]}
-        variant="segmented"
-      >
-        <FilterItem value="day">Day</FilterItem>
-        <FilterItem value="week">Week</FilterItem>
-        <FilterItem value="month">Month</FilterItem>
-      </FilterGroup>
+      <div className="flex flex-col items-start gap-5">
+        {(["sm", "md", "lg"] as const).map((size) => (
+          <FilterGroup
+            key={size}
+            aria-label={`${size} filter size`}
+            defaultValue={["all"]}
+            size={size}
+          >
+            <FilterItem value="all">All</FilterItem>
+            <FilterItem value="active">Active</FilterItem>
+            <FilterItem value="archived">Archived</FilterItem>
+          </FilterGroup>
+        ))}
+      </div>
     </DocBand>
 
     <DocBand
@@ -77,28 +99,6 @@ export const FilterGroupExamples = () => (
           <FilterCount>3</FilterCount>
         </FilterItem>
       </FilterGroup>
-    </DocBand>
-
-    <DocBand
-      id="sizes"
-      title="Sizes"
-      description="Small, medium, and large options cover dense toolbars and touch-friendly surfaces."
-      contentClassName={BAND}
-    >
-      <div className="flex flex-col items-start gap-5">
-        {(["sm", "md", "lg"] as const).map((size) => (
-          <FilterGroup
-            key={size}
-            aria-label={`${size} filter size`}
-            defaultValue={["all"]}
-            size={size}
-          >
-            <FilterItem value="all">All</FilterItem>
-            <FilterItem value="active">Active</FilterItem>
-            <FilterItem value="archived">Archived</FilterItem>
-          </FilterGroup>
-        ))}
-      </div>
     </DocBand>
 
     <DocBand
