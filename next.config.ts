@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/structure", destination: "/", permanent: true },
-      { source: "/illustrations", destination: "/", permanent: true },
       { source: "/spacing", destination: "/", permanent: true },
       { source: "/layout", destination: "/", permanent: true },
       { source: "/breakpoints", destination: "/", permanent: true },

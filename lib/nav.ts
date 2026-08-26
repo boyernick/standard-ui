@@ -5,6 +5,7 @@ export const foundations = [
   { href: "/typography", label: "Typography" },
   { href: "/materials", label: "Materials" },
   { href: "/icons", label: "Icons" },
+  { href: "/illustrations", label: "Illustrations" },
 ] as const;
 
 export const components = [
