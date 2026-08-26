@@ -6,6 +6,7 @@ import {
   useId,
   useRef,
   useState,
+  useSyncExternalStore,
   type ComponentProps,
 } from "react"
 import { IconExclamationTriangle } from "@central-icons-react/round-filled-radius-2-stroke-2/IconExclamationTriangle"
@@ -16,6 +17,15 @@ import { IconPlay } from "@central-icons-react/round-filled-radius-2-stroke-2/Ic
 import { IconVolumeFull } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeFull"
 import { IconVolumeOff } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeOff"
 import { cn } from "./lib/cn"
+
+/**
+ * Picture-in-Picture support is a static browser capability, not React state.
+ * Reading it through an external store keeps the server snapshot `false` so
+ * hydration matches, without a post-mount setState that re-renders the player.
+ */
+const subscribePipSupport = () => () => {}
+const getPipSupported = () => document.pictureInPictureEnabled
+const getPipSupportedOnServer = () => false
 
 const formatTime = (seconds: number) => {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00"
@@ -58,7 +68,11 @@ export const VideoPlayer = ({
   const [ended, setEnded] = useState(false)
   const [failed, setFailed] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
-  const [pipSupported, setPipSupported] = useState(false)
+  const pipSupported = useSyncExternalStore(
+    subscribePipSupport,
+    getPipSupported,
+    getPipSupportedOnServer,
+  )
   const [pipActive, setPipActive] = useState(false)
   const [current, setCurrent] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -235,9 +249,6 @@ export const VideoPlayer = ({
 
   useEffect(() => {
     const video = videoRef.current
-    setPipSupported(
-      typeof document !== "undefined" && document.pictureInPictureEnabled,
-    )
     if (!video) return
 
     const handleEnterPip = () => setPipActive(true)
