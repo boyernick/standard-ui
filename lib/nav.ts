@@ -2,10 +2,10 @@ export const rootPages = [{ href: "/", label: "Introduction" }] as const;
 
 export const foundations = [
   { href: "/colors", label: "Colors" },
+  { href: "/illustrations", label: "Illustrations" },
   { href: "/typography", label: "Typography" },
   { href: "/materials", label: "Materials" },
   { href: "/icons", label: "Icons" },
-  { href: "/illustrations", label: "Illustrations" },
 ] as const;
 
 export const components = [
