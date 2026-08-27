@@ -4,6 +4,9 @@ import {
   IllustrationEmpty,
   IllustrationError,
   IllustrationFile,
+  IllustrationLocked,
+  IllustrationNoData,
+  IllustrationNoResults,
   IllustrationSearch,
   IllustrationSuccess,
   IllustrationUpload,
@@ -23,9 +26,12 @@ type Specimen = {
 const states: readonly Specimen[] = [
   { name: "IllustrationEmpty", Illustration: IllustrationEmpty },
   { name: "IllustrationSearch", Illustration: IllustrationSearch },
+  { name: "IllustrationNoResults", Illustration: IllustrationNoResults },
   { name: "IllustrationError", Illustration: IllustrationError },
   { name: "IllustrationUpload", Illustration: IllustrationUpload },
   { name: "IllustrationSuccess", Illustration: IllustrationSuccess },
+  { name: "IllustrationLocked", Illustration: IllustrationLocked },
+  { name: "IllustrationNoData", Illustration: IllustrationNoData },
 ]
 
 const fileTypes: readonly FileIllustrationType[] = [

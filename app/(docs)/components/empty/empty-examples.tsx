@@ -5,11 +5,10 @@ import {
   Empty,
   EmptyActions,
   EmptyDescription,
-  EmptyIcon,
   EmptyTitle,
-  IconMagnifyingGlass,
   IllustrationEmpty,
   IllustrationError,
+  IllustrationNoResults,
   IllustrationSearch,
   IllustrationSuccess,
 } from "@boyernick/standard-ui-react"
@@ -46,11 +45,7 @@ export const EmptyExamples = () => (
       contentClassName="max-w-lg"
     >
       <State
-        media={
-          <EmptyIcon>
-            <IconMagnifyingGlass />
-          </EmptyIcon>
-        }
+        media={<IllustrationNoResults className="mb-4" />}
         title="No results"
         description="Try another search or clear your filters."
         actions={<Button size="sm">Clear search</Button>}
