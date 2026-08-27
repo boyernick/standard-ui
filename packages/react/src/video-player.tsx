@@ -344,7 +344,14 @@ export const VideoPlayer = ({
       {!failed && !loading ? (
         <div
           className={cn(
-            "absolute inset-x-0 bottom-0 flex translate-y-0 flex-col bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2.5 pt-14 pb-2.5 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:px-5 group-data-[fullscreen]:pb-5 motion-reduce:transition-none",
+            // The scrim samples 0.8 → 0 along smootherstep
+            // (`6t⁵ − 15t⁴ + 10t³`) rather than using a three-stop gradient.
+            // Three stops are a run of straight segments, and the eye reads
+            // every slope change between them as a seam; flat or evenly lit
+            // footage shows those plainly. This curve is flat at both ends
+            // instead — no edge where the scrim starts, no corner where it
+            // reaches full strength behind the controls.
+            "absolute inset-x-0 bottom-0 flex translate-y-0 flex-col bg-[linear-gradient(to_top,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.79)_12.5%,rgba(0,0,0,0.72)_25%,rgba(0,0,0,0.58)_37.5%,rgba(0,0,0,0.4)_50%,rgba(0,0,0,0.22)_62.5%,rgba(0,0,0,0.08)_75%,rgba(0,0,0,0.01)_87.5%,transparent_100%)] px-2.5 pt-14 pb-2.5 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:px-5 group-data-[fullscreen]:pb-5 motion-reduce:transition-none",
             "group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100",
             // Nothing hovers on a touch screen, so the chrome would never come
             // back once playback started. Keep it visible there instead.
