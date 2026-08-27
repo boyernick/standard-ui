@@ -118,13 +118,51 @@ export const semanticColorGroups: ColorGroup[] = [
     id: "decorative",
     title: "Decorative",
     description:
-      "Accents for charts, tags, and illustration.",
+      "One hue set in two rungs: ink that flips with the theme, fills that hold.",
     prefix: "bg",
     tokens: [
       { name: "decorative-green", cssVar: "--decorative-green", usage: "Green accent" },
       { name: "decorative-blue", cssVar: "--decorative-blue", usage: "Informational accent" },
       { name: "decorative-olive", cssVar: "--decorative-olive", usage: "Earthy complement" },
+      { name: "decorative-orange", cssVar: "--decorative-orange", usage: "Orange accent" },
+      { name: "decorative-purple", cssVar: "--decorative-purple", usage: "Purple accent" },
+      { name: "decorative-pink", cssVar: "--decorative-pink", usage: "Pink accent" },
       { name: "decorative-crimson", cssVar: "--decorative-crimson", usage: "Decorative red — not destructive" },
+      {
+        name: "decorative-green-fill",
+        cssVar: "--decorative-green-fill",
+        usage: "Area fill — one value in both themes",
+      },
+      {
+        name: "decorative-blue-fill",
+        cssVar: "--decorative-blue-fill",
+        usage: "Area fill — one value in both themes",
+      },
+      {
+        name: "decorative-orange-fill",
+        cssVar: "--decorative-orange-fill",
+        usage: "Area fill — one value in both themes",
+      },
+      {
+        name: "decorative-purple-fill",
+        cssVar: "--decorative-purple-fill",
+        usage: "Area fill — one value in both themes",
+      },
+      {
+        name: "decorative-pink-fill",
+        cssVar: "--decorative-pink-fill",
+        usage: "Area fill — one value in both themes",
+      },
+      {
+        name: "decorative-olive-fill",
+        cssVar: "--decorative-olive-fill",
+        usage: "Area fill — one value in both themes",
+      },
+      {
+        name: "decorative-crimson-fill",
+        cssVar: "--decorative-crimson-fill",
+        usage: "Area fill — one value in both themes",
+      },
     ],
   },
   {
@@ -171,7 +209,18 @@ export const semanticColorGroups: ColorGroup[] = [
     prefix: "bg",
     tokens: [
       { name: "destructive", cssVar: "--destructive", usage: "Destructive actions" },
+      { name: "destructive-hover", cssVar: "--destructive-hover", usage: "Hovered destructive" },
       { name: "destructive-active", cssVar: "--destructive-active", usage: "Pressed destructive" },
+      {
+        name: "destructive-border",
+        cssVar: "--destructive-border",
+        usage: "Edge of a destructive fill",
+      },
+      {
+        name: "destructive-foreground",
+        cssVar: "--destructive-foreground",
+        usage: "Text and icons on destructive fills",
+      },
       { name: "warning", cssVar: "--warning", usage: "Strong warning fill" },
       { name: "ring", prefix: "ring", cssVar: "--ring", usage: "Focus ring" },
     ],
