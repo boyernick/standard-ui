@@ -112,7 +112,7 @@ export const MenuLinkItem = ({ className, ...props }: MenuLinkItemProps) => (
 
 export const MenuSeparator = ({ className, ...props }: MenuSeparatorProps) => (
   <BaseMenu.Separator
-    className={cn("my-1 h-px bg-border-primary", className)}
+    className={cn("mx-3 my-1 h-px bg-border-primary", className)}
     {...props}
   />
 )

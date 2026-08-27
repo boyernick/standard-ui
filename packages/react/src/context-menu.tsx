@@ -151,7 +151,7 @@ export const ContextMenuSeparator = ({
   ...props
 }: ContextMenuSeparatorProps) => (
   <BaseContextMenu.Separator
-    className={cn("my-1 h-px bg-border-primary", className)}
+    className={cn("mx-3 my-1 h-px bg-border-primary", className)}
     {...props}
   />
 )

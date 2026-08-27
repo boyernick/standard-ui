@@ -263,7 +263,7 @@ export const AutocompleteSeparator = ({
   ...props
 }: AutocompleteSeparatorProps) => (
   <BaseAutocomplete.Separator
-    className={cn("my-1 h-px bg-border-primary", className)}
+    className={cn("mx-3 my-1 h-px bg-border-primary", className)}
     {...props}
   />
 )
