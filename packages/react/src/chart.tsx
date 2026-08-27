@@ -18,12 +18,12 @@ import {
 import { cn } from "./lib/cn"
 
 const chartColorVars = {
-  "--color-chart-1": "rgb(var(--chart-1))",
-  "--color-chart-2": "rgb(var(--chart-2))",
-  "--color-chart-3": "rgb(var(--chart-3))",
-  "--color-chart-4": "rgb(var(--chart-4))",
-  "--color-chart-5": "rgb(var(--chart-5))",
-  "--color-chart-neutral": "rgb(var(--chart-neutral))",
+  "--color-chart-1": "var(--chart-1)",
+  "--color-chart-2": "var(--chart-2)",
+  "--color-chart-3": "var(--chart-3)",
+  "--color-chart-4": "var(--chart-4)",
+  "--color-chart-5": "var(--chart-5)",
+  "--color-chart-neutral": "var(--chart-neutral)",
 } as CSSProperties
 
 export type ChartContainerProps = ComponentProps<"div"> & {

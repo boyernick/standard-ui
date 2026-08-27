@@ -22,6 +22,11 @@
   --text-secondary: var(--gray-500);
   --text-tertiary: var(--gray-400);
   --text-quaternary: var(--gray-350);
+  /* Below quaternary. `disabled` is still text and has to stay readable;
+     `faint` is for marks that are not text at all — illustration content,
+     placeholder rules — and sits a rung quieter again. */
+  --text-disabled: var(--gray-300);
+  --text-faint: var(--gray-200);
   --text-primary-inverted: var(--gray-0);
   --text-secondary-inverted: var(--gray-200);
 
@@ -42,10 +47,41 @@
   --brand-foreground: var(--gray-0);
   --brand-inverted: var(--gray-1000);
 
-  --decorative-green: var(--green-700);
-  --decorative-blue: var(--blue-600);
-  --decorative-olive: var(--yellow-800);
-  --decorative-crimson: var(--red-700);
+  /* One hue set, two rungs each, because the two jobs want opposite things.
+     The base token is *ink* — text, strokes, small marks — so it flips with the
+     theme to stay legible: `green-700` reads 6.9:1 on a light page where
+     `green-400` reads 2.6:1, and the reverse holds on a dark one. The `-fill`
+     token is for area — bars, chips, illustration blocks — where hue identity
+     matters more than contrast, so it holds one value in both themes. All seven
+     ink rungs sit in a 6.7–8.7:1 band on white. */
+  /* Generated, not picked off the ramps above — these sit between rungs, which
+     is why they are spelled out here rather than referencing a primitive.
+     Fixed OKLab lightness and fixed saturation *relative to the sRGB gamut at
+     each hue*, so the set varies only in hue and no member jumps forward:
+
+       ink   L 0.46  S 0.95   contrast on white 6.7–8.2:1
+       fill  L 0.62  S 0.98   contrast on white 3.4–4.2:1
+
+     0.62 anchors the fills because four of the seven hues reach their gamut
+     cusp at or below 0.65 — blue at 0.62, crimson 0.63, pink 0.65 — so they are
+     as saturated there as sRGB allows. Lighter anchors cost those hues 20–24%
+     of their chroma, and chroma is what keeps 16°-apart neighbours like crimson
+     and orange telling themselves apart. */
+  --decorative-green: #0e6a2c;
+  --decorative-blue: #0c57a5;
+  --decorative-orange: #91380b;
+  --decorative-purple: #6c14c8;
+  --decorative-pink: #9c105e;
+  --decorative-olive: #6e540b;
+  --decorative-crimson: #a51117;
+
+  --decorative-green-fill: #0ea143;
+  --decorative-blue-fill: #0b84fa;
+  --decorative-orange-fill: #db560a;
+  --decorative-purple-fill: #985afd;
+  --decorative-pink-fill: #ec108f;
+  --decorative-olive-fill: #a7800b;
+  --decorative-crimson-fill: #f81122;
 
   /* Status tones pair readable foregrounds with quiet, contextual fills. */
   --status-info: var(--blue-600);
@@ -85,15 +121,28 @@
   --status-warning-inverted: var(--orange-200);
   --status-critical-inverted: var(--red-200);
 
-  --chart-1: 4 184 76;
-  --chart-2: 2 133 255;
-  --chart-3: 251 106 34;
-  --chart-4: 146 79 247;
-  --chart-5: 255 102 173;
-  --chart-neutral: 143 143 143;
+  /* Ordered slots for a series, pointing at the fill rungs rather than copying
+     their values — hand-copied triples drift the moment a ramp moves. Stable
+     across themes for the same reason the fills are: a series keeps its
+     identity. `neutral` is spelled out because the grey ramps *do* flip and
+     this one must not. */
+  --chart-1: var(--decorative-green-fill);
+  --chart-2: var(--decorative-blue-fill);
+  --chart-3: var(--decorative-orange-fill);
+  --chart-4: var(--decorative-purple-fill);
+  --chart-5: var(--decorative-pink-fill);
+  --chart-neutral: #8f8f8f;
 
+  /* The action set mirrors brand's: fill, hover, pressed, border, foreground.
+     `active` moves down a rung to make room for a distinct hover, so the
+     ladder darkens on press instead of hover and press sharing a colour.
+     The foreground is `--white`, not `--gray-0`: the fill stays red in both
+     themes, so the text on it must not invert with the palette. */
   --destructive: var(--red-500);
-  --destructive-active: var(--red-600);
+  --destructive-hover: var(--red-600);
+  --destructive-active: var(--red-700);
+  --destructive-border: var(--red-600);
+  --destructive-foreground: var(--white);
   --warning: var(--orange-500);
   --ring: var(--gray-1000);
 
@@ -191,11 +240,27 @@
   --text-secondary: var(--gray-700);
   --text-tertiary: var(--gray-600);
   --text-quaternary: var(--gray-550);
+  --text-disabled: var(--gray-450);
+  --text-faint: var(--gray-400);
 
-  --decorative-green: var(--green-400);
-  --decorative-blue: var(--blue-400);
-  --decorative-olive: var(--yellow-400);
-  --decorative-crimson: var(--red-400);
+  /* The neutral ramp, respaced. Mapped straight through, dark spanned 6.6 L*
+     against light's 11.2 — surfaces that read as four distinct steps on a
+     light page collapsed into almost one on a dark one. These rungs put the
+     perceptual gaps back on top of light's: 1.0 / 4.6 / 6.6 / 12.5 against
+     1.0 / 4.2 / 6.3 / 11.2. `secondary` already matched and does not move. */
+  --background-tertiary: var(--gray-100);
+  --background-quaternary: var(--gray-150);
+  --background-active: var(--gray-250);
+
+  /* Ink flips to the fill: the same value that reads as area on a light page
+     reads as legible ink on a dark one. */
+  --decorative-green: var(--decorative-green-fill);
+  --decorative-blue: var(--decorative-blue-fill);
+  --decorative-orange: var(--decorative-orange-fill);
+  --decorative-purple: var(--decorative-purple-fill);
+  --decorative-pink: var(--decorative-pink-fill);
+  --decorative-olive: var(--decorative-olive-fill);
+  --decorative-crimson: var(--decorative-crimson-fill);
 
   --status-info: var(--blue-200);
   --status-success: var(--green-200);
@@ -207,10 +272,11 @@
   --status-warning-inverted: var(--orange-700);
   --status-critical-inverted: var(--red-600);
 
-  --chart-neutral: 143 143 143;
 
   --destructive: var(--red-400);
-  --destructive-active: var(--red-500);
+  --destructive-hover: var(--red-500);
+  --destructive-active: var(--red-600);
+  --destructive-border: var(--red-500);
   --warning: var(--orange-400);
   --ring: var(--gray-1000);
 
@@ -268,6 +334,8 @@
   --color-fg-secondary: var(--text-secondary);
   --color-fg-tertiary: var(--text-tertiary);
   --color-fg-quaternary: var(--text-quaternary);
+  --color-fg-disabled: var(--text-disabled);
+  --color-fg-faint: var(--text-faint);
   --color-fg-inverted: var(--text-primary-inverted);
   --color-fg-inverted-secondary: var(--text-secondary-inverted);
 
@@ -290,8 +358,19 @@
 
   --color-decorative-green: var(--decorative-green);
   --color-decorative-blue: var(--decorative-blue);
+  --color-decorative-orange: var(--decorative-orange);
+  --color-decorative-purple: var(--decorative-purple);
+  --color-decorative-pink: var(--decorative-pink);
   --color-decorative-olive: var(--decorative-olive);
   --color-decorative-crimson: var(--decorative-crimson);
+
+  --color-decorative-green-fill: var(--decorative-green-fill);
+  --color-decorative-blue-fill: var(--decorative-blue-fill);
+  --color-decorative-orange-fill: var(--decorative-orange-fill);
+  --color-decorative-purple-fill: var(--decorative-purple-fill);
+  --color-decorative-pink-fill: var(--decorative-pink-fill);
+  --color-decorative-olive-fill: var(--decorative-olive-fill);
+  --color-decorative-crimson-fill: var(--decorative-crimson-fill);
 
   --color-status-info: var(--status-info);
   --color-status-info-background: var(--status-info-background);
@@ -307,7 +386,10 @@
   --color-status-critical-inverted: var(--status-critical-inverted);
 
   --color-destructive: var(--destructive);
+  --color-destructive-hover: var(--destructive-hover);
   --color-destructive-active: var(--destructive-active);
+  --color-destructive-border: var(--destructive-border);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-warning: var(--warning);
   --color-ring: var(--ring);
 
@@ -340,6 +422,40 @@
   --color-gray-950: var(--gray-950);
   --color-gray-975: var(--gray-975);
   --color-gray-1000: var(--gray-1000);
+
+  /* Alpha ramp — the same neutral the border and elevation tokens are built
+     from, exposed so a fill, stroke or scrim can sit on the scale instead of
+     dimming a foreground token with an opacity modifier. `--alpha-base` flips
+     with the theme, so these stay correct in both. */
+  --color-alpha-0: var(--alpha-0);
+  --color-alpha-02: var(--alpha-02);
+  --color-alpha-04: var(--alpha-04);
+  --color-alpha-05: var(--alpha-05);
+  --color-alpha-06: var(--alpha-06);
+  --color-alpha-08: var(--alpha-08);
+  --color-alpha-10: var(--alpha-10);
+  --color-alpha-12: var(--alpha-12);
+  --color-alpha-15: var(--alpha-15);
+  --color-alpha-16: var(--alpha-16);
+  --color-alpha-20: var(--alpha-20);
+  --color-alpha-25: var(--alpha-25);
+  --color-alpha-30: var(--alpha-30);
+  --color-alpha-35: var(--alpha-35);
+  --color-alpha-40: var(--alpha-40);
+  --color-alpha-50: var(--alpha-50);
+  --color-alpha-60: var(--alpha-60);
+  --color-alpha-70: var(--alpha-70);
+
+  /* Categorical series colours. Defined here so anything that needs a
+     qualitative palette can reach them; `ChartContainer` still maps them onto
+     its own element, because `@theme inline` emits utilities rather than
+     variables and Recharts takes colours as `var(--color-chart-N)`. */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-neutral: var(--chart-neutral);
 
   --color-red-25: var(--red-25);
   --color-red-50: var(--red-50);

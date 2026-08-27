@@ -25,7 +25,7 @@ const buttonVariants = cva(
           focusRing,
         ),
         destructive: cn(
-          "border border-destructive-active bg-destructive text-white inset-shadow-solid-top hover:bg-destructive-active",
+          "border border-destructive-border bg-destructive text-destructive-foreground inset-shadow-solid-top hover:bg-destructive-hover active:bg-destructive-active",
           focusRingDestructive,
         ),
       },
