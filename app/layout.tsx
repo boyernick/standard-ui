@@ -10,8 +10,7 @@ export const metadata: Metadata = {
     default: "StandardUI",
     template: "%s · StandardUI",
   },
-  description:
-    "The visual foundations and shared language.",
+  description: "Tokens and components for building consistent interfaces",
   icons: {
     icon: [{ url: "/favicon.svg?v=8", type: "image/svg+xml" }],
     apple: [{ url: "/favicon.svg?v=8", type: "image/svg+xml" }],
