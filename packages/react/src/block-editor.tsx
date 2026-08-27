@@ -641,6 +641,7 @@ export const BlockEditor = ({
     handle: HTMLElement
   } | null>(null)
   const editorRef = useRef<HTMLDivElement>(null)
+  const slashPopupRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
   const setBlocks = useCallback(
@@ -1051,17 +1052,16 @@ export const BlockEditor = ({
 
   const openCommands = slash ? filterCommands(slash.query) : []
 
+  // The menu tracks a slash query the caret is sitting in, so any pointer down
+  // that moves the caret elsewhere has to take the menu with it — a different
+  // block, the blank canvas below the last one, or the page around the editor.
+  // Only the menu's own surface is exempt: closing on `mousedown` inside it
+  // would unmount the item before its click ever lands.
   useEffect(() => {
     if (!slash) return
     const handlePointer = (event: MouseEvent) => {
       if (!(event.target instanceof Node)) return
-      if (editorRef.current?.contains(event.target)) return
-      if (
-        event.target instanceof Element &&
-        event.target.closest("[data-slot=menu-popup], [role=menu]")
-      ) {
-        return
-      }
+      if (slashPopupRef.current?.contains(event.target)) return
       setSlash(null)
     }
     document.addEventListener("mousedown", handlePointer)
@@ -1699,6 +1699,7 @@ export const BlockEditor = ({
 
       {slash ? (
         <div
+          ref={slashPopupRef}
           role="listbox"
           aria-label="Insert block"
           style={{ top: slash.top + 8, left: slash.left }}
