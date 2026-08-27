@@ -1016,6 +1016,9 @@ export {
 export {
   IllustrationEmpty,
   IllustrationError,
+  IllustrationLocked,
+  IllustrationNoData,
+  IllustrationNoResults,
   IllustrationSuccess,
   IllustrationSearch,
   IllustrationUpload,
