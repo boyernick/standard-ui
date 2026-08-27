@@ -75,13 +75,6 @@
   --decorative-olive: #6e540b;
   --decorative-crimson: #a51117;
 
-  --decorative-green-fill: #0ea143;
-  --decorative-blue-fill: #0b84fa;
-  --decorative-orange-fill: #db560a;
-  --decorative-purple-fill: #985afd;
-  --decorative-pink-fill: #ec108f;
-  --decorative-olive-fill: #a7800b;
-  --decorative-crimson-fill: #f81122;
 
   /* Status tones pair readable foregrounds with quiet, contextual fills. */
   --status-info: var(--blue-600);
@@ -126,11 +119,13 @@
      across themes for the same reason the fills are: a series keeps its
      identity. `neutral` is spelled out because the grey ramps *do* flip and
      this one must not. */
-  --chart-1: var(--decorative-green-fill);
-  --chart-2: var(--decorative-blue-fill);
-  --chart-3: var(--decorative-orange-fill);
-  --chart-4: var(--decorative-purple-fill);
-  --chart-5: var(--decorative-pink-fill);
+  --chart-1: #0ea143;
+  --chart-2: #0b84fa;
+  --chart-3: #db560a;
+  --chart-4: #985afd;
+  --chart-5: #ec108f;
+  --chart-6: #a7800b;
+  --chart-7: #f81122;
   --chart-neutral: #8f8f8f;
 
   /* The action set mirrors brand's: fill, hover, pressed, border, foreground.
@@ -254,13 +249,13 @@
 
   /* Ink flips to the fill: the same value that reads as area on a light page
      reads as legible ink on a dark one. */
-  --decorative-green: var(--decorative-green-fill);
-  --decorative-blue: var(--decorative-blue-fill);
-  --decorative-orange: var(--decorative-orange-fill);
-  --decorative-purple: var(--decorative-purple-fill);
-  --decorative-pink: var(--decorative-pink-fill);
-  --decorative-olive: var(--decorative-olive-fill);
-  --decorative-crimson: var(--decorative-crimson-fill);
+  --decorative-green: var(--chart-1);
+  --decorative-blue: var(--chart-2);
+  --decorative-orange: var(--chart-3);
+  --decorative-purple: var(--chart-4);
+  --decorative-pink: var(--chart-5);
+  --decorative-olive: var(--chart-6);
+  --decorative-crimson: var(--chart-7);
 
   --status-info: var(--blue-200);
   --status-success: var(--green-200);
@@ -364,13 +359,6 @@
   --color-decorative-olive: var(--decorative-olive);
   --color-decorative-crimson: var(--decorative-crimson);
 
-  --color-decorative-green-fill: var(--decorative-green-fill);
-  --color-decorative-blue-fill: var(--decorative-blue-fill);
-  --color-decorative-orange-fill: var(--decorative-orange-fill);
-  --color-decorative-purple-fill: var(--decorative-purple-fill);
-  --color-decorative-pink-fill: var(--decorative-pink-fill);
-  --color-decorative-olive-fill: var(--decorative-olive-fill);
-  --color-decorative-crimson-fill: var(--decorative-crimson-fill);
 
   --color-status-info: var(--status-info);
   --color-status-info-background: var(--status-info-background);
@@ -455,6 +443,8 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
   --color-chart-neutral: var(--chart-neutral);
 
   --color-red-25: var(--red-25);

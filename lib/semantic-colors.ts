@@ -118,7 +118,7 @@ export const semanticColorGroups: ColorGroup[] = [
     id: "decorative",
     title: "Decorative",
     description:
-      "One hue set in two rungs: ink that flips with the theme, fills that hold.",
+      "Named hues for text, strokes, and marks. They flip with the theme so\n      each stays legible; the chart slots hold the value that does not.",
     prefix: "bg",
     tokens: [
       { name: "decorative-green", cssVar: "--decorative-green", usage: "Green accent" },
@@ -128,41 +128,6 @@ export const semanticColorGroups: ColorGroup[] = [
       { name: "decorative-purple", cssVar: "--decorative-purple", usage: "Purple accent" },
       { name: "decorative-pink", cssVar: "--decorative-pink", usage: "Pink accent" },
       { name: "decorative-crimson", cssVar: "--decorative-crimson", usage: "Decorative red — not destructive" },
-      {
-        name: "decorative-green-fill",
-        cssVar: "--decorative-green-fill",
-        usage: "Area fill — one value in both themes",
-      },
-      {
-        name: "decorative-blue-fill",
-        cssVar: "--decorative-blue-fill",
-        usage: "Area fill — one value in both themes",
-      },
-      {
-        name: "decorative-orange-fill",
-        cssVar: "--decorative-orange-fill",
-        usage: "Area fill — one value in both themes",
-      },
-      {
-        name: "decorative-purple-fill",
-        cssVar: "--decorative-purple-fill",
-        usage: "Area fill — one value in both themes",
-      },
-      {
-        name: "decorative-pink-fill",
-        cssVar: "--decorative-pink-fill",
-        usage: "Area fill — one value in both themes",
-      },
-      {
-        name: "decorative-olive-fill",
-        cssVar: "--decorative-olive-fill",
-        usage: "Area fill — one value in both themes",
-      },
-      {
-        name: "decorative-crimson-fill",
-        cssVar: "--decorative-crimson-fill",
-        usage: "Area fill — one value in both themes",
-      },
     ],
   },
   {
