@@ -109,12 +109,19 @@ const ColorsPreview = () => (
     {colorGroups.map((group) => (
       <div
         key={group[0]}
-        className="flex aspect-square w-full min-w-0 max-w-20 flex-1 gap-1 rounded-xl border border-dashed border-border-primary bg-surface p-1.5 sm:p-2"
+        // Fixed 80 with one padding value, because the swatches divide it: 80
+        // − 2 border − 16 padding − 8 gap = 54, and 54 / 3 = 18 exactly. Fluid
+        // widths put the three `flex-1` children on thirds of a fractional
+        // number, which snapped to 33/32/33 device pixels and read as uneven
+        // spacing. Three 80px cards still fit a 320px viewport.
+        className="flex aspect-square w-20 shrink-0 gap-1 rounded-xl border border-dashed border-border-primary bg-surface p-2"
       >
         {group.map((swatch) => (
           <span
             key={swatch}
-            className={`min-w-0 flex-1 rounded-md shadow-hairline ${swatch}`}
+            // Concentric with the card: inner radius = outer − padding, so
+            // `rounded-xl` (12px) at `p-2` (8px) gives 4px.
+            className={`min-w-0 flex-1 rounded-xs shadow-hairline ${swatch}`}
           />
         ))}
       </div>

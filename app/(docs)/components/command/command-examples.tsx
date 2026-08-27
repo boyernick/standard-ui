@@ -235,7 +235,7 @@ export const CommandExamples = () => (
         trigger={
           <CommandTrigger
             render={
-              <Button variant="outline" className="w-full justify-between" />
+              <Button variant="outline" className="w-full justify-between pr-2.5" />
             }
           >
             Search…
