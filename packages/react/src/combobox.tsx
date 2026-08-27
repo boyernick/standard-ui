@@ -271,7 +271,7 @@ export const ComboboxSeparator = ({
   ...props
 }: ComboboxSeparatorProps) => (
   <BaseCombobox.Separator
-    className={cn("my-1 h-px bg-border-primary", className)}
+    className={cn("mx-3 my-1 h-px bg-border-primary", className)}
     {...props}
   />
 )
@@ -293,7 +293,12 @@ export const ComboboxChips = ({ className, ...props }: ComboboxChipsProps) => (
 export const ComboboxChip = ({ className, ...props }: ComboboxChipProps) => (
   <BaseCombobox.Chip
     className={cn(
-      "inline-flex h-6 items-center gap-1 rounded-xs bg-background-tertiary px-1.5 text-xs-strong text-fg-primary",
+      // Metrics are optical, not nominal. At 24px tall with 12px text the cap
+      // block leaves 7.9px above it, so `px-2` matches the sides to that rather
+      // than to a smaller nominal number; `gap-0.5` lands 6px of *visible* space
+      // before the cross, which carries 4.08px of its own clearance; and
+      // `rounded-sm` is what Badge already uses for a label this size.
+      "inline-flex h-6 items-center gap-0.5 rounded-sm bg-background-tertiary px-2 text-xs-strong text-fg-primary",
       className,
     )}
     {...props}
@@ -307,7 +312,13 @@ export const ComboboxChipRemove = ({
 }: ComboboxChipRemoveProps) => (
   <BaseCombobox.ChipRemove
     className={cn(
-      "inline-flex size-3.5 cursor-pointer items-center justify-center text-fg-primary outline-none focus-visible:outline-none",
+      // `-mr-1` is optical compensation, not spacing: the cross glyph is drawn
+      // across the middle 10 units of a 24 viewBox, so a 14px icon box carries
+      // 4.08px of its own clearance on each side. Without this the chip's right
+      // edge reads ~10px away from the mark against 6px of padding on the left.
+      // It lives on the remove button rather than in the chip's padding so a
+      // chip with no remove button stays symmetric.
+      "-mr-1 inline-flex size-3.5 cursor-pointer items-center justify-center text-fg-primary outline-none focus-visible:outline-none",
       className,
     )}
     {...props}
