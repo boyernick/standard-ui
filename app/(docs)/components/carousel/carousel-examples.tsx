@@ -15,39 +15,17 @@ import {
 } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
 import { PAGE_INNER } from "@/lib/chrome"
+import {
+  CAPTION_SCRIM,
+  PLACEHOLDER_ALT,
+  PLACEHOLDER_SRC,
+} from "@/lib/media-placeholder"
 
-const gallery = [
-  {
-    src: "/gallery/mountains.jpg",
-    alt: "Snow-covered mountain peaks above mist",
-    caption: "Ridges",
-  },
-  {
-    src: "/gallery/coast.jpg",
-    alt: "Mossy sea arch over a narrow coastal channel",
-    caption: "Arch",
-  },
-  {
-    src: "/gallery/waterfall.jpg",
-    alt: "Water cascading over a mossy cliff",
-    caption: "Falls",
-  },
-  {
-    src: "/gallery/shore.jpg",
-    alt: "Aerial tropical shore with palms and reef",
-    caption: "Shore",
-  },
-  {
-    src: "/gallery/dunes.jpg",
-    alt: "Wind-rippled white sand dunes from above",
-    caption: "Dunes",
-  },
-  {
-    src: "/gallery/forest.jpg",
-    alt: "Misty evergreen forest with a dirt path",
-    caption: "Forest",
-  },
-] as const
+const gallery = Array.from({ length: 6 }, (_, index) => ({
+  src: PLACEHOLDER_SRC,
+  alt: PLACEHOLDER_ALT,
+  caption: `Slide ${index + 1}`,
+}))
 
 const DRAG_CLICK_THRESHOLD = 8
 
@@ -88,7 +66,7 @@ const SlideImage = ({
       onClick={handleClick}
     >
       <figure className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border-primary shadow-md">
-        {/* eslint-disable-next-line @next/next/no-img-element -- static public gallery assets */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- inline placeholder, not a Next.js asset */}
         <img
           src={src}
           alt={alt}
@@ -96,7 +74,7 @@ const SlideImage = ({
           draggable={false}
         />
         {caption ? (
-          <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/55 to-transparent px-4 pt-10 pb-3 text-left text-sm text-white">
+          <figcaption className={`pointer-events-none absolute inset-x-0 bottom-0 ${CAPTION_SCRIM} px-4 pt-16 pb-3 text-left text-sm text-white`}>
             {caption}
           </figcaption>
         ) : null}
@@ -115,11 +93,11 @@ export const CarouselExamples = () => (
       bleedContent="full"
       contentClassName="w-full max-w-none"
     >
-      <Gallery images={[...gallery]} variant="caption">
-        <Carousel className="w-full" aria-label="Landscape photos">
+      <Gallery images={gallery} variant="caption">
+        <Carousel className="w-full" aria-label="Placeholder media">
           <CarouselContent viewportClassName={`${PAGE_INNER} py-1`}>
             {gallery.map((shot, index) => (
-              <CarouselItem key={shot.src}>
+              <CarouselItem key={shot.caption}>
                 <SlideImage {...shot} index={index} />
               </CarouselItem>
             ))}
