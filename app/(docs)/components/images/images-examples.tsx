@@ -13,6 +13,7 @@ import {
   placeholderSrc,
   PLACEHOLDER_ALT,
   PLACEHOLDER_SRC,
+  PLACEHOLDER_SURFACE,
 } from "@/lib/media-placeholder"
 
 /** Mixed shapes — landscape, portrait, square — as real photos would be. */
@@ -52,14 +53,9 @@ const Shot = ({
       aria-label={label ? `Open ${label}` : `Open image: ${PLACEHOLDER_ALT}`}
       className="block w-full cursor-pointer rounded-2xl bg-background-secondary transition-opacity hover:opacity-95"
     >
-      <figure className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border-primary shadow-lg">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={PLACEHOLDER_SRC}
-          alt={PLACEHOLDER_ALT}
-          className="size-full object-cover"
-          draggable={false}
-        />
+      <figure
+        className={`relative aspect-[16/10] overflow-hidden rounded-2xl ${PLACEHOLDER_SURFACE} shadow-lg`}
+      >
         {label ? (
           <figcaption className={`pointer-events-none absolute inset-x-0 bottom-0 ${CAPTION_SCRIM} px-4 pt-16 pb-3 text-left text-sm text-white`}>
             {label}
@@ -113,13 +109,13 @@ export const ImagesExamples = () => (
             <GalleryTrigger
               key={shot.caption}
               index={index}
-              className="block w-full overflow-hidden rounded-lg border border-border-primary"
+              // `border-secondary`, not `primary`: at `alpha-05` the primary
+              // border resolves lighter than the tile it surrounds and does
+              // not read as an edge at all.
+              className="block w-full overflow-hidden rounded-lg border border-border-secondary"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={shot.src}
-                alt={shot.alt}
-                className="aspect-[4/3] w-full object-cover transition-opacity hover:opacity-90"
+              <span
+                className={`block aspect-[4/3] w-full ${PLACEHOLDER_SURFACE} transition-opacity hover:opacity-90`}
               />
             </GalleryTrigger>
           ))}

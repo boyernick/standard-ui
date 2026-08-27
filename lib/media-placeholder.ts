@@ -1,19 +1,25 @@
 /**
  * The media pages ship no photography or footage — every specimen stands on a
- * flat, light grey surface so the component chrome is what reads.
+ * flat grey surface so the component chrome is what reads.
  *
- * This is an inline SVG rather than a token class because the media components
- * take an image *source*: the same placeholder has to fill the card, the
- * lightbox, the blurred lightbox backdrop and the gallery filmstrip. Like a real
- * photo it keeps one value in both themes; the grey matches `--gray-75`.
+ * Two surfaces, for two different backgrounds:
+ *
+ * On the page, a card sits on the site's own background, so it is painted with
+ * a token class and follows the palette into dark mode like everything else.
+ *
+ * In the lightbox it cannot be: the media components take an image *source*,
+ * and the filmstrip renders its thumbnails itself with no hook to style them.
+ * So the lightbox stand-in is one baked value. It stays light because the modal
+ * backdrop is `surface-inverted`, which *flips* with the theme — near-black
+ * behind a light page, near-white behind a dark one. A light sheet reads
+ * strongly against the first and adequately against the second; a sheet that
+ * followed the palette would match its backdrop in one theme and vanish.
  */
 const PLACEHOLDER_FILL = "%23f3f3f3"
 
-/**
- * Sized rather than fixed, because intrinsic dimensions are what give the
- * lightbox its shape: the grid thumbnails crop with `object-cover`, but the
- * full view contains the image, so a portrait source reads as a portrait there.
- */
+/** The lightbox stand-in. Sized rather than fixed, because intrinsic
+ *  dimensions are what give the lightbox its shape: the full view contains the
+ *  image, so a portrait source reads as a portrait there. */
 export const placeholderSrc = (width: number, height: number) =>
   `data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='${width}'%20height='${height}'%3E%3Crect%20width='${width}'%20height='${height}'%20fill='${PLACEHOLDER_FILL}'/%3E%3C/svg%3E`
 
@@ -21,6 +27,9 @@ export const placeholderSrc = (width: number, height: number) =>
 export const PLACEHOLDER_SRC = placeholderSrc(1600, 1000)
 
 export const PLACEHOLDER_ALT = "Placeholder image"
+
+/** The on-page card surface. A token, so it follows the palette into dark. */
+export const PLACEHOLDER_SURFACE = "bg-background-quaternary"
 
 /** Matching flat grey clip, so the player has something real to play. */
 export const PLACEHOLDER_VIDEO_SRC = "/video/placeholder.mp4"

@@ -19,6 +19,7 @@ import {
   CAPTION_SCRIM,
   PLACEHOLDER_ALT,
   PLACEHOLDER_SRC,
+  PLACEHOLDER_SURFACE,
 } from "@/lib/media-placeholder"
 
 const gallery = Array.from({ length: 6 }, (_, index) => ({
@@ -30,12 +31,10 @@ const gallery = Array.from({ length: 6 }, (_, index) => ({
 const DRAG_CLICK_THRESHOLD = 8
 
 const SlideImage = ({
-  src,
   alt,
   caption,
   index,
 }: {
-  src: string
   alt: string
   caption?: string
   index: number
@@ -65,14 +64,9 @@ const SlideImage = ({
       onPointerDown={handlePointerDown}
       onClick={handleClick}
     >
-      <figure className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border-primary shadow-md">
-        {/* eslint-disable-next-line @next/next/no-img-element -- inline placeholder, not a Next.js asset */}
-        <img
-          src={src}
-          alt={alt}
-          className="size-full object-cover"
-          draggable={false}
-        />
+      <figure
+        className={`relative aspect-[16/10] overflow-hidden rounded-xl ${PLACEHOLDER_SURFACE} shadow-md`}
+      >
         {caption ? (
           <figcaption className={`pointer-events-none absolute inset-x-0 bottom-0 ${CAPTION_SCRIM} px-4 pt-16 pb-3 text-left text-sm text-white`}>
             {caption}
