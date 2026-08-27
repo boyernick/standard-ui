@@ -38,7 +38,14 @@ export function ThemeToggle() {
           // `ease-passive` give the rotation room to read as one movement.
           "text-fg-tertiary transition-[color,transform,rotate] duration-[var(--duration-lg)] ease-passive group-hover:text-fg-primary group-focus-visible:text-fg-primary",
           "motion-reduce:transition-none",
-          theme === "dark" && "rotate-180",
+          // Driven by the `.dark` class, not by `theme`. The provider only
+          // learns the stored theme after hydration, so a React-driven
+          // rotation renders at 0 on the server, paints un-rotated inside an
+          // already-dark page, and then spins half a turn once hydration
+          // catches up — on every single load. The class is on <html> before
+          // first paint, so this starts correct and still animates on click,
+          // because toggling it is what the click does.
+          "dark:rotate-180",
         )}
       />
     </Button>
