@@ -102,7 +102,11 @@ export const AttachmentPreview = ({
 }: AttachmentPreviewProps) => (
   <div
     className={cn(
-      "flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-background-tertiary text-fg-secondary [&_img]:size-full [&_img]:object-cover [&_svg]:size-5",
+      // `>svg` rather than a descendant match: an icon handed straight to this
+      // slot should be sized to 20, but a composed child that draws its own SVG
+      // — a file illustration, say — already knows how big it wants to be, and
+      // resizing its inner element letterboxes the drawing off-centre.
+      "flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-md bg-background-tertiary text-fg-secondary [&_img]:size-full [&_img]:object-cover [&>svg]:size-5",
       className,
     )}
     {...props}
