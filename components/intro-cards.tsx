@@ -85,13 +85,19 @@ const TypographyPreview = () => (
   </div>
 )
 
+/** Surfaces, then text, then status — each card one family.
+ *
+ *  The first two are ramps and are spaced to *read* as ramps: the surface steps
+ *  are about 5.5% apart in luminance rather than the 0.4% the old
+ *  `background-secondary/60` → `background-secondary` pair sat at, which made
+ *  the card look blank on a white page. No token appears in two cards. */
 const colorGroups = [
   [
-    "bg-background-secondary/60",
     "bg-background-secondary",
-    "bg-background-tertiary",
+    "bg-background-quaternary",
+    "bg-background-active",
   ],
-  ["bg-background-tertiary", "bg-fg-tertiary", "bg-fg-primary"],
+  ["bg-fg-quaternary", "bg-fg-secondary", "bg-fg-primary"],
   ["bg-status-critical", "bg-status-success", "bg-status-info"],
 ] as const
 
