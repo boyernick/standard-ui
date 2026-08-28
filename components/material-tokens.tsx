@@ -20,13 +20,6 @@ const HEAD = "text-xs-strong text-fg-tertiary"
 const METRIC =
   "text-xs hidden font-mono text-fg-secondary tabular-nums sm:block sm:text-right"
 
-type MaterialRow = {
-  className: string
-  usage: string
-  value: string
-  preview: ReactNode
-}
-
 const TokenRow = ({ row }: { row: MaterialRow }) => {
   const [copied, setCopied] = useState(false)
 
@@ -60,7 +53,14 @@ const TokenRow = ({ row }: { row: MaterialRow }) => {
   )
 }
 
-const Band = ({
+export type MaterialRow = {
+  className: string
+  usage: string
+  value: string
+  preview: ReactNode
+}
+
+export const MaterialBand = ({
   id,
   title,
   description,
@@ -104,8 +104,7 @@ const Band = ({
 
 export const MaterialTokens = () => (
   <div>
-    <Band
-      first
+    <MaterialBand
       id="shadows"
       title="Shadows"
       description="Elevation from a hairline edge up to high-focus overlays."
@@ -122,7 +121,7 @@ export const MaterialTokens = () => (
         ),
       }))}
     />
-    <Band
+    <MaterialBand
       id="radius"
       title="Radius"
       description="Corner rounding from tight chips to full pills."
