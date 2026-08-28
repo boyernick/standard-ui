@@ -235,16 +235,17 @@
      page a white top edge is invisible against the page, and what describes
      the shape instead is the shadowed underside — so the rim darkens towards
      the bottom. */
-  --raised-fill-top: var(--gray-0);
-  --raised-fill-mid: var(--gray-25);
-  --raised-fill-bottom: var(--gray-75);
-  --raised-glow: color-mix(in oklab, var(--white) 60%, transparent);
-  --raised-edge-top: color-mix(in oklab, var(--black) 6%, transparent);
-  --raised-edge-side: color-mix(in oklab, var(--black) 10%, transparent);
-  --raised-edge-bottom: color-mix(in oklab, var(--black) 16%, transparent);
-  --raised-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
-  --raised-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
-  --raised-shadow: color-mix(in oklab, var(--black) 12%, transparent);
+  --glass-alpha: 86%;
+  --glass-fill-top: var(--gray-0);
+  --glass-fill-mid: var(--gray-25);
+  --glass-fill-bottom: var(--gray-75);
+  --glass-glow: color-mix(in oklab, var(--white) 60%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--black) 6%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--black) 10%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--black) 16%, transparent);
+  --glass-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
+  --glass-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
+  --glass-shadow: color-mix(in oklab, var(--black) 12%, transparent);
   /* Raised solid controls — top edge highlight (primary / destructive) */
   --elevation-solid-top: inset 0 1px 0 0
     color-mix(in oklab, var(--white) 18%, transparent);
@@ -276,16 +277,17 @@
      reads as legible ink on a dark one. */
   /* Lit from above: the rim is brightest on the top edge, faint at the sides,
      and picks up a little bounce underneath. */
-  --raised-fill-top: #282828;
-  --raised-fill-mid: #1a1a1a;
-  --raised-fill-bottom: #222222;
-  --raised-glow: color-mix(in oklab, var(--white) 8.5%, transparent);
-  --raised-edge-top: color-mix(in oklab, var(--white) 16%, transparent);
-  --raised-edge-side: color-mix(in oklab, var(--white) 5%, transparent);
-  --raised-edge-bottom: color-mix(in oklab, var(--white) 10%, transparent);
-  --raised-bevel-top: color-mix(in oklab, var(--white) 9%, transparent);
-  --raised-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
-  --raised-shadow: color-mix(in oklab, var(--black) 72%, transparent);
+  --glass-alpha: 72%;
+  --glass-fill-top: #282828;
+  --glass-fill-mid: #1a1a1a;
+  --glass-fill-bottom: #222222;
+  --glass-glow: color-mix(in oklab, var(--white) 8.5%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--white) 16%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--white) 5%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--white) 10%, transparent);
+  --glass-bevel-top: color-mix(in oklab, var(--white) 9%, transparent);
+  --glass-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
+  --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
 
   --decorative-green: var(--chart-1);
   --decorative-blue: var(--chart-2);
@@ -663,26 +665,6 @@
  * Blur is among the most expensive things a browser paints. Floating chrome
  * only. */
 
-@utility glass {
-  background-color: color-mix(
-    in oklab,
-    var(--glass-tint, var(--alpha-base)) var(--glass-opacity, 12%),
-    transparent
-  );
-  backdrop-filter: blur(var(--glass-blur, 20px))
-    saturate(var(--glass-saturate, 180%));
-  border-color: color-mix(
-    in oklab,
-    var(--glass-edge, var(--alpha-base)) var(--glass-edge-opacity, 22%),
-    transparent
-  );
-
-  @media (prefers-reduced-transparency: reduce) {
-    background-color: var(--glass-tint, var(--background-quaternary));
-    backdrop-filter: none;
-  }
-}
-
 @utility glass-panel {
   background-color: color-mix(
     in oklab,
@@ -697,27 +679,36 @@
   }
 }
 
-@utility raised {
+@utility glass {
   position: relative;
   isolation: isolate;
   border: 0;
   background:
     radial-gradient(
       ellipse at 50% -18%,
-      var(--raised-glow) 0%,
-      color-mix(in oklab, var(--raised-glow) 35%, transparent) 32%,
+      var(--glass-glow) 0%,
+      color-mix(in oklab, var(--glass-glow) 35%, transparent) 32%,
       transparent 62%
     ),
     linear-gradient(
       180deg,
-      var(--raised-fill-top) 0%,
-      var(--raised-fill-mid) 40%,
-      var(--raised-fill-bottom) 100%
+      color-mix(in oklab, var(--glass-fill-top) var(--glass-alpha, 86%), transparent)
+        0%,
+      color-mix(in oklab, var(--glass-fill-mid) var(--glass-alpha, 86%), transparent)
+        40%,
+      color-mix(
+          in oklab,
+          var(--glass-fill-bottom) var(--glass-alpha, 86%),
+          transparent
+        )
+        100%
     );
+  backdrop-filter: blur(var(--glass-blur, 16px))
+    saturate(var(--glass-saturate, 160%));
   box-shadow:
-    0 3px 10px var(--raised-shadow),
-    inset 0 1px 1px var(--raised-bevel-top),
-    inset 0 -1px 1px var(--raised-bevel-bottom);
+    0 3px 10px var(--glass-shadow),
+    inset 0 1px 1px var(--glass-bevel-top),
+    inset 0 -1px 1px var(--glass-bevel-bottom);
 
   /* The perimeter is a gradient, not a border, so it can be bright where the
      light lands and dim where it does not. Drawn as a masked ring: paint the
@@ -732,9 +723,9 @@
     pointer-events: none;
     background: linear-gradient(
       180deg,
-      var(--raised-edge-top) 0%,
-      var(--raised-edge-side) 36%,
-      var(--raised-edge-bottom) 100%
+      var(--glass-edge-top) 0%,
+      var(--glass-edge-side) 36%,
+      var(--glass-edge-bottom) 100%
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -745,6 +736,51 @@
       linear-gradient(#000 0 0);
     mask-composite: exclude;
   }
+
+  /* Fills solid and drops the blur where the reader has asked for it. The lit
+     gradient, the rim and the bevel all stay — only the see-through goes. */
+  @media (prefers-reduced-transparency: reduce) {
+    background: linear-gradient(
+      180deg,
+      var(--glass-fill-top) 0%,
+      var(--glass-fill-mid) 40%,
+      var(--glass-fill-bottom) 100%
+    );
+    backdrop-filter: none;
+  }
+}
+
+/* Chrome that must ignore the page theme. A control over video or photography
+   has no idea what is behind it, and one over an inverted backdrop wants the
+   opposite of the page — so both re-declare the material's tokens rather than
+   inheriting them. */
+
+@utility glass-dark {
+  --glass-alpha: 72%;
+  --glass-fill-top: #282828;
+  --glass-fill-mid: #1a1a1a;
+  --glass-fill-bottom: #222222;
+  --glass-glow: color-mix(in oklab, var(--white) 8.5%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--white) 16%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--white) 5%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--white) 10%, transparent);
+  --glass-bevel-top: color-mix(in oklab, var(--white) 9%, transparent);
+  --glass-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
+  --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
+}
+
+@utility glass-light {
+  --glass-alpha: 86%;
+  --glass-fill-top: #ffffff;
+  --glass-fill-mid: #fcfcfc;
+  --glass-fill-bottom: #f3f3f3;
+  --glass-glow: color-mix(in oklab, var(--white) 60%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--black) 6%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--black) 10%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--black) 16%, transparent);
+  --glass-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
+  --glass-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
+  --glass-shadow: color-mix(in oklab, var(--black) 12%, transparent);
 }
 
 /* Headings lg → 2xl: sans + serif variants. md/sm/xs: sans. */

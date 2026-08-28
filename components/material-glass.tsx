@@ -1,91 +1,68 @@
 import { PAGE_INNER } from "@/lib/chrome"
 
 /**
- * The first specimen sits on a flat surface on purpose. Glass over a busy
- * backdrop flatters itself — the blur has something to chew on and any material
- * looks convincing. Flat is the honest test: blurring a uniform field returns
- * the same field, so whatever is still visible there is the fill and the rim
- * doing the work, which is the whole reason the floating idiom exists.
+ * The same shapes the reference demo used — a round control, a pill, a bar with
+ * a nested child — because the material only proves itself at those sizes. A
+ * swatch cannot show a rim that varies around a perimeter.
  */
-const HUES = [
-  "bg-chart-1",
-  "bg-chart-2",
-  "bg-chart-3",
-  "bg-chart-4",
-  "bg-chart-5",
-  "bg-chart-6",
-  "bg-chart-7",
-]
-
-const Stripes = () => (
-  <div aria-hidden className="flex h-28">
-    {HUES.map((hue) => (
-      <span key={hue} className={`flex-1 ${hue}`} />
-    ))}
-  </div>
-)
-
-const Pill = ({ className = "" }: { className?: string }) => (
-  <span
-    className={`glass inline-flex h-9 items-center rounded-full border px-4 text-xs-strong text-fg-primary shadow-md ${className}`}
-  >
-    Floating
+const Circle = ({ children }: { children: React.ReactNode }) => (
+  <span className="raised inline-grid size-14 place-items-center rounded-full text-fg-primary">
+    {children}
   </span>
 )
 
-export const MaterialGlass = () => (
-  <section aria-labelledby="glass" className="border-t border-border-primary">
+export const MaterialRaised = () => (
+  <section aria-labelledby="raised" className="border-t border-border-primary">
     <div className={`${PAGE_INNER} py-10`}>
-      <h2 id="glass" className="heading-sm text-fg-primary">
-        Glass
+      <h2 id="raised" className="heading-sm text-fg-primary">
+        Raised
       </h2>
       <p className="text-sm mt-1 max-w-2xl text-fg-secondary">
-        Two idioms. <code className="font-mono text-fg-primary">glass</code> is a
-        floating object — a control that has to read on any backdrop, including
-        a flat one. Its fill and rim default to{" "}
-        <code className="font-mono text-fg-primary">--alpha-base</code>, so it
-        lightens over dark and darkens over light without being told which.{" "}
-        <code className="font-mono text-fg-primary">glass-panel</code> is a bar:
-        page-tinted and nearly opaque, meant to read as the page rather than as
-        an object on it.
+        An opaque, lit material for floating controls. Where{" "}
+        <code className="font-mono text-fg-primary">glass</code> borrows what is
+        behind it, this carries its own light — a fill brighter at the top, a
+        specular pool at the top edge, and a perimeter that is bright where the
+        light lands and dim where it does not. That varying rim is what reads as
+        a raised object rather than a bordered box, and it is why the material
+        holds up on a flat backdrop.
       </p>
 
-      <div className="mt-6 flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-4 rounded-xl border border-border-primary bg-background-primary px-6 py-8">
-          <Pill />
-          <span className="text-xs text-fg-tertiary">
-            On a flat surface — no backdrop for the blur to work on
-          </span>
-        </div>
-
-        <div className="relative isolate overflow-hidden rounded-xl shadow-sm">
-          <Stripes />
-          <div className="absolute inset-0 flex items-center justify-between gap-4 px-6">
-            <Pill />
-            <span className="text-xs-strong text-white">Over content</span>
-          </div>
-        </div>
-
-        <div className="relative isolate overflow-hidden rounded-xl shadow-sm">
-          <Stripes />
-          <div className="glass-panel absolute inset-x-0 bottom-0 flex flex-wrap items-baseline justify-between gap-x-4 px-4 py-3">
-            <code className="text-xs font-mono text-fg-primary">
-              glass-panel
-            </code>
-            <span className="text-xs text-fg-secondary">
-              Docked bar — reads as the page
+      <div className="mt-6 flex flex-col gap-4">
+        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-border-primary bg-background-primary p-8">
+          <Circle>
+            <svg viewBox="0 0 24 24" className="size-5" fill="none" aria-hidden>
+              <path
+                d="M15 18 9 12l6-6"
+                stroke="currentColor"
+                strokeWidth={2.2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Circle>
+          <span className="raised inline-flex h-14 items-center gap-3 rounded-full px-5 text-sm-strong text-fg-primary">
+            Share
+            <span aria-hidden className="flex gap-1">
+              <span className="size-1 rounded-full bg-current" />
+              <span className="size-1 rounded-full bg-current" />
+              <span className="size-1 rounded-full bg-current" />
             </span>
-          </div>
+          </span>
+          <span className="raised inline-flex h-14 items-center rounded-full px-1.5 text-sm text-fg-primary">
+            <span className="px-4">Cut</span>
+            <span aria-hidden className="h-7 w-px bg-border-secondary" />
+            <span className="px-4">Copy</span>
+            <span aria-hidden className="h-7 w-px bg-border-secondary" />
+            <span className="px-4 text-destructive">Delete</span>
+          </span>
         </div>
       </div>
 
       <p className="text-sm mt-4 max-w-2xl text-fg-tertiary">
-        Chrome that must stay dark whatever the theme — controls over video or
-        photography — sets its tint and rim explicitly instead of inheriting the
-        adaptive default. Blur is among the most expensive things a browser
-        paints, so both idioms belong on floating chrome and not on ordinary
-        surfaces. Where a reader has asked for reduced transparency, the blur is
-        dropped and the surface fills solid.
+        Light and dark are not a token flip. On a dark page the light lands on
+        the top edge and the rim is white; on a light page a white top edge is
+        invisible against the page, so what describes the shape is the shadowed
+        underside and the rim darkens downwards instead.
       </p>
     </div>
   </section>
