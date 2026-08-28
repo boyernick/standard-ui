@@ -168,11 +168,18 @@ const IconsPreview = () => (
   </div>
 )
 
+/** Three ways a surface can sit on the page: a flat edge, an elevated one, and
+ *  the glass material. The third takes no `bg-*` — the material paints its own
+ *  fill, and a background under it would sit behind its translucency. */
+const MATERIAL_BOX = "aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl"
+
 const MaterialsPreview = () => (
   <div className="flex w-full min-w-0 items-end gap-2 p-1 sm:gap-3">
-    <span className="aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl bg-background-primary shadow-hairline" />
-    <span className="aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl bg-background-primary shadow-md" />
-    <span className="aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl bg-background-primary shadow-xl" />
+    <span
+      className={`${MATERIAL_BOX} bg-background-primary shadow-hairline`}
+    />
+    <span className={`${MATERIAL_BOX} bg-background-primary shadow-lg`} />
+    <span className={`${MATERIAL_BOX} glass`} />
   </div>
 )
 
