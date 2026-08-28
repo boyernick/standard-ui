@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { DocPage } from "@/components/doc-page"
+import { MaterialGlass } from "@/components/material-glass"
 import { MaterialMotion } from "@/components/material-motion"
 import { MaterialTokens } from "@/components/material-tokens"
 
@@ -16,6 +17,7 @@ export default function MaterialsPage() {
       bleed
     >
       <MaterialTokens />
+      <MaterialGlass />
       <MaterialMotion />
     </DocPage>
   )
