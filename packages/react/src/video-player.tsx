@@ -38,8 +38,19 @@ const formatTime = (seconds: number) => {
 // light regardless of the theme — semantic foreground tokens would invert and
 // disappear against the video. Buttons follow Linear’s glass chrome: circular,
 // muted until hover, no filled chip behind the icon at rest.
+/** One control, one piece of glass. Sized to 36 because a standalone floating
+ *  object needs to be tappable in its own right — inside the old bar these
+ *  could lean on the bar for presence and sat at 28.
+ *
+ *  No hover background: the material *is* the background, and a translucent
+ *  white wash over it fights the fill and the rim. Brightness lifts the whole
+ *  object instead, the way a lit surface actually behaves. */
 const overlayControl =
-  "inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/65 outline-none transition-[background-color,color,transform] duration-[var(--duration-sm)] ease-enter hover:bg-white/12 hover:text-white active:scale-95 focus-visible:bg-white/12 focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white/50 motion-reduce:transition-none motion-reduce:active:scale-100"
+  "glass glass-dark [--glass-alpha:52%] inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/85 outline-none transition-[filter,color,transform] duration-[var(--duration-sm)] ease-enter hover:text-white hover:brightness-110 active:scale-95 focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white/50 motion-reduce:transition-none motion-reduce:active:scale-100"
+
+/** The scrubber and its two timecodes travel together as one object. */
+const overlayTrack =
+  "glass glass-dark [--glass-alpha:52%] flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full px-3"
 
 export type VideoPlayerProps = ComponentProps<"div"> & {
   src: string
@@ -300,7 +311,7 @@ export const VideoPlayer = ({
         {failed ? (
           <div
             role="alert"
-            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl border glass [--glass-tint:var(--black)] [--glass-opacity:65%] [--glass-edge:var(--white)] [--glass-edge-opacity:15%] px-5 py-4 text-center text-white shadow-lg"
+            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl glass glass-dark px-5 py-4 text-center text-white shadow-lg"
           >
             <IconExclamationTriangle
               size={22}
@@ -316,7 +327,7 @@ export const VideoPlayer = ({
         ) : loading || buffering ? (
           <div
             role="status"
-            className="flex size-14 items-center justify-center rounded-full border glass [--glass-tint:var(--black)] [--glass-opacity:45%] [--glass-edge:var(--white)] [--glass-edge-opacity:15%] text-white shadow-lg"
+            className="flex size-14 items-center justify-center rounded-full glass glass-dark text-white shadow-lg"
           >
             <span className="size-6 animate-spin rounded-full border-2 border-white/30 border-t-white motion-reduce:animate-none" />
             <span className="sr-only">
@@ -326,7 +337,7 @@ export const VideoPlayer = ({
         ) : !playing ? (
           <div
             className={cn(
-              "flex items-center justify-center rounded-full border glass [--glass-tint:var(--black)] [--glass-opacity:45%] [--glass-edge:var(--white)] [--glass-edge-opacity:20%] text-white shadow-lg",
+              "flex items-center justify-center rounded-full glass glass-dark text-white shadow-lg",
               ended ? "h-8 gap-1 px-2.5" : "size-11",
             )}
           >
@@ -344,14 +355,13 @@ export const VideoPlayer = ({
       {!failed && !loading ? (
         <div
           className={cn(
-            // The scrim samples 0.8 → 0 along smootherstep
-            // (`6t⁵ − 15t⁴ + 10t³`) rather than using a three-stop gradient.
-            // Three stops are a run of straight segments, and the eye reads
-            // every slope change between them as a seam; flat or evenly lit
-            // footage shows those plainly. This curve is flat at both ends
-            // instead — no edge where the scrim starts, no corner where it
-            // reaches full strength behind the controls.
-            "absolute inset-x-0 bottom-0 flex translate-y-0 flex-col bg-[linear-gradient(to_top,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.79)_12.5%,rgba(0,0,0,0.72)_25%,rgba(0,0,0,0.58)_37.5%,rgba(0,0,0,0.4)_50%,rgba(0,0,0,0.22)_62.5%,rgba(0,0,0,0.08)_75%,rgba(0,0,0,0.01)_87.5%,transparent_100%)] px-2.5 pt-14 pb-2.5 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:px-5 group-data-[fullscreen]:pb-5 motion-reduce:transition-none",
+            // A floating bar rather than a full-bleed scrim. The scrim existed
+            // to keep white controls legible over arbitrary footage; the glass
+            // material does that itself, and does it without darkening a strip
+            // of the picture the viewer is trying to watch. Inset from the
+            // edges so it reads as an object on the video rather than part of
+            // the frame.
+            "absolute inset-x-2 bottom-2 flex translate-y-0 items-center gap-2 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:inset-x-5 group-data-[fullscreen]:bottom-5 motion-reduce:transition-none",
             "group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100",
             // Nothing hovers on a touch screen, so the chrome would never come
             // back once playback started. Keep it visible there instead.
@@ -359,12 +369,6 @@ export const VideoPlayer = ({
             playing ? "translate-y-2 opacity-0" : "opacity-100",
           )}
         >
-          {title ? (
-            <p className="text-sm-strong mb-2 truncate px-1 text-white">{title}</p>
-          ) : null}
-
-          <div className="flex items-center gap-1.5">
-            <div className="flex shrink-0 items-center">
               <button
                 type="button"
                 className={overlayControl}
@@ -399,9 +403,8 @@ export const VideoPlayer = ({
                   />
                 )}
               </button>
-            </div>
-
-            <span className="text-xs min-w-9 shrink-0 tabular-nums text-white/85">
+            <div className={overlayTrack}>
+              <span className="text-xs min-w-9 shrink-0 tabular-nums text-white/85">
               {formatTime(current)}
             </span>
 
@@ -469,11 +472,11 @@ export const VideoPlayer = ({
               />
             </div>
 
-            <span className="text-xs min-w-10 shrink-0 text-right tabular-nums text-white/85">
-              -{formatTime(remaining)}
-            </span>
+              <span className="text-xs min-w-10 shrink-0 text-right tabular-nums text-white/85">
+                -{formatTime(remaining)}
+              </span>
+            </div>
 
-            <div className="flex shrink-0 items-center">
               {pipSupported ? (
                 <button
                   type="button"
@@ -508,8 +511,6 @@ export const VideoPlayer = ({
                   aria-hidden
                 />
               </button>
-            </div>
-          </div>
         </div>
       ) : null}
     </div>
