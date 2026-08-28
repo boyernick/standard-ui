@@ -57,7 +57,7 @@ export function LifelineNav({
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b border-border-primary glass [--glass-blur:24px] transition-colors duration-300",
+        "fixed inset-x-0 top-0 z-50 border-b border-border-primary glass-panel [--glass-blur:24px] transition-colors duration-300",
         className,
       )}
     >
@@ -117,7 +117,7 @@ export function LifelineFooter({
   return (
     <footer
       className={cn(
-        "shrink-0 border-t border-border-primary glass [--glass-opacity:95%] [--glass-blur:8px] transition-colors duration-300",
+        "shrink-0 border-t border-border-primary glass-panel [--glass-opacity:95%] [--glass-blur:8px] transition-colors duration-300",
         className,
       )}
     >

@@ -597,22 +597,55 @@
   --text-2xs--letter-spacing: 0em;
 }
 
-/* Glass — a translucent surface that takes its colour from whatever is behind
-   it. One utility rather than a variant per context: the tint legitimately
-   differs (app chrome sits on the page, a video control sits on arbitrary
-   footage, a lightbox control sits on the inverted backdrop) but the rule they
-   share does not. Set `--glass-tint`, `--glass-opacity` and `--glass-blur` at
-   the call site; everything else is the material.
-
-   `prefers-reduced-transparency` is the reason this is a utility at all. Seven
-   surfaces in this library hand-rolled a tint and a blur, and none of them fell
-   back for a reader who has asked the system to stop making things see-through.
-   Here it is one rule, applied once, and impossible to forget.
-
-   Blur is expensive to paint. This belongs on floating chrome — bars, badges,
-   controls — not on ordinary surfaces. */
+/* Glass — two idioms, because they solve opposite problems.
+ *
+ * `glass` is a floating object: a control that has to read as a distinct thing
+ * on *any* backdrop, including a flat one. Blur does none of the work there —
+ * blurring a uniform field returns the same uniform field — so what makes it
+ * visible is a fill that contrasts with what is behind it plus a rim along the
+ * edge. Both default to `--alpha-base`, which is black on a light theme and
+ * white on a dark one, so the surface lightens over dark and darkens over
+ * light without being told which it is. The saturation boost is the other half
+ * of the look: colour behind the surface stays saturated instead of washing
+ * out through the blur.
+ *
+ * `glass-panel` is a bar: page-tinted and nearly opaque, legible because
+ * content scrolls under it rather than because it contrasts. No rim, no
+ * saturation — it is meant to read as the page, not as an object on it.
+ *
+ * Set `--glass-tint`, `--glass-opacity`, `--glass-blur`, `--glass-edge` and
+ * `--glass-edge-opacity` at the call site. Surfaces that must stay dark
+ * whatever the theme — chrome over video or photography — should set both the
+ * tint and the edge explicitly rather than inheriting the adaptive default.
+ *
+ * `prefers-reduced-transparency` drops the blur and fills solid. The solid
+ * falls back to the tint, so a call site that set one gets an opaque version of
+ * its own colour rather than a generic surface.
+ *
+ * Blur is among the most expensive things a browser paints. Floating chrome
+ * only. */
 
 @utility glass {
+  background-color: color-mix(
+    in oklab,
+    var(--glass-tint, var(--alpha-base)) var(--glass-opacity, 12%),
+    transparent
+  );
+  backdrop-filter: blur(var(--glass-blur, 20px))
+    saturate(var(--glass-saturate, 180%));
+  border-color: color-mix(
+    in oklab,
+    var(--glass-edge, var(--alpha-base)) var(--glass-edge-opacity, 22%),
+    transparent
+  );
+
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--glass-tint, var(--background-quaternary));
+    backdrop-filter: none;
+  }
+}
+
+@utility glass-panel {
   background-color: color-mix(
     in oklab,
     var(--glass-tint, var(--background-primary)) var(--glass-opacity, 80%),
