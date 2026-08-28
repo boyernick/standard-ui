@@ -210,6 +210,24 @@
   --shadow-hairline-color: rgb(0 0 0 / 8%);
   --elevation-hairline: 0 0 0 var(--shadow-hairline-width)
     var(--shadow-hairline-color);
+  /* The rim, per elevation step. A black drop shadow has the whole ramp to
+     fall through on a white page — 100 L* — but only 3.6 on a #0d0d0d one,
+     so no alpha can make a dark-page shadow carry elevation the way a light
+     one does. On dark the rim does that job instead, and it has to scale with
+     the step or every level looks alike. On light it stays constant and the
+     drop shadow does the work, so all four point at the same hairline. */
+  --shadow-ring-100: var(--shadow-hairline-color);
+  --shadow-ring-200: var(--shadow-hairline-color);
+  --shadow-ring-300: var(--shadow-hairline-color);
+  --shadow-ring-400: var(--shadow-hairline-color);
+  --elevation-ring-100: 0 0 0 var(--shadow-hairline-width)
+    var(--shadow-ring-100);
+  --elevation-ring-200: 0 0 0 var(--shadow-hairline-width)
+    var(--shadow-ring-200);
+  --elevation-ring-300: 0 0 0 var(--shadow-hairline-width)
+    var(--shadow-ring-300);
+  --elevation-ring-400: 0 0 0 var(--shadow-hairline-width)
+    var(--shadow-ring-400);
   --shadow-100: var(--elevation-100-geo)
     rgb(var(--shadow-color) / var(--shadow-alpha-100));
   --shadow-200: var(--elevation-200-geo)
@@ -234,18 +252,24 @@
      dark page the light lands on the top edge and the rim is white. On a light
      page a white top edge is invisible against the page, and what describes
      the shape instead is the shadowed underside — so the rim darkens towards
-     the bottom. */
+     the bottom.
+
+     The body stays at its own theme's extreme — white glass on a light page,
+     black glass on a dark one — so the material never reads as a grey card
+     dropped onto the page. That leaves the body carrying almost no contrast
+     against the page, which is the point: the rim and the drop shadow carry
+     the shape instead, and both are tuned up to do that work alone. */
   --glass-alpha: 86%;
   --glass-fill-top: var(--gray-0);
   --glass-fill-mid: var(--gray-25);
   --glass-fill-bottom: var(--gray-75);
   --glass-glow: color-mix(in oklab, var(--white) 60%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--black) 6%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--black) 10%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--black) 16%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--black) 8%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--black) 12%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--black) 18%, transparent);
   --glass-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
   --glass-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
-  --glass-shadow: color-mix(in oklab, var(--black) 12%, transparent);
+  --glass-shadow: color-mix(in oklab, var(--black) 13%, transparent);
   /* Raised solid controls — top edge highlight (primary / destructive) */
   --elevation-solid-top: inset 0 1px 0 0
     color-mix(in oklab, var(--white) 18%, transparent);
@@ -276,17 +300,25 @@
   /* Ink flips to the fill: the same value that reads as area on a light page
      reads as legible ink on a dark one. */
   /* Lit from above: the rim is brightest on the top edge, faint at the sides,
-     and picks up a little bounce underneath. */
+     and picks up a little bounce underneath. Raw hex, not ramp rungs — the
+     ramp flips under `.dark` and this material must not flip with it.
+
+     The body sits *at* the page rather than above it: composited, the mid stop
+     lands on the page value exactly and the ends only rise 1.6 and 3.1 L*. A
+     fill that floated well above the page read as a grey slab on a black page
+     rather than as black glass. The glow (+11.4) and the top rim (+19.9) carry
+     the shape on their own, which is 14.5 L* of modelling on a body that is
+     effectively page-black. */
   --glass-alpha: 72%;
-  --glass-fill-top: #282828;
-  --glass-fill-mid: #1a1a1a;
-  --glass-fill-bottom: #222222;
-  --glass-glow: color-mix(in oklab, var(--white) 8.5%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--white) 16%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--white) 5%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--white) 10%, transparent);
-  --glass-bevel-top: color-mix(in oklab, var(--white) 9%, transparent);
-  --glass-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
+  --glass-fill-top: #181818;
+  --glass-fill-mid: #0d0d0d;
+  --glass-fill-bottom: #131313;
+  --glass-glow: color-mix(in oklab, var(--white) 10%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--white) 18%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--white) 6%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--white) 12%, transparent);
+  --glass-bevel-top: color-mix(in oklab, var(--white) 10%, transparent);
+  --glass-bevel-bottom: color-mix(in oklab, var(--white) 7%, transparent);
   --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
 
   --decorative-crimson: var(--chart-7);
@@ -331,13 +363,26 @@
   --sh-sign: color-mix(in oklab, var(--red-300) 36%, var(--gray-600));
   --sh-comment: color-mix(in oklab, var(--red-600) 52%, var(--gray-500));
 
-  --shadow-alpha-100: 0.2;
-  --shadow-alpha-200: 0.2;
-  --shadow-alpha-300: 0.36;
-  --shadow-alpha-400: 0.3;
+  /* Elevation inverts here. The drop shadow is capped at -3.6 L* no matter
+     what alpha it runs at, so it is demoted to a soft ground pool: more blur
+     and more offset than light, to buy in area what it cannot buy in depth.
+     The rim is promoted to the primary cue and climbs 8 -> 18%, which reads
+     as +8.8 -> +20.1 L* against the page. */
+  --elevation-100-geo: 0 1px 3px -1px;
+  --elevation-200-geo: 0 3px 8px -1px;
+  --elevation-300-geo: 0 6px 16px -2px;
+  --elevation-400-geo: 0 12px 28px -4px;
+  --shadow-alpha-100: 0.28;
+  --shadow-alpha-200: 0.28;
+  --shadow-alpha-300: 0.5;
+  --shadow-alpha-400: 0.45;
   --shadow-alpha-ambient: 0.5;
   --shadow-hairline-width: 1px;
   --shadow-hairline-color: rgb(255 255 255 / 10%);
+  --shadow-ring-100: rgb(255 255 255 / 8%);
+  --shadow-ring-200: rgb(255 255 255 / 11%);
+  --shadow-ring-300: rgb(255 255 255 / 14%);
+  --shadow-ring-400: rgb(255 255 255 / 18%);
 }
 
 @media (resolution >= 1.5dppx) {
@@ -349,6 +394,10 @@
   .dark {
     --shadow-hairline-width: 0.5px;
     --shadow-hairline-color: rgb(255 255 255 / 12%);
+    --shadow-ring-100: rgb(255 255 255 / 10%);
+    --shadow-ring-200: rgb(255 255 255 / 13%);
+    --shadow-ring-300: rgb(255 255 255 / 16%);
+    --shadow-ring-400: rgb(255 255 255 / 20%);
   }
 }
 
@@ -597,14 +646,16 @@
   --radius-4xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* Every elevation composes the hairline ring under its drop shadow, so a
-     raised surface keeps a crisp edge against a same-colour background.
-     --shadow-hairline is that ring on its own. */
-  --shadow-sm: var(--elevation-hairline), var(--shadow-100);
-  --shadow-md: var(--elevation-hairline), var(--shadow-200);
-  --shadow-lg: var(--elevation-hairline), var(--shadow-300);
-  --shadow-xl: var(--elevation-hairline), var(--shadow-400);
-  --shadow-ambient: var(--elevation-hairline), var(--shadow-ambient-layer);
+  /* Every elevation composes a rim under its drop shadow, so a raised surface
+     keeps a crisp edge against a same-colour background. The rim is per step
+     rather than shared: on a dark page it is the only cue with room to move,
+     so it is what separates sm from xl there. --shadow-hairline is the plain
+     constant ring on its own, unchanged. */
+  --shadow-sm: var(--elevation-ring-100), var(--shadow-100);
+  --shadow-md: var(--elevation-ring-200), var(--shadow-200);
+  --shadow-lg: var(--elevation-ring-300), var(--shadow-300);
+  --shadow-xl: var(--elevation-ring-400), var(--shadow-400);
+  --shadow-ambient: var(--elevation-ring-400), var(--shadow-ambient-layer);
   --shadow-hairline: var(--elevation-hairline);
   --inset-shadow-hairline: inset var(--elevation-hairline);
   --inset-shadow-solid-top: var(--elevation-solid-top);
@@ -757,15 +808,15 @@
 
 @utility glass-dark {
   --glass-alpha: 72%;
-  --glass-fill-top: #282828;
-  --glass-fill-mid: #1a1a1a;
-  --glass-fill-bottom: #222222;
-  --glass-glow: color-mix(in oklab, var(--white) 8.5%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--white) 16%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--white) 5%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--white) 10%, transparent);
-  --glass-bevel-top: color-mix(in oklab, var(--white) 9%, transparent);
-  --glass-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
+  --glass-fill-top: #181818;
+  --glass-fill-mid: #0d0d0d;
+  --glass-fill-bottom: #131313;
+  --glass-glow: color-mix(in oklab, var(--white) 10%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--white) 18%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--white) 6%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--white) 12%, transparent);
+  --glass-bevel-top: color-mix(in oklab, var(--white) 10%, transparent);
+  --glass-bevel-bottom: color-mix(in oklab, var(--white) 7%, transparent);
   --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
 }
 
@@ -775,12 +826,12 @@
   --glass-fill-mid: #fcfcfc;
   --glass-fill-bottom: #f3f3f3;
   --glass-glow: color-mix(in oklab, var(--white) 60%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--black) 6%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--black) 10%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--black) 16%, transparent);
+  --glass-edge-top: color-mix(in oklab, var(--black) 8%, transparent);
+  --glass-edge-side: color-mix(in oklab, var(--black) 12%, transparent);
+  --glass-edge-bottom: color-mix(in oklab, var(--black) 18%, transparent);
   --glass-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
   --glass-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
-  --glass-shadow: color-mix(in oklab, var(--black) 12%, transparent);
+  --glass-shadow: color-mix(in oklab, var(--black) 13%, transparent);
 }
 
 /* Headings lg → 2xl: sans + serif variants. md/sm/xs: sans. */
