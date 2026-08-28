@@ -121,13 +121,13 @@ export const semanticColorGroups: ColorGroup[] = [
       "Named hues for text, strokes, and marks. They flip with the theme so\n      each stays legible; the chart slots hold the value that does not.",
     prefix: "bg",
     tokens: [
+      { name: "decorative-crimson", cssVar: "--decorative-crimson", usage: "Decorative red — not destructive" },
+      { name: "decorative-orange", cssVar: "--decorative-orange", usage: "Orange accent" },
+      { name: "decorative-olive", cssVar: "--decorative-olive", usage: "Earthy complement" },
       { name: "decorative-green", cssVar: "--decorative-green", usage: "Green accent" },
       { name: "decorative-blue", cssVar: "--decorative-blue", usage: "Informational accent" },
-      { name: "decorative-olive", cssVar: "--decorative-olive", usage: "Earthy complement" },
-      { name: "decorative-orange", cssVar: "--decorative-orange", usage: "Orange accent" },
       { name: "decorative-purple", cssVar: "--decorative-purple", usage: "Purple accent" },
       { name: "decorative-pink", cssVar: "--decorative-pink", usage: "Pink accent" },
-      { name: "decorative-crimson", cssVar: "--decorative-crimson", usage: "Decorative red — not destructive" },
     ],
   },
   {

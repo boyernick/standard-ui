@@ -67,13 +67,13 @@
      as saturated there as sRGB allows. Lighter anchors cost those hues 20–24%
      of their chroma, and chroma is what keeps 16°-apart neighbours like crimson
      and orange telling themselves apart. */
+  --decorative-crimson: #a51117;
+  --decorative-orange: #91380b;
+  --decorative-olive: #6e540b;
   --decorative-green: #0e6a2c;
   --decorative-blue: #0c57a5;
-  --decorative-orange: #91380b;
   --decorative-purple: #6c14c8;
   --decorative-pink: #9c105e;
-  --decorative-olive: #6e540b;
-  --decorative-crimson: #a51117;
 
 
   /* Status tones pair readable foregrounds with quiet, contextual fills. */
@@ -289,13 +289,13 @@
   --glass-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
   --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
 
+  --decorative-crimson: var(--chart-7);
+  --decorative-orange: var(--chart-3);
+  --decorative-olive: var(--chart-6);
   --decorative-green: var(--chart-1);
   --decorative-blue: var(--chart-2);
-  --decorative-orange: var(--chart-3);
   --decorative-purple: var(--chart-4);
   --decorative-pink: var(--chart-5);
-  --decorative-olive: var(--chart-6);
-  --decorative-crimson: var(--chart-7);
 
   --status-info: var(--blue-200);
   --status-success: var(--green-200);
