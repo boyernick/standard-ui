@@ -52,7 +52,7 @@ const TRACKPAD_LABEL =
   "Swipe, use the arrow keys, or use the controls to navigate"
 
 const modalControlClassName =
-  "glass glass-dark dark:glass-light text-fg-inverted hover:text-fg-inverted outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20"
+  "glass glass-dark text-fg-scrim hover:text-fg-scrim outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-scrim focus-visible:ring-ring/20"
 
 export const modalContentVariants = cva(
   "h-dvh max-h-dvh w-screen max-w-none gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none max-sm:max-w-none",
@@ -146,7 +146,7 @@ export const ModalTrigger = ({
 )
 
 const ModalBackdrop = () => (
-  <DialogBackdrop className="bg-surface-inverted/95" />
+  <DialogBackdrop className="bg-surface-scrim/95" />
 )
 
 const ModalBackground = ({ src }: { src: string }) => (
@@ -162,7 +162,7 @@ const ModalBackground = ({ src }: { src: string }) => (
       alt=""
       className="size-full scale-110 object-cover opacity-25 blur-3xl"
     />
-    <div className="absolute inset-0 bg-surface-inverted/65" />
+    <div className="absolute inset-0 bg-surface-scrim/65" />
   </div>
 )
 
@@ -265,7 +265,7 @@ const ModalDismiss = () => (
 )
 
 const ModalCaption = ({ children }: { children: ReactNode }) => (
-  <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 px-4 text-center text-sm text-fg-inverted-secondary">
+  <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 px-4 text-center text-sm text-fg-scrim-secondary">
     {children}
   </p>
 )
@@ -379,10 +379,10 @@ const GalleryFilmstrip = ({
               className={cn(
                 "size-14 shrink-0 cursor-pointer overflow-hidden rounded-md outline-none",
                 "transition-[opacity,box-shadow] duration-[var(--duration-sm)] ease-enter motion-reduce:transition-none",
-                "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20",
+                "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-scrim focus-visible:ring-ring/20",
                 focusRingBorder,
                 isActive
-                  ? "opacity-100 ring-2 ring-fg-inverted"
+                  ? "opacity-100 ring-2 ring-fg-scrim"
                   : "opacity-45 hover:opacity-80",
               )}
             >

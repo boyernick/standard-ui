@@ -15,6 +15,15 @@
   --surface: var(--gray-0);
   --surface-inverted: var(--gray-1000);
   --surface-raised: var(--gray-0);
+
+  /* The lightbox scrim, and the ink that sits on it. Raw hex, and absent from
+     `.dark` on purpose: `--surface-inverted` flips with the theme, which is
+     right for a tooltip or an inverted toast but wrong for a media viewer —
+     it turned the lightbox white on a dark page. A viewer is dark in both
+     themes, the way every photo viewer is, so these do not flip. */
+  --surface-scrim: #0d0d0d;
+  --text-primary-scrim: #ffffff;
+  --text-secondary-scrim: #cdcdcd;
   --elevated: var(--alpha-05);
   --elevated-active: var(--alpha-10);
 
@@ -410,6 +419,7 @@
 
   --color-surface: var(--surface);
   --color-surface-inverted: var(--surface-inverted);
+  --color-surface-scrim: var(--surface-scrim);
   --color-surface-raised: var(--surface-raised);
   --color-elevated: var(--elevated);
   --color-elevated-active: var(--elevated-active);
@@ -422,6 +432,8 @@
   --color-fg-faint: var(--text-faint);
   --color-fg-inverted: var(--text-primary-inverted);
   --color-fg-inverted-secondary: var(--text-secondary-inverted);
+  --color-fg-scrim: var(--text-primary-scrim);
+  --color-fg-scrim-secondary: var(--text-secondary-scrim);
 
   --color-border-faint: var(--border-faint);
   --color-border-subtle: var(--border-subtle);
