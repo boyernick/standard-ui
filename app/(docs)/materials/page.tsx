@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { DocPage } from "@/components/doc-page"
 import { MaterialGlass } from "@/components/material-glass"
 import { MaterialMotion } from "@/components/material-motion"
+import { MaterialRaised } from "@/components/material-raised"
 import { MaterialTokens } from "@/components/material-tokens"
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function MaterialsPage() {
     >
       <MaterialTokens />
       <MaterialGlass />
+      <MaterialRaised />
       <MaterialMotion />
     </DocPage>
   )

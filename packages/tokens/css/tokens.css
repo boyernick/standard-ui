@@ -220,6 +220,31 @@
     rgb(var(--shadow-color) / var(--shadow-alpha-400));
   --shadow-ambient-layer: var(--elevation-ambient-geo)
     rgb(var(--shadow-color) / var(--shadow-alpha-ambient));
+  /* Raised — an opaque, lit material for floating controls. Where `glass`
+     borrows what is behind it, this one carries its own light: a fill that is
+     brighter at the top, a specular pool at the top edge, a perimeter that
+     varies around the shape, and a bevel inside it.
+
+     The perimeter is the part that does the work. A uniform hairline reads as
+     a border; a rim that is bright where the light lands and dim where it does
+     not reads as a raised object, which is why these hold up on a flat
+     backdrop where blur has nothing to work with.
+
+     Light and dark are not a token flip here, because the physics invert. On a
+     dark page the light lands on the top edge and the rim is white. On a light
+     page a white top edge is invisible against the page, and what describes
+     the shape instead is the shadowed underside — so the rim darkens towards
+     the bottom. */
+  --raised-fill-top: var(--gray-0);
+  --raised-fill-mid: var(--gray-25);
+  --raised-fill-bottom: var(--gray-75);
+  --raised-glow: color-mix(in oklab, var(--white) 60%, transparent);
+  --raised-edge-top: color-mix(in oklab, var(--black) 6%, transparent);
+  --raised-edge-side: color-mix(in oklab, var(--black) 10%, transparent);
+  --raised-edge-bottom: color-mix(in oklab, var(--black) 16%, transparent);
+  --raised-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
+  --raised-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
+  --raised-shadow: color-mix(in oklab, var(--black) 12%, transparent);
   /* Raised solid controls — top edge highlight (primary / destructive) */
   --elevation-solid-top: inset 0 1px 0 0
     color-mix(in oklab, var(--white) 18%, transparent);
@@ -249,6 +274,19 @@
 
   /* Ink flips to the fill: the same value that reads as area on a light page
      reads as legible ink on a dark one. */
+  /* Lit from above: the rim is brightest on the top edge, faint at the sides,
+     and picks up a little bounce underneath. */
+  --raised-fill-top: #282828;
+  --raised-fill-mid: #1a1a1a;
+  --raised-fill-bottom: #222222;
+  --raised-glow: color-mix(in oklab, var(--white) 8.5%, transparent);
+  --raised-edge-top: color-mix(in oklab, var(--white) 16%, transparent);
+  --raised-edge-side: color-mix(in oklab, var(--white) 5%, transparent);
+  --raised-edge-bottom: color-mix(in oklab, var(--white) 10%, transparent);
+  --raised-bevel-top: color-mix(in oklab, var(--white) 9%, transparent);
+  --raised-bevel-bottom: color-mix(in oklab, var(--white) 6%, transparent);
+  --raised-shadow: color-mix(in oklab, var(--black) 72%, transparent);
+
   --decorative-green: var(--chart-1);
   --decorative-blue: var(--chart-2);
   --decorative-orange: var(--chart-3);
@@ -656,6 +694,56 @@
   @media (prefers-reduced-transparency: reduce) {
     background-color: var(--glass-tint, var(--background-primary));
     backdrop-filter: none;
+  }
+}
+
+@utility raised {
+  position: relative;
+  isolation: isolate;
+  border: 0;
+  background:
+    radial-gradient(
+      ellipse at 50% -18%,
+      var(--raised-glow) 0%,
+      color-mix(in oklab, var(--raised-glow) 35%, transparent) 32%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      var(--raised-fill-top) 0%,
+      var(--raised-fill-mid) 40%,
+      var(--raised-fill-bottom) 100%
+    );
+  box-shadow:
+    0 3px 10px var(--raised-shadow),
+    inset 0 1px 1px var(--raised-bevel-top),
+    inset 0 -1px 1px var(--raised-bevel-bottom);
+
+  /* The perimeter is a gradient, not a border, so it can be bright where the
+     light lands and dim where it does not. Drawn as a masked ring: paint the
+     gradient over the whole box, then punch out everything inside the 1px
+     padding so only the frame survives. */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      var(--raised-edge-top) 0%,
+      var(--raised-edge-side) 36%,
+      var(--raised-edge-bottom) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
   }
 }
 
