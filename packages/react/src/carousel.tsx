@@ -79,7 +79,7 @@ export type CarouselNextProps = ComponentProps<typeof Button>
 export type CarouselDotsProps = ComponentProps<"div">
 
 const carouselControlClassName = cn(
-  "absolute z-20 !size-6 border border-border-primary/40 bg-surface/55 text-fg-primary shadow-md backdrop-blur-md [&_svg:not([class*='size-'])]:!size-3.5",
+  "absolute z-20 !size-6 border border-border-primary/40 glass [--glass-tint:var(--surface)] [--glass-opacity:55%] text-fg-primary shadow-md [&_svg:not([class*='size-'])]:!size-3.5",
   "hover:bg-surface/80 hover:text-fg-primary",
   "disabled:pointer-events-none disabled:opacity-0",
   motion.colors,

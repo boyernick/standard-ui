@@ -597,6 +597,35 @@
   --text-2xs--letter-spacing: 0em;
 }
 
+/* Glass — a translucent surface that takes its colour from whatever is behind
+   it. One utility rather than a variant per context: the tint legitimately
+   differs (app chrome sits on the page, a video control sits on arbitrary
+   footage, a lightbox control sits on the inverted backdrop) but the rule they
+   share does not. Set `--glass-tint`, `--glass-opacity` and `--glass-blur` at
+   the call site; everything else is the material.
+
+   `prefers-reduced-transparency` is the reason this is a utility at all. Seven
+   surfaces in this library hand-rolled a tint and a blur, and none of them fell
+   back for a reader who has asked the system to stop making things see-through.
+   Here it is one rule, applied once, and impossible to forget.
+
+   Blur is expensive to paint. This belongs on floating chrome — bars, badges,
+   controls — not on ordinary surfaces. */
+
+@utility glass {
+  background-color: color-mix(
+    in oklab,
+    var(--glass-tint, var(--background-primary)) var(--glass-opacity, 80%),
+    transparent
+  );
+  backdrop-filter: blur(var(--glass-blur, 12px));
+
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--glass-tint, var(--background-primary));
+    backdrop-filter: none;
+  }
+}
+
 /* Headings lg → 2xl: sans + serif variants. md/sm/xs: sans. */
 
 @utility heading-2xl-sans {

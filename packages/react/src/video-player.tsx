@@ -300,7 +300,7 @@ export const VideoPlayer = ({
         {failed ? (
           <div
             role="alert"
-            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl border border-white/15 bg-black/65 px-5 py-4 text-center text-white shadow-lg backdrop-blur-md"
+            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl border border-white/15 glass [--glass-tint:var(--black)] [--glass-opacity:65%] px-5 py-4 text-center text-white shadow-lg"
           >
             <IconExclamationTriangle
               size={22}
@@ -316,7 +316,7 @@ export const VideoPlayer = ({
         ) : loading || buffering ? (
           <div
             role="status"
-            className="flex size-14 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg backdrop-blur-md"
+            className="flex size-14 items-center justify-center rounded-full border border-white/15 glass [--glass-tint:var(--black)] [--glass-opacity:45%] text-white shadow-lg"
           >
             <span className="size-6 animate-spin rounded-full border-2 border-white/30 border-t-white motion-reduce:animate-none" />
             <span className="sr-only">
@@ -326,7 +326,7 @@ export const VideoPlayer = ({
         ) : !playing ? (
           <div
             className={cn(
-              "flex items-center justify-center rounded-full border border-white/20 bg-black/45 text-white shadow-lg backdrop-blur-md",
+              "flex items-center justify-center rounded-full border border-white/20 glass [--glass-tint:var(--black)] [--glass-opacity:45%] text-white shadow-lg",
               ended ? "h-8 gap-1 px-2.5" : "size-11",
             )}
           >

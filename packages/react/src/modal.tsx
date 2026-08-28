@@ -52,7 +52,7 @@ const TRACKPAD_LABEL =
   "Swipe, use the arrow keys, or use the controls to navigate"
 
 const modalControlClassName =
-  "border-border-inverted bg-surface-inverted/60 text-fg-inverted shadow-md backdrop-blur-md hover:bg-surface-inverted/80 hover:text-fg-inverted outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20"
+  "border-border-inverted glass [--glass-tint:var(--surface-inverted)] [--glass-opacity:60%] text-fg-inverted shadow-md hover:[--glass-opacity:80%] hover:text-fg-inverted outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-inverted focus-visible:ring-ring/20"
 
 export const modalContentVariants = cva(
   "h-dvh max-h-dvh w-screen max-w-none gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none max-sm:max-w-none",
