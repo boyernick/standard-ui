@@ -92,24 +92,9 @@ export const IllustrationsDemo = () => (
   <div>
     <DocBand
       first
-      id="states"
-      title="States"
-      description="A miniature of the thing that is missing, not a picture about it, on a fixed 64×48 stage so a row of them lines up. No brand colour — an empty state is a quiet moment, and an accent turns it into an announcement."
-      contentClassName=""
-    >
-      <div className={GRID}>
-        {states.map(({ name, Illustration }) => (
-          <CopyCell key={name} label={name} value={name}>
-            <Illustration />
-          </CopyCell>
-        ))}
-      </div>
-    </DocBand>
-
-    <DocBand
       id="file-types"
       title="File types"
-      description="A second, smaller family, sized for an attachment row or a preview slot: a bare 24×30 sheet rather than a hero on a stage. They render the type you name — mapping an extension to a type is the consumer's job."
+      description="A smaller 24×30 sheet for attachment rows; you name the type."
       contentClassName=""
     >
       <div className={GRID}>
@@ -120,6 +105,21 @@ export const IllustrationsDemo = () => (
             value={`<IllustrationFile type="${type}" />`}
           >
             <IllustrationFile type={type} />
+          </CopyCell>
+        ))}
+      </div>
+    </DocBand>
+
+    <DocBand
+      id="states"
+      title="States"
+      description="A miniature of what is missing, on a fixed 64×48 stage."
+      contentClassName=""
+    >
+      <div className={GRID}>
+        {states.map(({ name, Illustration }) => (
+          <CopyCell key={name} label={name} value={name}>
+            <Illustration />
           </CopyCell>
         ))}
       </div>
