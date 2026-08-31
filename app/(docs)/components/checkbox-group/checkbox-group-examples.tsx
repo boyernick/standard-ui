@@ -52,7 +52,7 @@ export const CheckboxGroupExamples = () => (
     <DocBand
       id="parent"
       title="Parent"
-      description="A parent box that reflects its children and sets them all at once."
+      description="A parent box that reflects and sets its children."
     >
       <CheckboxGroup
         allValues={[...apples]}

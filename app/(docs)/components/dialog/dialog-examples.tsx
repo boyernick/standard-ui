@@ -164,7 +164,7 @@ export const DialogExamples = () => (
     <DocBand
       id="scrolling"
       title="Scrolling content"
-      description="The popup caps at the viewport and scrolls rather than running off it."
+      description="Caps at the viewport and scrolls inside it."
     >
 <TermsModal />
     </DocBand>

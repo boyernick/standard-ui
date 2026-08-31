@@ -10,7 +10,7 @@ export default function AccordionPage() {
   return (
     <DocPage
       title="Accordion"
-      description="Expandable sections for FAQs, settings groups, and progressive disclosure."
+      description="Expandable sections for progressive disclosure."
       heading={null}
       bleed
     >

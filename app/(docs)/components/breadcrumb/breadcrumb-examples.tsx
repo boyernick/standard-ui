@@ -31,7 +31,7 @@ export const BreadcrumbExamples = () => (
       first
       id="category-menu"
       title="Category menu"
-      description="A category can open its sibling pages without leaving the breadcrumb trail."
+      description="A category opens its siblings in place."
     >
       <Breadcrumb>
         <BreadcrumbList>

@@ -43,7 +43,7 @@ export default function BadgePage() {
         <DocBand
           id="status"
           title="Status variants"
-          description="Semantic colors communicate information, success, warning, and critical states."
+          description="Info, success, warning, and critical tones."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Badge variant="info">Information</Badge>
@@ -56,7 +56,7 @@ export default function BadgePage() {
         <DocBand
           id="status-icons"
           title="Status variants with icons"
-          description="Pair each semantic tone with a distinct symbol so status never relies on color alone."
+          description="A symbol per tone, so status never relies on colour."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Badge
@@ -89,7 +89,7 @@ export default function BadgePage() {
         <DocBand
           id="sizes"
           title="Sizes"
-          description="Five sizes cover dense data displays through more prominent labels."
+          description="Five sizes, from dense data to prominent labels."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Badge size="xxs">xxs</Badge>
@@ -103,7 +103,7 @@ export default function BadgePage() {
         <DocBand
           id="radius"
           title="Radius"
-          description="Use the light default radius for labels or a fully rounded pill for counts and tags."
+          description="A soft radius for labels, a pill for counts."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Badge>Light radius</Badge>
@@ -114,7 +114,7 @@ export default function BadgePage() {
         <DocBand
           id="icons"
           title="With icons"
-          description="Add an icon before or after the label without changing its alignment."
+          description="An icon before or after the label."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Badge prefix={<IconCircleCheck aria-hidden />}>Verified</Badge>
@@ -125,7 +125,7 @@ export default function BadgePage() {
         <DocBand
           id="icon-only"
           title="Icon only"
-          description="A square badge can carry a compact status when the symbol is self-explanatory."
+          description="A square badge for a symbol that speaks for itself."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Badge iconOnly aria-label="Verified" variant="success">

@@ -10,7 +10,7 @@ export default function CodeBlockPage() {
   return (
     <DocPage
       title="Code block"
-      description="Syntax-highlighted source with a language label and a copy action."
+      description="Highlighted source with a language label and copy."
       heading={null}
       bleed
     >

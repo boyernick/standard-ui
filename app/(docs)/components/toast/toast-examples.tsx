@@ -226,7 +226,7 @@ export const ToastExamples = () => (
         <DocBand
           id="types"
           title="Types"
-          description="Each type brings its own glyph, coloured for the inverted surface."
+          description="Each type brings its own glyph and colour."
           contentClassName={BAND}
         >
           <Types />

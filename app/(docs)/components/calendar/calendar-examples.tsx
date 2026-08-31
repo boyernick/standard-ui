@@ -62,7 +62,7 @@ export const CalendarExamples = () => {
       <DocBand
         id="controlled"
         title="Controlled"
-        description="Keep the selected date in application state when other interface elements depend on it."
+        description="Hold the selected date in your own state."
       >
         <div className="flex flex-col items-start gap-4">
           <p className="text-sm text-fg-secondary">

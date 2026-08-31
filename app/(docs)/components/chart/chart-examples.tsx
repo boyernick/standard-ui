@@ -101,7 +101,7 @@ export const ChartExamples = () => (
     <DocBand
       id="line-chart"
       title="Line chart"
-      description="Highlight direction and rate of change across a continuous series."
+      description="Direction and rate of change over a series."
       contentClassName="max-w-3xl"
     >
       <ChartContainer className="h-64 w-full">

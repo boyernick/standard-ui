@@ -102,7 +102,7 @@ export const MinimapExamples = () => (
       first
       id="scroll-region"
       title="Scroll region"
-      description="Ticks mirror the section order, reveal labels on hover or focus, and move the nearest scrolling surface."
+      description="Ticks mirror the sections and scroll to them."
       contentClassName="max-w-2xl"
     >
       <ScrollRegionExample />
@@ -111,7 +111,7 @@ export const MinimapExamples = () => (
     <DocBand
       id="page-navigation"
       title="Page navigation"
-      description="Inline positioning fits composed surfaces; fixed positioning anchors the same control to the viewport on wide screens."
+      description="Inline for composed surfaces, fixed for the viewport."
       contentClassName="max-w-lg"
     >
       <div className="flex items-center gap-6 rounded-xl border border-border-primary bg-surface p-5">

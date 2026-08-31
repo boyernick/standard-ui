@@ -10,7 +10,7 @@ export default function CarouselPage() {
   return (
     <DocPage
       title="Carousel"
-      description="A free-scrolling media strip with peeking cards — click a card to open the gallery."
+      description="A free-scrolling strip; click a card to open it."
       heading={null}
       bleed
     >

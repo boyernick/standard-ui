@@ -80,7 +80,7 @@ export const QuestionnaireExamples = () => {
         first
         id="default"
         title="Default"
-        description="A complete flow with keyboard shortcuts, validation, and native form data."
+        description="A full flow with shortcuts, validation, and form data."
         contentClassName="max-w-xl"
       >
         <Questionnaire
@@ -158,7 +158,7 @@ export const QuestionnaireExamples = () => {
       <DocBand
         id="multiple"
         title="Multiple choice"
-        description="The same choice cards become native checkboxes when an item accepts several answers."
+        description="The same cards become checkboxes for several answers."
         contentClassName="max-w-xl"
       >
         <Questionnaire

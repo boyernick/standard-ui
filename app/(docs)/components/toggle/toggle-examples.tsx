@@ -18,7 +18,7 @@ export const ToggleExamples = () => (
     <DocBand
       id="group"
       title="Group"
-      description="Exclusive options sharing one enclosure, like an alignment picker."
+      description="Exclusive options in one enclosure."
       contentClassName={BAND}
     >
       <ToggleGroup aria-label="Text alignment" defaultValue={["center"]}>

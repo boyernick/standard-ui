@@ -71,7 +71,7 @@ export const SliderExamples = () => (
     <DocBand
       id="sizes"
       title="Sizes"
-      description="Track and thumb scale together for compact, default, and prominent controls."
+      description="Track and thumb scale together."
       contentClassName={BAND}
     >
       <div className="flex flex-col gap-4">
@@ -121,7 +121,7 @@ export const SliderExamples = () => (
     <DocBand
       id="vertical"
       title="Vertical"
-      description="Orientation moves the track, indicator, and keyboard direction onto a vertical axis."
+      description="The track and keyboard turn onto a vertical axis."
       contentClassName={BAND}
     >
       <div className="flex items-end gap-8">
@@ -140,7 +140,7 @@ export const SliderExamples = () => (
     <DocBand
       id="steps"
       title="Steps and ticks"
-      description="Tick marks make fixed intervals visible as the thumb snaps between them."
+      description="Ticks show the intervals the thumb snaps to."
       contentClassName={BAND}
     >
       <div className="flex flex-col gap-1">

@@ -10,7 +10,7 @@ export default function MinimapPage() {
   return (
     <DocPage
       title="Minimap"
-      description="A compact map of page sections for orientation and direct navigation."
+      description="A compact map of page sections."
       heading={null}
       bleed
     >

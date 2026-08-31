@@ -30,7 +30,7 @@ export const TabsExamples = () => (
       first
       id="underline"
       title="Underline"
-      description="The default treatment suits page-level navigation and wide content regions."
+      description="The default, for page-level navigation."
       contentClassName={BAND}
     >
       <Tabs defaultValue="overview">
@@ -72,7 +72,7 @@ export const TabsExamples = () => (
     <DocBand
       id="pill"
       title="Pill"
-      description="Detached rounded options work well for switching between statuses, queues, and saved views."
+      description="Detached options, for switching between views."
       contentClassName={BAND}
     >
       <Tabs defaultValue="open" variant="pill">
@@ -106,7 +106,7 @@ export const TabsExamples = () => (
     <DocBand
       id="sizes"
       title="Sizes"
-      description="Small, medium, and large share the same spacing rhythm across every variant."
+      description="Three sizes on one spacing rhythm."
       contentClassName={BAND}
     >
       <div className="flex flex-col items-start gap-6">
@@ -140,7 +140,7 @@ export const TabsExamples = () => (
     <DocBand
       id="vertical"
       title="Vertical"
-      description="Orientation moves the list, panels, and indicator onto a shared horizontal axis."
+      description="The list and panels move onto a horizontal axis."
       contentClassName={BAND}
     >
       <Tabs defaultValue="general" orientation="vertical">

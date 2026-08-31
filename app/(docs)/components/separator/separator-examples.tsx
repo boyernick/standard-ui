@@ -24,7 +24,7 @@ export const SeparatorExamples = () => (
     <DocBand
       id="vertical"
       title="Vertical"
-      description="Set upright it fills its container, so the row defines the height."
+      description="Upright, it fills its container."
       contentClassName="max-w-xs"
     >
       {/* The rule is `h-full` when vertical — without a height on the row it

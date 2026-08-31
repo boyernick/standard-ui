@@ -119,7 +119,7 @@ export const PaginationExamples = () => (
       first
       id="default"
       title="Default"
-      description="Numbered links keep each page addressable while the unavailable direction stays visible."
+      description="Numbered links keep every page addressable."
     >
       <Bar>
         <DirectionItem>
@@ -148,7 +148,7 @@ export const PaginationExamples = () => (
     <DocBand
       id="status"
       title="Page status"
-      description="A concise readout replaces individual page links when the exact destination matters less."
+      description="A readout instead of individual page links."
     >
       <Bar>
         <DirectionItem>
@@ -199,7 +199,7 @@ export const PaginationExamples = () => (
     <DocBand
       id="icon-only"
       title="Icon-only"
-      description="First, previous, next, and last controls fit narrow toolbars without losing accessible names."
+      description="First, previous, next, and last, for narrow toolbars."
     >
       <Bar>
         <DirectionItem>
@@ -243,7 +243,7 @@ export const PaginationExamples = () => (
     <DocBand
       id="sizes"
       title="Sizes"
-      description="Small, medium, and large controls align pagination with its surrounding density."
+      description="Three sizes, matched to the surrounding density."
     >
       <div className="flex flex-col items-center gap-5">
         <SizeExample size="sm" />
@@ -255,7 +255,7 @@ export const PaginationExamples = () => (
     <DocBand
       id="last-page"
       title="Last page"
-      description="The forward controls remain legible while clearly leaving the interaction."
+      description="Forward controls stay legible while inert."
     >
       <Bar>
         <DirectionItem>

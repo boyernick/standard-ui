@@ -23,7 +23,7 @@ export const DatePickerExamples = () => {
         first
         id="single-date"
         title="Single date"
-        description="Open a calendar from a compact field and close it after choosing a date."
+        description="A calendar in a popover, closing on choice."
       >
         <DatePicker
           selected={date}
@@ -35,7 +35,7 @@ export const DatePickerExamples = () => {
       <DocBand
         id="date-range"
         title="Date range"
-        description="Choose a start and end date from the same connected range calendar."
+        description="A start and end date on one calendar."
       >
         <DatePicker
           mode="range"
@@ -48,7 +48,7 @@ export const DatePickerExamples = () => {
       <DocBand
         id="disabled-dates"
         title="Disabled dates"
-        description="Pass calendar matchers through to prevent unavailable dates from being selected."
+        description="Matchers rule out unavailable dates."
       >
         <DatePicker
           placeholder="Choose an available date"

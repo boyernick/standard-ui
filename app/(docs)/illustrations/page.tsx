@@ -10,7 +10,7 @@ export default function IllustrationsPage() {
   return (
     <DocPage
       title="Illustrations"
-      description="Abstract, monochrome drawings on one grid, coloured from theme tokens so they follow the palette into both themes."
+      description="Monochrome drawings, coloured from theme tokens."
       heading={null}
       bleed
     >

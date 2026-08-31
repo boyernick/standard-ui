@@ -50,7 +50,7 @@ export const NumberFieldExamples = () => (
     <DocBand
       id="affixes"
       title="Affixes"
-      description="Prefixes and suffixes keep units visible without becoming part of the value."
+      description="Units stay visible without joining the value."
       contentClassName={FIELD_WIDTH}
     >
       <NumberField defaultValue={125} min={0} className="w-full">
@@ -66,7 +66,7 @@ export const NumberFieldExamples = () => (
     <DocBand
       id="stacked"
       title="Stacked controls"
-      description="A vertical stepper leaves more horizontal room for the value and its unit."
+      description="A vertical stepper leaves room for the value."
       contentClassName={FIELD_WIDTH}
     >
       <NumberField defaultValue={24} min={8} max={96} step={2} className="w-full">
@@ -85,7 +85,7 @@ export const NumberFieldExamples = () => (
     <DocBand
       id="sizes"
       title="Sizes"
-      description="Control and type scale together for dense, default, and prominent layouts."
+      description="Control and type scale together."
       contentClassName={FIELD_WIDTH}
     >
       <div className="flex flex-col gap-3">
@@ -149,7 +149,7 @@ export const NumberFieldExamples = () => (
     <DocBand
       id="states"
       title="States"
-      description="Read-only, invalid, and disabled fields remain visually distinct and legible."
+      description="Read-only, invalid, and disabled stay distinct."
       contentClassName="max-w-3xl"
     >
       <div className="grid gap-4 sm:grid-cols-3">

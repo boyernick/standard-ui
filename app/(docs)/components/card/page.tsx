@@ -30,7 +30,7 @@ export default function CardPage() {
           first
           id="variants"
           title="Variants"
-          description="Choose an elevated, outlined, or untreated surface based on the surrounding hierarchy."
+          description="Elevated, outlined, or untreated surfaces."
           contentClassName="max-w-2xl"
         >
           <div className="grid gap-4 sm:grid-cols-3">

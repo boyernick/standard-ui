@@ -100,7 +100,7 @@ export const ImagesExamples = () => (
     <DocBand
       id="gallery"
       title="Gallery"
-      description="Open any image, then use the controls, arrow keys, touch, or a horizontal trackpad gesture."
+      description="Open any image, then swipe, arrow, or drag."
       contentClassName="w-full max-w-none"
     >
       <Gallery images={shots} variant="caption">

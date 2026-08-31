@@ -128,7 +128,7 @@ export const SidebarExamples = () => (
       first
       id="default"
       title="Default"
-      description="A structured panel with interactive navigation and compact metadata."
+      description="Navigation with compact metadata."
       contentClassName={BAND}
     >
       <DefaultSidebar />
@@ -137,7 +137,7 @@ export const SidebarExamples = () => (
     <DocBand
       id="surfaces"
       title="Surfaces"
-      description="Inset and floating treatments fit embedded layouts and detached app shells."
+      description="Inset for embedded layouts, floating for shells."
       contentClassName="max-w-xl"
     >
       <div className="grid gap-6 sm:grid-cols-2">
@@ -155,7 +155,7 @@ export const SidebarExamples = () => (
     <DocBand
       id="navigation-treatments"
       title="Navigation treatments"
-      description="Pill and indicator states offer distinct emphasis without changing structure."
+      description="Pill or indicator, at different emphasis."
       contentClassName="max-w-xl"
     >
       <div className="grid gap-6 sm:grid-cols-2">
@@ -224,7 +224,7 @@ export const SidebarExamples = () => (
     <DocBand
       id="sizes"
       title="Compact"
-      description="A smaller width and row height preserve space in dense utility layouts."
+      description="A narrower width and row height for dense layouts."
       contentClassName="max-w-xs"
     >
       <Panel variant="floating" size="sm" height="short">

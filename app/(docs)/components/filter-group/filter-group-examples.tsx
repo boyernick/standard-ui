@@ -13,7 +13,7 @@ export const FilterGroupExamples = () => (
       first
       id="segmented"
       title="Segmented"
-      description="An inset enclosure binds a small, exclusive set of filters into one control."
+      description="An inset enclosure binds an exclusive set."
       contentClassName={BAND}
     >
       <FilterGroup
@@ -30,7 +30,7 @@ export const FilterGroupExamples = () => (
     <DocBand
       id="pill"
       title="Pill"
-      description="Detached choices filter one result set without changing the surrounding view."
+      description="Detached choices, filtering one result set."
       contentClassName={BAND}
     >
       <FilterGroup aria-label="Project status" defaultValue={["all"]}>
@@ -43,7 +43,7 @@ export const FilterGroupExamples = () => (
     <DocBand
       id="sizes"
       title="Sizes"
-      description="Small, medium, and large options cover dense toolbars and touch-friendly surfaces."
+      description="Three sizes, from dense toolbars to touch."
       contentClassName={BAND}
     >
       <div className="flex flex-col items-start gap-5">
@@ -65,7 +65,7 @@ export const FilterGroupExamples = () => (
     <DocBand
       id="multiple"
       title="Multiple"
-      description="Multiple selection combines independent constraints in the same group."
+      description="Several selections combine as constraints."
       contentClassName={BAND}
     >
       <FilterGroup
@@ -104,7 +104,7 @@ export const FilterGroupExamples = () => (
     <DocBand
       id="disabled"
       title="Disabled"
-      description="Unavailable filters remain visible without participating in selection."
+      description="Unavailable filters stay visible but inert."
       contentClassName={BAND}
     >
       <FilterGroup aria-label="Availability" defaultValue={["available"]}>

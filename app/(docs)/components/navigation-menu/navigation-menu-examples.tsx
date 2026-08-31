@@ -93,7 +93,7 @@ export const NavigationMenuExamples = () => (
       first
       id="default"
       title="Default"
-      description="Top-level links and flyouts share the same rhythm and interaction states."
+      description="Links and flyouts on one rhythm."
       contentClassName="max-w-2xl"
     >
       <Nav>
@@ -164,7 +164,7 @@ export const NavigationMenuExamples = () => (
     <DocBand
       id="rich-panel"
       title="Rich panel"
-      description="Featured destinations and descriptive links can share one responsive flyout."
+      description="Featured and descriptive links in one flyout."
       contentClassName="max-w-2xl"
     >
       <Nav variant="underline">
@@ -213,7 +213,7 @@ export const NavigationMenuExamples = () => (
     <DocBand
       id="vertical"
       title="Vertical"
-      description="Orientation changes both keyboard flow and the visual direction of each trigger."
+      description="Orientation turns the triggers and the keyboard flow."
       contentClassName="max-w-2xl"
     >
       <Nav orientation="vertical" side="right" align="start">

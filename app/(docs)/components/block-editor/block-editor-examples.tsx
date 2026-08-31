@@ -33,7 +33,7 @@ export const BlockEditorExamples = () => (
     <DocBand
       id="document"
       title="Document"
-      description="A block canvas — type to edit, press '/' to insert headings, lists, checklists, and dividers."
+      description="Type to edit; press '/' to insert a block."
       contentClassName="w-full max-w-none"
     >
       <BlockEditor

@@ -10,7 +10,7 @@ export default function AlertDialogPage() {
   return (
     <DocPage
       title="Alert dialog"
-      description="Interruptive confirmation for destructive or irreversible actions."
+      description="Confirmation for irreversible actions."
       heading={null}
       bleed
     >

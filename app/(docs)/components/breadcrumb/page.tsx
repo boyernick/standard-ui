@@ -10,7 +10,7 @@ export default function BreadcrumbPage() {
   return (
     <DocPage
       title="Breadcrumb"
-      description="Hierarchical navigation that shows the current page within a larger structure."
+      description="The current page within a larger hierarchy."
       heading={null}
       bleed
     >

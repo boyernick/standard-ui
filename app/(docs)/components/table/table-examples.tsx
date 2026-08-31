@@ -93,7 +93,7 @@ export const TableExamples = () => (
     <DocBand
       id="grid"
       title="Grid"
-      description="Compact cells and full rules create a spreadsheet-style reading surface."
+      description="Compact cells and full rules, spreadsheet-style."
       contentClassName={BAND}
     >
       <Table variant="grid" density="compact" aria-label="Project budgets">
@@ -130,7 +130,7 @@ export const TableExamples = () => (
     <DocBand
       id="compact-striped"
       title="Compact and striped"
-      description="Reduced row height and alternating surfaces help dense datasets scan horizontally."
+      description="Shorter rows and alternating surfaces for scanning."
       contentClassName={BAND}
     >
       <Table density="compact" striped>
@@ -142,7 +142,7 @@ export const TableExamples = () => (
     <DocBand
       id="sticky-header"
       title="Sticky header"
-      description="Column names remain visible inside a constrained scrolling region."
+      description="Column names stay visible while the body scrolls."
       contentClassName={BAND}
     >
       <Table

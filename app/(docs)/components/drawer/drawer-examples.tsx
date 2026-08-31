@@ -93,7 +93,7 @@ export const DrawerExamples = () => (
     <DocBand
       id="sheet"
       title="Sheet"
-      description="Rises from the bottom or drops from the top, capped at 85% of the viewport."
+      description="Rises from the bottom or drops from the top."
     >
       <Row>
         <Panel

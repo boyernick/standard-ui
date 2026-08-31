@@ -104,7 +104,7 @@ export const AutocompleteExamples = () => (
     <DocBand
       id="inline"
       title="Inline autocomplete"
-      description="Arrowing through results fills the field with the highlighted one."
+      description="Arrowing through results fills the field."
       contentClassName="max-w-xs"
     >
       <Field

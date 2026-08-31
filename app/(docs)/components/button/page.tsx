@@ -16,7 +16,7 @@ export default function ButtonPage() {
   return (
     <DocPage
       title="Button"
-      description="Trigger an action, with variants for descending levels of emphasis."
+      description="Triggers an action, across levels of emphasis."
       heading={null}
       bleed
     >
@@ -25,7 +25,7 @@ export default function ButtonPage() {
           first
           id="variants"
           title="Variants"
-          description="Choose a level of emphasis that matches the importance of the action."
+          description="Emphasis matched to the weight of the action."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button variant="primary">Primary</Button>
@@ -39,7 +39,7 @@ export default function ButtonPage() {
         <DocBand
           id="sizes"
           title="Sizes"
-          description="Three heights cover compact controls, standard interfaces, and prominent actions."
+          description="Three heights, from compact to prominent."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button size="sm">Small</Button>
@@ -72,7 +72,7 @@ export default function ButtonPage() {
         <DocBand
           id="loading"
           title="Loading"
-          description="A loading button communicates progress and prevents repeat submissions."
+          description="Shows progress and blocks repeat submissions."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button variant="primary" loading>
@@ -93,7 +93,7 @@ export default function ButtonPage() {
         <DocBand
           id="icon-only"
           title="Icon only"
-          description="Use a square button for familiar actions that remain clear without a visible label."
+          description="A square button for actions that need no label."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button iconOnly aria-label="Search" size="sm">
@@ -114,7 +114,7 @@ export default function ButtonPage() {
         <DocBand
           id="rounded"
           title="Rounded"
-          description="Use the default soft radius or a fully rounded pill for compact actions."
+          description="A soft radius, or a pill for compact actions."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button>Default radius</Button>

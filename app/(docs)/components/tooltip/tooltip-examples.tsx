@@ -126,7 +126,7 @@ export const TooltipExamples = () => (
       <DocBand
         id="inverted"
         title="Inverted"
-        description="Flipped against the page, for a hint that should read as separate."
+        description="Flipped against the page, to read as separate."
         contentClassName={BAND}
       >
         <div className="flex flex-wrap items-center gap-2">

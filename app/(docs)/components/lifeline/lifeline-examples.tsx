@@ -16,7 +16,7 @@ export const LifelineExamples = () => (
       first
       id="default"
       title="Default"
-      description="Milestones on a single rail, scrubbed by scroll, with people along the years."
+      description="Milestones on one rail, scrubbed by scroll."
       contentClassName="w-full"
     >
       <div className="flex h-[760px] flex-col overflow-hidden rounded-xl border border-border-primary bg-background-primary">

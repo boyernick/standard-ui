@@ -72,7 +72,7 @@ export const TimelineExamples = () => (
       first
       id="horizontal"
       title="Horizontal"
-      description="A scrubbable rail of events, with the year sitting above each tick."
+      description="A scrubbable rail, with years above the ticks."
       contentClassName="max-w-4xl"
     >
       <Timeline orientation="horizontal" aria-label="StandardUI shipments">
@@ -118,7 +118,7 @@ export const TimelineExamples = () => (
     <DocBand
       id="markers"
       title="Markers"
-      description="Ticks are the default; dots carry a tone when an event needs weight."
+      description="Ticks by default; dots when an event needs weight."
       contentClassName="max-w-lg"
     >
       <Timeline aria-label="Marker shapes">
@@ -160,7 +160,7 @@ export const TimelineExamples = () => (
     <DocBand
       id="media"
       title="With media"
-      description="A media surface can sit with an event without changing the structure."
+      description="An event can carry a media surface."
       contentClassName="max-w-sm"
     >
       <Timeline aria-label="Project milestone">

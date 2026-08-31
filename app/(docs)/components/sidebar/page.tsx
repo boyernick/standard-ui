@@ -10,7 +10,7 @@ export default function SidebarPage() {
   return (
     <DocPage
       title="Sidebar"
-      description="Structured navigation panel with adaptable surfaces and active states."
+      description="A navigation panel with adaptable surfaces."
       heading={null}
       bleed
     >
