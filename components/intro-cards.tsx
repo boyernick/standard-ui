@@ -29,12 +29,20 @@ import type { ReactNode } from "react"
 import { PAGE_INNER_LEFT, PAGE_INNER_RIGHT } from "@/lib/chrome"
 
 /** Cell padding. The outer edge tracks the page measure so the text lines up
- *  with the header above it; the inner edge is a fixed gutter beside the
- *  divider. These are plain strings with no `cn` to resolve conflicts, so the
- *  inner edge deliberately stops at `md:` — adding the `lg:` step from
- *  `PAGE_INNER_*` would win the cascade and swallow the gutter. */
-const CELL_LEFT = `${PAGE_INNER_LEFT} pr-4 md:pr-10`
-const CELL_RIGHT = `pl-4 md:pl-10 ${PAGE_INNER_RIGHT}`
+ *  with the header above it; the inner edge is the gutter beside the divider.
+ *
+ *  The inner gutter is half the outer padding at every step, which makes the
+ *  space *between* the two blocks equal the space from the page edge to the
+ *  content — 224px either way at `3xl`. Held at a flat 40px it was 5.6× tighter
+ *  than the outer edge on a wide screen, so the right-hand block hugged the
+ *  divider while a quarter of the row sat empty beside it.
+ *
+ *  Written out rather than reusing `PAGE_INNER_*`: these are plain strings with
+ *  no `cn` to resolve conflicts, and that constant carries both sides, so the
+ *  outer edge would win the cascade and swallow the gutter. Each side's padding
+ *  therefore comes from exactly one source. */
+const CELL_LEFT = `${PAGE_INNER_LEFT} pr-4 md:pr-5 lg:pr-7 xl:pr-12 2xl:pr-20 3xl:pr-28`
+const CELL_RIGHT = `pl-4 md:pl-5 lg:pl-7 xl:pl-12 2xl:pl-20 3xl:pl-28 ${PAGE_INNER_RIGHT}`
 
 const cellClassName =
   "group flex min-w-0 flex-col py-8 outline-none transition-colors hover:bg-background-secondary focus-visible:bg-background-secondary"
@@ -64,12 +72,32 @@ const Cell = ({
 )
 
 /** A row of the grid. The rule above is full-bleed like every band on the
- *  site; the divider between columns is interior to the row. */
-const Row = ({ first, children }: { first?: boolean; children: ReactNode }) => (
+ *  site; the divider between columns is interior to the row.
+ *
+ *  `last` makes the row absorb the leftover height. The page's own height is
+ *  only ~945px, so on any viewport taller than that the grid used to stop
+ *  where its text stopped while the fixed footer stayed pinned to the bottom
+ *  — leaving the column divider hanging in open space above the footer rule.
+ *  Growing the row is what closes that gap; drawing a longer line would put a
+ *  column boundary below the columns it divides. `flex-1` cannot shrink the
+ *  row below its content (min-height stays `auto`), so shorter viewports keep
+ *  scrolling exactly as before. Tied to `md:` because that is where the
+ *  divider itself starts — below it the rows are a single column with no
+ *  divider to strand, so there is nothing to close and no reason to grow a
+ *  cell's tap target into empty space. */
+const Row = ({
+  first,
+  last,
+  children,
+}: {
+  first?: boolean
+  last?: boolean
+  children: ReactNode
+}) => (
   <div
     className={`grid md:grid-cols-2 md:divide-x md:divide-border-primary ${
       first ? "" : "border-t border-border-primary"
-    }`}
+    } ${last ? "md:flex-1" : ""}`}
   >
     {children}
   </div>
@@ -184,7 +212,7 @@ const MaterialsPreview = () => (
 )
 
 export const IntroCards = () => (
-  <div>
+  <div className="flex flex-1 flex-col">
     <Row first>
       <Cell
         href="/colors"
@@ -204,7 +232,7 @@ export const IntroCards = () => (
       </Cell>
     </Row>
 
-    <Row>
+    <Row last>
       <Cell
         href="/materials"
         title="Materials"
