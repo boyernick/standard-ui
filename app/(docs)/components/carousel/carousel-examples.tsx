@@ -19,6 +19,7 @@ import {
   CAPTION_SCRIM,
   PLACEHOLDER_ALT,
   PLACEHOLDER_SRC,
+  PLACEHOLDER_EDGE,
   PLACEHOLDER_SURFACE,
 } from "@/lib/media-placeholder"
 
@@ -65,7 +66,7 @@ const SlideImage = ({
       onClick={handleClick}
     >
       <figure
-        className={`relative aspect-[16/10] overflow-hidden rounded-xl ${PLACEHOLDER_SURFACE} shadow-md`}
+        className={`relative aspect-[16/10] overflow-hidden rounded-xl ${PLACEHOLDER_EDGE} ${PLACEHOLDER_SURFACE} shadow-[var(--shadow-200)]`}
       >
         {caption ? (
           <figcaption className={`pointer-events-none absolute inset-x-0 bottom-0 ${CAPTION_SCRIM} px-4 pt-16 pb-3 text-left text-sm text-white`}>
