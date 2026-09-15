@@ -967,6 +967,7 @@ export {
   withCentralIconDefaults,
   iconGallery,
   IconArrowDown,
+  IconArrowDownSmall,
   IconBell,
   IconCalendar1,
   IconChainLink1,

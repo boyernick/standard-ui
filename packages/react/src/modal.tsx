@@ -31,7 +31,7 @@ import {
   DialogTrigger,
 } from "./dialog"
 import {
-  IconArrowDown,
+  IconArrowDownSmall,
   IconChevronRightSmall,
   IconCrossSmall,
 } from "./icons"
@@ -233,10 +233,12 @@ const ModalDownload = ({
           iconOnly: true,
         }),
         modalControlClassName,
-        "absolute top-4 right-4 z-20",
+        // Download sits top-left and Close top-right, where dismissal is
+        // expected; the gallery's previous/next arrows stay vertically centred.
+        "absolute top-4 left-4 z-20",
       )}
     >
-      <IconArrowDown aria-hidden />
+      <IconArrowDownSmall aria-hidden />
     </a>
   </ModalControlTooltip>
 )
@@ -254,7 +256,7 @@ const ModalDismiss = () => (
           aria-label="Close image"
           className={cn(
             modalControlClassName,
-            "absolute top-4 left-4 z-20",
+            "absolute top-4 right-4 z-20",
           )}
         />
       }

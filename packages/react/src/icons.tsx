@@ -1,6 +1,9 @@
 "use client"
 
-import type { CentralIconBaseProps } from "@central-icons-react/round-outlined-radius-2-stroke-2/CentralIconBase"
+import {
+  CentralIconBase,
+  type CentralIconBaseProps,
+} from "@central-icons-react/round-outlined-radius-2-stroke-2/CentralIconBase"
 import { IconArrowDown as IconArrowDownBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconArrowDown"
 import { IconBell as IconBellBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconBell"
 import { IconCalendar1 as IconCalendar1Base } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconCalendar1"
@@ -63,6 +66,32 @@ export const withCentralIconDefaults = (
 }
 
 export const IconArrowDown = withCentralIconDefaults(IconArrowDownBase)
+
+/**
+ * Central ships a Small cut of the cross and the chevrons but not of the down
+ * arrow, whose full-size glyph is 16 units tall and outweighs IconCrossSmall
+ * beside it. Drawn on Central's base with the same 2px round stroke, 9 × 12
+ * units: a touch larger than the cross's 8 × 8 so it holds its own.
+ */
+const IconArrowDownSmallBase = (props: CentralIconBaseProps) => (
+  <CentralIconBase
+    {...props}
+    ariaLabel="arrow-down-small, download"
+    maskId="round-outlined-radius-2-stroke-2-IconArrowDownSmall"
+  >
+    <path
+      d="M12 6V18M7.5 13.5L12 18L16.5 13.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </CentralIconBase>
+)
+
+export const IconArrowDownSmall = withCentralIconDefaults(
+  IconArrowDownSmallBase,
+)
 export const IconBell = withCentralIconDefaults(IconBellBase)
 export const IconCalendar1 = withCentralIconDefaults(IconCalendar1Base)
 export const IconChainLink1 = withCentralIconDefaults(IconChainLink1Base)
@@ -124,6 +153,7 @@ export const iconGallery = [
   { name: "IconPlus", Icon: IconPlus },
   { name: "IconMinus", Icon: IconMinus },
   { name: "IconCrossSmall", Icon: IconCrossSmall },
+  { name: "IconArrowDownSmall", Icon: IconArrowDownSmall },
   { name: "IconX", Icon: IconX },
   { name: "IconCheckmark1", Icon: IconCheckmark1 },
   { name: "IconChevronBottom", Icon: IconChevronBottom },
