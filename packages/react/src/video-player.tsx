@@ -351,7 +351,10 @@ export const VideoPlayer = ({
             <IconPlay
               size={ended ? 12 : 18}
               mode="raw"
-              className={cn(ended ? "size-3" : "ml-0.5 size-4.5")}
+              // No nudge: Central's play glyph is already optically centred in
+              // its 24-unit box (its mass sits at x 11.7), so a margin shifts
+              // it right a second time.
+              className={cn(ended ? "size-3" : "size-4.5")}
               aria-hidden
             />
             {ended ? <span className="text-xs-strong">Replay</span> : null}
