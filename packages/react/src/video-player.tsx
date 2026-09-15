@@ -43,10 +43,13 @@ const formatTime = (seconds: number) => {
  *  could lean on the bar for presence and sat at 28.
  *
  *  No hover background: the material *is* the background, and a translucent
- *  white wash over it fights the fill and the rim. Brightness lifts the whole
- *  object instead, the way a lit surface actually behaves. */
+ *  white wash over it fights the fill and the rim. The lens brightens instead,
+ *  by the same step as the image modal's glass controls.
+ *
+ *  No drop shadow on any glass here: the material draws its shape with the
+ *  rim, and `shadow-lg` would add its own hairline ring over it. */
 const overlayControl =
-  "glass glass-dark [--glass-alpha:52%] inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/85 outline-none transition-[filter,color,transform] duration-[var(--duration-sm)] ease-enter hover:text-white hover:brightness-110 active:scale-95 focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white/50 motion-reduce:transition-none motion-reduce:active:scale-100"
+  "glass glass-dark [--glass-alpha:52%] inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/85 outline-none transition-[filter,color,transform] duration-[var(--duration-sm)] ease-enter hover:text-white hover:brightness-150 active:scale-95 focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white/50 motion-reduce:transition-none motion-reduce:active:scale-100"
 
 /** The scrubber and its two timecodes travel together as one object. */
 const overlayTrack =
@@ -311,7 +314,7 @@ export const VideoPlayer = ({
         {failed ? (
           <div
             role="alert"
-            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl glass glass-dark px-5 py-4 text-center text-white shadow-lg"
+            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl glass glass-dark px-5 py-4 text-center text-white"
           >
             <IconExclamationTriangle
               size={22}
@@ -327,7 +330,7 @@ export const VideoPlayer = ({
         ) : loading || buffering ? (
           <div
             role="status"
-            className="flex size-14 items-center justify-center rounded-full glass glass-dark text-white shadow-lg"
+            className="flex size-14 items-center justify-center rounded-full glass glass-dark text-white"
           >
             <span className="size-6 animate-spin rounded-full border-2 border-white/30 border-t-white motion-reduce:animate-none" />
             <span className="sr-only">
@@ -337,7 +340,7 @@ export const VideoPlayer = ({
         ) : !playing ? (
           <div
             className={cn(
-              "flex items-center justify-center rounded-full glass glass-dark text-white shadow-lg",
+              "flex items-center justify-center rounded-full glass glass-dark text-white",
               ended ? "h-8 gap-1 px-2.5" : "size-11",
             )}
           >
