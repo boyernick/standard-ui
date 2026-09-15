@@ -51,8 +51,10 @@ import {
 const TRACKPAD_LABEL =
   "Swipe, use the arrow keys, or use the controls to navigate"
 
+// Glass takes a glass hover: the lens brightens. The ghost button's own
+// hover fill is a page grey and is cleared, or it shows through the body.
 const modalControlClassName =
-  "glass glass-dark text-fg-scrim hover:text-fg-scrim outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-scrim focus-visible:ring-ring/20"
+  "glass glass-dark hover:bg-transparent hover:brightness-150 text-fg-scrim hover:text-fg-scrim outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-scrim focus-visible:ring-ring/20"
 
 export const modalContentVariants = cva(
   "h-dvh max-h-dvh w-screen max-w-none gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none max-sm:max-w-none",

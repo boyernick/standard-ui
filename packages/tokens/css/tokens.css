@@ -247,38 +247,21 @@
     rgb(var(--shadow-color) / var(--shadow-alpha-400));
   --shadow-ambient-layer: var(--elevation-ambient-geo)
     rgb(var(--shadow-color) / var(--shadow-alpha-ambient));
-  /* Raised — an opaque, lit material for floating controls. Where `glass`
-     borrows what is behind it, this one carries its own light: a fill that is
-     brighter at the top, a specular pool at the top edge, a perimeter that
-     varies around the shape, and a bevel inside it.
+  /* Glass — a clear lens rather than a lit slab. The body is barely there, a
+     few percent of ink over whatever sits behind it, and the shape comes from
+     a soft rim of even brightness all the way round: a hairline at the edge
+     with a glow that fades inward over a pixel or so. No top glow, no bevel,
+     no drop shadow, no light direction — the rim is what makes it an object.
 
-     The perimeter is the part that does the work. A uniform hairline reads as
-     a border; a rim that is bright where the light lands and dim where it does
-     not reads as a raised object, which is why these hold up on a flat
-     backdrop where blur has nothing to work with.
-
-     Light and dark are not a token flip here, because the physics invert. On a
-     dark page the light lands on the top edge and the rim is white. On a light
-     page a white top edge is invisible against the page, and what describes
-     the shape instead is the shadowed underside — so the rim darkens towards
-     the bottom.
-
-     The body stays at its own theme's extreme — white glass on a light page,
-     black glass on a dark one — so the material never reads as a grey card
-     dropped onto the page. That leaves the body carrying almost no contrast
-     against the page, which is the point: the rim and the drop shadow carry
-     the shape instead, and both are tuned up to do that work alone. */
-  --glass-alpha: 86%;
-  --glass-fill-top: var(--gray-0);
-  --glass-fill-mid: var(--gray-25);
-  --glass-fill-bottom: var(--gray-75);
-  --glass-glow: color-mix(in oklab, var(--white) 60%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--black) 8%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--black) 12%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--black) 18%, transparent);
-  --glass-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
-  --glass-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
-  --glass-shadow: color-mix(in oklab, var(--black) 13%, transparent);
+     The fill and rim are the page's ink: black over a light page, white over a
+     dark one, so the lens darkens light backdrops and lightens dark ones
+     without being told which it is on. */
+  --glass-fill: var(--black);
+  --glass-alpha: 4%;
+  --glass-rim: color-mix(in oklab, var(--black) 6%, transparent);
+  --glass-rim-glow: color-mix(in oklab, var(--black) 9%, transparent);
+  /* What a reduced-transparency fill composites onto instead of the backdrop. */
+  --glass-base: var(--background-primary);
   /* Raised solid controls — top edge highlight (primary / destructive) */
   --elevation-solid-top: inset 0 1px 0 0
     color-mix(in oklab, var(--white) 18%, transparent);
@@ -308,27 +291,13 @@
 
   /* Ink flips to the fill: the same value that reads as area on a light page
      reads as legible ink on a dark one. */
-  /* Lit from above: the rim is brightest on the top edge, faint at the sides,
-     and picks up a little bounce underneath. Raw hex, not ramp rungs — the
-     ramp flips under `.dark` and this material must not flip with it.
-
-     The body sits *at* the page rather than above it: composited, the mid stop
-     lands on the page value exactly and the ends only rise 1.6 and 3.1 L*. A
-     fill that floated well above the page read as a grey slab on a black page
-     rather than as black glass. The glow (+11.4) and the top rim (+19.9) carry
-     the shape on their own, which is 14.5 L* of modelling on a body that is
-     effectively page-black. */
-  --glass-alpha: 72%;
-  --glass-fill-top: #181818;
-  --glass-fill-mid: #0d0d0d;
-  --glass-fill-bottom: #131313;
-  --glass-glow: color-mix(in oklab, var(--white) 10%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--white) 18%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--white) 6%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--white) 12%, transparent);
-  --glass-bevel-top: color-mix(in oklab, var(--white) 10%, transparent);
-  --glass-bevel-bottom: color-mix(in oklab, var(--white) 7%, transparent);
-  --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
+  /* Measured from iOS liquid glass on a #0d0d0d page: the body sits 3.7%
+     white above the page, and the rim peaks about 12% above the body, falling
+     back to it within a pixel and a half, the same on every side. */
+  --glass-fill: var(--white);
+  --glass-alpha: 4%;
+  --glass-rim: color-mix(in oklab, var(--white) 8%, transparent);
+  --glass-rim-glow: color-mix(in oklab, var(--white) 14%, transparent);
 
   --decorative-crimson: var(--chart-7);
   --decorative-orange: var(--chart-3);
@@ -702,28 +671,26 @@
 
 /* Glass — two idioms, because they solve opposite problems.
  *
- * `glass` is a floating object: a control that has to read as a distinct thing
- * on *any* backdrop, including a flat one. Blur does none of the work there —
- * blurring a uniform field returns the same uniform field — so what makes it
- * visible is a fill that contrasts with what is behind it plus a rim along the
- * edge. Both default to `--alpha-base`, which is black on a light theme and
- * white on a dark one, so the surface lightens over dark and darkens over
- * light without being told which it is. The saturation boost is the other half
- * of the look: colour behind the surface stays saturated instead of washing
- * out through the blur.
+ * `glass` is a floating object: a clear lens that has to read as a distinct
+ * thing on *any* backdrop, including a flat one. Blur does none of the work
+ * there — blurring a uniform field returns the same uniform field — so what
+ * makes it visible is the rim: a soft, evenly lit edge over a body only a few
+ * percent off the page. Fill and rim are the page's ink, so the lens lightens
+ * over dark and darkens over light without being told which it is. The
+ * saturation boost keeps colour behind it from washing out through the blur.
  *
  * `glass-panel` is a bar: page-tinted and nearly opaque, legible because
  * content scrolls under it rather than because it contrasts. No rim, no
  * saturation — it is meant to read as the page, not as an object on it.
  *
- * Set `--glass-tint`, `--glass-opacity`, `--glass-blur`, `--glass-edge` and
- * `--glass-edge-opacity` at the call site. Surfaces that must stay dark
- * whatever the theme — chrome over video or photography — should set both the
- * tint and the edge explicitly rather than inheriting the adaptive default.
+ * Tune `glass` with `--glass-fill`, `--glass-alpha`, `--glass-rim`,
+ * `--glass-rim-glow`, `--glass-blur` and `--glass-saturate`; `glass-panel`
+ * with `--glass-tint`, `--glass-opacity` and `--glass-blur`. Chrome over video
+ * or photography should add `glass-dark` or `glass-light`, which carry a body
+ * dense enough for ink over an unknown image.
  *
- * `prefers-reduced-transparency` drops the blur and fills solid. The solid
- * falls back to the tint, so a call site that set one gets an opaque version of
- * its own colour rather than a generic surface.
+ * `prefers-reduced-transparency` drops the blur and fills solid, compositing
+ * the same tint onto `--glass-base` instead of onto the backdrop.
  *
  * Blur is among the most expensive things a browser paints. Floating chrome
  * only. */
@@ -746,104 +713,69 @@
   position: relative;
   isolation: isolate;
   border: 0;
-  background:
-    radial-gradient(
-      ellipse at 50% -18%,
-      var(--glass-glow) 0%,
-      color-mix(in oklab, var(--glass-glow) 35%, transparent) 32%,
-      transparent 62%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--glass-fill-top) var(--glass-alpha, 86%), transparent)
-        0%,
-      color-mix(in oklab, var(--glass-fill-mid) var(--glass-alpha, 86%), transparent)
-        40%,
-      color-mix(
-          in oklab,
-          var(--glass-fill-bottom) var(--glass-alpha, 86%),
-          transparent
-        )
-        100%
-    );
+  /* The body is an image layer, not background-color, so a `bg-*` utility at
+     the call site (a ghost button's hover fill, say) paints beneath the lens
+     instead of replacing it. Painted as the colour, a hover turned the whole
+     disc into the page's grey. */
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--glass-fill) var(--glass-alpha), transparent),
+    color-mix(in oklab, var(--glass-fill) var(--glass-alpha), transparent)
+  );
   backdrop-filter: blur(var(--glass-blur, 16px))
     saturate(var(--glass-saturate, 160%));
-  box-shadow:
-    0 3px 10px var(--glass-shadow),
-    inset 0 1px 1px var(--glass-bevel-top),
-    inset 0 -1px 1px var(--glass-bevel-bottom);
 
-  /* The perimeter is a gradient, not a border, so it can be bright where the
-     light lands and dim where it does not. Drawn as a masked ring: paint the
-     gradient over the whole box, then punch out everything inside the 1px
-     padding so only the frame survives. */
+  /* The rim lives on a pseudo-element so a `shadow-*` utility at the call site
+     adds elevation instead of replacing the rim. Two insets: a hairline at the
+     edge, and a glow that spreads half a pixel and softens inward. */
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    padding: 1px;
     pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      var(--glass-edge-top) 0%,
-      var(--glass-edge-side) 36%,
-      var(--glass-edge-bottom) 100%
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    mask-composite: exclude;
+    box-shadow:
+      inset 0 0 0 0.4px var(--glass-rim),
+      inset 0 0 1.2px 0.6px var(--glass-rim-glow);
   }
 
-  /* Fills solid and drops the blur where the reader has asked for it. The lit
-     gradient, the rim and the bevel all stay — only the see-through goes. */
+  /* Fills solid and drops the blur where the reader has asked for it: the same
+     tint, composited onto a base rather than onto the backdrop. The rim stays. */
   @media (prefers-reduced-transparency: reduce) {
-    background: linear-gradient(
-      180deg,
-      var(--glass-fill-top) 0%,
-      var(--glass-fill-mid) 40%,
-      var(--glass-fill-bottom) 100%
+    background-image: linear-gradient(
+      color-mix(
+        in oklab,
+        var(--glass-fill) var(--glass-alpha),
+        var(--glass-base, var(--background-primary))
+      ),
+      color-mix(
+        in oklab,
+        var(--glass-fill) var(--glass-alpha),
+        var(--glass-base, var(--background-primary))
+      )
     );
     backdrop-filter: none;
   }
 }
 
 /* Chrome that must ignore the page theme. A control over video or photography
-   has no idea what is behind it, and one over an inverted backdrop wants the
-   opposite of the page — so both re-declare the material's tokens rather than
-   inheriting them. */
+   has no idea what is behind it, so it cannot be a near-clear lens: these keep
+   the rim but carry a body dense enough to hold white or black ink over any
+   image. Call sites can thin it with `--glass-alpha`. */
 
 @utility glass-dark {
+  --glass-fill: #0d0d0d;
   --glass-alpha: 72%;
-  --glass-fill-top: #181818;
-  --glass-fill-mid: #0d0d0d;
-  --glass-fill-bottom: #131313;
-  --glass-glow: color-mix(in oklab, var(--white) 10%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--white) 18%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--white) 6%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--white) 12%, transparent);
-  --glass-bevel-top: color-mix(in oklab, var(--white) 10%, transparent);
-  --glass-bevel-bottom: color-mix(in oklab, var(--white) 7%, transparent);
-  --glass-shadow: color-mix(in oklab, var(--black) 72%, transparent);
+  --glass-rim: color-mix(in oklab, var(--white) 8%, transparent);
+  --glass-rim-glow: color-mix(in oklab, var(--white) 14%, transparent);
+  --glass-base: #0d0d0d;
 }
 
 @utility glass-light {
+  --glass-fill: #ffffff;
   --glass-alpha: 86%;
-  --glass-fill-top: #ffffff;
-  --glass-fill-mid: #fcfcfc;
-  --glass-fill-bottom: #f3f3f3;
-  --glass-glow: color-mix(in oklab, var(--white) 60%, transparent);
-  --glass-edge-top: color-mix(in oklab, var(--black) 8%, transparent);
-  --glass-edge-side: color-mix(in oklab, var(--black) 12%, transparent);
-  --glass-edge-bottom: color-mix(in oklab, var(--black) 18%, transparent);
-  --glass-bevel-top: color-mix(in oklab, var(--white) 90%, transparent);
-  --glass-bevel-bottom: color-mix(in oklab, var(--black) 4%, transparent);
-  --glass-shadow: color-mix(in oklab, var(--black) 13%, transparent);
+  --glass-rim: color-mix(in oklab, var(--black) 6%, transparent);
+  --glass-rim-glow: color-mix(in oklab, var(--black) 9%, transparent);
+  --glass-base: #ffffff;
 }
 
 /* Headings lg → 2xl: sans + serif variants. md/sm/xs: sans. */

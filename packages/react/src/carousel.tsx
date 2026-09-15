@@ -80,7 +80,8 @@ export type CarouselDotsProps = ComponentProps<"div">
 
 const carouselControlClassName = cn(
   "absolute z-20 !size-6 glass text-fg-primary [&_svg:not([class*='size-'])]:!size-3.5",
-  "hover:brightness-105 hover:text-fg-primary",
+  // The ghost button's page-grey hover fill would show through the lens.
+  "hover:bg-transparent hover:brightness-105 hover:text-fg-primary",
   "disabled:pointer-events-none disabled:opacity-0",
   motion.colors,
 )
