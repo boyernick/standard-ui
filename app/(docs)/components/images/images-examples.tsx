@@ -56,7 +56,7 @@ const Shot = ({
       {/* One edge: a 5% border with --shadow-300 alone. shadow-lg would add
           --elevation-hairline, a 1px ring that doubles the border. */}
       <figure
-        className={`relative aspect-[16/10] overflow-hidden rounded-2xl border border-border-primary ${PLACEHOLDER_SURFACE} shadow-[var(--shadow-300)]`}
+        className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border-primary bg-background-secondary shadow-[var(--shadow-300)]"
       >
         {label ? (
           <figcaption className={`pointer-events-none absolute inset-x-0 bottom-0 ${CAPTION_SCRIM} px-4 pt-16 pb-3 text-left text-sm text-white`}>
