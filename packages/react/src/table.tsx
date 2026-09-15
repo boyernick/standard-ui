@@ -72,7 +72,9 @@ export const Table = ({
 }: TableProps) => (
   <div
     className={cn(
-      "w-full overflow-auto rounded-lg border border-border-primary bg-surface",
+      // rounded-2xl, the image frame's radius, so a table and an image on the
+      // same page share one corner.
+      "w-full overflow-auto rounded-2xl border border-border-primary bg-surface",
       containerClassName,
     )}
   >
