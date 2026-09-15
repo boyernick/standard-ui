@@ -174,15 +174,39 @@ const ModalImage = ({
 }: Pick<GalleryItem, "src" | "alt" | "imgProps"> & {
   fit?: "viewport" | "contain"
 }) => {
-  const { className, ...props } = imgProps ?? {}
+  const { className, onLoad, onError, ...props } = imgProps ?? {}
+  // Held transparent until decoded, then faded in: a large file otherwise
+  // paints in top-down bands inside the lightbox. The ref catches an image the
+  // browser already has (a cached file, or the one the trigger just showed)
+  // before first paint, so it appears at once with nothing to fade.
+  const [loaded, setLoaded] = useState(false)
+  const catchLoaded = useCallback((image: HTMLImageElement | null) => {
+    if (image?.complete && image.naturalWidth > 0) setLoaded(true)
+  }, [])
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
+      ref={catchLoaded}
       src={src}
       alt={alt}
       draggable={false}
+      onLoad={(event) => {
+        onLoad?.(event)
+        event.currentTarget
+          .decode()
+          .catch(() => {})
+          .then(() => setLoaded(true))
+      }}
+      onError={(event) => {
+        onError?.(event)
+        // Reveal the broken image rather than leave an invisible one.
+        setLoaded(true)
+      }}
       className={cn(
+        // Linear, like every fade in `motion` — see the note there.
+        "transition-opacity duration-[var(--duration-lg)] ease-linear motion-reduce:transition-none",
+        !loaded && "opacity-0",
         "rounded-lg object-contain shadow-lg select-none",
         fit === "contain"
           ? "max-h-full max-w-full"
