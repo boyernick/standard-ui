@@ -713,10 +713,13 @@
   position: relative;
   isolation: isolate;
   border: 0;
-  background-color: color-mix(
-    in oklab,
-    var(--glass-fill) var(--glass-alpha),
-    transparent
+  /* The body is an image layer, not background-color, so a `bg-*` utility at
+     the call site (a ghost button's hover fill, say) paints beneath the lens
+     instead of replacing it. Painted as the colour, a hover turned the whole
+     disc into the page's grey. */
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--glass-fill) var(--glass-alpha), transparent),
+    color-mix(in oklab, var(--glass-fill) var(--glass-alpha), transparent)
   );
   backdrop-filter: blur(var(--glass-blur, 16px))
     saturate(var(--glass-saturate, 160%));
@@ -738,10 +741,17 @@
   /* Fills solid and drops the blur where the reader has asked for it: the same
      tint, composited onto a base rather than onto the backdrop. The rim stays. */
   @media (prefers-reduced-transparency: reduce) {
-    background-color: color-mix(
-      in oklab,
-      var(--glass-fill) var(--glass-alpha),
-      var(--glass-base, var(--background-primary))
+    background-image: linear-gradient(
+      color-mix(
+        in oklab,
+        var(--glass-fill) var(--glass-alpha),
+        var(--glass-base, var(--background-primary))
+      ),
+      color-mix(
+        in oklab,
+        var(--glass-fill) var(--glass-alpha),
+        var(--glass-base, var(--background-primary))
+      )
     );
     backdrop-filter: none;
   }
