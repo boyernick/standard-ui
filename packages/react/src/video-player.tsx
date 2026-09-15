@@ -292,7 +292,11 @@ export const VideoPlayer = ({
       // `group` drives the chrome: it hides while playing and comes back on
       // hover or when anything inside takes focus.
       className={cn(
-        "group relative isolate overflow-hidden rounded-xl bg-black shadow-lg ring-1 ring-border-primary data-[fullscreen]:h-screen data-[fullscreen]:w-screen data-[fullscreen]:rounded-none data-[fullscreen]:ring-0 fullscreen:h-screen fullscreen:w-screen fullscreen:rounded-none fullscreen:ring-0",
+        // One edge: the 5% ring, with --shadow-300 alone for depth. shadow-lg
+        // carries its own hairline ring and doubled the frame. Black only in
+        // fullscreen, where letterboxing needs it: behind the rounded clip it
+        // bled through the video's anti-aliased corners as a dark stroke.
+        "group relative isolate overflow-hidden rounded-xl shadow-[var(--shadow-300)] ring-1 ring-border-primary data-[fullscreen]:h-screen data-[fullscreen]:w-screen data-[fullscreen]:rounded-none data-[fullscreen]:bg-black data-[fullscreen]:ring-0 fullscreen:h-screen fullscreen:w-screen fullscreen:rounded-none fullscreen:bg-black fullscreen:ring-0",
         className,
       )}
       aria-busy={loading || buffering || undefined}
