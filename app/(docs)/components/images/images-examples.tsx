@@ -13,6 +13,7 @@ import {
   placeholderSrc,
   PLACEHOLDER_ALT,
   PLACEHOLDER_SRC,
+  PLACEHOLDER_EDGE,
   PLACEHOLDER_SURFACE,
 } from "@/lib/media-placeholder"
 
@@ -56,7 +57,7 @@ const Shot = ({
       {/* One edge: a 5% border with --shadow-300 alone. shadow-lg would add
           --elevation-hairline, a 1px ring that doubles the border. */}
       <figure
-        className={`relative aspect-[16/10] overflow-hidden rounded-2xl border border-border-primary ${PLACEHOLDER_SURFACE} shadow-[var(--shadow-300)]`}
+        className={`relative aspect-[16/10] overflow-hidden rounded-2xl ${PLACEHOLDER_EDGE} ${PLACEHOLDER_SURFACE} shadow-[var(--shadow-300)]`}
       >
         {label ? (
           <figcaption className={`pointer-events-none absolute inset-x-0 bottom-0 ${CAPTION_SCRIM} px-4 pt-16 pb-3 text-left text-sm text-white`}>
@@ -111,10 +112,7 @@ export const ImagesExamples = () => (
             <GalleryTrigger
               key={shot.caption}
               index={index}
-              // `border-secondary`, not `primary`: at `alpha-05` the primary
-              // border resolves lighter than the tile it surrounds and does
-              // not read as an edge at all.
-              className="block w-full overflow-hidden rounded-lg border border-border-secondary"
+              className={`block w-full overflow-hidden rounded-lg ${PLACEHOLDER_EDGE}`}
             >
               <span
                 className={`block aspect-[4/3] w-full ${PLACEHOLDER_SURFACE} transition-opacity hover:opacity-90`}

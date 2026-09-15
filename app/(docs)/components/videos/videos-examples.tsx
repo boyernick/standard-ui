@@ -19,7 +19,9 @@ export const VideosExamples = () => (
       <VideoPlayer
         src={PLACEHOLDER_VIDEO_SRC}
         title="Placeholder video"
-        className="dark:[&_video]:brightness-[0.13]"
+        // The clip is baked at #f5f5f5. These land it on the placeholder
+        // surface, bg-background-secondary: #fcfcfc light, #101010 dark.
+        className="[&_video]:brightness-[1.03] dark:[&_video]:brightness-[0.065]"
       />
     </DocBand>
   </div>

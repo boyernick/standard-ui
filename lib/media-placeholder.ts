@@ -28,8 +28,14 @@ export const PLACEHOLDER_SRC = placeholderSrc(1600, 1000)
 
 export const PLACEHOLDER_ALT = "Placeholder image"
 
-/** The on-page card surface. A token, so it follows the palette into dark. */
-export const PLACEHOLDER_SURFACE = "bg-background-quaternary"
+/** The on-page card surface. A token, so it follows the palette into dark.
+ *  Two steps above the page, with the edge carried by a 5% border. */
+export const PLACEHOLDER_SURFACE = "bg-background-secondary"
+
+/** The on-page card edge: one 5% border. Pair it with a plain `--shadow-*`
+ *  rather than `shadow-md`/`shadow-lg`, whose built-in hairline ring would
+ *  draw a second edge over it. */
+export const PLACEHOLDER_EDGE = "border border-border-primary"
 
 /** Matching flat grey clip, so the player has something real to play. */
 export const PLACEHOLDER_VIDEO_SRC = "/video/placeholder.mp4"
