@@ -48,6 +48,11 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
     forwardedRef,
   ) {
     const rootRef = React.useRef<HTMLDivElement | null>(null);
+    const stateCallbackRef = React.useRef(onGlassStateChange);
+    stateCallbackRef.current = onGlassStateChange;
+
+    // GlassConfig is a flat JSON-safe object. A serialized key means callers
+    // can pass an inline object without tearing down WebGL on every render.
     const defaultsKey = JSON.stringify(defaults ?? {});
 
     const setRootRef = React.useCallback(
@@ -60,9 +65,13 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
 
     React.useEffect(() => {
       const root = rootRef.current;
+      const report = (state: GlassState) => {
+        root?.setAttribute("data-glass-state", state);
+        stateCallbackRef.current?.(state);
+      };
+
       if (!root || disabled) {
-        if (root) root.dataset.glassState = "off";
-        onGlassStateChange?.("off");
+        report("off");
         return;
       }
 
@@ -72,16 +81,14 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
       );
 
       if (glassElements.length === 0) {
-        root.dataset.glassState = "off";
-        onGlassStateChange?.("off");
+        report("off");
         return;
       }
 
       let cancelled = false;
       let destroy: (() => void) | undefined;
 
-      root.dataset.glassState = "pending";
-      onGlassStateChange?.("pending");
+      report("pending");
 
       void import("@ybouane/liquidglass")
         .then(({ LiquidGlass }) =>
@@ -98,20 +105,17 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
           }
 
           destroy = () => instance.destroy();
-          root.dataset.glassState = "live";
-          onGlassStateChange?.("live");
+          report("live");
         })
         .catch(() => {
-          if (cancelled) return;
-          root.dataset.glassState = "off";
-          onGlassStateChange?.("off");
+          if (!cancelled) report("off");
         });
 
       return () => {
         cancelled = true;
         destroy?.();
       };
-    }, [children, defaultsKey, disabled, onGlassStateChange]);
+    }, [defaultsKey, disabled]);
 
     return (
       <div
@@ -128,6 +132,7 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
 
 /**
  * A LiquidGlass pane. It must be rendered as a direct child of GlassRoot.
+ * `config` maps directly to LiquidGlass's per-element `data-config` JSON.
  */
 export const Glass = React.forwardRef<HTMLDivElement, GlassProps>(function Glass(
   { className, config, children, ...props },
