@@ -18,6 +18,7 @@ import { IconVolumeFull } from "@central-icons-react/round-filled-radius-2-strok
 import { IconVolumeOff } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeOff"
 import { cn } from "./lib/cn"
 import { Glass, GlassButton, GlassRoot } from "./glass"
+import { mediaGlass } from "./lib/media-glass"
 
 /**
  * Picture-in-Picture support is a static browser capability, not React state.
@@ -36,19 +37,7 @@ const formatTime = (seconds: number) => {
 }
 
 // All panes are direct children of the video root, sharing one WebGL context.
-const videoGlass = {
-  blurAmount: 0.08,
-  refraction: 0.12,
-  zRadius: 3,
-  chromAberration: 0,
-  brightness: -0.3,
-  edgeHighlight: 0.045,
-  specular: 0.02,
-  fresnel: 1,
-  shadowOpacity: 0.065,
-  shadowSpread: 12,
-  shadowOffsetY: 3,
-}
+
 
 export type VideoPlayerProps = ComponentProps<"div"> & {
   src: string
@@ -284,7 +273,7 @@ export const VideoPlayer = ({
   return (
     <GlassRoot
       interactiveLighting
-      defaults={videoGlass}
+      defaults={mediaGlass}
       ref={playerRef}
       data-slot="video-player"
       data-playing={playing || undefined}
@@ -350,7 +339,7 @@ export const VideoPlayer = ({
         type="button"
         rounded
         iconOnly
-        config={videoGlass}
+        config={mediaGlass}
         className={cn(controlVisibility, "left-2 group-data-[fullscreen]:left-5", (failed || loading) && "invisible")}
         aria-label={ended ? "Replay" : playing ? "Pause" : "Play"}
         onClick={handleTogglePlay}
@@ -365,7 +354,7 @@ export const VideoPlayer = ({
         type="button"
         rounded
         iconOnly
-        config={videoGlass}
+        config={mediaGlass}
         className={cn(controlVisibility, "left-13 group-data-[fullscreen]:left-16", (failed || loading) && "invisible")}
         aria-label={muted ? "Unmute" : "Mute"}
         onClick={handleToggleMute}
@@ -473,7 +462,7 @@ export const VideoPlayer = ({
         type="button"
         rounded
         iconOnly
-        config={videoGlass}
+        config={mediaGlass}
         className={cn(controlVisibility, "right-13 group-data-[fullscreen]:right-16", (!pipSupported || failed || loading) && "invisible")}
         aria-label={
           pipActive
@@ -494,7 +483,7 @@ export const VideoPlayer = ({
         type="button"
         rounded
         iconOnly
-        config={videoGlass}
+        config={mediaGlass}
         className={cn(controlVisibility, "right-2 group-data-[fullscreen]:right-5", (failed || loading) && "invisible")}
         aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
         aria-pressed={fullscreen}

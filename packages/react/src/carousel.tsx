@@ -15,6 +15,7 @@ import {
   type KeyboardEvent,
 } from "react"
 import { Button } from "./button"
+import { Glass, GlassRoot } from "./glass"
 import { IconChevronRightSmall } from "./icons"
 import { cn } from "./lib/cn"
 import { focusRing, focusRingBorder } from "./lib/focus"
@@ -553,32 +554,53 @@ export const CarouselDots = ({ className, ...props }: CarouselDotsProps) => {
       data-slot="carousel-dots"
       role="tablist"
       aria-label="Slide indicators"
-      className={cn("mt-4 flex items-center justify-start gap-1 pl-4", className)}
+      className={cn("mt-4 flex items-center justify-start pl-4", className)}
       {...props}
     >
-      {scrollSnaps.map((_, index) => {
-        const isSelected = index === selectedIndex
+      <GlassRoot interactiveLighting className="w-fit rounded-full">
+        <span aria-hidden className="absolute inset-0 rounded-full bg-background-secondary" />
+        <Glass
+          data-glass-radius="css"
+          className="glass-optical flex items-center gap-1 rounded-full px-3 py-2.5"
+          config={{
+            blurAmount: 0,
+            refraction: 0.12,
+            zRadius: 3,
+            chromAberration: 0,
+            tintStrength: 0,
+            edgeHighlight: 0.045,
+            specular: 0.02,
+            fresnel: 1,
+            shadowOpacity: 0.065,
+            shadowSpread: 12,
+            shadowOffsetY: 3,
+          }}
+        >
+          {scrollSnaps.map((_, index) => {
+            const isSelected = index === selectedIndex
 
-        return (
-          <button
-            key={index}
-            type="button"
-            role="tab"
-            aria-label={`Go to slide ${index + 1}`}
-            aria-selected={isSelected}
-            data-selected={isSelected ? "" : undefined}
-            className={cn(
-              "h-1.5 cursor-pointer rounded-full outline-none",
-              motion.all,
-              "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary",
-              isSelected
-                ? "w-5 bg-fg-tertiary"
-                : "w-1.5 bg-fg-quaternary/50 hover:bg-fg-quaternary",
-            )}
-            onClick={() => scrollTo(index)}
-          />
-        )
-      })}
+            return (
+              <button
+                key={index}
+                type="button"
+                role="tab"
+                aria-label={`Go to slide ${index + 1}`}
+                aria-selected={isSelected}
+                data-selected={isSelected ? "" : undefined}
+                className={cn(
+                  "h-1.5 cursor-pointer rounded-full outline-none",
+                  motion.all,
+                  "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary",
+                  isSelected
+                    ? "w-5 bg-fg-tertiary"
+                    : "w-1.5 bg-fg-quaternary/50 hover:bg-fg-quaternary",
+                )}
+                onClick={() => scrollTo(index)}
+              />
+            )
+          })}
+        </Glass>
+      </GlassRoot>
     </div>
   )
 }
