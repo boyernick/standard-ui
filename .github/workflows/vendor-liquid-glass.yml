@@ -27,14 +27,13 @@ jobs:
         run: |
           mkdir -p packages/react/src/lib/liquidglass
           curl -fsSL https://cdn.jsdelivr.net/npm/@ybouane/liquidglass@1.0.3/dist/index.js -o packages/react/src/lib/liquidglass/index.js
-          curl -fsSL https://raw.githubusercontent.com/ybouane/liquidglass/main/LICENSE -o packages/react/src/lib/liquidglass/LICENSE
           cat > packages/react/src/lib/liquidglass/NOTICE.md <<'EOF'
           # LiquidGlass
 
           Vendored from `@ybouane/liquidglass@1.0.3`.
 
           Source: https://github.com/ybouane/liquidglass
-          License: MIT. See `LICENSE`.
+          License: MIT (as declared by the upstream package).
 
           `index.js` is the package's published bundled WebGL renderer. StandardUI
           vendors the build because version 1.0.3 publishes a `postinstall`
@@ -51,6 +50,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add packages/react/src/lib/liquidglass/index.js packages/react/src/lib/liquidglass/LICENSE packages/react/src/lib/liquidglass/NOTICE.md package-lock.json
+          git add packages/react/src/lib/liquidglass/index.js packages/react/src/lib/liquidglass/NOTICE.md package-lock.json
           git commit -m "Vendor LiquidGlass renderer"
           git push origin HEAD:feat/liquid-glass-material
