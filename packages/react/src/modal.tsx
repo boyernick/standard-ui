@@ -14,7 +14,9 @@ import {
   type ReactElement,
   type ReactNode,
 } from "react"
-import { Button, buttonVariants } from "./button"
+import { buttonVariants } from "./button"
+import { GlassButton, GlassRoot } from "./glass"
+import { mediaGlass } from "./lib/media-glass"
 import {
   Carousel,
   CarouselContent,
@@ -51,10 +53,9 @@ import {
 const TRACKPAD_LABEL =
   "Swipe, use the arrow keys, or use the controls to navigate"
 
-// Glass takes a glass hover: the lens brightens. The ghost button's own
-// hover fill is a page grey and is cleared, or it shows through the body.
+// Match the video controls while preserving the image viewer focus treatment.
 const modalControlClassName =
-  "glass glass-dark hover:bg-transparent hover:brightness-150 text-fg-scrim hover:text-fg-scrim outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-scrim focus-visible:ring-ring/20"
+  "glass-optical glass-optical-media text-fg-scrim hover:text-fg-scrim outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-offset-1 focus-visible:ring-offset-surface-scrim focus-visible:ring-ring/20"
 
 export const modalContentVariants = cva(
   "h-dvh max-h-dvh w-screen max-w-none gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none max-sm:max-w-none",
@@ -249,11 +250,14 @@ const ModalDownload = ({
   <ModalControlTooltip label="Download image">
     <a
       href={src}
+      data-slot="glass"
+      data-glass-radius="css"
+      data-config={JSON.stringify({ ...mediaGlass, button: true })}
       download={name ?? ""}
       aria-label="Download image"
       className={cn(
         buttonVariants({
-          variant: "ghost",
+          variant: "glass",
           size: "md",
           rounded: true,
           iconOnly: true,
@@ -273,9 +277,9 @@ const ModalDismiss = () => (
   <ModalControlTooltip label="Close image">
     <DialogClose
       render={
-        <Button
+        <GlassButton
           type="button"
-          variant="ghost"
+          config={mediaGlass}
           size="md"
           iconOnly
           rounded
@@ -322,22 +326,24 @@ export const ModalContent = ({
       {...props}
     >
       <TooltipProvider delay={250}>
-        <ModalBackground src={src} />
-        <DialogTitle className="sr-only">{alt}</DialogTitle>
-        <div
-          data-slot="modal-stage"
-          className="relative z-10 flex size-full flex-col items-center justify-center p-4"
-        >
-          <ModalImage src={src} alt={alt} imgProps={imgProps} />
-          {variant === "caption" && (caption || children) ? (
-            <ModalCaption>{caption ?? children}</ModalCaption>
-          ) : null}
-        </div>
-        <ModalDismiss />
-        <ModalDownload
-          src={downloadSrc ?? src}
-          name={downloadName}
-        />
+        <GlassRoot interactiveLighting defaults={mediaGlass} className="size-full">
+          <ModalBackground src={src} />
+          <DialogTitle className="sr-only">{alt}</DialogTitle>
+          <div
+            data-slot="modal-stage"
+            className="relative z-10 flex size-full flex-col items-center justify-center p-4"
+          >
+            <ModalImage src={src} alt={alt} imgProps={imgProps} />
+            {variant === "caption" && (caption || children) ? (
+              <ModalCaption>{caption ?? children}</ModalCaption>
+            ) : null}
+          </div>
+          <ModalDismiss />
+          <ModalDownload
+            src={downloadSrc ?? src}
+            name={downloadName}
+          />
+        </GlassRoot>
       </TooltipProvider>
     </DialogPopup>
   </DialogPortal>
@@ -493,99 +499,101 @@ const GalleryContent = ({
         )}
       >
         <TooltipProvider delay={250}>
-          <ModalBackground src={activeImage.src} />
-          <DialogTitle className="sr-only">{activeImage.alt}</DialogTitle>
-          <p className="sr-only" aria-live="polite">
-            Image {activeIndex + 1} of {images.length}. {TRACKPAD_LABEL}.
-          </p>
-          <div className="relative z-10 flex size-full flex-col gap-4 p-4">
-            <Carousel
-              setApi={setApi}
-              opts={{ loop, startIndex: activeIndex, duration: 24, dragFree: false }}
-              data-slot="modal-stage"
-              className="relative min-h-0 w-full min-w-0 flex-1 [&_[data-slot=carousel-viewport]]:h-full [&_[data-slot=carousel-viewport]]:min-h-0"
-              aria-label="Gallery"
-            >
-              <CarouselContent className="h-full !ml-0 !pr-0">
-                {images.map((image, index) => (
-                  <CarouselItem
-                    key={`${image.src}-${index}`}
-                    className="!basis-full flex h-full min-h-0 flex-col items-center justify-center !pl-0"
-                    aria-label={`${index + 1} of ${images.length}`}
-                  >
-                    <div className="flex max-h-full min-h-0 w-full flex-col items-center justify-center">
-                      <div className="flex min-h-0 w-full items-center justify-center overflow-hidden">
-                        <ModalImage
-                          {...image}
-                          fit="contain"
-                          imgProps={{
-                            ...image.imgProps,
-                            className: cn(
-                              "max-w-[min(94vw,72rem)]",
-                              image.imgProps?.className,
-                            ),
-                          }}
-                        />
+          <GlassRoot interactiveLighting defaults={mediaGlass} className="size-full">
+            <ModalBackground src={activeImage.src} />
+            <DialogTitle className="sr-only">{activeImage.alt}</DialogTitle>
+            <p className="sr-only" aria-live="polite">
+              Image {activeIndex + 1} of {images.length}. {TRACKPAD_LABEL}.
+            </p>
+            <div className="relative z-10 flex size-full flex-col gap-4 p-4">
+              <Carousel
+                setApi={setApi}
+                opts={{ loop, startIndex: activeIndex, duration: 24, dragFree: false }}
+                data-slot="modal-stage"
+                className="relative min-h-0 w-full min-w-0 flex-1 [&_[data-slot=carousel-viewport]]:h-full [&_[data-slot=carousel-viewport]]:min-h-0"
+                aria-label="Gallery"
+              >
+                <CarouselContent className="h-full !ml-0 !pr-0">
+                  {images.map((image, index) => (
+                    <CarouselItem
+                      key={`${image.src}-${index}`}
+                      className="!basis-full flex h-full min-h-0 flex-col items-center justify-center !pl-0"
+                      aria-label={`${index + 1} of ${images.length}`}
+                    >
+                      <div className="flex max-h-full min-h-0 w-full flex-col items-center justify-center">
+                        <div className="flex min-h-0 w-full items-center justify-center overflow-hidden">
+                          <ModalImage
+                            {...image}
+                            fit="contain"
+                            imgProps={{
+                              ...image.imgProps,
+                              className: cn(
+                                "max-w-[min(94vw,72rem)]",
+                                image.imgProps?.className,
+                              ),
+                            }}
+                          />
+                        </div>
+                        {variant === "caption" && image.caption ? (
+                          <ModalCaption>{image.caption}</ModalCaption>
+                        ) : null}
                       </div>
-                      {variant === "caption" && image.caption ? (
-                        <ModalCaption>{image.caption}</ModalCaption>
-                      ) : null}
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-            <GalleryFilmstrip
-              images={images}
-              activeIndex={activeIndex}
-              onSelect={handleSelect}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+              <GalleryFilmstrip
+                images={images}
+                activeIndex={activeIndex}
+                onSelect={handleSelect}
+              />
+            </div>
+            <ModalDismiss />
+            <ModalDownload
+              src={activeImage.downloadSrc ?? activeImage.src}
+              name={activeImage.downloadName}
             />
-          </div>
-          <ModalDismiss />
-          <ModalDownload
-            src={activeImage.downloadSrc ?? activeImage.src}
-            name={activeImage.downloadName}
-          />
-          {images.length > 1 ? (
-            <>
-              <ModalControlTooltip label="Previous image" side="right">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="lg"
-                  iconOnly
-                  rounded
-                  aria-label="Previous image"
-                  disabled={!loop && !api?.canScrollPrev()}
-                  onClick={() => api?.scrollPrev()}
-                  className={cn(
-                    modalControlClassName,
-                    "absolute top-1/2 left-4 z-20 -translate-y-1/2 active:!-translate-y-1/2",
-                  )}
-                >
-                  <IconChevronRightSmall className="rotate-180" aria-hidden />
-                </Button>
-              </ModalControlTooltip>
-              <ModalControlTooltip label="Next image" side="left">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="lg"
-                  iconOnly
-                  rounded
-                  aria-label="Next image"
-                  disabled={!loop && !api?.canScrollNext()}
-                  onClick={() => api?.scrollNext()}
-                  className={cn(
-                    modalControlClassName,
-                    "absolute top-1/2 right-4 z-20 -translate-y-1/2 active:!-translate-y-1/2",
-                  )}
-                >
-                  <IconChevronRightSmall aria-hidden />
-                </Button>
-              </ModalControlTooltip>
-            </>
-          ) : null}
+            {images.length > 1 ? (
+              <>
+                <ModalControlTooltip label="Previous image" side="right">
+                  <GlassButton
+                    type="button"
+                    config={mediaGlass}
+                    size="lg"
+                    iconOnly
+                    rounded
+                    aria-label="Previous image"
+                    disabled={!loop && !api?.canScrollPrev()}
+                    onClick={() => api?.scrollPrev()}
+                    className={cn(
+                      modalControlClassName,
+                      "absolute top-1/2 left-4 z-20 -translate-y-1/2 active:!-translate-y-1/2",
+                    )}
+                  >
+                    <IconChevronRightSmall className="rotate-180" aria-hidden />
+                  </GlassButton>
+                </ModalControlTooltip>
+                <ModalControlTooltip label="Next image" side="left">
+                  <GlassButton
+                    type="button"
+                    config={mediaGlass}
+                    size="lg"
+                    iconOnly
+                    rounded
+                    aria-label="Next image"
+                    disabled={!loop && !api?.canScrollNext()}
+                    onClick={() => api?.scrollNext()}
+                    className={cn(
+                      modalControlClassName,
+                      "absolute top-1/2 right-4 z-20 -translate-y-1/2 active:!-translate-y-1/2",
+                    )}
+                  >
+                    <IconChevronRightSmall aria-hidden />
+                  </GlassButton>
+                </ModalControlTooltip>
+              </>
+            ) : null}
+          </GlassRoot>
         </TooltipProvider>
       </DialogPopup>
     </DialogPortal>

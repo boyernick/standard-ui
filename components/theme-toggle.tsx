@@ -36,7 +36,7 @@ export function ThemeToggle() {
           // Half a turn over the same time starts abruptly and arrives before
           // the eye tracks it. The long duration and the ease-in-out of
           // `ease-passive` give the rotation room to read as one movement.
-          "text-fg-tertiary transition-[color,transform,rotate] duration-[var(--duration-lg)] ease-passive group-hover:text-fg-primary group-focus-visible:text-fg-primary",
+          "text-fg-quaternary transition-[color,transform,rotate] duration-[var(--duration-lg)] ease-passive group-hover:text-fg-primary group-focus-visible:text-fg-primary",
           "motion-reduce:transition-none",
           // Driven by the `.dark` class, not by `theme`. The provider only
           // learns the stored theme after hydration, so a React-driven
