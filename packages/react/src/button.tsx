@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority"
-import type { ButtonHTMLAttributes, ReactNode } from "react"
+import type { ButtonHTMLAttributes, ReactNode, Ref } from "react"
 import { cn } from "./lib/cn"
 import { focusRing, focusRingDestructive } from "./lib/focus"
 
@@ -8,6 +8,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        glass: cn(
+          "relative isolate border border-transparent bg-transparent text-fg-scrim",
+          focusRing,
+        ),
         primary: cn(
           "border border-brand-primary-border bg-brand-primary text-brand-foreground inset-shadow-solid-top hover:bg-brand-primary-hover active:bg-brand-primary-active",
           focusRing,
@@ -83,6 +87,7 @@ export type ButtonProps = Omit<
   "prefix"
 > &
   VariantProps<typeof buttonVariants> & {
+    ref?: Ref<HTMLButtonElement>
     /** Shows a spinner, sets aria-busy, and disables the button */
     loading?: boolean
     /** Square control sized to the height of `size` — pass an icon as children */

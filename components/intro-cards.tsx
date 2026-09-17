@@ -25,6 +25,7 @@ import {
   IconSun,
 } from "@boyernick/standard-ui-react"
 import Link from "next/link"
+import { MaterialGlassSwatch } from "@/components/material-glass-swatch"
 import type { ReactNode } from "react"
 import { PAGE_INNER_LEFT, PAGE_INNER_RIGHT } from "@/lib/chrome"
 
@@ -196,9 +197,8 @@ const IconsPreview = () => (
   </div>
 )
 
-/** Three ways a surface can sit on the page: a flat edge, an elevated one, and
- *  the glass material. The third takes no `bg-*` — the material paints its own
- *  fill, and a background under it would sit behind its translucency. */
+/** A flat surface, an elevated surface, and the live refractive glass material.
+ *  The glass specimen stays non-interactive inside the destination link. */
 const MATERIAL_BOX = "aspect-square w-full min-w-0 max-w-20 flex-1 rounded-xl"
 
 const MaterialsPreview = () => (
@@ -207,7 +207,7 @@ const MaterialsPreview = () => (
       className={`${MATERIAL_BOX} bg-background-primary shadow-hairline`}
     />
     <span className={`${MATERIAL_BOX} bg-background-primary shadow-lg`} />
-    <span className={`${MATERIAL_BOX} glass`} />
+    <MaterialGlassSwatch className={MATERIAL_BOX} />
   </div>
 )
 

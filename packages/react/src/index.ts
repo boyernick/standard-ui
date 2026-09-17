@@ -1,4 +1,9 @@
 export { Button, buttonVariants, type ButtonProps } from "./button";
+export {
+  Glass, GlassRoot, GlassButton,
+  type GlassProps, type GlassRootProps, type GlassButtonProps,
+  type GlassConfig, type GlassState,
+} from "./glass";
 export { Input, inputVariants, type InputProps } from "./input";
 export {
   Kbd,

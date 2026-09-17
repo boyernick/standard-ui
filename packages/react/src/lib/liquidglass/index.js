@@ -1831,6 +1831,7 @@ var LiquidGlass = class _LiquidGlass {
     this.defaults = { ...DEFAULTS, ...defaults };
     this.glassSet = new Set(Array.from(glassElements || []));
     this.glassCanvases = /* @__PURE__ */ new Map();
+    this._decodedImages = /* @__PURE__ */ new WeakMap();
     this.capture = new HtmlCapture(root);
     this.capture.onCacheUpdate = (element) => {
       this._markGlassesIntersecting(element);
@@ -1852,8 +1853,13 @@ var LiquidGlass = class _LiquidGlass {
   // ────────────────────────────────────────────
   static async init(options) {
     const instance = new _LiquidGlass(options);
-    await instance._start();
-    return instance;
+    try {
+      await instance._start();
+      return instance;
+    } catch (error) {
+      instance.destroy();
+      throw error;
+    }
   }
   // ────────────────────────────────────────────
   // Lifecycle
@@ -2285,9 +2291,13 @@ var LiquidGlass = class _LiquidGlass {
       cachedEl.configCacheKey = configKey;
     }
     const config = { ...this.defaults, ...cachedEl.configCache || {} };
+    // StandardUI buttons derive the lens outline from their CSS radius token.
+    if (el.dataset.glassRadius === "css") {
+      config.cornerRadius = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
+    }
     if (config.button) {
       const state = this._buttonStates.get(el);
-      if (state) {
+      if (state && !el.matches(":disabled")) {
         if (state.pressed) {
           config.zRadius = config.zRadius * 0.8;
           config.shadowSpread = config.shadowSpread * 1.2;
@@ -2325,8 +2335,10 @@ var LiquidGlass = class _LiquidGlass {
     canvas.height = Math.round((elH + padH) * dpr);
     canvas.style.cssText = [
       "position:absolute",
-      `left:${-SHADOW_PAD}px`,
-      `top:${-SHADOW_PAD}px`,
+      // Absolute children start at the padding edge. Align the lens with the
+      // outer border box used for sampling and centering the button's icon.
+      `left:${-SHADOW_PAD - el.clientLeft}px`,
+      `top:${-SHADOW_PAD - el.clientTop}px`,
       `width:${elW + padW}px`,
       `height:${elH + padH}px`,
       "pointer-events:none",
@@ -2674,8 +2686,28 @@ var LiquidGlass = class _LiquidGlass {
       targetCtx.drawImage(liveCanvas, dx, dy, dw, dh);
       return true;
     } else if (tag === "IMG") {
-      const img = el;
+      let img = el;
       if (!img.complete || img.naturalWidth === 0) return false;
+      // srcset makes naturalWidth density-corrected, but drawImage source
+      // coordinates address the resource's pixels. Decode currentSrc without
+      // srcset so object-fit cropping and canvas sampling use the same units.
+      if (img.srcset) {
+        const source = img.currentSrc || img.src;
+        let cached = this._decodedImages.get(el);
+        if (!cached || cached.source !== source) {
+          const decoded = new Image();
+          if (img.crossOrigin !== null) decoded.crossOrigin = img.crossOrigin;
+          decoded.referrerPolicy = img.referrerPolicy;
+          decoded.onload = () => {
+            if (this._running) this.markChanged(el);
+          };
+          cached = { source, image: decoded };
+          this._decodedImages.set(el, cached);
+          decoded.src = source;
+        }
+        img = cached.image;
+        if (!img.complete || img.naturalWidth === 0) return false;
+      }
       this._drawMediaFitted(
         targetCtx,
         img,
