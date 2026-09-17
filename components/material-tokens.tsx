@@ -65,6 +65,7 @@ export const MaterialBand = ({
   title,
   description,
   valueLabel,
+  nameLabel = "Class",
   rows,
   first,
 }: {
@@ -72,6 +73,7 @@ export const MaterialBand = ({
   title: string
   description: string
   valueLabel: string
+  nameLabel?: string
   rows: MaterialRow[]
   first?: boolean
 }) => (
@@ -90,7 +92,7 @@ export const MaterialBand = ({
           className={`${SUBGRID} hidden border-b border-border-primary pb-2 sm:grid`}
         >
           <span className={HEAD}>Preview</span>
-          <span className={HEAD}>Class</span>
+          <span className={HEAD}>{nameLabel}</span>
           <span className={HEAD}>Usage</span>
           <span className={`${HEAD} sm:text-right`}>{valueLabel}</span>
         </div>

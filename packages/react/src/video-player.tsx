@@ -17,13 +17,14 @@ import { IconPlay } from "@central-icons-react/round-filled-radius-2-stroke-2/Ic
 import { IconVolumeFull } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeFull"
 import { IconVolumeOff } from "@central-icons-react/round-filled-radius-2-stroke-2/IconVolumeOff"
 import { cn } from "./lib/cn"
+import { Glass, GlassButton, GlassRoot } from "./glass"
 
 /**
  * Picture-in-Picture support is a static browser capability, not React state.
  * Reading it through an external store keeps the server snapshot `false` so
  * hydration matches, without a post-mount setState that re-renders the player.
  */
-const subscribePipSupport = () => () => {}
+const subscribePipSupport = () => () => { }
 const getPipSupported = () => document.pictureInPictureEnabled
 const getPipSupportedOnServer = () => false
 
@@ -34,26 +35,20 @@ const formatTime = (seconds: number) => {
   return `${mins}:${secs.toString().padStart(2, "0")}`
 }
 
-// The media surface is black in both themes, so everything sitting on it is
-// light regardless of the theme — semantic foreground tokens would invert and
-// disappear against the video. Buttons follow Linear’s glass chrome: circular,
-// muted until hover, no filled chip behind the icon at rest.
-/** One control, one piece of glass. Sized to 36 because a standalone floating
- *  object needs to be tappable in its own right — inside the old bar these
- *  could lean on the bar for presence and sat at 28.
- *
- *  No hover background: the material *is* the background, and a translucent
- *  white wash over it fights the fill and the rim. The lens brightens instead,
- *  by the same step as the image modal's glass controls.
- *
- *  No drop shadow on any glass here: the material draws its shape with the
- *  rim, and `shadow-lg` would add its own hairline ring over it. */
-const overlayControl =
-  "glass glass-dark [--glass-alpha:52%] inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/85 outline-none transition-[filter,color,transform] duration-[var(--duration-sm)] ease-enter hover:text-white hover:brightness-150 active:scale-95 focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white/50 motion-reduce:transition-none motion-reduce:active:scale-100"
-
-/** The scrubber and its two timecodes travel together as one object. */
-const overlayTrack =
-  "glass glass-dark [--glass-alpha:52%] flex h-9 min-w-0 flex-1 items-center gap-2 rounded-full px-3"
+// All panes are direct children of the video root, sharing one WebGL context.
+const videoGlass = {
+  blurAmount: 0.08,
+  refraction: 0.12,
+  zRadius: 3,
+  chromAberration: 0,
+  brightness: -0.3,
+  edgeHighlight: 0.045,
+  specular: 0.02,
+  fresnel: 1,
+  shadowOpacity: 0.065,
+  shadowSpread: 12,
+  shadowOffsetY: 3,
+}
 
 export type VideoPlayerProps = ComponentProps<"div"> & {
   src: string
@@ -279,8 +274,17 @@ export const VideoPlayer = ({
   const loaded = duration > 0 ? (buffered / duration) * 100 : 0
   const remaining = Math.max(duration - current, 0)
 
+  const controlVisibility = cn(
+    "glass-optical glass-optical-media absolute bottom-2 transition-opacity duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:bottom-5 motion-reduce:transition-none",
+    "group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto",
+    "[@media(hover:none)]:opacity-100 [@media(hover:none)]:pointer-events-auto",
+    playing ? "pointer-events-none opacity-0" : "opacity-100",
+  )
+
   return (
-    <div
+    <GlassRoot
+      interactiveLighting
+      defaults={videoGlass}
       ref={playerRef}
       data-slot="video-player"
       data-playing={playing || undefined}
@@ -313,216 +317,196 @@ export const VideoPlayer = ({
         onClick={handleTogglePlay}
       />
 
-      {/* These centred states stay inert so the video remains the click target. */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+      {/* The status pane stays mounted so startup owns a stable set of panes.
+          It remains inert; clicking the video still toggles playback. */}
+      <Glass
+        data-glass-radius="css"
+        className={cn(
+          "glass-optical glass-optical-media pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-fg-scrim",
+          failed ? "max-w-sm flex-col gap-2 rounded-xl px-5 py-4 text-center" : ended ? "h-8 gap-1 rounded-full px-2.5" : "size-11 rounded-full",
+          playing && !buffering && !loading && !failed && "invisible",
+        )}
+      >
         {failed ? (
-          <div
-            role="alert"
-            className="mx-6 flex max-w-sm flex-col items-center gap-2 rounded-xl glass glass-dark px-5 py-4 text-center text-white"
-          >
-            <IconExclamationTriangle
-              size={22}
-              mode="raw"
-              className="size-5.5"
-              aria-hidden
-            />
+          <div role="alert" className="flex flex-col items-center gap-2">
+            <IconExclamationTriangle size={22} mode="raw" aria-hidden />
             <span className="text-sm-strong">Video unavailable</span>
-            <span className="text-xs text-white/70">
-              Check the source and try again.
-            </span>
+            <span className="text-xs text-fg-scrim-secondary">Check the source and try again.</span>
           </div>
         ) : loading || buffering ? (
-          <div
-            role="status"
-            className="flex size-14 items-center justify-center rounded-full glass glass-dark text-white"
-          >
-            <span className="size-6 animate-spin rounded-full border-2 border-white/30 border-t-white motion-reduce:animate-none" />
-            <span className="sr-only">
-              {buffering ? "Buffering video" : "Loading video"}
-            </span>
+          <div role="status">
+            <span className="block size-6 animate-spin rounded-full border-2 border-fg-scrim/30 border-t-fg-scrim motion-reduce:animate-none" />
+            <span className="sr-only">{buffering ? "Buffering video" : "Loading video"}</span>
           </div>
-        ) : !playing ? (
-          <div
-            className={cn(
-              "flex items-center justify-center rounded-full glass glass-dark text-white",
-              ended ? "h-8 gap-1 px-2.5" : "size-11",
-            )}
-          >
-            <IconPlay
-              size={ended ? 12 : 18}
-              mode="raw"
-              // No nudge: Central's play glyph is already optically centred in
-              // its 24-unit box (its mass sits at x 11.7), so a margin shifts
-              // it right a second time.
-              className={cn(ended ? "size-3" : "size-4.5")}
-              aria-hidden
-            />
+        ) : (
+          <>
+            <IconPlay size={ended ? 12 : 18} mode="raw" className={ended ? "size-3" : "size-4.5"} aria-hidden />
             {ended ? <span className="text-xs-strong">Replay</span> : null}
-          </div>
-        ) : null}
-      </div>
+          </>
+        )}
+      </Glass>
 
-      {!failed && !loading ? (
-        <div
-          className={cn(
-            // A floating bar rather than a full-bleed scrim. The scrim existed
-            // to keep white controls legible over arbitrary footage; the glass
-            // material does that itself, and does it without darkening a strip
-            // of the picture the viewer is trying to watch. Inset from the
-            // edges so it reads as an object on the video rather than part of
-            // the frame.
-            "absolute inset-x-2 bottom-2 flex translate-y-0 items-center gap-2 transition-[opacity,transform] duration-[var(--duration-md)] ease-enter group-data-[fullscreen]:inset-x-5 group-data-[fullscreen]:bottom-5 motion-reduce:transition-none",
-            "group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100",
-            // Nothing hovers on a touch screen, so the chrome would never come
-            // back once playback started. Keep it visible there instead.
-            "[@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100",
-            playing ? "translate-y-2 opacity-0" : "opacity-100",
-          )}
-        >
-              <button
-                type="button"
-                className={overlayControl}
-                aria-label={ended ? "Replay" : playing ? "Pause" : "Play"}
-                onClick={handleTogglePlay}
-              >
-                {playing ? (
-                  <IconPause size={14} mode="raw" className="size-3.5" aria-hidden />
-                ) : (
-                  <IconPlay size={14} mode="raw" className="size-3.5" aria-hidden />
-                )}
-              </button>
-              <button
-                type="button"
-                className={overlayControl}
-                aria-label={muted ? "Unmute" : "Mute"}
-                onClick={handleToggleMute}
-              >
-                {muted ? (
-                  <IconVolumeOff
-                    size={14}
-                    mode="raw"
-                    className="size-3.5"
-                    aria-hidden
-                  />
-                ) : (
-                  <IconVolumeFull
-                    size={14}
-                    mode="raw"
-                    className="size-3.5"
-                    aria-hidden
-                  />
-                )}
-              </button>
-            <div className={overlayTrack}>
-              <span className="text-xs min-w-9 shrink-0 tabular-nums text-white/85">
-              {formatTime(current)}
-            </span>
+      <GlassButton
+        type="button"
+        rounded
+        iconOnly
+        config={videoGlass}
+        className={cn(controlVisibility, "left-2 group-data-[fullscreen]:left-5", (failed || loading) && "invisible")}
+        aria-label={ended ? "Replay" : playing ? "Pause" : "Play"}
+        onClick={handleTogglePlay}
+      >
+        {playing ? (
+          <IconPause size={14} mode="raw" className="size-3.5" aria-hidden />
+        ) : (
+          <IconPlay size={14} mode="raw" className="size-3.5" aria-hidden />
+        )}
+      </GlassButton>
+      <GlassButton
+        type="button"
+        rounded
+        iconOnly
+        config={videoGlass}
+        className={cn(controlVisibility, "left-13 group-data-[fullscreen]:left-16", (failed || loading) && "invisible")}
+        aria-label={muted ? "Unmute" : "Mute"}
+        onClick={handleToggleMute}
+      >
+        {muted ? (
+          <IconVolumeOff
+            size={14}
+            mode="raw"
+            className="size-3.5"
+            aria-hidden
+          />
+        ) : (
+          <IconVolumeFull
+            size={14}
+            mode="raw"
+            className="size-3.5"
+            aria-hidden
+          />
+        )}
+      </GlassButton>
+      <Glass
+        data-glass-radius="css"
+        className={cn(
+          controlVisibility,
+          "left-24 flex h-9 min-w-0 items-center gap-2 rounded-full px-3 group-data-[fullscreen]:left-27",
+          pipSupported ? "right-24 group-data-[fullscreen]:right-27" : "right-13 group-data-[fullscreen]:right-16",
+          (failed || loading) && "invisible",
+        )}
+      >
+        <span className="text-xs min-w-9 shrink-0 tabular-nums text-white/85">
+          {formatTime(current)}
+        </span>
 
-            <label className="sr-only" htmlFor={seekId}>
-              Seek
-            </label>
-            <div className="group/seek relative flex h-5 min-w-0 flex-1 items-center">
-              <span
-                ref={seekPreviewRef}
-                className="text-xs pointer-events-none absolute -top-8 z-10 -translate-x-1/2 rounded-md bg-black/80 px-1.5 py-1 text-white opacity-0 shadow-sm transition-opacity duration-[var(--duration-sm)] data-[visible]:opacity-100 motion-reduce:transition-none"
-              />
-              {/* Track, buffered fill and played fill sit under the input, which
+        <label className="sr-only" htmlFor={seekId}>
+          Seek
+        </label>
+        <div className="group/seek relative flex h-5 min-w-0 flex-1 items-center">
+          <span
+            ref={seekPreviewRef}
+            className="text-xs pointer-events-none absolute -top-8 z-10 -translate-x-1/2 rounded-md bg-black/80 px-1.5 py-1 text-white opacity-0 shadow-sm transition-opacity duration-[var(--duration-sm)] data-[visible]:opacity-100 motion-reduce:transition-none"
+          />
+          {/* Track, buffered fill and played fill sit under the input, which
                   stays transparent so its thumb is the only thing it paints. */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 h-0.75 rounded-full bg-white/25 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white/35 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
-                style={{ width: `${loaded}%` }}
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
-                style={{ width: `${played}%` }}
-              />
-              <input
-                id={seekId}
-                type="range"
-                min={0}
-                max={duration || 0}
-                step={0.01}
-                value={current}
-                onChange={(event) => {
-                  const value = Number(event.target.value)
-                  handleSeek(value)
-                  showSeekPreview(value)
-                }}
-                onPointerMove={(event) => {
-                  if (duration <= 0) return
-                  const rect = event.currentTarget.getBoundingClientRect()
-                  const ratio = Math.min(
-                    Math.max((event.clientX - rect.left) / rect.width, 0),
-                    1,
-                  )
-                  showSeekPreview(ratio * duration)
-                }}
-                onPointerLeave={(event) => {
-                  if (document.activeElement !== event.currentTarget) {
-                    hideSeekPreview()
-                  }
-                }}
-                onFocus={() => showSeekPreview(current)}
-                onBlur={hideSeekPreview}
-                aria-valuetext={`${formatTime(current)} of ${formatTime(duration)}`}
-                className={cn(
-                  "relative m-0 h-5 w-full cursor-pointer appearance-none bg-transparent outline-none",
-                  // Both vendor thumbs, or Firefox falls back to a default one.
-                  "[&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:scale-75 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:opacity-0 [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-[opacity,transform] [&:hover::-webkit-slider-thumb]:scale-100 [&:hover::-webkit-slider-thumb]:opacity-100",
-                  "[&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:scale-75 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:opacity-0 [&::-moz-range-thumb]:transition-[opacity,transform] [&:hover::-moz-range-thumb]:scale-100 [&:hover::-moz-range-thumb]:opacity-100",
-                  "focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-white/70",
-                  "focus-visible:[&::-webkit-slider-thumb]:scale-100 focus-visible:[&::-webkit-slider-thumb]:opacity-100 focus-visible:[&::-moz-range-thumb]:scale-100 focus-visible:[&::-moz-range-thumb]:opacity-100",
-                )}
-              />
-            </div>
-
-              <span className="text-xs min-w-10 shrink-0 text-right tabular-nums text-white/85">
-                -{formatTime(remaining)}
-              </span>
-            </div>
-
-              {pipSupported ? (
-                <button
-                  type="button"
-                  className={overlayControl}
-                  aria-label={
-                    pipActive
-                      ? "Exit picture in picture"
-                      : "Picture in picture"
-                  }
-                  aria-pressed={pipActive}
-                  onClick={handlePictureInPicture}
-                >
-                  <IconPictureInPicture
-                    size={14}
-                    mode="raw"
-                    className="size-3.5"
-                    aria-hidden
-                  />
-                </button>
-              ) : null}
-              <button
-                type="button"
-                className={overlayControl}
-                aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
-                aria-pressed={fullscreen}
-                onClick={handleFullscreen}
-              >
-                <IconFullScreen
-                  size={14}
-                  mode="raw"
-                  className="size-3.5"
-                  aria-hidden
-                />
-              </button>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 h-0.75 rounded-full bg-white/25 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white/35 transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
+            style={{ width: `${loaded}%` }}
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-0 h-0.75 rounded-full bg-white transition-[height] duration-[var(--duration-sm)] group-hover/seek:h-1.5 group-focus-within/seek:h-1.5 motion-reduce:transition-none"
+            style={{ width: `${played}%` }}
+          />
+          <input
+            id={seekId}
+            type="range"
+            min={0}
+            max={duration || 0}
+            step={0.01}
+            value={current}
+            onChange={(event) => {
+              const value = Number(event.target.value)
+              handleSeek(value)
+              showSeekPreview(value)
+            }}
+            onPointerMove={(event) => {
+              if (duration <= 0) return
+              const rect = event.currentTarget.getBoundingClientRect()
+              const ratio = Math.min(
+                Math.max((event.clientX - rect.left) / rect.width, 0),
+                1,
+              )
+              showSeekPreview(ratio * duration)
+            }}
+            onPointerLeave={(event) => {
+              if (document.activeElement !== event.currentTarget) {
+                hideSeekPreview()
+              }
+            }}
+            onFocus={() => showSeekPreview(current)}
+            onBlur={hideSeekPreview}
+            aria-valuetext={`${formatTime(current)} of ${formatTime(duration)}`}
+            className={cn(
+              "relative m-0 h-5 w-full cursor-pointer appearance-none bg-transparent outline-none",
+              // Both vendor thumbs, or Firefox falls back to a default one.
+              "[&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:scale-75 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:opacity-0 [&::-webkit-slider-thumb]:shadow-sm [&::-webkit-slider-thumb]:transition-[opacity,transform] [&:hover::-webkit-slider-thumb]:scale-100 [&:hover::-webkit-slider-thumb]:opacity-100",
+              "[&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:scale-75 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:opacity-0 [&::-moz-range-thumb]:transition-[opacity,transform] [&:hover::-moz-range-thumb]:scale-100 [&:hover::-moz-range-thumb]:opacity-100",
+              "focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-white/70",
+              "focus-visible:[&::-webkit-slider-thumb]:scale-100 focus-visible:[&::-webkit-slider-thumb]:opacity-100 focus-visible:[&::-moz-range-thumb]:scale-100 focus-visible:[&::-moz-range-thumb]:opacity-100",
+            )}
+          />
         </div>
-      ) : null}
-    </div>
+
+        <span className="text-xs min-w-10 shrink-0 text-right tabular-nums text-white/85">
+          -{formatTime(remaining)}
+        </span>
+      </Glass>
+
+
+      <GlassButton
+        type="button"
+        rounded
+        iconOnly
+        config={videoGlass}
+        className={cn(controlVisibility, "right-13 group-data-[fullscreen]:right-16", (!pipSupported || failed || loading) && "invisible")}
+        aria-label={
+          pipActive
+            ? "Exit picture in picture"
+            : "Picture in picture"
+        }
+        aria-pressed={pipActive}
+        onClick={handlePictureInPicture}
+      >
+        <IconPictureInPicture
+          size={14}
+          mode="raw"
+          className="size-3.5"
+          aria-hidden
+        />
+      </GlassButton>
+      <GlassButton
+        type="button"
+        rounded
+        iconOnly
+        config={videoGlass}
+        className={cn(controlVisibility, "right-2 group-data-[fullscreen]:right-5", (failed || loading) && "invisible")}
+        aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
+        aria-pressed={fullscreen}
+        onClick={handleFullscreen}
+      >
+        <IconFullScreen
+          size={14}
+          mode="raw"
+          className="size-3.5"
+          aria-hidden
+        />
+      </GlassButton>
+    </GlassRoot>
   )
 }

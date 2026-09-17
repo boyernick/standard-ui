@@ -1025,3 +1025,59 @@
   --lifeline-font: var(--font-sans);
   font-family: var(--lifeline-font);
 }
+
+/* Broken, directional reflections keep the outline optical rather than a
+   uniform border. Pointer lighting follows the containing link/copy row. */
+.glass-optical::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--glass-light-angle, 145deg),
+    transparent 0deg,
+    color-mix(in oklab, var(--glass-optical-ink, var(--text-primary)) 14%, transparent) 65deg,
+    transparent 105deg,
+    color-mix(in oklab, var(--text-primary-scrim) 95%, transparent) 155deg,
+    transparent 215deg,
+    color-mix(in oklab, var(--glass-optical-ink, var(--text-primary)) 9%, transparent) 265deg,
+    color-mix(in oklab, var(--text-primary-scrim) 80%, transparent) 315deg,
+    transparent 360deg
+  );
+  mask: linear-gradient(white, white) content-box, linear-gradient(white, white);
+  mask-composite: exclude;
+}
+
+.glass-optical::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at var(--glass-light-x, 35%) var(--glass-light-y, 10%),
+    color-mix(in oklab, var(--text-primary-scrim) 14%, transparent),
+    transparent 65%
+  );
+  box-shadow:
+    inset 0 0 0 0.5px var(--glass-optical-border, var(--border-primary)),
+    inset 0 0.5px 0 color-mix(in oklab, var(--text-primary-scrim) 75%, transparent),
+    inset 0 -0.5px 0 color-mix(in oklab, var(--glass-optical-ink, var(--text-primary)) 10%, transparent);
+}
+
+.dark .glass-optical:not(.glass-optical-media)::before,
+.dark .glass-optical:not(.glass-optical-media)::after {
+  opacity: 0.35;
+}
+
+/* Media controls keep their optical contrast independent of the page theme. */
+.glass-optical-media {
+  --glass-optical-ink: var(--surface-scrim);
+  --glass-optical-border: color-mix(in oklab, var(--surface-scrim) 8%, transparent);
+}
+.glass-optical-media::before,
+.glass-optical-media::after {
+  opacity: 0.6;
+}

@@ -1,6 +1,5 @@
 import { VideoPlayer } from "@boyernick/standard-ui-react"
 import { DocBand } from "@/components/doc-band"
-import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media-placeholder"
 
 export const VideosExamples = () => (
   <div>
@@ -11,17 +10,10 @@ export const VideosExamples = () => (
       description="Play, mute, seek, picture in picture and fullscreen."
       contentClassName="max-w-2xl"
     >
-      {/* The clip is a single flat grey, so dimming it is identical to having
-          encoded a darker one — and unlike swapping the `src` on the theme, it
-          costs no second asset and cannot flash the light version on load while
-          the provider works out which theme it is. Real footage would never
-          take a filter like this. */}
       <VideoPlayer
-        src={PLACEHOLDER_VIDEO_SRC}
-        title="Placeholder video"
-        // The clip is baked at #f5f5f5. These land it on the placeholder
-        // surface, bg-background-secondary: #fcfcfc light, #101010 dark.
-        className="[&_video]:brightness-[1.03] dark:[&_video]:brightness-[0.065]"
+        src="/video/forest-rain.mp4"
+        poster="/video/forest-rain-poster.jpg"
+        title="Forest rain"
       />
     </DocBand>
   </div>
