@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { GlassConfig } from "@ybouane/liquidglass";
+import type { GlassConfig } from "./lib/liquidglass/index.js";
 import { cn } from "./lib/cn";
 
 export type GlassState = "pending" | "live" | "off";
@@ -90,7 +90,7 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
 
       report("pending");
 
-      void import("@ybouane/liquidglass")
+      void import("./lib/liquidglass/index.js")
         .then(({ LiquidGlass }) =>
           LiquidGlass.init({
             root,
@@ -154,4 +154,4 @@ export const Glass = React.forwardRef<HTMLDivElement, GlassProps>(function Glass
 GlassRoot.displayName = "GlassRoot";
 Glass.displayName = "Glass";
 
-export type { GlassConfig } from "@ybouane/liquidglass";
+export type { GlassConfig } from "./lib/liquidglass/index.js";
