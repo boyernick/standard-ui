@@ -211,6 +211,13 @@ type Pane = {
   element: HTMLElement;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
+  /** This pane's own ground canvas, kept between frames rather than resized. */
+  scene: HTMLCanvasElement;
+  sceneContext: CanvasRenderingContext2D;
+  /** When a playing video behind it last redrew this pane. */
+  lastVideoFrame: number;
+  /** Whether the pane was drawable last time it was checked. */
+  shown: boolean;
   restorePosition: string | null;
   hover: number;
   press: number;
@@ -233,11 +240,6 @@ export interface LensGlass {
 
 export function createLensGlass({ root, glassElements, defaults = {} }: LensGlassOptions): LensGlass {
   getShared(); // throws if WebGL is unavailable, so the root can fall back
-
-  const scene = document.createElement("canvas");
-  const maybeSceneContext = scene.getContext("2d");
-  if (!maybeSceneContext) throw new Error("Glass: 2D canvas is unavailable.");
-  const sceneContext: CanvasRenderingContext2D = maybeSceneContext;
 
   // If anything below throws, take back what was already added to the DOM so
   // a failed start leaves the panes as they were.
@@ -264,6 +266,9 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     injected.push(record);
     const context = canvas.getContext("2d");
     if (!context) throw new Error("Glass: 2D canvas is unavailable.");
+    const scene = document.createElement("canvas");
+    const sceneContext = scene.getContext("2d");
+    if (!sceneContext) throw new Error("Glass: 2D canvas is unavailable.");
 
     let restorePosition: string | null = null;
     if (getComputedStyle(element).position === "static") {
@@ -273,7 +278,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     }
 
     const pane: Pane = {
-      element, canvas, context, restorePosition,
+      element, canvas, context, scene, sceneContext, lastVideoFrame: 0, shown: false, restorePosition,
       hover: 0, press: 0, hoverTarget: 0, pressTarget: 0, signature: "", cleanup: () => {},
     };
     const enter = () => { pane.hoverTarget = 1; wake(); };
@@ -332,10 +337,19 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     return getComputedStyle(document.documentElement).backgroundColor || "#000";
   };
 
+  // `forced`: something may have changed, so check every pane this frame.
+  // `redraw`: draw every pane even if nothing it depends on looks different
+  // (markChanged, a restored WebGL context).
   let forced = true;
+  let redraw = true;
   let visible = true;
   let frame = 0;
   let destroyed = false;
+  // Frames since anything last moved or changed; the loop stops a few frames
+  // after the page settles and waits for an event to wake it.
+  let quietFrames = 0;
+  let lastLayout = "";
+  let transitions = 0;
 
   const intersection = new IntersectionObserver((entries) => {
     visible = entries.some((entry) => entry.isIntersecting);
@@ -345,57 +359,118 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
 
   const mutations = new MutationObserver((records) => {
     // Our own canvases change on every frame we draw; they are not the ground.
-    const relevant = records.filter(
-      (record) => (record.target as HTMLElement).dataset?.glassCanvas === undefined,
-    );
+    // A pane's own contents (a progress bar, a label) are drawn over the glass,
+    // not refracted by it; only its configuration matters.
+    const relevant = records.filter((record) => {
+      const target = record.target as HTMLElement;
+      if (target.dataset?.glassCanvas !== undefined) return false;
+      if (record.attributeName === "data-config") return true;
+      return !(target instanceof Element && !paneSet.has(target as HTMLElement) && insidePane(target));
+    });
     if (!relevant.length) return;
-    // Inline style changes (a carousel's transform while dragging) move
-    // things, which the per-frame position check already sees; only a change
-    // in what exists or how it is styled means re-listing what paints.
+    // Inline style changes (a carousel's transform while dragging) only move
+    // things, which the position check sees; a change in what exists or how
+    // it is styled means re-listing what paints.
     if (relevant.some((record) => record.type === "childList" || record.attributeName !== "style")) {
       collectMedia();
     }
+    // An inline style can change opacity or clipping without moving anything.
     forced = true;
     wake();
   });
   mutations.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["src", "data-config", "class", "style"] });
 
-  // Media keeps changing on its own while it plays or loads.
-  const onMediaEvent = () => { forced = true; wake(); };
-  root.addEventListener("load", onMediaEvent, true);
-  root.addEventListener("loadeddata", onMediaEvent, true);
-  root.addEventListener("seeked", onMediaEvent, true);
-  window.addEventListener("resize", onMediaEvent);
+  // Everything else that can change what a pane shows arrives as an event.
+  const onChange = () => { forced = true; wake(); };
+  const onMove = () => wake();
+  const onTransitionStart = () => { transitions += 1; forced = true; wake(); };
+  const onTransitionEnd = () => { transitions = Math.max(0, transitions - 1); forced = true; wake(); };
+  const rootEvents: Array<[string, EventListener]> = [
+    ["load", onChange], ["loadeddata", onChange], ["seeked", onChange], ["play", onChange],
+    ["pause", onChange], ["ended", onChange],
+    ["transitionrun", onTransitionStart], ["transitionend", onTransitionEnd], ["transitioncancel", onTransitionEnd],
+    ["animationstart", onTransitionStart], ["animationend", onTransitionEnd], ["animationcancel", onTransitionEnd],
+    ["pointerover", onChange], ["pointerout", onChange], ["pointermove", onMove], ["pointerdown", onMove],
+  ];
+  for (const [type, listener] of rootEvents) root.addEventListener(type, listener, true);
+  window.addEventListener("resize", onChange);
+  window.addEventListener("scroll", onMove, { capture: true, passive: true });
   // A root that started in a background tab draws when the tab is shown.
-  document.addEventListener("visibilitychange", onMediaEvent);
+  document.addEventListener("visibilitychange", onChange);
 
   function wake() {
+    quietFrames = 0;
     if (!frame && !destroyed) frame = requestAnimationFrame(tick);
   }
 
-  function tick() {
+  const rectKey = (element: Element) => {
+    const r = element.getBoundingClientRect();
+    return `${r.x.toFixed(1)},${r.y.toFixed(1)},${r.width.toFixed(1)},${r.height.toFixed(1)}`;
+  };
+
+  /** Whether a pane can be seen at all: not faded out, hidden or clipped away. */
+  function paneShown(pane: Pane) {
+    const seen = visibility(pane.element, root);
+    if (!seen || seen.opacity < 0.02) return false;
+    return Boolean(intersect(seen.clip, { x: 0, y: 0, width: innerWidth, height: innerHeight }));
+  }
+
+  function tick(now: number) {
     frame = 0;
     // Hidden tabs get no animation frames anyway; no need to check here.
     if (destroyed || !visible) return;
-    let animating = false;
-    const ground = groundColor();
+
+    // Cheap: where the panes and media are. Anything else that matters
+    // arrives as an event and sets `forced`.
+    const layout = panes.map((pane) => rectKey(pane.element)).join(";") + "|" + media.map(rectKey).join(";");
+    const moved = layout !== lastLayout || transitions > 0;
+    lastLayout = layout;
+    const check = forced || moved;
+
+    const ground = check ? groundColor() : "";
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const playing = media.some(
-      (element) => element instanceof HTMLVideoElement && !element.paused && !element.ended,
+    const playing = media.filter(
+      (element): element is HTMLVideoElement =>
+        element instanceof HTMLVideoElement && !element.paused && !element.ended,
     );
+    let animating = false;
+    let videoBehindShownPane = false;
 
     for (const pane of panes) {
       pane.hover += (pane.hoverTarget - pane.hover) * 0.25;
       pane.press += (pane.pressTarget - pane.press) * 0.35;
       if (Math.abs(pane.hoverTarget - pane.hover) < 0.01) pane.hover = pane.hoverTarget;
       if (Math.abs(pane.pressTarget - pane.press) < 0.01) pane.press = pane.pressTarget;
-      if (pane.hover !== pane.hoverTarget || pane.press !== pane.pressTarget) animating = true;
-      renderPane(pane, ground, dpr, forced || playing);
+      const paneAnimating = pane.hover !== pane.hoverTarget || pane.press !== pane.pressTarget;
+      if (paneAnimating) animating = true;
+
+      if (check || paneAnimating) pane.shown = paneShown(pane);
+      if (!pane.shown) {
+        // Draw afresh when it next appears.
+        pane.signature = "";
+        continue;
+      }
+
+      // A playing video behind a shown pane changes every frame; follow it
+      // at up to 30fps.
+      const paneBox = toBox(pane.element.getBoundingClientRect());
+      const overVideo = playing.some((video) => intersect(toBox(video.getBoundingClientRect()), paneBox));
+      let videoFrame = false;
+      if (overVideo) {
+        videoBehindShownPane = true;
+        if (now - pane.lastVideoFrame >= 33) {
+          pane.lastVideoFrame = now;
+          videoFrame = true;
+        }
+      }
+
+      if (!check && !paneAnimating && !videoFrame) continue;
+      renderPane(pane, ground || groundColor(), dpr, redraw);
     }
     forced = false;
-    // Keep polling positions while anything could be moving: transforms and
-    // scroll offsets inside the root change without a DOM mutation.
-    if (animating || playing || media.length > 0) frame = requestAnimationFrame(tick);
+    redraw = false;
+    quietFrames = moved || animating ? 0 : quietFrames + 1;
+    if (animating || videoBehindShownPane || quietFrames < 12) frame = requestAnimationFrame(tick);
   }
 
   function renderPane(pane: Pane, ground: string, dpr: number, force: boolean) {
@@ -439,14 +514,20 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
       });
     }
 
+    // Relative to the pane: a pane that moves together with what is behind it
+    // (a video player's controls as its slide pages) shows the same thing, and
+    // its canvas moves with it, so it needs no redraw.
+    const ox = rect.left;
+    const oy = rect.top;
+    const px = (value: number) => value.toFixed(1);
     const signature = [
-      region.x.toFixed(1), region.y.toFixed(1), region.width.toFixed(1), region.height.toFixed(1),
+      px(region.width), px(region.height),
       dpr, ground, element.dataset.config ?? "", pane.hover.toFixed(2), pane.press.toFixed(2),
       ...drawn.map(({ element: item, clip, opacity, filter, color }) => {
         const r = item.getBoundingClientRect();
         const frameKey = item instanceof HTMLVideoElement ? item.currentTime.toFixed(3)
           : item instanceof HTMLImageElement ? item.currentSrc : "";
-        return `${r.x.toFixed(1)},${r.y.toFixed(1)},${r.width.toFixed(1)},${r.height.toFixed(1)}|${clip.x.toFixed(1)},${clip.y.toFixed(1)},${clip.width.toFixed(1)},${clip.height.toFixed(1)}|${opacity.toFixed(2)}|${filter}|${color ?? ""}|${frameKey}`;
+        return `${px(r.x - ox)},${px(r.y - oy)},${px(r.width)},${px(r.height)}|${px(clip.x - ox)},${px(clip.y - oy)},${px(clip.width)},${px(clip.height)}|${opacity.toFixed(2)}|${filter}|${color ?? ""}|${frameKey}`;
       }),
     ].join(";");
     if (!force && signature === pane.signature) return;
@@ -457,8 +538,16 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     if (region.width * region.height * scale * scale > MAX_SCENE_PIXELS) {
       scale = Math.sqrt(MAX_SCENE_PIXELS / (region.width * region.height));
     }
-    scene.width = Math.max(1, Math.round(region.width * scale));
-    scene.height = Math.max(1, Math.round(region.height * scale));
+    const { scene, sceneContext } = pane;
+    const sceneWidth = Math.max(1, Math.round(region.width * scale));
+    const sceneHeight = Math.max(1, Math.round(region.height * scale));
+    // Resizing a canvas reallocates it; only do so when the size changes.
+    if (scene.width !== sceneWidth || scene.height !== sceneHeight) {
+      scene.width = sceneWidth;
+      scene.height = sceneHeight;
+    }
+    sceneContext.setTransform(1, 0, 0, 1, 0, 0);
+    sceneContext.clearRect(0, 0, sceneWidth, sceneHeight);
     sceneContext.setTransform(scale, 0, 0, scale, -region.x * scale, -region.y * scale);
     sceneContext.globalAlpha = 1;
     sceneContext.fillStyle = ground;
@@ -577,6 +666,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
   const instance: LensGlass = {
     markChanged() {
       forced = true;
+      redraw = true;
       wake();
     },
     destroy() {
@@ -584,11 +674,10 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
       if (frame) cancelAnimationFrame(frame);
       intersection.disconnect();
       mutations.disconnect();
-      root.removeEventListener("load", onMediaEvent, true);
-      root.removeEventListener("loadeddata", onMediaEvent, true);
-      root.removeEventListener("seeked", onMediaEvent, true);
-      window.removeEventListener("resize", onMediaEvent);
-      document.removeEventListener("visibilitychange", onMediaEvent);
+      for (const [type, listener] of rootEvents) root.removeEventListener(type, listener, true);
+      window.removeEventListener("resize", onChange);
+      window.removeEventListener("scroll", onMove, { capture: true });
+      document.removeEventListener("visibilitychange", onChange);
       for (const pane of panes) {
         pane.cleanup();
         pane.canvas.remove();

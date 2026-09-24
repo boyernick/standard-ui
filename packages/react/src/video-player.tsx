@@ -45,6 +45,15 @@ export type VideoPlayerProps = ComponentProps<"div"> & {
   title?: string
   /** Accessible name for the video. Defaults to title. */
   "aria-label"?: string
+  /**
+   * CORS mode for the video. The glass controls can only refract frames the
+   * page may read, which needs the host to allow cross-origin reads. By
+   * default the player asks with `anonymous` and, if the host refuses and the
+   * video fails to load, loads it once more without CORS — the video plays
+   * either way, and the controls fall back to the ground colour. Pass a mode
+   * to fix it, or `null` never to ask.
+   */
+  crossOrigin?: "anonymous" | "use-credentials" | null
 }
 
 export const VideoPlayer = ({
@@ -53,6 +62,7 @@ export const VideoPlayer = ({
   title,
   className,
   "aria-label": ariaLabel,
+  crossOrigin,
   ...props
 }: VideoPlayerProps) => {
   const playerRef = useRef<HTMLDivElement>(null)
@@ -65,6 +75,13 @@ export const VideoPlayer = ({
   const [buffering, setBuffering] = useState(false)
   const [ended, setEnded] = useState(false)
   const [failed, setFailed] = useState(false)
+  // Automatic CORS: ask first, fall back once if the host refuses. Kept per
+  // source, so a new src gets a fresh attempt.
+  const automaticCors = crossOrigin === undefined
+  const [corsRefusedSrc, setCorsRefusedSrc] = useState<string | null>(null)
+  const videoCrossOrigin = automaticCors
+    ? corsRefusedSrc === src ? undefined : "anonymous"
+    : crossOrigin ?? undefined
   const [fullscreen, setFullscreen] = useState(false)
   const pipSupported = useSyncExternalStore(
     subscribePipSupport,
@@ -181,6 +198,11 @@ export const VideoPlayer = ({
       setEnded(true)
     }
     const handleError = () => {
+      // Refused with CORS: try once more without it, rather than fail.
+      if (video.dataset.cors === "auto" && video.crossOrigin) {
+        setCorsRefusedSrc(video.getAttribute("src"))
+        return
+      }
       setPlaying(false)
       setLoading(false)
       setBuffering(false)
@@ -232,6 +254,15 @@ export const VideoPlayer = ({
       video.removeEventListener("error", handleError)
     }
   }, [])
+
+  // Changing the crossorigin attribute alone does not refetch; reload so the
+  // fallback takes effect.
+  const appliedCrossOrigin = useRef(videoCrossOrigin)
+  useEffect(() => {
+    if (appliedCrossOrigin.current === videoCrossOrigin) return
+    appliedCrossOrigin.current = videoCrossOrigin
+    videoRef.current?.load()
+  }, [videoCrossOrigin])
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -299,6 +330,8 @@ export const VideoPlayer = ({
         ref={videoRef}
         src={src}
         poster={poster}
+        crossOrigin={videoCrossOrigin}
+        data-cors={automaticCors ? "auto" : undefined}
         preload="auto"
         playsInline
         className="aspect-video w-full cursor-pointer object-cover group-data-[fullscreen]:h-full group-data-[fullscreen]:w-full group-data-[fullscreen]:aspect-auto group-data-[fullscreen]:object-cover"
