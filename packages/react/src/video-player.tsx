@@ -320,7 +320,11 @@ export const VideoPlayer = ({
         // carries its own hairline ring and doubled the frame. Black only in
         // fullscreen, where letterboxing needs it: behind the rounded clip it
         // bled through the video's anti-aliased corners as a dark stroke.
-        "group relative isolate overflow-hidden rounded-xl shadow-[var(--shadow-300)] ring-1 ring-border-primary data-[fullscreen]:h-screen data-[fullscreen]:w-screen data-[fullscreen]:rounded-none data-[fullscreen]:bg-black data-[fullscreen]:ring-0 fullscreen:h-screen fullscreen:w-screen fullscreen:rounded-none fullscreen:bg-black fullscreen:ring-0",
+        // The corners stay rounded in fullscreen: browsers keep :fullscreen
+        // matching through their exit animation, so a square corner collapsed
+        // back into the page square and only rounded once it landed. Against
+        // the black backdrop the rounding does not show while fullscreen.
+        "group relative isolate overflow-hidden rounded-xl shadow-[var(--shadow-300)] ring-1 ring-border-primary data-[fullscreen]:h-screen data-[fullscreen]:w-screen data-[fullscreen]:bg-black data-[fullscreen]:ring-0 fullscreen:h-screen fullscreen:w-screen fullscreen:bg-black fullscreen:ring-0",
         className,
       )}
       aria-busy={loading || buffering || undefined}

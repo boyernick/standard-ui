@@ -114,6 +114,23 @@ const instances = new Set<{ markChanged(): void }>();
 // Reading what is behind a pane
 // ────────────────────────────────────────────────────────────────
 
+/**
+ * Layout does not change within a frame (the renderer only moves its own
+ * absolutely positioned canvases), so each element is measured once per frame
+ * however many panes look at it.
+ */
+let frameRects: Map<Element, DOMRect> | null = null;
+
+function rectOf(element: Element) {
+  if (!frameRects) return element.getBoundingClientRect();
+  let rect = frameRects.get(element);
+  if (!rect) {
+    rect = element.getBoundingClientRect();
+    frameRects.set(element, rect);
+  }
+  return rect;
+}
+
 const toBox = (rect: DOMRect): Box => ({
   x: rect.left,
   y: rect.top,
@@ -127,15 +144,24 @@ const transparent = (color: string) =>
 /** Media whose pixels a canvas cannot read without tainting it. */
 const tainted = new WeakSet<Element>();
 
+const originChecks = new WeakMap<Element, { source: string; cross: boolean }>();
+
 function crossOrigin(element: HTMLImageElement | HTMLVideoElement) {
   if (element.crossOrigin) return false;
   const source = element.currentSrc || element.getAttribute("src") || "";
-  if (!source || source.startsWith("data:") || source.startsWith("blob:")) return false;
-  try {
-    return new URL(source, location.href).origin !== location.origin;
-  } catch {
-    return true;
+  const known = originChecks.get(element);
+  if (known && known.source === source) return known.cross;
+  let cross: boolean;
+  if (!source || source.startsWith("data:") || source.startsWith("blob:")) cross = false;
+  else {
+    try {
+      cross = new URL(source, location.href).origin !== location.origin;
+    } catch {
+      cross = true;
+    }
   }
+  originChecks.set(element, { source, cross });
+  return cross;
 }
 
 function drawable(element: Element): element is HTMLImageElement | HTMLVideoElement | HTMLCanvasElement {
@@ -147,6 +173,71 @@ function drawable(element: Element): element is HTMLImageElement | HTMLVideoElem
     return element.readyState >= 2 && element.videoWidth > 0 && !crossOrigin(element);
   }
   return element instanceof HTMLCanvasElement && element.width > 0 && element.height > 0;
+}
+
+/**
+ * Images are drawn from a downsized copy decoded off the main thread. Drawing
+ * a full-size <img> the first time decodes it synchronously — a Retina
+ * screenshot behind a carousel arrow held a frame for 380ms — and the glass
+ * frosts what it shows anyway, so it never needs more than this.
+ */
+const MAX_BITMAP_EDGE = 960;
+
+type ImageCopy = { src: string; bitmap?: ImageBitmap; pending?: boolean; failed?: boolean };
+const imageCopies = new WeakMap<HTMLImageElement, ImageCopy>();
+
+/**
+ * The drawable copy of an image: a ready bitmap, the image itself where
+ * bitmaps are unavailable, or null while the copy is still decoding (it is
+ * left out until `ready` is called).
+ */
+function imageCopy(image: HTMLImageElement, ready: () => void): CanvasImageSource | null {
+  if (typeof createImageBitmap !== "function") return image;
+  const src = image.currentSrc || image.src;
+  let copy = imageCopies.get(image);
+  if (!copy || copy.src !== src) {
+    copy?.bitmap?.close();
+    copy = { src };
+    imageCopies.set(image, copy);
+  }
+  if (copy.bitmap) return copy.bitmap;
+  if (copy.failed) return image;
+  if (!copy.pending) {
+    const target = copy;
+    target.pending = true;
+    const longEdge = Math.max(image.naturalWidth, image.naturalHeight);
+    const scale = Math.min(1, MAX_BITMAP_EDGE / Math.max(1, longEdge));
+    const options: ImageBitmapOptions | undefined = scale < 1
+      ? {
+          resizeWidth: Math.max(1, Math.round(image.naturalWidth * scale)),
+          resizeHeight: Math.max(1, Math.round(image.naturalHeight * scale)),
+          resizeQuality: "medium",
+        }
+      : undefined;
+    // Decode from the file's bytes (the HTTP cache has them): a Blob decodes
+    // entirely off the main thread, where an <img> source can still decode on
+    // it. SVG and anything else a Blob cannot decode falls back to the element.
+    const fromBytes = fetch(src, { mode: "cors", credentials: "same-origin", cache: "force-cache" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Glass: image fetch ${response.status}`);
+        return response.blob();
+      })
+      .then((blob) => createImageBitmap(blob, options));
+    fromBytes
+      .catch(() => createImageBitmap(image, options))
+      .then((bitmap) => {
+        if (imageCopies.get(image) === target) target.bitmap = bitmap;
+        else bitmap.close();
+      })
+      .catch(() => {
+        target.failed = true;
+      })
+      .finally(() => {
+        target.pending = false;
+        ready();
+      });
+  }
+  return null;
 }
 
 /** Whether drawing this source would taint a canvas (its pixels are cross-origin). */
@@ -175,7 +266,7 @@ function naturalSize(element: HTMLImageElement | HTMLVideoElement | HTMLCanvasEl
  * up to the root, and its opacity after every ancestor's. Null if hidden.
  */
 function visibility(element: Element, root: Element) {
-  let clip: Box | null = toBox(element.getBoundingClientRect());
+  let clip: Box | null = toBox(rectOf(element));
   let opacity = 1;
   for (let node: Element | null = element; node && node !== root; node = node.parentElement) {
     const style = getComputedStyle(node);
@@ -183,7 +274,7 @@ function visibility(element: Element, root: Element) {
     opacity *= Number(style.opacity) || 0;
     if (opacity <= 0.01) return null;
     if (node !== element && (style.overflowX !== "visible" || style.overflowY !== "visible")) {
-      clip = clip && intersect(clip, toBox(node.getBoundingClientRect()));
+      clip = clip && intersect(clip, toBox(rectOf(node)));
       if (!clip) return null;
     }
   }
@@ -196,7 +287,7 @@ function clipOf(element: Element): Box {
   for (let node = element.parentElement; node; node = node.parentElement) {
     const style = getComputedStyle(node);
     if (style.overflowX !== "visible" || style.overflowY !== "visible") {
-      clip = intersect(clip, toBox(node.getBoundingClientRect())) ?? { x: 0, y: 0, width: 0, height: 0 };
+      clip = intersect(clip, toBox(rectOf(node))) ?? { x: 0, y: 0, width: 0, height: 0 };
     }
     if (node.dataset?.slot === "glass-root") break;
   }
@@ -404,7 +495,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
   }
 
   const rectKey = (element: Element) => {
-    const r = element.getBoundingClientRect();
+    const r = rectOf(element);
     return `${r.x.toFixed(1)},${r.y.toFixed(1)},${r.width.toFixed(1)},${r.height.toFixed(1)}`;
   };
 
@@ -419,6 +510,15 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     frame = 0;
     // Hidden tabs get no animation frames anyway; no need to check here.
     if (destroyed || !visible) return;
+    frameRects = new Map();
+    try {
+      step(now);
+    } finally {
+      frameRects = null;
+    }
+  }
+
+  function step(now: number) {
 
     // Cheap: where the panes and media are. Anything else that matters
     // arrives as an event and sets `forced`.
@@ -453,8 +553,8 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
 
       // A playing video behind a shown pane changes every frame; follow it
       // at up to 30fps.
-      const paneBox = toBox(pane.element.getBoundingClientRect());
-      const overVideo = playing.some((video) => intersect(toBox(video.getBoundingClientRect()), paneBox));
+      const paneBox = toBox(rectOf(pane.element));
+      const overVideo = playing.some((video) => intersect(toBox(rectOf(video)), paneBox));
       let videoFrame = false;
       if (overVideo) {
         videoBehindShownPane = true;
@@ -475,7 +575,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
 
   function renderPane(pane: Pane, ground: string, dpr: number, force: boolean) {
     const { element } = pane;
-    const rect = element.getBoundingClientRect();
+    const rect = rectOf(element);
     if (rect.width < 1 || rect.height < 1) return;
     const style = getComputedStyle(element);
     const config = { ...defaults, ...parseConfig(element.dataset.config) };
@@ -496,8 +596,8 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     const drawn: Layer[] = [];
     for (const item of paintList) {
       const isMedia = item instanceof HTMLImageElement || item instanceof HTMLVideoElement || item instanceof HTMLCanvasElement;
+      if (!intersect(toBox(rectOf(item)), region)) continue;
       if (isMedia && !drawable(item)) continue;
-      if (!intersect(toBox(item.getBoundingClientRect()), region)) continue;
       const seen = visibility(item, root);
       if (!seen) continue;
       const clip = intersect(seen.clip, region);
@@ -524,7 +624,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
       px(region.width), px(region.height),
       dpr, ground, element.dataset.config ?? "", pane.hover.toFixed(2), pane.press.toFixed(2),
       ...drawn.map(({ element: item, clip, opacity, filter, color }) => {
-        const r = item.getBoundingClientRect();
+        const r = rectOf(item);
         const frameKey = item instanceof HTMLVideoElement ? item.currentTime.toFixed(3)
           : item instanceof HTMLImageElement ? item.currentSrc : "";
         return `${px(r.x - ox)},${px(r.y - oy)},${px(r.width)},${px(r.height)}|${px(clip.x - ox)},${px(clip.y - oy)},${px(clip.width)},${px(clip.height)}|${opacity.toFixed(2)}|${filter}|${color ?? ""}|${frameKey}`;
@@ -556,7 +656,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
       sceneContext.save();
       sceneContext.globalAlpha = opacity;
       if (color !== null) {
-        const box = toBox(item.getBoundingClientRect());
+        const box = toBox(rectOf(item));
         const visible = intersect(box, clip);
         if (visible) {
           sceneContext.fillStyle = color;
@@ -566,7 +666,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
         continue;
       }
       const source = item as HTMLImageElement | HTMLVideoElement | HTMLCanvasElement;
-      const box = source.getBoundingClientRect();
+      const box = rectOf(source);
       const itemStyle = getComputedStyle(source);
       const content = source instanceof HTMLCanvasElement
         ? { x: 0, y: 0, width: box.width, height: box.height }
@@ -579,8 +679,11 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
       sceneContext.clip();
       // Canvas understands CSS filter functions (blur, brightness, …) as is.
       if (filter !== "none") sceneContext.filter = filter;
+      const picture = source instanceof HTMLImageElement ? imageCopy(source, instance.markChanged) : source;
       try {
-        sceneContext.drawImage(source, box.left + content.x, box.top + content.y, content.width, content.height);
+        if (picture) {
+          sceneContext.drawImage(picture, box.left + content.x, box.top + content.y, content.width, content.height);
+        }
       } catch {
         tainted.add(source);
       }
