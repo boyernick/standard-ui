@@ -562,19 +562,7 @@ export const CarouselDots = ({ className, ...props }: CarouselDotsProps) => {
         <Glass
           data-glass-radius="css"
           className="glass-optical flex items-center gap-1 rounded-full px-3 py-2.5"
-          config={{
-            blurAmount: 0,
-            refraction: 0.12,
-            zRadius: 3,
-            chromAberration: 0,
-            tintStrength: 0,
-            edgeHighlight: 0.045,
-            specular: 0.02,
-            fresnel: 1,
-            shadowOpacity: 0.065,
-            shadowSpread: 12,
-            shadowOffsetY: 3,
-          }}
+          config={{ shadow: 0.06 }}
         >
           {scrollSnaps.map((_, index) => {
             const isSelected = index === selectedIndex

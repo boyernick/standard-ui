@@ -326,7 +326,7 @@ export const ModalContent = ({
       {...props}
     >
       <TooltipProvider delay={250}>
-        <GlassRoot interactiveLighting defaults={mediaGlass} className="size-full">
+        <GlassRoot interactiveLighting defaults={mediaGlass} className="size-full [--glass-ground:var(--color-surface-scrim)]">
           <ModalBackground src={src} />
           <DialogTitle className="sr-only">{alt}</DialogTitle>
           <div
@@ -499,7 +499,7 @@ const GalleryContent = ({
         )}
       >
         <TooltipProvider delay={250}>
-          <GlassRoot interactiveLighting defaults={mediaGlass} className="size-full">
+          <GlassRoot interactiveLighting defaults={mediaGlass} className="size-full [--glass-ground:var(--color-surface-scrim)]">
             <ModalBackground src={activeImage.src} />
             <DialogTitle className="sr-only">{activeImage.alt}</DialogTitle>
             <p className="sr-only" aria-live="polite">

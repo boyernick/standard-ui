@@ -24,18 +24,10 @@ export const MaterialGlassSwatch = ({
       <Glass
         data-glass-radius="css"
         config={{
-          blurAmount: 0,
-          refraction: 0.12,
-          zRadius: 3,
-          chromAberration: 0,
-          brightness: theme === "light" ? -0.055 : 0,
-          tintStrength: 0,
-          edgeHighlight: 0.045,
-          specular: 0.02,
-          fresnel: 1,
-          shadowOpacity: 0.065,
-          shadowSpread: 12,
-          shadowOffsetY: 3,
+          // Over a flat swatch there is nothing to refract; a light page
+          // needs less dimming for the rim to read.
+          dim: theme === "light" ? 0.94 : 0.8,
+          shadow: 0.06,
           button,
         }}
         className="glass-optical absolute inset-0 rounded-xl"

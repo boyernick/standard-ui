@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { GlassConfig } from "./lib/liquidglass/index.js";
+import type { GlassConfig } from "./lib/lens-glass/config";
 import { cn } from "./lib/cn";
 import { scheduleGlassRenderer } from "./lib/glass-lifecycle";
 import { attachGlassLighting } from "./lib/glass-lighting";
@@ -10,19 +10,19 @@ import { Button, type ButtonProps } from "./button";
 export type GlassState = "pending" | "live" | "off";
 
 export interface GlassRootProps extends React.ComponentPropsWithoutRef<"div"> {
-  /** Default LiquidGlass shader configuration shared by direct Glass children. */
-  defaults?: Partial<GlassConfig>;
+  /** Default glass material configuration shared by direct Glass children. */
+  defaults?: GlassConfig;
   /** Disable WebGL rendering while preserving the underlying DOM. */
   disabled?: boolean;
   /** Move glass-optical reflections with the pointer; respects reduced motion. */
   interactiveLighting?: boolean;
-  /** Called when the LiquidGlass renderer changes state. */
+  /** Called when the glass renderer changes state. */
   onGlassStateChange?: (state: GlassState) => void;
 }
 
 export interface GlassProps extends React.ComponentPropsWithoutRef<"div"> {
-  /** Per-pane LiquidGlass shader configuration. */
-  config?: Partial<GlassConfig>;
+  /** Per-pane glass material configuration. */
+  config?: GlassConfig;
 }
 
 function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
@@ -34,11 +34,13 @@ function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
 }
 
 /**
- * A positioned rendering root for LiquidGlass.
+ * A positioned rendering root for the glass material.
  *
- * Glass panes must be direct children of this element. Background content must
- * also live inside the root because LiquidGlass samples the root's children,
- * not the root's own background.
+ * Glass panes must be direct children of this element. Each pane refracts the
+ * images, video and canvases inside the root that are behind it, drawn where
+ * they are each frame, over the root's children's backgrounds and a ground
+ * colour: `--glass-ground` on the root, else the nearest opaque ancestor
+ * background.
  */
 export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
   function GlassRoot(
@@ -101,27 +103,18 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
       }
 
       report("pending");
-      let renderer: { markChanged(): void } | undefined;
-      // Image load does not bubble and is not a DOM mutation. Lazy-loaded
-      // images otherwise leave the renderer's initial empty scene cached.
-      const refresh = () => renderer?.markChanged();
-      root.addEventListener("load", refresh, true);
 
       const lifecycle = scheduleGlassRenderer(
         startupRef.current,
         async () => {
-          const { LiquidGlass } = await import("./lib/liquidglass/index.js");
-          await document.fonts.ready;
-          return LiquidGlass.init({
+          const { createLensGlass } = await import("./lib/lens-glass/renderer");
+          return createLensGlass({
             root,
             glassElements,
-            defaults: JSON.parse(defaultsKey) as Partial<GlassConfig>,
+            defaults: JSON.parse(defaultsKey) as GlassConfig,
           });
         },
-        (instance) => {
-          renderer = instance;
-          report("live");
-        },
+        () => report("live"),
         (error) => {
           console.warn("GlassRoot: renderer initialization failed.", error);
           report("off");
@@ -129,11 +122,7 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
       );
       startupRef.current = lifecycle.settled;
 
-      return () => {
-        root.removeEventListener("load", refresh, true);
-        renderer = undefined;
-        lifecycle.dispose();
-      };
+      return () => lifecycle.dispose();
     }, [defaultsKey, disabled]);
 
     return (
@@ -150,8 +139,8 @@ export const GlassRoot = React.forwardRef<HTMLDivElement, GlassRootProps>(
 );
 
 /**
- * A LiquidGlass pane. It must be rendered as a direct child of GlassRoot.
- * `config` maps directly to LiquidGlass's per-element `data-config` JSON.
+ * A glass pane. It must be rendered as a direct child of GlassRoot.
+ * `config` is serialized to the pane's `data-config` attribute.
  */
 export const Glass = React.forwardRef<HTMLDivElement, GlassProps>(function Glass(
   { className, config, children, ...props },
@@ -174,7 +163,7 @@ GlassRoot.displayName = "GlassRoot";
 Glass.displayName = "Glass";
 
 export interface GlassButtonProps extends Omit<ButtonProps, "variant"> {
-  config?: Partial<GlassConfig>;
+  config?: GlassConfig;
 }
 
 /** A native StandardUI button, rendered as a direct child of GlassRoot. */
@@ -185,17 +174,9 @@ export function GlassButton({ config, ...props }: GlassButtonProps) {
       variant="glass"
       data-slot="glass"
       data-glass-radius="css"
-      data-config={JSON.stringify({
-        blurAmount: 0.12,
-        refraction: 0.25,
-        zRadius: 6,
-        chromAberration: 0.02,
-        shadowOpacity: 0.15,
-        ...config,
-        button: true,
-      })}
+      data-config={JSON.stringify({ ...config, button: true })}
     />
   );
 }
 
-export type { GlassConfig } from "./lib/liquidglass/index.js";
+export type { GlassConfig } from "./lib/lens-glass/config";
