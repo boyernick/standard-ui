@@ -36,9 +36,12 @@ import {
   IconArrowDownSmall,
   IconChevronRightSmall,
   IconCrossSmall,
+  IconZoomIn,
+  IconZoomOut,
 } from "./icons"
 import { cn } from "./lib/cn"
 import { focusRing, focusRingBorder } from "./lib/focus"
+import { IMAGE_ZOOM, panZoomedImage } from "./lib/image-zoom"
 import { motion } from "./lib/motion"
 import {
   Tooltip,
@@ -86,6 +89,11 @@ export type ModalContentProps = Omit<
     downloadName?: string
     imgProps?: Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt">
     children?: ReactNode
+    /**
+     * Magnification when the image is clicked or the zoom control pressed.
+     * `false` turns zoom off. Default 2.
+     */
+    zoom?: number | false
   }
 
 export type GalleryItem = {
@@ -176,18 +184,24 @@ const ModalImage = ({
   alt,
   imgProps,
   fit = "viewport",
+  imageRef,
+  zoom,
 }: Pick<GalleryItem, "src" | "alt" | "imgProps"> & {
   fit?: "viewport" | "contain"
+  imageRef?: { current: HTMLImageElement | null }
+  /** Zoom state and toggle, for an image that magnifies in place. */
+  zoom?: { scale: number; zoomed: boolean; toggle: (x: number, y: number) => void }
 }) => {
-  const { className, onLoad, onError, ...props } = imgProps ?? {}
+  const { className, onLoad, onError, onClick, style, ...props } = imgProps ?? {}
   // Held transparent until decoded, then faded in: a large file otherwise
   // paints in top-down bands inside the lightbox. The ref catches an image the
   // browser already has (a cached file, or the one the trigger just showed)
   // before first paint, so it appears at once with nothing to fade.
   const [loaded, setLoaded] = useState(false)
   const catchLoaded = useCallback((image: HTMLImageElement | null) => {
+    if (imageRef) imageRef.current = image
     if (image?.complete && image.naturalWidth > 0) setLoaded(true)
-  }, [])
+  }, [imageRef])
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -208,16 +222,29 @@ const ModalImage = ({
         // Reveal the broken image rather than leave an invisible one.
         setLoaded(true)
       }}
+      onClick={(event) => {
+        onClick?.(event)
+        if (!event.defaultPrevented) zoom?.toggle(event.clientX, event.clientY)
+      }}
       className={cn(
-        // Linear, like every fade in `motion` — see the note there.
-        "transition-opacity duration-[var(--duration-lg)] ease-linear motion-reduce:transition-none",
+        // Linear, like every fade in `motion` — see the note there. The zoom
+        // eases scale and translate; while the pointer pans, translate
+        // follows it without easing.
+        zoom
+          ? "motion-safe:[transition:opacity_var(--duration-lg)_linear,scale_var(--duration-md)_var(--ease-move),translate_var(--duration-md)_var(--ease-move)] motion-safe:data-[panning]:[transition-property:opacity,scale]"
+          : "transition-opacity duration-[var(--duration-lg)] ease-linear motion-reduce:transition-none",
         !loaded && "opacity-0",
         "rounded-lg object-contain shadow-lg select-none",
+        // Scaled from the top-left, so the pan lands the image exactly where
+        // it is measured.
+        zoom && "origin-top-left",
+        zoom && (zoom.zoomed ? "cursor-zoom-out touch-none" : "cursor-zoom-in"),
         fit === "contain"
           ? "max-h-full max-w-full"
           : "max-h-[82dvh] max-w-[88vw] max-sm:max-h-[calc(100dvh-2rem)] max-sm:max-w-[calc(100vw-2rem)]",
         className,
       )}
+      style={zoom ? { ...style, scale: zoom.zoomed ? String(zoom.scale) : "1" } : style}
       {...props}
     />
   )
@@ -298,11 +325,136 @@ const ModalDismiss = () => (
   </ModalControlTooltip>
 )
 
-const ModalCaption = ({ children }: { children: ReactNode }) => (
-  <p className="mt-3 max-w-[min(40rem,88vw)] shrink-0 px-4 text-center text-sm text-fg-scrim-secondary">
+const ModalZoom = ({
+  zoomed,
+  onToggle,
+}: {
+  zoomed: boolean
+  onToggle: () => void
+}) => (
+  <ModalControlTooltip label={zoomed ? "Zoom out" : "Zoom in"}>
+    <GlassButton
+      type="button"
+      config={mediaGlass}
+      size="md"
+      iconOnly
+      rounded
+      aria-label={zoomed ? "Zoom out" : "Zoom in"}
+      aria-pressed={zoomed}
+      onClick={onToggle}
+      className={cn(
+        modalControlClassName,
+        // Beside Download: 16px inset, a 36px control and an 8px gap.
+        "absolute top-4 left-15 z-20",
+      )}
+    >
+      {zoomed ? <IconZoomOut aria-hidden /> : <IconZoomIn aria-hidden />}
+    </GlassButton>
+  </ModalControlTooltip>
+)
+
+const ModalCaption = ({ children, hidden }: { children: ReactNode; hidden?: boolean }) => (
+  <p
+    className={cn(
+      "mt-3 max-w-[min(40rem,88vw)] shrink-0 px-4 text-center text-sm text-fg-scrim-secondary",
+      "transition-opacity duration-[var(--duration-sm)] ease-linear motion-reduce:transition-none",
+      // The magnified image covers the caption's place; don't show through it.
+      hidden && "opacity-0",
+    )}
+  >
     {children}
   </p>
 )
+
+/**
+ * Zoom for one image: magnify at a point, then pan under the pointer. A
+ * mouse or pen pans by moving; a finger drags the image.
+ */
+function useImageZoom(scale: number | false) {
+  const [zoomed, setZoomed] = useState(false)
+  const imageRef = useRef<HTMLImageElement | null>(null)
+  const frameRef = useRef<HTMLDivElement | null>(null)
+  // Where the pan is aimed, in client pixels.
+  const aim = useRef({ x: 0, y: 0 })
+
+  const toggle = useCallback(
+    (x?: number, y?: number) => {
+      const image = imageRef.current
+      const frame = frameRef.current
+      if (!scale || !image || !frame) return
+      const bounds = frame.getBoundingClientRect()
+      // The zoom itself eases, towards the point.
+      delete image.dataset.panning
+      if (zoomed) {
+        image.style.translate = "0px 0px"
+      } else {
+        // No point (the control): open on the middle.
+        aim.current = {
+          x: x ?? bounds.left + bounds.width / 2,
+          y: y ?? bounds.top + bounds.height / 2,
+        }
+        panZoomedImage(image, bounds, aim.current.x, aim.current.y, scale)
+      }
+      setZoomed(!zoomed)
+    },
+    [scale, zoomed],
+  )
+
+  useEffect(() => {
+    const image = imageRef.current
+    const frame = frameRef.current
+    if (!zoomed || !scale || !image || !frame) return
+    let pending = 0
+    let drag: { x: number; y: number } | null = null
+    const pan = () => {
+      pending = 0
+      image.dataset.panning = ""
+      panZoomedImage(image, frame.getBoundingClientRect(), aim.current.x, aim.current.y, scale)
+    }
+    const schedule = () => {
+      if (!pending) pending = requestAnimationFrame(pan)
+    }
+    const down = (event: PointerEvent) => {
+      if (event.pointerType === "touch") drag = { x: event.clientX, y: event.clientY }
+    }
+    const move = (event: PointerEvent) => {
+      if (event.pointerType !== "touch") {
+        aim.current = { x: event.clientX, y: event.clientY }
+        schedule()
+        return
+      }
+      if (!drag) return
+      // A finger carries the image: aim the opposite way, by the ratio of
+      // the frame to the image's travel past it.
+      const bounds = frame.getBoundingClientRect()
+      const rendered = image.getBoundingClientRect()
+      const travelX = Math.max(1, rendered.width - bounds.width)
+      const travelY = Math.max(1, rendered.height - bounds.height)
+      aim.current = {
+        x: Math.max(bounds.left, Math.min(bounds.right, aim.current.x - ((event.clientX - drag.x) * bounds.width) / travelX)),
+        y: Math.max(bounds.top, Math.min(bounds.bottom, aim.current.y - ((event.clientY - drag.y) * bounds.height) / travelY)),
+      }
+      drag = { x: event.clientX, y: event.clientY }
+      schedule()
+    }
+    const up = () => {
+      drag = null
+    }
+    document.addEventListener("pointerdown", down, { passive: true })
+    document.addEventListener("pointermove", move, { passive: true })
+    document.addEventListener("pointerup", up, { passive: true })
+    document.addEventListener("pointercancel", up, { passive: true })
+    return () => {
+      document.removeEventListener("pointerdown", down)
+      document.removeEventListener("pointermove", move)
+      document.removeEventListener("pointerup", up)
+      document.removeEventListener("pointercancel", up)
+      cancelAnimationFrame(pending)
+    }
+  }, [scale, zoomed])
+
+  return { zoomed, toggle, imageRef, frameRef }
+}
 
 export const ModalContent = ({
   src,
@@ -314,8 +466,11 @@ export const ModalContent = ({
   className,
   imgProps,
   children,
+  zoom = IMAGE_ZOOM,
   ...props
-}: ModalContentProps) => (
+}: ModalContentProps) => {
+  const { zoomed, toggle, imageRef, frameRef } = useImageZoom(zoom)
+  return (
   <DialogPortal>
     <ModalBackdrop />
     <DialogPopup
@@ -332,12 +487,19 @@ export const ModalContent = ({
           <ModalBackground src={src} />
           <DialogTitle className="sr-only">{alt}</DialogTitle>
           <div
+            ref={frameRef}
             data-slot="modal-stage"
             className="relative z-10 flex size-full flex-col items-center justify-center p-4"
           >
-            <ModalImage src={src} alt={alt} imgProps={imgProps} />
+            <ModalImage
+              src={src}
+              alt={alt}
+              imgProps={imgProps}
+              imageRef={imageRef}
+              zoom={zoom ? { scale: zoom, zoomed, toggle } : undefined}
+            />
             {variant === "caption" && (caption || children) ? (
-              <ModalCaption>{caption ?? children}</ModalCaption>
+              <ModalCaption hidden={zoomed}>{caption ?? children}</ModalCaption>
             ) : null}
           </div>
           <ModalDismiss />
@@ -345,11 +507,13 @@ export const ModalContent = ({
             src={downloadSrc ?? src}
             name={downloadName}
           />
+          {zoom ? <ModalZoom zoomed={zoomed} onToggle={() => toggle()} /> : null}
         </GlassRoot>
       </TooltipProvider>
     </DialogPopup>
   </DialogPortal>
-)
+  )
+}
 
 export const GalleryTrigger = ({
   index,

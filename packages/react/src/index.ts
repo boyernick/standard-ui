@@ -1007,6 +1007,8 @@ export {
   IconVolumeFull,
   IconVolumeOff,
   IconX,
+  IconZoomIn,
+  IconZoomOut,
   type CentralIconProps,
   type CentralIconComponent,
 } from "./icons";

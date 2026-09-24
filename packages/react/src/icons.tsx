@@ -39,6 +39,8 @@ import { IconSun as IconSunBase } from "@central-icons-react/round-outlined-radi
 import { IconVolumeFull as IconVolumeFullBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconVolumeFull"
 import { IconVolumeOff as IconVolumeOffBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconVolumeOff"
 import { IconX as IconXBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconX"
+import { IconZoomIn as IconZoomInBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconZoomIn"
+import { IconZoomOut as IconZoomOutBase } from "@central-icons-react/round-outlined-radius-2-stroke-2/IconZoomOut"
 import type { ComponentType } from "react"
 
 /** Round outlined Central Icons: 2px radius, 2px stroke, default 20px. */
@@ -140,11 +142,15 @@ export const IconSun = withCentralIconDefaults(IconSunBase)
 export const IconVolumeFull = withCentralIconDefaults(IconVolumeFullBase)
 export const IconVolumeOff = withCentralIconDefaults(IconVolumeOffBase)
 export const IconX = withCentralIconDefaults(IconXBase)
+export const IconZoomIn = withCentralIconDefaults(IconZoomInBase)
+export const IconZoomOut = withCentralIconDefaults(IconZoomOutBase)
 
 export const iconGallery = [
   { name: "IconHome", Icon: IconHome },
   { name: "IconCalendar1", Icon: IconCalendar1 },
   { name: "IconMagnifyingGlass", Icon: IconMagnifyingGlass },
+  { name: "IconZoomIn", Icon: IconZoomIn },
+  { name: "IconZoomOut", Icon: IconZoomOut },
   { name: "IconSettingsGear1", Icon: IconSettingsGear1 },
   { name: "IconBell", Icon: IconBell },
   { name: "IconPeople", Icon: IconPeople },
