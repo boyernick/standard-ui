@@ -149,6 +149,21 @@ function drawable(element: Element): element is HTMLImageElement | HTMLVideoElem
   return element instanceof HTMLCanvasElement && element.width > 0 && element.height > 0;
 }
 
+/** Whether drawing this source would taint a canvas (its pixels are cross-origin). */
+function unreadable(source: CanvasImageSource) {
+  const probe = document.createElement("canvas");
+  probe.width = probe.height = 1;
+  const context = probe.getContext("2d");
+  if (!context) return true;
+  try {
+    context.drawImage(source, 0, 0, 1, 1);
+    context.getImageData(0, 0, 1, 1);
+    return false;
+  } catch {
+    return true;
+  }
+}
+
 function naturalSize(element: HTMLImageElement | HTMLVideoElement | HTMLCanvasElement) {
   if (element instanceof HTMLImageElement) return { width: element.naturalWidth, height: element.naturalHeight };
   if (element instanceof HTMLVideoElement) return { width: element.videoWidth, height: element.videoHeight };
@@ -489,8 +504,12 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     try {
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, scene);
     } catch {
-      // A canvas we drew was cross-origin. Leave it out from now on.
-      for (const { element: item } of drawn) if (item instanceof HTMLCanvasElement) tainted.add(item);
+      // Something we drew was cross-origin after all — a canvas, or media
+      // behind a same-origin address that redirects elsewhere (a video served
+      // through a signed-link redirect). Find it and leave it out from now on.
+      const media = drawn.filter(({ element: item }) => item instanceof HTMLImageElement || item instanceof HTMLVideoElement || item instanceof HTMLCanvasElement);
+      const culprits = media.filter(({ element: item }) => unreadable(item as CanvasImageSource));
+      for (const { element: item } of culprits.length ? culprits : media) tainted.add(item);
       pane.signature = "";
       forced = true;
       return;
