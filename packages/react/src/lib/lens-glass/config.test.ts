@@ -62,3 +62,11 @@ test("boxes intersect, or do not", () => {
   assert.deepEqual(intersect({ x: 0, y: 0, width: 10, height: 10 }, { x: 5, y: 5, width: 10, height: 10 }), { x: 5, y: 5, width: 5, height: 5 });
   assert.equal(intersect({ x: 0, y: 0, width: 10, height: 10 }, { x: 10, y: 0, width: 5, height: 5 }), null);
 });
+
+test("the ground is dimmed on a dark page and left alone on a light one", () => {
+  assert.equal(resolveGlass({}, 84, 26, 13).dim, 0.8);
+  assert.equal(resolveGlass({}, 84, 26, 13, { lightGround: false }).dim, 0.8);
+  assert.equal(resolveGlass({}, 84, 26, 13, { lightGround: true }).dim, 1);
+  // A pane that asks for a dim keeps it either way (media controls over photos).
+  assert.equal(resolveGlass({ dim: 0.62 }, 36, 36, 18, { lightGround: true }).dim, 0.62);
+});

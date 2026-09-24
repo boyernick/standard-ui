@@ -240,6 +240,33 @@ function imageCopy(image: HTMLImageElement, ready: () => void): CanvasImageSourc
   return null;
 }
 
+/** Whether a CSS colour is light (relative luminance over one half), cached per colour. */
+const groundLightness = new Map<string, boolean>();
+let lightnessProbe: CanvasRenderingContext2D | null = null;
+
+function isLightGround(color: string) {
+  const known = groundLightness.get(color);
+  if (known !== undefined) return known;
+  lightnessProbe ??= Object.assign(document.createElement("canvas"), { width: 1, height: 1 })
+    .getContext("2d", { willReadFrequently: true });
+  let light = false;
+  if (lightnessProbe) {
+    // The canvas parses any CSS colour the page can use, oklab and all.
+    lightnessProbe.clearRect(0, 0, 1, 1);
+    lightnessProbe.fillStyle = "#000";
+    lightnessProbe.fillStyle = color;
+    lightnessProbe.fillRect(0, 0, 1, 1);
+    const [r, g, b] = lightnessProbe.getImageData(0, 0, 1, 1).data;
+    const linear = (value: number) => {
+      const c = value / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    };
+    light = 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b) > 0.5;
+  }
+  groundLightness.set(color, light);
+  return light;
+}
+
 /** Whether drawing this source would taint a canvas (its pixels are cross-origin). */
 function unreadable(source: CanvasImageSource) {
   const probe = document.createElement("canvas");
@@ -580,7 +607,9 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
     const style = getComputedStyle(element);
     const config = { ...defaults, ...parseConfig(element.dataset.config) };
     const cssRadius = parseFloat(style.borderTopLeftRadius) || 0;
-    const glass = resolveGlass(config, rect.width, rect.height, cssRadius);
+    const glass = resolveGlass(config, rect.width, rect.height, cssRadius, {
+      lightGround: isLightGround(ground),
+    });
 
     const pad = samplePadding(glass) + OVERFLOW;
     const region: Box = {
