@@ -765,7 +765,7 @@ export function createLensGlass({ root, glassElements, defaults = {} }: LensGlas
       ["u_radius", glass.radius], ["u_power", glass.power], ["u_bezel", glass.bezel],
       ["u_bend", glass.bend], ["u_dispersionRed", glass.dispersionRed],
       ["u_dispersionBlue", glass.dispersionBlue], ["u_rim", glass.rim],
-      ["u_rimWidth", glass.rimWidth], ["u_specular", glass.specular], ["u_frost", glass.frost],
+      ["u_rimWidth", glass.rimWidth], ["u_edge", glass.edge], ["u_specular", glass.specular], ["u_frost", glass.frost],
       ["u_grain", glass.grain], ["u_dim", glass.dim], ["u_fadeStart", glass.fadeStart],
       ["u_fadeEnd", glass.fadeEnd], ["u_shadow", glass.shadow],
       ["u_hover", glass.button ? pane.hover : 0], ["u_press", glass.button ? pane.press : 0],

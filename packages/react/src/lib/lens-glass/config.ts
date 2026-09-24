@@ -18,6 +18,13 @@ export interface GlassConfig {
   rim?: number;
   /** Rim light width. Default 3.5, less on small panes. */
   rimWidth?: number;
+  /**
+   * A hairline shade just inside the outline, deepest away from the light.
+   * On a light page the rim light has nothing to brighten, so without it a
+   * pane's only edge is its soft shadow. Default 0.16 over a light ground,
+   * 0 over a dark one.
+   */
+  edge?: number;
   /** Specular sheen on the lit side of the bezel. Default 0.35. */
   specular?: number;
   /** Frost blur, as a Gaussian sigma. Default 3. */
@@ -94,6 +101,7 @@ export interface ResolvedGlass {
   dispersionBlue: number;
   rim: number;
   rimWidth: number;
+  edge: number;
   specular: number;
   frost: number;
   grain: number;
@@ -144,6 +152,7 @@ export function resolveGlass(
     dispersionBlue: pick(config.dispersionBlue, 0.8, 0, 1),
     rim: pick(config.rim, 0.5, 0, 2),
     rimWidth: pick(config.rimWidth, Math.min(3.5, Math.max(1.25, short * 0.04)), 0.5, 12),
+    edge: pick(config.edge, options?.lightGround ? 0.16 : 0, 0, 1),
     specular: pick(config.specular, 0.35, 0, 2),
     frost: pick(config.frost, 3, 0, 16),
     grain: pick(config.grain, 0.07, 0, 0.5),
