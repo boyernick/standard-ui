@@ -75,13 +75,12 @@ export const VideoPlayer = ({
   const [buffering, setBuffering] = useState(false)
   const [ended, setEnded] = useState(false)
   const [failed, setFailed] = useState(false)
-  // Automatic CORS: ask first, fall back once if the host refuses.
+  // Automatic CORS: ask first, fall back once if the host refuses. Kept per
+  // source, so a new src gets a fresh attempt.
   const automaticCors = crossOrigin === undefined
-  const [corsRefused, setCorsRefused] = useState(false)
-  const corsRef = useRef({ automatic: automaticCors, refused: false })
-  corsRef.current.automatic = automaticCors
+  const [corsRefusedSrc, setCorsRefusedSrc] = useState<string | null>(null)
   const videoCrossOrigin = automaticCors
-    ? corsRefused ? undefined : "anonymous"
+    ? corsRefusedSrc === src ? undefined : "anonymous"
     : crossOrigin ?? undefined
   const [fullscreen, setFullscreen] = useState(false)
   const pipSupported = useSyncExternalStore(
@@ -200,9 +199,8 @@ export const VideoPlayer = ({
     }
     const handleError = () => {
       // Refused with CORS: try once more without it, rather than fail.
-      if (corsRef.current.automatic && !corsRef.current.refused) {
-        corsRef.current.refused = true
-        setCorsRefused(true)
+      if (video.dataset.cors === "auto" && video.crossOrigin) {
+        setCorsRefusedSrc(video.getAttribute("src"))
         return
       }
       setPlaying(false)
@@ -256,12 +254,6 @@ export const VideoPlayer = ({
       video.removeEventListener("error", handleError)
     }
   }, [])
-
-  // A new source gets a fresh CORS attempt.
-  useEffect(() => {
-    corsRef.current.refused = false
-    setCorsRefused(false)
-  }, [src])
 
   // Changing the crossorigin attribute alone does not refetch; reload so the
   // fallback takes effect.
@@ -339,6 +331,7 @@ export const VideoPlayer = ({
         src={src}
         poster={poster}
         crossOrigin={videoCrossOrigin}
+        data-cors={automaticCors ? "auto" : undefined}
         preload="auto"
         playsInline
         className="aspect-video w-full cursor-pointer object-cover group-data-[fullscreen]:h-full group-data-[fullscreen]:w-full group-data-[fullscreen]:aspect-auto group-data-[fullscreen]:object-cover"
