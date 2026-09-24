@@ -31,6 +31,7 @@ uniform float u_dispersionRed;
 uniform float u_dispersionBlue;
 uniform float u_rim;
 uniform float u_rimWidth;
+uniform float u_edge;
 uniform float u_specular;
 uniform float u_frost;
 uniform float u_grain;
@@ -124,6 +125,11 @@ void main() {
   float rim = 1.0 - smoothstep(0.0, u_rimWidth, inside);
   color += u_rim * (1.0 + 0.4 * u_hover) * rim * (0.55 + 0.45 * facing);
   color += u_specular * 0.35 * pow(t, 3.0) * facing;
+
+  // Hairline edge: a light ground clips the rim to white, so shade one CSS
+  // pixel inside the outline instead, more on the side away from the light.
+  float hairline = 1.0 - smoothstep(0.0, 1.0, inside);
+  color = min(color, vec3(1.0)) * (1.0 - u_edge * hairline * (1.0 - 0.45 * facing));
 
   // Grain, fixed to the device pixel grid so a still pane never needs redrawing.
   color += (hash(floor(scenePx * u_dpr)) - 0.5) * u_grain;
