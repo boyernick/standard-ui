@@ -1081,3 +1081,11 @@
 .glass-optical-media::after {
   opacity: 0.6;
 }
+/* The CSS reflections are the fallback material. Once the lens renderer is
+   live, its shader draws the rim, sheen and shadow; the CSS ring on top of it
+   was a second rim, lit from a different angle and inset by the pane's 1px
+   border, so the edge read as two uneven rings. */
+[data-glass-state="live"] > [data-slot="glass"].glass-optical::before,
+[data-glass-state="live"] > [data-slot="glass"].glass-optical::after {
+  content: none;
+}

@@ -149,7 +149,9 @@ export const ModalTrigger = ({
 )
 
 const ModalBackdrop = () => (
-  <DialogBackdrop className="bg-surface-scrim/95" />
+  // DialogBackdrop is black/60 in dark mode; say 95 there too, or the page
+  // shows through behind the image.
+  <DialogBackdrop className="bg-surface-scrim/95 dark:bg-surface-scrim/95" />
 )
 
 const ModalBackground = ({ src }: { src: string }) => (
