@@ -24,7 +24,11 @@ export interface GlassConfig {
   frost?: number;
   /** Film grain. Default 0.07. */
   grain?: number;
-  /** Multiplier on the ground seen through the glass (1 = undimmed). Default 0.8. */
+  /**
+   * Multiplier on the ground seen through the glass (1 = undimmed). Default
+   * 0.8 over a dark ground, 1 over a light one: dimming a white page only
+   * turned the glass a flat mid-grey.
+   */
   dim?: number;
   /** Fraction of the height where the glass starts fading out. Default 1 (no fade). */
   fadeStart?: number;
@@ -121,6 +125,7 @@ export function resolveGlass(
   width: number,
   height: number,
   cssRadius: number,
+  options?: { lightGround?: boolean },
 ): ResolvedGlass {
   const short = Math.max(1, Math.min(width, height));
   const radius = pick(config.cornerRadius, cssRadius, 0, short / 2);
@@ -142,7 +147,7 @@ export function resolveGlass(
     specular: pick(config.specular, 0.35, 0, 2),
     frost: pick(config.frost, 3, 0, 16),
     grain: pick(config.grain, 0.07, 0, 0.5),
-    dim: pick(config.dim, 0.8, 0, 1.5),
+    dim: pick(config.dim, options?.lightGround ? 1 : 0.8, 0, 1.5),
     fadeStart: pick(config.fadeStart, 1, 0, 1),
     fadeEnd: pick(config.fadeEnd, 1, 0, 1),
     shadow: pick(config.shadow, 0.18, 0, 1),
