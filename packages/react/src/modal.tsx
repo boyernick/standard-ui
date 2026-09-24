@@ -36,8 +36,6 @@ import {
   IconArrowDownSmall,
   IconChevronRightSmall,
   IconCrossSmall,
-  IconZoomIn,
-  IconZoomOut,
 } from "./icons"
 import { cn } from "./lib/cn"
 import { focusRing, focusRingBorder } from "./lib/focus"
@@ -89,10 +87,7 @@ export type ModalContentProps = Omit<
     downloadName?: string
     imgProps?: Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt">
     children?: ReactNode
-    /**
-     * Magnification when the image is clicked or the zoom control pressed.
-     * `false` turns zoom off. Default 2.
-     */
+    /** Magnification when the image is clicked. `false` turns zoom off. Default 2. */
     zoom?: number | false
   }
 
@@ -234,7 +229,10 @@ const ModalImage = ({
           ? "motion-safe:[transition:opacity_var(--duration-lg)_linear,scale_var(--duration-md)_var(--ease-move),translate_var(--duration-md)_var(--ease-move)] motion-safe:data-[panning]:[transition-property:opacity,scale]"
           : "transition-opacity duration-[var(--duration-lg)] ease-linear motion-reduce:transition-none",
         !loaded && "opacity-0",
-        "rounded-lg object-contain shadow-lg select-none",
+        // Sized by the image itself: width and height attributes with
+        // separate max caps made a box of another shape, which object-contain
+        // letterboxed, leaving the rounded corners on empty space.
+        "h-auto w-auto rounded-lg object-contain shadow-lg select-none",
         // Scaled from the top-left, so the pan lands the image exactly where
         // it is measured.
         zoom && "origin-top-left",
@@ -325,34 +323,6 @@ const ModalDismiss = () => (
   </ModalControlTooltip>
 )
 
-const ModalZoom = ({
-  zoomed,
-  onToggle,
-}: {
-  zoomed: boolean
-  onToggle: () => void
-}) => (
-  <ModalControlTooltip label={zoomed ? "Zoom out" : "Zoom in"}>
-    <GlassButton
-      type="button"
-      config={mediaGlass}
-      size="md"
-      iconOnly
-      rounded
-      aria-label={zoomed ? "Zoom out" : "Zoom in"}
-      aria-pressed={zoomed}
-      onClick={onToggle}
-      className={cn(
-        modalControlClassName,
-        // Beside Download: 16px inset, a 36px control and an 8px gap.
-        "absolute top-4 left-15 z-20",
-      )}
-    >
-      {zoomed ? <IconZoomOut aria-hidden /> : <IconZoomIn aria-hidden />}
-    </GlassButton>
-  </ModalControlTooltip>
-)
-
 const ModalCaption = ({ children, hidden }: { children: ReactNode; hidden?: boolean }) => (
   <p
     className={cn(
@@ -367,8 +337,8 @@ const ModalCaption = ({ children, hidden }: { children: ReactNode; hidden?: bool
 )
 
 /**
- * Zoom for one image: magnify at a point, then pan under the pointer. A
- * mouse or pen pans by moving; a finger drags the image.
+ * Zoom for one image: a click magnifies at the point, then the image pans
+ * under the pointer. A mouse or pen pans by moving; a finger drags.
  */
 function useImageZoom(scale: number | false) {
   const [zoomed, setZoomed] = useState(false)
@@ -378,22 +348,17 @@ function useImageZoom(scale: number | false) {
   const aim = useRef({ x: 0, y: 0 })
 
   const toggle = useCallback(
-    (x?: number, y?: number) => {
+    (x: number, y: number) => {
       const image = imageRef.current
       const frame = frameRef.current
       if (!scale || !image || !frame) return
-      const bounds = frame.getBoundingClientRect()
       // The zoom itself eases, towards the point.
       delete image.dataset.panning
       if (zoomed) {
         image.style.translate = "0px 0px"
       } else {
-        // No point (the control): open on the middle.
-        aim.current = {
-          x: x ?? bounds.left + bounds.width / 2,
-          y: y ?? bounds.top + bounds.height / 2,
-        }
-        panZoomedImage(image, bounds, aim.current.x, aim.current.y, scale)
+        aim.current = { x, y }
+        panZoomedImage(image, frame.getBoundingClientRect(), x, y, scale)
       }
       setZoomed(!zoomed)
     },
@@ -507,7 +472,6 @@ export const ModalContent = ({
             src={downloadSrc ?? src}
             name={downloadName}
           />
-          {zoom ? <ModalZoom zoomed={zoomed} onToggle={() => toggle()} /> : null}
         </GlassRoot>
       </TooltipProvider>
     </DialogPopup>
