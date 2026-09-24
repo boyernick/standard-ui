@@ -118,18 +118,28 @@ void main() {
   );
   color *= u_dim + 0.06 * u_hover;
 
+  // Where the edge sits on the diagonal through the lit corner: 1 at the top
+  // left and bottom right, 0 at the other two corners. Over a light ground the
+  // rim and hairline follow it, so the border runs as an angled gradient
+  // rather than an even ring.
+  float diagonal = dot(n, normalize(vec2(-1.0, -1.0)));
+  float angled = pow(abs(diagonal), 1.5);
+  float lightGround = step(0.001, u_edge);
+
   // Rim light, strongest where the edge faces the light (top left), and a
   // sheen across the lit side of the bezel.
   vec2 light = normalize(vec2(-0.55, -1.0));
   float facing = max(dot(n, light), 0.0);
   float rim = 1.0 - smoothstep(0.0, u_rimWidth, inside);
-  color += u_rim * (1.0 + 0.4 * u_hover) * rim * (0.55 + 0.45 * facing);
+  float rimShape = mix(0.55 + 0.45 * facing, 0.1 + 0.9 * angled * (diagonal > 0.0 ? 1.0 : 0.7), lightGround);
+  color += u_rim * (1.0 + 0.4 * u_hover) * rim * rimShape;
   color += u_specular * 0.35 * pow(t, 3.0) * facing;
 
   // Hairline edge: a light ground clips the rim to white, so shade one CSS
-  // pixel inside the outline instead, more on the side away from the light.
+  // pixel inside the outline too, deepest at the bottom right.
   float hairline = 1.0 - smoothstep(0.0, 1.0, inside);
-  color = min(color, vec3(1.0)) * (1.0 - u_edge * hairline * (1.0 - 0.45 * facing));
+  float shade = (0.2 + 0.8 * angled) * (diagonal > 0.0 ? 0.65 : 1.0);
+  color = min(color, vec3(1.0)) * (1.0 - u_edge * hairline * shade);
 
   // Grain, fixed to the device pixel grid so a still pane never needs redrawing.
   color += (hash(floor(scenePx * u_dpr)) - 0.5) * u_grain;

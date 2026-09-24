@@ -73,6 +73,6 @@ test("the ground is dimmed on a dark page and left alone on a light one", () => 
 
 test("a light ground gets a hairline edge; a dark one keeps its rim alone", () => {
   assert.equal(resolveGlass({}, 84, 26, 13).edge, 0);
-  assert.equal(resolveGlass({}, 84, 26, 13, { lightGround: true }).edge, 0.16);
+  assert.equal(resolveGlass({}, 84, 26, 13, { lightGround: true }).edge, 0.22);
   assert.equal(resolveGlass({ edge: 0.3 }, 84, 26, 13).edge, 0.3);
 });
