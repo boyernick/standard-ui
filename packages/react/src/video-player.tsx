@@ -54,6 +54,16 @@ export type VideoPlayerProps = ComponentProps<"div"> & {
    * to fix it, or `null` never to ask.
    */
   crossOrigin?: "anonymous" | "use-credentials" | null
+  /**
+   * Show the mute control. Off for footage with no sound, such as screen
+   * recordings; the timeline takes its place. Default true.
+   */
+  muteButton?: boolean
+  /**
+   * Show the picture-in-picture control where the browser supports it. The
+   * timeline takes its place when off. Default true.
+   */
+  pictureInPictureButton?: boolean
 }
 
 export const VideoPlayer = ({
@@ -63,6 +73,8 @@ export const VideoPlayer = ({
   className,
   "aria-label": ariaLabel,
   crossOrigin,
+  muteButton = true,
+  pictureInPictureButton = true,
   ...props
 }: VideoPlayerProps) => {
   const playerRef = useRef<HTMLDivElement>(null)
@@ -387,7 +399,7 @@ export const VideoPlayer = ({
           <IconPlay size={14} mode="raw" className="size-3.5" aria-hidden />
         )}
       </GlassButton>
-      <GlassButton
+      {muteButton ? <GlassButton
         type="button"
         rounded
         iconOnly
@@ -411,13 +423,15 @@ export const VideoPlayer = ({
             aria-hidden
           />
         )}
-      </GlassButton>
+      </GlassButton> : null}
       <Glass
         data-glass-radius="css"
         className={cn(
           controlVisibility,
-          "left-24 flex h-9 min-w-0 items-center gap-2 rounded-full px-3 group-data-[fullscreen]:left-27",
-          pipSupported ? "right-24 group-data-[fullscreen]:right-27" : "right-13 group-data-[fullscreen]:right-16",
+          "flex h-9 min-w-0 items-center gap-2 rounded-full px-3",
+          // The timeline spans whatever the side controls leave free.
+          muteButton ? "left-24 group-data-[fullscreen]:left-27" : "left-13 group-data-[fullscreen]:left-16",
+          pictureInPictureButton && pipSupported ? "right-24 group-data-[fullscreen]:right-27" : "right-13 group-data-[fullscreen]:right-16",
           (failed || loading) && "invisible",
         )}
       >
@@ -495,7 +509,7 @@ export const VideoPlayer = ({
       </Glass>
 
 
-      <GlassButton
+      {pictureInPictureButton ? <GlassButton
         type="button"
         rounded
         iconOnly
@@ -515,7 +529,7 @@ export const VideoPlayer = ({
           className="size-3.5"
           aria-hidden
         />
-      </GlassButton>
+      </GlassButton> : null}
       <GlassButton
         type="button"
         rounded
